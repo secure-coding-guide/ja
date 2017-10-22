@@ -4,15 +4,14 @@
    contain the root `toctree` directive.
 
 Androidアプリのセキュア設計・セキュアコーディングガイド
-===============================================
+=======================================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   table
    readme
-   history
+   publisher
    1_introduction
    2_composition_of_the_guidebook
    3_basic_knowledge_of_secure_design_and_secure_coding
