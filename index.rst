@@ -13,6 +13,7 @@ Androidアプリのセキュア設計・セキュアコーディングガイド
    readme
    publisher
    1_introduction
+   correction
    2_composition_of_the_guidebook
    3_basic_knowledge_of_secure_design_and_secure_coding
    4_using_technology_in_a _afe_way
