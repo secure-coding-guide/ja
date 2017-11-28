@@ -32,7 +32,7 @@ height="3.0074803149606297in"}
 
 2.  []{#_Ref339532105 .anchor}launchModeを指定しない
 
-3.  exported="false"により、明示的に非公開設定する
+3.  exported=\"false\"により、明示的に非公開設定する
 
 4.  同一アプリからのIntentであっても、受信Intentの安全性を確認する
 
@@ -42,60 +42,60 @@ Activityを非公開設定するには、AndroidManifest.xmlのactivity要素の
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.activity.privateactivity" &gt;
+package=\"org.jssec.android.activity.privateactivity\" \>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- 非公開Activity --&gt;
+\<!\-- 非公開Activity \--\>
 
-&lt;!-- ★ポイント1★ taskAffinityを指定しない --&gt;
+\<!\-- ★ポイント1★ taskAffinityを指定しない \--\>
 
-&lt;!-- ★ポイント2★ launchModeを指定しない --&gt;
+\<!\-- ★ポイント2★ launchModeを指定しない \--\>
 
-&lt;!-- ★ポイント3★ exported="false"により、明示的に非公開設定する
---&gt;
+\<!\-- ★ポイント3★ exported=\"false\"により、明示的に非公開設定する
+\--\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateActivity"
+android:name=\".PrivateActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="false" /&gt;
+android:exported=\"false\" /\>
 
-&lt;!-- ランチャーから起動する公開Activity --&gt;
+\<!\-- ランチャーから起動する公開Activity \--\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateUserActivity"
+android:name=\".PrivateUserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PrivateActivity.java
 
@@ -126,9 +126,9 @@ setContentView(R.layout.private\_activity);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-String param = getIntent().getStringExtra("PARAM");
+String param = getIntent().getStringExtra(\"PARAM\");
 
-Toast.makeText(this, String.format("パラメータ「%s」を受け取った。",
+Toast.makeText(this, String.format(\"パラメータ「%s」を受け取った。\",
 param), Toast.LENGTH\_LONG).show();
 
 }
@@ -140,7 +140,7 @@ public void onReturnResultClick(View view) {
 
 Intent intent = new Intent();
 
-intent.putExtra("RESULT", "センシティブな情報");
+intent.putExtra(\"RESULT\", \"センシティブな情報\");
 
 setResult(RESULT\_OK, intent);
 
@@ -203,7 +203,7 @@ Intent intent = new Intent(this, PrivateActivity.class);
 // ★ポイント8★
 利用先アプリは同一アプリであるから、センシティブな情報をputExtra()を使う場合に限り送信してもよい
 
-intent.putExtra("PARAM", "センシティブな情報");
+intent.putExtra(\"PARAM\", \"センシティブな情報\");
 
 startActivityForResult(intent, REQUEST\_CODE);
 
@@ -222,15 +222,15 @@ switch (requestCode) {
 
 case REQUEST\_CODE:
 
-String result = data.getStringExtra("RESULT");
+String result = data.getStringExtra(\"RESULT\");
 
 // ★ポイント9★
 同一アプリ内Activityからの結果情報であっても、受信データの安全性を確認する
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-Toast.makeText(this, String.format("結果「%s」を受け取った。", result),
-Toast.LENGTH\_LONG).show();
+Toast.makeText(this, String.format(\"結果「%s」を受け取った。\",
+result), Toast.LENGTH\_LONG).show();
 
 break;
 
@@ -248,57 +248,58 @@ break;
 
 > ポイント(Activityを作る)：
 
-1.  exported="true"により、明示的に公開設定する
+1.  exported=\"true\"により、明示的に公開設定する
 
 2.  受信Intentの安全性を確認する
 
 &nbsp;
+
 1.  結果を返す場合、センシティブな情報を含めない
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.activity.publicactivity" &gt;
+package=\"org.jssec.android.activity.publicactivity\" \>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- 公開Activity --&gt;
+\<!\-- 公開Activity \--\>
 
-&lt;!-- ★ポイント1★ exported="true"により、明示的に公開設定する --&gt;
+\<!\-- ★ポイント1★ exported=\"true\"により、明示的に公開設定する \--\>
 
-&lt;activity
+\<activity
 
-android:name=".PublicActivity"
+android:name=\".PublicActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;!-- Action指定による暗黙的Intentを受信するようにIntent Filterを定義
---&gt;
+\<!\-- Action指定による暗黙的Intentを受信するようにIntent Filterを定義
+\--\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="org.jssec.android.activity.MY\_ACTION" /&gt;
+\<action android:name=\"org.jssec.android.activity.MY\_ACTION\" /\>
 
-&lt;category android:name="android.intent.category.DEFAULT" /&gt;
+\<category android:name=\"android.intent.category.DEFAULT\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PublicActivity.java
 
@@ -330,9 +331,9 @@ setContentView(R.layout.main);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-String param = getIntent().getStringExtra("PARAM");
+String param = getIntent().getStringExtra(\"PARAM\");
 
-Toast.makeText(this, String.format("パラメータ「%s」を受け取った。",
+Toast.makeText(this, String.format(\"パラメータ「%s」を受け取った。\",
 param), Toast.LENGTH\_LONG).show();
 
 }
@@ -348,7 +349,7 @@ public void onReturnResultClick(View view) {
 
 Intent intent = new Intent();
 
-intent.putExtra("RESULT", "センシティブではない情報");
+intent.putExtra(\"RESULT\", \"センシティブではない情報\");
 
 setResult(RESULT\_OK, intent);
 
@@ -402,15 +403,15 @@ try {
 
 // ★ポイント4★ センシティブな情報を送信してはならない
 
-Intent intent = new Intent("org.jssec.android.activity.MY\_ACTION");
+Intent intent = new Intent(\"org.jssec.android.activity.MY\_ACTION\");
 
-intent.putExtra("PARAM", "センシティブではない情報");
+intent.putExtra(\"PARAM\", \"センシティブではない情報\");
 
 startActivityForResult(intent, REQUEST\_CODE);
 
 } catch (ActivityNotFoundException e) {
 
-Toast.makeText(this, "利用先Activityが見つからない。",
+Toast.makeText(this, \"利用先Activityが見つからない。\",
 Toast.LENGTH\_LONG).show();
 
 }
@@ -434,10 +435,10 @@ switch (requestCode) {
 
 case REQUEST\_CODE:
 
-String result = data.getStringExtra("RESULT");
+String result = data.getStringExtra(\"RESULT\");
 
-Toast.makeText(this, String.format("結果「%s」を受け取った。", result),
-Toast.LENGTH\_LONG).show();
+Toast.makeText(this, String.format(\"結果「%s」を受け取った。\",
+result), Toast.LENGTH\_LONG).show();
 
 break;
 
@@ -460,9 +461,10 @@ Activityを呼び出す際に使用するIntentは第三者によって読み取
 1.  taskAffinityを指定しない
 
 &nbsp;
+
 1.  launchModeを指定しない
 
-2.  Intent Filterを定義せず、exported="true"を明示的に設定する
+2.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
 
 3.  利用元アプリの証明書がホワイトリストに登録されていることを確認する
 
@@ -476,38 +478,38 @@ Activityを呼び出す際に使用するIntentは第三者によって読み取
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.activity.partneractivity" &gt;
+package=\"org.jssec.android.activity.partneractivity\" \>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- パートナー限定Activity --&gt;
+\<!\-- パートナー限定Activity \--\>
 
-&lt;!-- ★ポイント1★ taskAffinityを指定しない --&gt;
+\<!\-- ★ポイント1★ taskAffinityを指定しない \--\>
 
-&lt;!-- ★ポイント2★ launchModeを指定しない --&gt;
+\<!\-- ★ポイント2★ launchModeを指定しない \--\>
 
-&lt;!-- ★ポイント3★ Intent
-Filterを定義せず、exported="true"を明示的に設定する --&gt;
+\<!\-- ★ポイント3★ Intent
+Filterを定義せず、exported=\"true\"を明示的に設定する \--\>
 
-&lt;activity
+\<activity
 
-android:name=".PartnerActivity"
+android:name=\".PartnerActivity\"
 
-android:exported="true" /&gt;
+android:exported=\"true\" /\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PartnerActivity.java
 
@@ -545,19 +547,19 @@ sWhitelists = new PkgCertWhitelists();
 // パートナーアプリ org.jssec.android.activity.partneruser
 の証明書ハッシュ値を登録
 
-sWhitelists.add("org.jssec.android.activity.partneruser", isdebug ?
+sWhitelists.add(\"org.jssec.android.activity.partneruser\", isdebug ?
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
-F77C8255" :
+\"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
+F77C8255\" :
 
-// keystoreの"partner key"の証明書ハッシュ値
+// keystoreの\"partner key\"の証明書ハッシュ値
 
-"1F039BB5 7861C27A 3916C778 8E78CE00 690B3974 3EB8259F E2627B8D
-4C0EC35A");
+\"1F039BB5 7861C27A 3916C778 8E78CE00 690B3974 3EB8259F E2627B8D
+4C0EC35A\");
 
-// 以下同様に他のパートナーアプリを登録...
+// 以下同様に他のパートナーアプリを登録\...
 
 }
 
@@ -582,7 +584,7 @@ setContentView(R.layout.main);
 
 if (!checkPartner(this, getCallingActivity().getPackageName())) {
 
-Toast.makeText(this, "利用元アプリはパートナーアプリではない。",
+Toast.makeText(this, \"利用元アプリはパートナーアプリではない。\",
 Toast.LENGTH\_LONG).show();
 
 finish();
@@ -596,7 +598,7 @@ return;
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-Toast.makeText(this, "パートナーアプリからアクセスあり",
+Toast.makeText(this, \"パートナーアプリからアクセスあり\",
 Toast.LENGTH\_LONG).show();
 
 }
@@ -607,7 +609,7 @@ public void onReturnResultClick(View view) {
 
 Intent intent = new Intent();
 
-intent.putExtra("RESULT", "パートナーアプリに開示してよい情報");
+intent.putExtra(\"RESULT\", \"パートナーアプリに開示してよい情報\");
 
 setResult(RESULT\_OK, intent);
 
@@ -629,8 +631,8 @@ import android.content.Context;
 
 public class PkgCertWhitelists {
 
-private Map&lt;String, String&gt; mWhitelists = new HashMap&lt;String,
-String&gt;();
+private Map\<String, String\> mWhitelists = new HashMap\<String,
+String\>();
 
 public boolean add(String pkgname, String sha256) {
 
@@ -638,14 +640,14 @@ if (pkgname == null) return false;
 
 if (sha256 == null) return false;
 
-sha256 = sha256.replaceAll(" ", "");
+sha256 = sha256.replaceAll(\" \", \"\");
 
 if (sha256.length() != 64) return false; // SHA-256は32バイト
 
 sha256 = sha256.toUpperCase();
 
-if (sha256.replaceAll("\[0-9A-F\]+", "").length() != 0) return false; //
-0-9A-F 以外の文字がある
+if (sha256.replaceAll(\"\[0-9A-F\]+\", \"\").length() != 0) return
+false; // 0-9A-F 以外の文字がある
 
 mWhitelists.put(pkgname, sha256);
 
@@ -692,7 +694,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -731,7 +733,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -749,7 +751,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -781,41 +783,41 @@ return hexadecimal.toString();
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.activity.partneruser" &gt;
+package=\"org.jssec.android.activity.partneruser\" \>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;activity
+\<activity
 
-android:name=".PartnerUserActivity"
+android:name=\".PartnerUserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PartnerUserActivity.java
 
@@ -855,19 +857,20 @@ sWhitelists = new PkgCertWhitelists();
 // パートナー限定Activityアプリ
 org.jssec.android.activity.partneractivity の証明書ハッシュ値を登録
 
-sWhitelists.add("org.jssec.android.activity.partneractivity", isdebug ?
+sWhitelists.add(\"org.jssec.android.activity.partneractivity\", isdebug
+?
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
-F77C8255" :
+\"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
+F77C8255\" :
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B D7B3A7C2
-42E142CA");
+\"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B D7B3A7C2
+42E142CA\");
 
-// 以下同様に他のパートナー限定Activityアプリを登録...
+// 以下同様に他のパートナー限定Activityアプリを登録\...
 
 }
 
@@ -884,10 +887,10 @@ private static final int REQUEST\_CODE = 1;
 // 利用先のパートナー限定Activityに関する情報
 
 private static final String TARGET\_PACKAGE =
-"org.jssec.android.activity.partneractivity";
+\"org.jssec.android.activity.partneractivity\";
 
 private static final String TARGET\_ACTIVITY =
-"org.jssec.android.activity.partneractivity.PartnerActivity";
+\"org.jssec.android.activity.partneractivity.PartnerActivity\";
 
 @Override
 
@@ -906,8 +909,9 @@ public void onUseActivityClick(View view) {
 
 if (!checkPartner(this, TARGET\_PACKAGE)) {
 
-Toast.makeText(this, "利用先 Activity
-アプリはホワイトリストに登録されていない。", Toast.LENGTH\_LONG).show();
+Toast.makeText(this, \"利用先 Activity
+アプリはホワイトリストに登録されていない。\",
+Toast.LENGTH\_LONG).show();
 
 return;
 
@@ -923,7 +927,7 @@ Activityに送信するIntentには、フラグFLAG\_ACTIVITY\_NEW\_TASKを設�
 // ★ポイント9★
 利用先パートナー限定アプリに開示してよい情報をputExtra()を使う場合に限り送信してよい
 
-intent.putExtra("PARAM", "パートナーアプリに開示してよい情報");
+intent.putExtra(\"PARAM\", \"パートナーアプリに開示してよい情報\");
 
 // ★ポイント10★ 明示的Intentによりパートナー限定Activityを呼び出す
 
@@ -938,7 +942,7 @@ startActivityForResult(intent, REQUEST\_CODE);
 
 catch (ActivityNotFoundException e) {
 
-Toast.makeText(this, "利用先Activityが見つからない。",
+Toast.makeText(this, \"利用先Activityが見つからない。\",
 Toast.LENGTH\_LONG).show();
 
 }
@@ -958,7 +962,7 @@ switch (requestCode) {
 
 case REQUEST\_CODE:
 
-String result = data.getStringExtra("RESULT");
+String result = data.getStringExtra(\"RESULT\");
 
 // ★ポイント12★
 パートナー限定アプリからの結果情報であっても、受信Intentの安全性を確認する
@@ -967,7 +971,7 @@ String result = data.getStringExtra("RESULT");
 
 Toast.makeText(this,
 
-String.format("結果「%s」を受け取った。", result),
+String.format(\"結果「%s」を受け取った。\", result),
 Toast.LENGTH\_LONG).show();
 
 break;
@@ -990,8 +994,8 @@ import android.content.Context;
 
 public class PkgCertWhitelists {
 
-private Map&lt;String, String&gt; mWhitelists = new HashMap&lt;String,
-String&gt;();
+private Map\<String, String\> mWhitelists = new HashMap\<String,
+String\>();
 
 public boolean add(String pkgname, String sha256) {
 
@@ -999,14 +1003,14 @@ if (pkgname == null) return false;
 
 if (sha256 == null) return false;
 
-sha256 = sha256.replaceAll(" ", "");
+sha256 = sha256.replaceAll(\" \", \"\");
 
 if (sha256.length() != 64) return false; // SHA-256は32バイト
 
 sha256 = sha256.toUpperCase();
 
-if (sha256.replaceAll("\[0-9A-F\]+", "").length() != 0) return false; //
-0-9A-F 以外の文字がある
+if (sha256.replaceAll(\"\[0-9A-F\]+\", \"\").length() != 0) return
+false; // 0-9A-F 以外の文字がある
 
 mWhitelists.put(pkgname, sha256);
 
@@ -1053,7 +1057,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -1092,7 +1096,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -1110,7 +1114,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -1133,13 +1137,14 @@ Activityを呼び出す際に使用するIntentは第三者によって読み取
 1.  独自定義Signature Permissionを定義する
 
 &nbsp;
+
 1.  taskAffinityを指定しない
 
 2.  launchModeを指定しない
 
 3.  独自定義Signature Permissionを要求宣言する
 
-4.  Intent Filterを定義せず、exported="true"を明示的に設定する
+4.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
 
 5.  独自定義Signature
     Permissionが自社アプリにより定義されていることを確認する
@@ -1152,53 +1157,53 @@ Activityを呼び出す際に使用するIntentは第三者によって読み取
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.activity.inhouseactivity" &gt;
+package=\"org.jssec.android.activity.inhouseactivity\" \>
 
-&lt;!-- ★ポイント1★ 独自定義Signature Permissionを定義する --&gt;
+\<!\-- ★ポイント1★ 独自定義Signature Permissionを定義する \--\>
 
-&lt;permission
+\<permission
 
-android:name="org.jssec.android.activity.inhouseactivity.MY\_PERMISSION"
+android:name=\"org.jssec.android.activity.inhouseactivity.MY\_PERMISSION\"
 
-android:protectionLevel="signature" /&gt;
+android:protectionLevel=\"signature\" /\>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- 自社限定Activity --&gt;
+\<!\-- 自社限定Activity \--\>
 
-&lt;!-- ★ポイント2★ taskAffinityを指定しない --&gt;
+\<!\-- ★ポイント2★ taskAffinityを指定しない \--\>
 
-&lt;!-- ★ポイント3★ launchModeを指定しない --&gt;
+\<!\-- ★ポイント3★ launchModeを指定しない \--\>
 
-&lt;!-- ★ポイント4★ 独自定義Signature Permissionを要求宣言する --&gt;
+\<!\-- ★ポイント4★ 独自定義Signature Permissionを要求宣言する \--\>
 
-&lt;!-- ★ポイント5★ Intent
-Filterを定義せず、exported="true"を明示的に設定する --&gt;
+\<!\-- ★ポイント5★ Intent
+Filterを定義せず、exported=\"true\"を明示的に設定する \--\>
 
-&lt;activity
+\<activity
 
-android:name=".InhouseActivity"
+android:name=\".InhouseActivity\"
 
-android:exported="true"
+android:exported=\"true\"
 
-android:permission="org.jssec.android.activity.inhouseactivity.MY\_PERMISSION"
-&gt;
+android:permission=\"org.jssec.android.activity.inhouseactivity.MY\_PERMISSION\"
+\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > InhouseActivity.java
 
@@ -1225,7 +1230,7 @@ public class InhouseActivity extends Activity {
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.activity.inhouseactivity.MY\_PERMISSION";
+\"org.jssec.android.activity.inhouseactivity.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -1237,17 +1242,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -1270,8 +1275,8 @@ Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(this, MY\_PERMISSION, myCertHash(this))) {
 
-Toast.makeText(this, "独自定義Signature
-Permissionが自社アプリにより定義されていない。",
+Toast.makeText(this, \"独自定義Signature
+Permissionが自社アプリにより定義されていない。\",
 Toast.LENGTH\_LONG).show();
 
 finish();
@@ -1285,9 +1290,9 @@ return;
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照
 
-String param = getIntent().getStringExtra("PARAM");
+String param = getIntent().getStringExtra(\"PARAM\");
 
-Toast.makeText(this, String.format("パラメータ「%s」を受け取った。",
+Toast.makeText(this, String.format(\"パラメータ「%s」を受け取った。\",
 param), Toast.LENGTH\_LONG).show();
 
 }
@@ -1299,7 +1304,7 @@ public void onReturnResultClick(View view) {
 
 Intent intent = new Intent();
 
-intent.putExtra("RESULT", "センシティブな情報");
+intent.putExtra(\"RESULT\", \"センシティブな情報\");
 
 setResult(RESULT\_OK, intent);
 
@@ -1328,7 +1333,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, sigPermName));
 
@@ -1394,7 +1399,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -1433,7 +1438,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -1451,7 +1456,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -1489,48 +1494,48 @@ height="3.2743055555555554in"}
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.activity.inhouseuser" &gt;
+package=\"org.jssec.android.activity.inhouseuser\" \>
 
-&lt;!-- ★ポイント10★ 独自定義Signature Permissionを利用宣言する --&gt;
+\<!\-- ★ポイント10★ 独自定義Signature Permissionを利用宣言する \--\>
 
-&lt;uses-permission
+\<uses-permission
 
-android:name="org.jssec.android.activity.inhouseactivity.MY\_PERMISSION"
-/&gt;
+android:name=\"org.jssec.android.activity.inhouseactivity.MY\_PERMISSION\"
+/\>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;activity
+\<activity
 
-android:name="org.jssec.android.activity.inhouseuser.InhouseUserActivity"
+android:name=\"org.jssec.android.activity.inhouseuser.InhouseUserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > InhouseUserActivity.java
 
@@ -1561,15 +1566,15 @@ public class InhouseUserActivity extends Activity {
 // 利用先のActivity情報
 
 private static final String TARGET\_PACKAGE =
-"org.jssec.android.activity.inhouseactivity";
+\"org.jssec.android.activity.inhouseactivity\";
 
 private static final String TARGET\_ACTIVITY =
-"org.jssec.android.activity.inhouseactivity.InhouseActivity";
+\"org.jssec.android.activity.inhouseactivity.InhouseActivity\";
 
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.activity.inhouseactivity.MY\_PERMISSION";
+\"org.jssec.android.activity.inhouseactivity.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -1581,17 +1586,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -1620,8 +1625,8 @@ Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(this, MY\_PERMISSION, myCertHash(this))) {
 
-Toast.makeText(this, "独自定義Signature
-Permissionが自社アプリにより定義されていない。",
+Toast.makeText(this, \"独自定義Signature
+Permissionが自社アプリにより定義されていない。\",
 Toast.LENGTH\_LONG).show();
 
 return;
@@ -1632,7 +1637,7 @@ return;
 
 if (!PkgCert.test(this, TARGET\_PACKAGE, myCertHash(this))) {
 
-Toast.makeText(this, "利用先アプリは自社アプリではない。",
+Toast.makeText(this, \"利用先アプリは自社アプリではない。\",
 Toast.LENGTH\_LONG).show();
 
 return;
@@ -1646,7 +1651,7 @@ Intent intent = new Intent();
 // ★ポイント13★
 利用先アプリは自社アプリであるから、センシティブな情報をputExtra()を使う場合に限り送信してもよい
 
-intent.putExtra("PARAM", "センシティブな情報");
+intent.putExtra(\"PARAM\", \"センシティブな情報\");
 
 // ★ポイント14★ 明示的Intentにより自社限定Activityを呼び出す
 
@@ -1658,7 +1663,7 @@ startActivityForResult(intent, REQUEST\_CODE);
 
 catch (ActivityNotFoundException e) {
 
-Toast.makeText(this, "利用先Activityが見つからない。",
+Toast.makeText(this, \"利用先Activityが見つからない。\",
 Toast.LENGTH\_LONG).show();
 
 }
@@ -1678,15 +1683,15 @@ switch (requestCode) {
 
 case REQUEST\_CODE:
 
-String result = data.getStringExtra("RESULT");
+String result = data.getStringExtra(\"RESULT\");
 
 // ★ポイント15★
 自社アプリからの結果情報であっても、受信Intentの安全性を確認する
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-Toast.makeText(this, String.format("結果「%s」を受け取った。", result),
-Toast.LENGTH\_LONG).show();
+Toast.makeText(this, String.format(\"結果「%s」を受け取った。\",
+result), Toast.LENGTH\_LONG).show();
 
 break;
 
@@ -1715,7 +1720,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, sigPermName));
 
@@ -1781,7 +1786,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -1820,7 +1825,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -1838,7 +1843,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -1894,18 +1899,18 @@ Activityを作る際、またはActivityにIntentを送信する際には以下�
 
 > AndroidManifest.xml
 
-&lt;!-- 非公開Activity --&gt;
+\<!\-- 非公開Activity \--\>
 
-&lt;!-- ★ポイント3★ exported="false"により、明示的に非公開設定する
---&gt;
+\<!\-- ★ポイント3★ exported=\"false\"により、明示的に非公開設定する
+\--\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateActivity"
+android:name=\".PrivateActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="false" /&gt;
+android:exported=\"false\" /\>
 
 同一アプリ内からのみ利用されるActivityではIntent
 Filterを設置するような設計はしてはならない。Intent
@@ -1916,26 +1921,26 @@ exported
 
 > AndroidManifest.xml(非推奨)
 
-&lt;!-- 非公開Activity --&gt;
+\<!\-- 非公開Activity \--\>
 
-&lt;!-- ★ポイント3★ exported="false"により、明示的に非公開設定する
---&gt;
+\<!\-- ★ポイント3★ exported=\"false\"により、明示的に非公開設定する
+\--\>
 
-&lt;activity
+\<activity
 
-android:name=".PictureActivity"
+android:name=\".PictureActivity\"
 
-android:label="@string/picture\_name"
+android:label=\"@string/picture\_name\"
 
-android:exported="false" &gt;
+android:exported=\"false\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name=”org.jssec.android.activity.OPEN /&gt;
+\<action android:name="org.jssec.android.activity.OPEN /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
 #### taskAffinityを指定しない （必須）
 
@@ -1950,95 +1955,95 @@ Androidでは、Activityはタスクによって管理される。タスクの�
 
 > AndroidManifest.xml
 
-&lt;!-- ★ポイント1★ taskAffinityを指定しない --&gt;
+\<!\-- ★ポイント1★ taskAffinityを指定しない \--\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- ★ポイント1★ taskAffinityを指定しない --&gt;
+\<!\-- ★ポイント1★ taskAffinityを指定しない \--\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateUserActivity"
+android:name=\".PrivateUserActivity\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;!-- 非公開Activity --&gt;
+\<!\-- 非公開Activity \--\>
 
-&lt;!-- ★ポイント1★ taskAffinityを指定しない --&gt;
+\<!\-- ★ポイント1★ taskAffinityを指定しない \--\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateActivity"
+android:name=\".PrivateActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="false" /&gt;
+android:exported=\"false\" /\>
 
-&lt;/application&gt;
+\</application\>
 
 タスクとアフィニティの詳細な解説は、「Google Android
-プログラミング入門」 [^2]、あるいは、Google Developers API Guide “Tasks
-and Back Stack”[^3]の解説および「4.1.3.3
+プログラミング入門」 [^2]、あるいは、Google Developers API Guide "Tasks
+and Back Stack"[^3]の解説および「4.1.3.3
 Activityに送信されるIntentの読み取り」、「4.1.3.4
 ルートActivityについて」を参照すること。
 
 #### launchModeを指定しない （必須）
 
-Activityの起動モードとは、Activityを呼び出す際に、Activityのインスタンスの新規生成や、タスクの新規生成を制御するための設定である。デフォルト設定は”standard”である。”standard”設定では、Intentを使ってActivityを呼び出すときには常に新規インスタンスを生成し、タスクは呼び出し側Activityが属するタスクに従い、新規にタスクが生成されることはない。タスクが新規に生成されると、呼び出しに使ったIntentが別のアプリから読み取り可能になる。そのため、センシティブな情報をIntentに含む場合には、Activityの起動モードには”standard”を用いるべきである。
+Activityの起動モードとは、Activityを呼び出す際に、Activityのインスタンスの新規生成や、タスクの新規生成を制御するための設定である。デフォルト設定は"standard"である。"standard"設定では、Intentを使ってActivityを呼び出すときには常に新規インスタンスを生成し、タスクは呼び出し側Activityが属するタスクに従い、新規にタスクが生成されることはない。タスクが新規に生成されると、呼び出しに使ったIntentが別のアプリから読み取り可能になる。そのため、センシティブな情報をIntentに含む場合には、Activityの起動モードには"standard"を用いるべきである。
 
-Activityの起動モードはAndroidManifest.xml内にてandroid:launchModeで明示的に設定可能であるが、上記の理由により、各Activityに対してandroid:launchModeを指定せず、値をデフォルトのまま”standard”とするべきである。
+Activityの起動モードはAndroidManifest.xml内にてandroid:launchModeで明示的に設定可能であるが、上記の理由により、各Activityに対してandroid:launchModeを指定せず、値をデフォルトのまま"standard"とするべきである。
 
 > AndroidManifest.xml
 
-&lt;!-- ★ポイント2★
-ActivityにはlaunchModeを指定せず、値をデフォルトのまま”standard”とする
---&gt;
+\<!\-- ★ポイント2★
+ActivityにはlaunchModeを指定せず、値をデフォルトのまま"standard"とする
+\--\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateUserActivity"
+android:name=\".PrivateUserActivity\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;!-- 非公開Activity --&gt;
+\<!\-- 非公開Activity \--\>
 
-&lt;!-- ★ポイント2★
-ActivityにはlaunchModeを指定せず、値をデフォルトのまま”standard”とする
---&gt;
+\<!\-- ★ポイント2★
+ActivityにはlaunchModeを指定せず、値をデフォルトのまま"standard"とする
+\--\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateActivity"
+android:name=\".PrivateActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="false" /&gt;
+android:exported=\"false\" /\>
 
-&lt;/application&gt;
+\</application\>
 
 > 「4.1.3.3 Activityに送信されるIntentの読み取り」、「4.1.3.4
 > ルートActivityについて」を参照すること。
@@ -2059,7 +2064,7 @@ Activityに送信するIntentには、フラグFLAG\_ACTIVITY\_NEW\_TASKを設�
 
 intent.setClass(this, PrivateActivity.class);
 
-intent.putExtra("PARAM", "センシティブな情報");
+intent.putExtra(\"PARAM\", \"センシティブな情報\");
 
 startActivityForResult(intent, REQUEST\_CODE);
 
@@ -2099,7 +2104,7 @@ public void onReturnResultClick(View view) {
 
 Intent intent = new Intent();
 
-intent.putExtra("RESULT", "パートナーアプリに開示してよい情報");
+intent.putExtra(\"RESULT\", \"パートナーアプリに開示してよい情報\");
 
 setResult(RESULT\_OK, intent);
 
@@ -2118,7 +2123,7 @@ OS任せになってしまう。もしマルウェアにIntentが送信されて
 
 Intent intent = new Intent(this, PictureActivity.class);
 
-intent.putExtra("BARCODE", barcode);
+intent.putExtra(\"BARCODE\", barcode);
 
 startActivity(intent);
 
@@ -2128,9 +2133,9 @@ Intent intent = new Intent();
 
 intent.setClassName(
 
-"org.jssec.android.activity.publicactivity",
+\"org.jssec.android.activity.publicactivity\",
 
-"org.jssec.android.activity.publicactivity.PublicActivity");
+\"org.jssec.android.activity.publicactivity.PublicActivity\");
 
 startActivity(intent);
 
@@ -2182,7 +2187,7 @@ Activityに送信されるIntentの読み取り」、「4.1.3.4
 
 表 4.1‑1
 
-                            exported属性の値
+                            exported属性の値                                
   ------------------------- -------------------------------- -------------- --------------
                             true                             false          無指定
   intent-filter定義がある   公開                             （使用禁止）   （使用禁止）
@@ -2190,16 +2195,16 @@ Activityに送信されるIntentの読み取り」、「4.1.3.4
 
 Activityのexported属性が無指定である場合にそのActivityが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが[^4]、本ガイドではActivityのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
 
-exported属性の値で「intent-filter定義がある」&「exported=“false”」を使用禁止にしているのは、Androidの振る舞いに抜け穴があり、Intent
+exported属性の値で「intent-filter定義がある」&「exported="false"」を使用禁止にしているのは、Androidの振る舞いに抜け穴があり、Intent
 Filterの性質上、意図せず他アプリのActivityを呼び出してしまう場合が存在するためである。以下の2つの図は、その説明のためのものである。図
-4.1‑4は、同一アプリ内からしか非公開Activity(アプリA）を暗黙的Intentで呼び出せない正常な動作の例である。Intent-filter(図中action="X")を定義しているのが、アプリAしかいないので意図通りの動きとなっている。
+4.1‑4は、同一アプリ内からしか非公開Activity(アプリA）を暗黙的Intentで呼び出せない正常な動作の例である。Intent-filter(図中action=\"X\")を定義しているのが、アプリAしかいないので意図通りの動きとなっている。
 
 ![](media/image35.png){width="4.739583333333333in" height="2.9375in"}
 
 []{#_Ref332196748 .anchor}図 4.1‑4
 
 図
-4.1‑5は、アプリAに加えてアプリBでも同じintent-filter(図中action="X")を定義している場合である。図
+4.1‑5は、アプリAに加えてアプリBでも同じintent-filter(図中action=\"X\")を定義している場合である。図
 4.1‑5では、アプリAが暗黙的Intentを送信して同一アプリ内の非公開Activityを呼び出そうとするが、「アプリケーションの選択」ダイアログが表示され、ユーザーの選択によって公開Activity(B-1)が呼び出されてしまう例を示している。これにより他アプリに対してセンシティブな情報を送信したり、意図せぬ戻り値を受け取る可能性が生じてしまう。
 
 ![](media/image36.png){width="4.739583333333333in"
@@ -2263,19 +2268,19 @@ sWhitelists = new PkgCertWhitelists();
 // パートナーアプリ org.jssec.android.activity.partneruser
 の証明書ハッシュ値を登録
 
-sWhitelists.add("org.jssec.android.activity.partneruser", isdebug ?
+sWhitelists.add(\"org.jssec.android.activity.partneruser\", isdebug ?
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
-F77C8255" :
+\"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
+F77C8255\" :
 
-// keystoreの"partner key"の証明書ハッシュ値
+// keystoreの\"partner key\"の証明書ハッシュ値
 
-"1F039BB5 7861C27A 3916C778 8E78CE00 690B3974 3EB8259F E2627B8D
-4C0EC35A");
+\"1F039BB5 7861C27A 3916C778 8E78CE00 690B3974 3EB8259F E2627B8D
+4C0EC35A\");
 
-// 以下同様に他のパートナーアプリを登録...
+// 以下同様に他のパートナーアプリを登録\...
 
 }
 
@@ -2300,7 +2305,7 @@ setContentView(R.layout.main);
 
 if (!checkPartner(this, getCallingActivity().getPackageName())) {
 
-Toast.makeText(this, "利用元アプリはパートナーアプリではない。",
+Toast.makeText(this, \"利用元アプリはパートナーアプリではない。\",
 Toast.LENGTH\_LONG).show();
 
 finish();
@@ -2314,7 +2319,7 @@ return;
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-Toast.makeText(this, "パートナーアプリからアクセスあり",
+Toast.makeText(this, \"パートナーアプリからアクセスあり\",
 Toast.LENGTH\_LONG).show();
 
 }
@@ -2325,7 +2330,7 @@ public void onReturnResultClick(View view) {
 
 Intent intent = new Intent();
 
-intent.putExtra("RESULT", "パートナーアプリに開示してよい情報");
+intent.putExtra(\"RESULT\", \"パートナーアプリに開示してよい情報\");
 
 setResult(RESULT\_OK, intent);
 
@@ -2347,8 +2352,8 @@ import android.content.Context;
 
 public class PkgCertWhitelists {
 
-private Map&lt;String, String&gt; mWhitelists = new HashMap&lt;String,
-String&gt;();
+private Map\<String, String\> mWhitelists = new HashMap\<String,
+String\>();
 
 public boolean add(String pkgname, String sha256) {
 
@@ -2356,14 +2361,14 @@ if (pkgname == null) return false;
 
 if (sha256 == null) return false;
 
-sha256 = sha256.replaceAll(" ", "");
+sha256 = sha256.replaceAll(\" \", \"\");
 
 if (sha256.length() != 64) return false; // SHA-256は32バイト
 
 sha256 = sha256.toUpperCase();
 
-if (sha256.replaceAll("\[0-9A-F\]+", "").length() != 0) return false; //
-0-9A-F 以外の文字がある
+if (sha256.replaceAll(\"\[0-9A-F\]+\", \"\").length() != 0) return
+false; // 0-9A-F 以外の文字がある
 
 mWhitelists.put(pkgname, sha256);
 
@@ -2410,7 +2415,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -2449,7 +2454,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -2467,7 +2472,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -2493,45 +2498,45 @@ Permissionの利用を指定する。
 
 > AndroidManifest.xml
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.intent.maliciousactivity" &gt;
+package=\"org.jssec.android.intent.maliciousactivity\" \>
 
-&lt;!-- GET\_TASKS Permissionを指定する --&gt;
+\<!\-- GET\_TASKS Permissionを指定する \--\>
 
-&lt;uses-permission android:name="android.permission.GET\_TASKS" /&gt;
+\<uses-permission android:name=\"android.permission.GET\_TASKS\" /\>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:theme="@style/AppTheme" &gt;
+android:theme=\"@style/AppTheme\" \>
 
-&lt;activity
+\<activity
 
-android:name=".MaliciousActivity"
+android:name=\".MaliciousActivity\"
 
-android:label="@string/title\_activity\_main"
+android:label=\"@string/title\_activity\_main\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > MaliciousActivity.java
 
@@ -2568,7 +2573,7 @@ getSystemService(ACTIVITY\_SERVICE);
 
 // タスクの履歴を最新100件取得する
 
-List&lt;ActivityManager.RecentTaskInfo&gt; list = activityManager
+List\<ActivityManager.RecentTaskInfo\> list = activityManager
 
 .getRecentTasks(100, ActivityManager.RECENT\_WITH\_EXCLUDED);
 
@@ -2578,15 +2583,15 @@ for (ActivityManager.RecentTaskInfo r : list) {
 
 Intent intent = r.baseIntent;
 
-Log.v("baseIntent", intent.toString());
+Log.v(\"baseIntent\", intent.toString());
 
-Log.v(" action:", intent.getAction());
+Log.v(\" action:\", intent.getAction());
 
-Log.v(" data:", intent.getDataString());
+Log.v(\" data:\", intent.getDataString());
 
 if (r.origActivity != null) {
 
-Log.v(" pkg:", r.origActivity.getPackageName() +
+Log.v(\" pkg:\", r.origActivity.getPackageName() +
 r.origActivity.getClassName());
 
 }
@@ -2595,11 +2600,11 @@ Bundle extras = intent.getExtras();
 
 if (extras != null) {
 
-Set&lt;String&gt; keys = extras.keySet();
+Set\<String\> keys = extras.keySet();
 
 for(String key : keys) {
 
-Log.v(" extras:", key + "=" + extras.get(key).toString());
+Log.v(\" extras:\", key + \"=\" + extras.get(key).toString());
 
 }
 
@@ -2633,7 +2638,7 @@ ActivityManagerクラスのgetRecentTasks()により、指定した件数のタ�
 
 -   呼び出されるActivityのタスクとその起動状態
 
-まず、「呼び出されるActivityの起動モード」について説明する。Activityの起動モードは、AndroidManifest.xmlにandroid:launchModeを記述することで設定できる。記述しない場合は”standard”とみなされる。また、起動モードはIntentに設定するフラグによっても変更可能である。FLAG\_ACTIVITY\_NEW\_TASKフラグは、Activityを”singleTask”モードで起動させる。
+まず、「呼び出されるActivityの起動モード」について説明する。Activityの起動モードは、AndroidManifest.xmlにandroid:launchModeを記述することで設定できる。記述しない場合は"standard"とみなされる。また、起動モードはIntentに設定するフラグによっても変更可能である。FLAG\_ACTIVITY\_NEW\_TASKフラグは、Activityを"singleTask"モードで起動させる。
 
 指定可能な起動モードは次のとおりである。特に、ルートActivityとの関連に焦点を当てて説明する。
 
@@ -2643,7 +2648,7 @@ ActivityManagerクラスのgetRecentTasks()により、指定した件数のタ�
 
 ##### singleTop
 
-“standard”と同様であるが、フォアグラウンドタスクの最前面に表示されているActivityを起動する場合には、インスタンスが生成されないという点が異なる。
+"standard"と同様であるが、フォアグラウンドタスクの最前面に表示されているActivityを起動する場合には、インスタンスが生成されないという点が異なる。
 
 ##### singleTask
 
@@ -2651,75 +2656,75 @@ Activityはアフィニティの値に従って所属するタスクが決まる
 
 ##### singleInstance
 
-“singleTask”と同様であるが、次の点で異なる。新規に生成されたタスクには、ルートActivityのみが所属できる点である。したがって、このモードで起動されたActivityのインスタンスは常にルートである。ここで注意が必要なのは、呼び出されるActivityが持つアフィニティと同じ名前のタスクが既に存在している場合であっても、呼び出されるActivityとタスクに含まれるActivityのクラス名が異なる場合である。その場合は、新規にタスクが生成される。
+"singleTask"と同様であるが、次の点で異なる。新規に生成されたタスクには、ルートActivityのみが所属できる点である。したがって、このモードで起動されたActivityのインスタンスは常にルートである。ここで注意が必要なのは、呼び出されるActivityが持つアフィニティと同じ名前のタスクが既に存在している場合であっても、呼び出されるActivityとタスクに含まれるActivityのクラス名が異なる場合である。その場合は、新規にタスクが生成される。
 
-以上より、”singleTask”または”singleInstance”で起動されたActivityはルートになる可能性があることが分かる。アプリの安全性を確保するためには、これらのモードで起動しないようにしなければならない。
+以上より、"singleTask"または"singleInstance"で起動されたActivityはルートになる可能性があることが分かる。アプリの安全性を確保するためには、これらのモードで起動しないようにしなければならない。
 
-次に、「呼び出されるActivityのタスクとその起動状態」について説明する。たとえ、Activityが”standard”モードで呼び出されたとしても、そのActivityが所属するタスクの状態によってルートActivityとなる場合がある。
+次に、「呼び出されるActivityのタスクとその起動状態」について説明する。たとえ、Activityが"standard"モードで呼び出されたとしても、そのActivityが所属するタスクの状態によってルートActivityとなる場合がある。
 
-例として、呼び出されるActivityのタスクが既にバックグラウンドで起動している場合を考える。問題となるのは、そのタスクのActivityインスタンスが”singleInstance”で起動している場合である。”standard”で呼び出されたActivityのアフィニティがタスクと同じだった時に、既存の”singleInstance”のActivityの制限により、新規タスクが生成される。ただし、それぞれのActivityのクラス名が同じ場合は、タスクは生成されず、インスタンスは既存のものが利用される。いずれにしろ、呼び出されたActivityはルートActivityになる。
+例として、呼び出されるActivityのタスクが既にバックグラウンドで起動している場合を考える。問題となるのは、そのタスクのActivityインスタンスが"singleInstance"で起動している場合である。"standard"で呼び出されたActivityのアフィニティがタスクと同じだった時に、既存の"singleInstance"のActivityの制限により、新規タスクが生成される。ただし、それぞれのActivityのクラス名が同じ場合は、タスクは生成されず、インスタンスは既存のものが利用される。いずれにしろ、呼び出されたActivityはルートActivityになる。
 
-以上のように、ルートActivityが呼び出される条件は実行時の状態に依存するなど複雑である。アプリ開発の際には、”standard”モードでActivityを呼び出すように工夫すべきである。
+以上のように、ルートActivityが呼び出される条件は実行時の状態に依存するなど複雑である。アプリ開発の際には、"standard"モードでActivityを呼び出すように工夫すべきである。
 
-非公開Activityに送信されるIntentが他アプリから読み取られる例として、非公開Activityの呼び出し側Activityを”singleInstance”モードで起動する場合のサンプルコードを以下に示す。このサンプルコードでは、非公開Activityが”standard”モードで起動されるが、呼び出し側Activityの”singleInstance”モードの条件により、非公開Activityは新規タスクのルートActivityとなってしまう。この時、非公開Activityに送信されるセンシティブな情報はタスク履歴に記録されるため、任意のアプリから読み取り可能である。なお、呼び出し側Activity、非公開Activityともに同一のアフィニティを持つ。
+非公開Activityに送信されるIntentが他アプリから読み取られる例として、非公開Activityの呼び出し側Activityを"singleInstance"モードで起動する場合のサンプルコードを以下に示す。このサンプルコードでは、非公開Activityが"standard"モードで起動されるが、呼び出し側Activityの"singleInstance"モードの条件により、非公開Activityは新規タスクのルートActivityとなってしまう。この時、非公開Activityに送信されるセンシティブな情報はタスク履歴に記録されるため、任意のアプリから読み取り可能である。なお、呼び出し側Activity、非公開Activityともに同一のアフィニティを持つ。
 
 > AndroidManifest.xml(非推奨)
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.activity.singleinstanceactivity" &gt;
+package=\"org.jssec.android.activity.singleinstanceactivity\" \>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- ルートActivityの起動モードを”singleInstance”とする --&gt;
+\<!\-- ルートActivityの起動モードを"singleInstance"とする \--\>
 
-&lt;!-- アフィニティは設定せず、アプリのパッケージ名とする --&gt;
+\<!\-- アフィニティは設定せず、アプリのパッケージ名とする \--\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateUserActivity"
+android:name=\".PrivateUserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:launchMode="singleInstance"
+android:launchMode=\"singleInstance\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;!-- 非公開Activity --&gt;
+\<!\-- 非公開Activity \--\>
 
-&lt;!-- 起動モードを”standard”とする --&gt;
+\<!\-- 起動モードを"standard"とする \--\>
 
-&lt;!-- アフィニティは設定せず、アプリのパッケージ名とする --&gt;
+\<!\-- アフィニティは設定せず、アプリのパッケージ名とする \--\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateActivity"
+android:name=\".PrivateActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="false" /&gt;
+android:exported=\"false\" /\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 非公開Activityは、受信したIntentに対して結果を返すのみである。
 
@@ -2751,9 +2756,9 @@ setContentView(R.layout.private\_activity);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-String param = getIntent().getStringExtra("PARAM");
+String param = getIntent().getStringExtra(\"PARAM\");
 
-Toast.makeText(this, String.format("パラメータ「%s」を受け取った。",
+Toast.makeText(this, String.format(\"パラメータ「%s」を受け取った。\",
 param), Toast.LENGTH\_LONG).show();
 
 }
@@ -2762,7 +2767,7 @@ public void onReturnResultClick(View view) {
 
 Intent intent = new Intent();
 
-intent.putExtra("RESULT", "センシティブな情報");
+intent.putExtra(\"RESULT\", \"センシティブな情報\");
 
 setResult(RESULT\_OK, intent);
 
@@ -2772,7 +2777,7 @@ finish();
 
 }
 
-非公開Activityの呼び出し側では、Intentにフラグを設定せずに、”standard”モードで非公開Activityを起動している。
+非公開Activityの呼び出し側では、Intentにフラグを設定せずに、"standard"モードで非公開Activityを起動している。
 
 > PrivateUserActivity.java
 
@@ -2804,13 +2809,13 @@ setContentView(R.layout.user\_activity);
 
 public void onUseActivityClick(View view) {
 
-// 非公開Activityを"standard"モードで起動する
+// 非公開Activityを\"standard\"モードで起動する
 
 Intent intent = new Intent();
 
 intent.setClass(this, PrivateActivity.class);
 
-intent.putExtra("PARAM", "センシティブな情報");
+intent.putExtra(\"PARAM\", \"センシティブな情報\");
 
 startActivityForResult(intent, REQUEST\_CODE);
 
@@ -2829,14 +2834,14 @@ switch (requestCode) {
 
 case REQUEST\_CODE:
 
-String result = data.getStringExtra("RESULT");
+String result = data.getStringExtra(\"RESULT\");
 
 // 受信データの安全性を確認する
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-Toast.makeText(this, String.format("結果「%s」を受け取った。", result),
-Toast.LENGTH\_LONG).show();
+Toast.makeText(this, String.format(\"結果「%s」を受け取った。\",
+result), Toast.LENGTH\_LONG).show();
 
 break;
 
@@ -2866,7 +2871,7 @@ Activityを利用する際にActivityManagerがIntentの内容をLogCatに出力
 
 // URIはLogCatに出力される
 
-Uri uri = Uri.parse("mailto:test@gmail.com");
+Uri uri = Uri.parse(\"mailto:test@gmail.com\");
 
 Intent intent = new Intent(Intent.ACTION\_SENDTO, uri);
 
@@ -2878,11 +2883,12 @@ startActivity(intent);
 
 // Extraに設定した内容はLogCatに出力されない
 
-Uri uri = Uri.parse("mailto:");
+Uri uri = Uri.parse(\"mailto:\");
 
 Intent intent = new Intent(Intent.ACTION\_SENDTO, uri);
 
-intent.putExtra(Intent.EXTRA\_EMAIL, new String\[\] {"test@gmail.com"});
+intent.putExtra(Intent.EXTRA\_EMAIL, new String\[\]
+{\"test@gmail.com\"});
 
 startActivity(intent);
 
@@ -2908,15 +2914,313 @@ protected boolean isValidFragment(String fragmentName) {
 
 return PreferenceFragmentA.class.getName().equals(fragmentName)
 
-|| PreferenceFragmentB.class.getName().equals(fragmentName)
+\|\| PreferenceFragmentB.class.getName().equals(fragmentName)
 
-|| PreferenceFragmentC.class.getName().equals(fragmentName)
+\|\| PreferenceFragmentC.class.getName().equals(fragmentName)
 
-|| PreferenceFragmentD.class.getName().equals(fragmentName);
+\|\| PreferenceFragmentD.class.getName().equals(fragmentName);
 
 }
 
 なお、アプリのtargetSdkVersionが19以上である場合、PreferenceActivity.isValidFragment()をoverrideしないと、Fragmentが挿入された段階（isValidFragment()が呼ばれた段階）でセキュリティ例外が発生しアプリが終了するため、PreferenceActivity.isValidFragment()のoverrideが必須である。
+
+#### Autofillフレームワークについて
+
+> AutofillフレームワークはAndroid 8.0(API Level
+> 26)で追加された仕組みである。この仕組みを利用することで、ユーザー名、パスワード、住所、電話番号、クレジットカード情報等が入力されたときにそれらを保存しておき、再度必要になった時に取り出してアプリに自動入力(Autofill)する機能を実現することができる。ユーザーの入力負荷を軽減することができる便利な仕組みであるが、あるアプリが扱うパスワードやクレジットカード情報等のセンシティブな情報を他のアプリ（Autofill
+> service）に渡すことを想定しており、取り扱いには十分に気をつける必要がある。
+>
+> **仕組み(概要)**
+>
+> [2つのコンポーネント]{.underline}
+>
+> 以下に、Autofillフレームワークに登場する2つのコンポーネント[^6]の概要を示す。
+
+-   Autofillの対象となるアプリ（利用アプリ）：
+
+    -   Viewの情報（テキストおよび属性)をAutofill
+        > serviceに渡したり、Autofill
+        > serviceからAutofillに必要な情報を提供されたりする。
+
+    -   Activityを持つすべてのアプリが利用アプリとなる（Foreground時)。
+
+    -   利用アプリが持つすべてのViewがAutofillの対象になる可能性がある。View単位で明示的にAutofillの対象外とすることも可能。
+
+-   Autofill serviceを提供するサービス（Autofill service）：
+
+    -   アプリから渡されたViewの情報を保存したり（ユーザーの許可が必要）、ViewにAutofillするための情報（候補リスト）をアプリに提供したりする。
+
+    -   保存対象のViewはAutofill
+        > serviceが決定する（AutofillフレームワークはデフォルトでActivityに含まれるすべてのViewの情報をAutofill
+        > serviceに渡す）。
+
+    -   3^rd^ Party製のAutofill serviceも作成できる。
+
+    -   端末内に複数存在することが可能でユーザーにより「設定」から選択されたServiceのみ有効になる（「なし」も選択可能）。
+
+    -   Serviceが、扱うユーザー情報を保護するためにパスワード入力等によってユーザー認証をするためのUIを持つことも可能。
+
+> [Autofillフレームワークの処理フロー]{.underline}
+>
+> **図
+> 4‑6**はAutofill時の処理を示している。利用アプリのViewのフォーカス移動等を契機にAutoillフレームワークを介してViewの情報（主にViewの親子関係や個々の属性）が「設定」で選択されたAutofill
+> serviceに渡る。Autofill
+> serviceは渡された情報を元にAutofillに必要な情報（候補リスト）をDBから取り出し、フレームワークに返信する。フレームワークは候補リストをユーザーに提示し、ユーザーが選択したデータによりアプリでAutofillが行われる。
+>
+> ![Autofillの仕組み\_Autofill](media/image37.png){width="7.266666666666667in"
+> height="3.325in"}
+
+[[]{#_Ref497835622 .anchor}]{#_Ref497835648 .anchor}**図** **4‑6
+Autofillの処理**
+
+> 一方、**図
+> 4‑7**は保存時の処理を示している。AutofillManager\#commit()の呼び出しやActivityの終了を契機に、AutofillしたViewの値に変更があり、かつ、Autofillフレームワークが表示する保存許可ダイアログに対してユーザーが許可した場合、Viewの情報（テキスト含む）がAutofillフレームワークを介して「設定」で選択されたAutofill
+> serviceに渡され、Autofill
+> serviceがViewの情報をDBに保存して一連の処理が完了となる。
+>
+> ![Autofillの仕組み\_Save](media/image38.png){width="7.258333333333334in"
+> height="3.3333333333333335in"}
+
+[]{#_Ref497835656 .anchor}**図** **4‑7 保存時の処理**
+
+> **Autofill利用アプリにおけるセキュリティ上の懸案**
+>
+> 「仕組み（概要）」の項で示した通りAutofillフレームワークにおけるセキュリティモデルでは、ユーザーが「設定」で安全なAutofill
+> serviceを選択し、保存時にどのデータをどのAutofill
+> serviceに渡してもよいか適切に判断できることを前提としている。
+>
+> ところが、ユーザーがうっかり安全でないAutofill
+> serviceを選択したり、Autofill
+> serviceに渡すべきでないセンシティブな情報の保存を許可してしまったりする可能性がある。以下に、この場合に起きうる被害について考察する。
+>
+> 保存時、ユーザーがAutofill
+> serviceを選択し、保存許可ダイアログに対して許可した場合、利用アプリで表示されているActivityに含まれるすべてのViewの情報がAutofill
+> serviceに渡る可能性がある。ここで、Autofill
+> serviceがマルウェアの場合や、Autofill
+> serviceにViewの情報を外部ストレージや安全でないクラウドサービスに保存する等のセキュリティ上の問題があった場合には、利用アプリで扱う情報の漏洩につながってしまうリスクが考えられる。
+>
+> 一方、Autofill時、ユーザーがAutofill
+> serviceとしてマルウェアを選択してしまっていた場合、マルウェアが送信した値をAutofillしてしまう可能性がある。ここで、アプリやアプリのデータを送信した先のクラウドサービスが入力データの安全性を十分に確認していなかった場合、情報漏洩やアプリ／サービスの停止等につながってしまうリスクが考えられる。
+>
+> なお、「2つのコンポーネント」で書いたように、Activityを持つアプリが自動的にAutofillの対象になるため、Activityを持つアプリのすべての開発者は上記のリスクを考慮して設計や実装を行う必要がある。
+>
+> **懸案に対する対策**
+>
+> 前述のように、Autofillフレームワークでは基本的にユーザーの裁量によってセキュリティが担保されている。そのためアプリでできる対策は限られているが、Viewに対してimportantForAutofill
+> 属性で"no"等を指定してAutofill
+> serviceにViewの情報を一切渡さないようにする（Autofillの対象外とする）ことで、ユーザーが適切な選択や許可をできなかった場合（マルウェアをAutofill
+> serviceとして利用するように選択する等）でも、上記の懸案を軽減／回避することができる。
+>
+> importantForAutofill
+> 属性は、以下のいずれかの方法によって指定することができる。
+
+-   レイアウトXMLのimportantForAutofill属性を指定する
+
+-   View\#setImportantForAutofill()を呼び出す
+
+> 以下に指定可能な値を示す。指定する範囲によって適切な値を使うこと。特に、"no"を指定した場合、指定したViewはAutofillの対象外になるが、子供はAutofillの対象になることに注意すること。デフォルト値は、"auto"となっている。
+
++-----------------+-----------------+-----------------+-----------------+
+| > 値            | > 定数名        | Autofillの対象になるか |
++=================+=================+=================+=================+
+|                 |                 | 指定したView    | 子供のView      |
++-----------------+-----------------+-----------------+-----------------+
+| \"auto\"        | IMPORTANT\_FOR\ | Autofillフレームワーク | Autofillフレームワーク |
+|                 | _AUTOFILL\_AUTO | が決定          | が決定          |
++-----------------+-----------------+-----------------+-----------------+
+| "no"            | IMPORTANT\_FOR\ | 対象外          | 対象            |
+|                 | _AUTOFILL\_NO   |                 |                 |
++-----------------+-----------------+-----------------+-----------------+
+| \"noExcludeDesc | IMPORTANT\_FOR\ | 対象外          | 対象外          |
+| endants\"       | _AUTOFILL\_NO\_ |                 |                 |
+|                 | EXCLUDE\_DESCEN |                 |                 |
+|                 | DANTS           |                 |                 |
++-----------------+-----------------+-----------------+-----------------+
+| "yes"           | IMPORTANT\_FOR\ | 対象            | 対象            |
+|                 | _AUTOFILL\_YES  |                 |                 |
++-----------------+-----------------+-----------------+-----------------+
+| "noExcludeDesce | IMPORTANT\_FOR\ | 対象            | 対象外          |
+| ndants\"        | _AUTOFILL\_YES\ |                 |                 |
+|                 | _EXCLUDE\_DESCE |                 |                 |
+|                 | NDANTS          |                 |                 |
++-----------------+-----------------+-----------------+-----------------+
+
+> また、AutofillManager\#hasEnabledAutofillServices()を利用して、Autofill機能の利用を同一パッケージ内のAutofill
+> serviceに限定することも可能である。
+>
+> 以下に、「設定」で同一パッケージ内のAutofill
+> serviceを利用するように設定されている場合のみ、Activityの全てのViewをAutofillの対象にする（実際にAutofillの対象になるかはAutofill
+> service次第）場合の例を示す。個別のViewに対してView\#setImportantForAutofill()を呼び出すことも可能である。
+>
+> DisableForOtherServiceActivity.java
+
+package org.jssec.android.autofillframework.autofillapp;
+
+import android.content.Intent;
+
+import android.os.Bundle;
+
+import android.support.design.widget.FloatingActionButton;
+
+import android.support.design.widget.Snackbar;
+
+import android.support.v7.app.AppCompatActivity;
+
+import android.support.v7.widget.Toolbar;
+
+import android.util.Log;
+
+import android.view.View;
+
+import android.view.autofill.AutofillManager;
+
+import android.widget.EditText;
+
+import android.widget.TextView;
+
+import org.jssec.android.autofillframework.R;
+
+public class DisableForOtherServiceActivity extends AppCompatActivity {
+
+private boolean mIsAutofillEnabled = false;
+
+private EditText mUsernameEditText;
+
+private EditText mPasswordEditText;
+
+@Override
+
+protected void onCreate(Bundle savedInstanceState) {
+
+super.onCreate(savedInstanceState);
+
+setContentView(R.layout.disable\_for\_other\_service\_activity);
+
+mUsernameEditText = (EditText)findViewById(R.id.field\_username);
+
+mPasswordEditText = (EditText)findViewById(R.id.field\_password);
+
+findViewById(R.id.button\_login).setOnClickListener(new
+View.OnClickListener() {
+
+@Override
+
+public void onClick(View v) {
+
+login();
+
+}
+
+});
+
+findViewById(R.id.button\_clear).setOnClickListener(new
+View.OnClickListener() {
+
+@Override
+
+public void onClick(View v) {
+
+resetFields();
+
+}
+
+});
+
+}
+
+@Override
+
+protected void onStart() {
+
+super.onStart();
+
+}
+
+@Override
+
+protected void onResume() {
+
+super.onResume();
+
+updateAutofillStatus();
+
+if (!mIsAutofillEnabled) {
+
+View rootView = this.getWindow().getDecorView();
+
+//同一パッケージ内のAutofill
+serviceを利用しない場合は、全てのViewをAutofillの対象外にする
+
+rootView.setImportantForAutofill(View.IMPORTANT\_FOR\_AUTOFILL\_NO\_EXCLUDE\_DESCENDANTS);
+
+} else {
+
+//同一パッケージ内のAutofill
+serviceを利用する場合は、全てのViewをAutofillの対象にする
+
+//特定のViewに対してView\#setImportantForAutofill()を呼び出すことも可能
+
+View rootView = this.getWindow().getDecorView();
+
+rootView.setImportantForAutofill(View.IMPORTANT\_FOR\_AUTOFILL\_AUTO);
+
+}
+
+}
+
+private void login() {
+
+String username = mUsernameEditText.getText().toString();
+
+String password = mPasswordEditText.getText().toString();
+
+//Viewから取得したデータの安全性を確認する
+
+if (!Util.validateUsername(username) \|\|
+!Util.validatePassword(password)) {
+
+//適切なエラー処理をする
+
+}
+
+finish();
+
+}
+
+private void resetFields() {
+
+mUsernameEditText.setText(\"\");
+
+mPasswordEditText.setText(\"\");
+
+}
+
+private void updateAutofillStatus() {
+
+AutofillManager mgr = getSystemService(AutofillManager.class);
+
+mIsAutofillEnabled = mgr.hasEnabledAutofillServices();
+
+TextView statusView = (TextView)
+findViewById(R.id.label\_autofill\_status);
+
+String status = \"自社のautofill serviceが\--です\";
+
+if (mIsAutofillEnabled) {
+
+status = \"同一パッケージ内のautofill serviceが有効です\";
+
+} else {
+
+status = \"同一パッケージ内のautofill serviceが無効です\";
+
+}
+
+statusView.setText(status);
+
+}
+
+}
 
 Broadcastを受信する・送信する
 -----------------------------
@@ -2929,7 +3233,7 @@ Receiverが抱えるリスクや適切な防御手段が異なる。次の判定
 Receiverがどのタイプであるかを判断できる。ちなみに、パートナー限定の連携に必要なBroadcast送信元アプリのパッケージ名を受信側アプリで確認する手段がないため、パートナー限定Broadcast
 Receiverを作る事はできない。
 
-![](media/image37.png){width="6.395833333333333in"
+![](media/image39.png){width="6.395833333333333in"
 height="3.4895833333333335in"}
 
 図 4.2‑1
@@ -2940,21 +3244,33 @@ Receiverとの2種類があり、下表のような特徴の違いがある。�
 
 表 4.2‑1
 
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                           定義方法                                                                                                                       特徴
-  ------------------------ ------------------------------------------------------------------------------------------------------------------------------ ----------------------------------------------------------------------------------------------------------------
-  静的Broadcast Receiver   AndroidManifest.xmlに&lt;receiver&gt;要素を記述することで定義する                                                              -   システムから送信される一部のBroadcast（ACTION\_BATTERY\_CHANGEDなど）を受信できない制約がある
-                                                                                                                                                          
-                                                                                                                                                          -   アプリが初回起動してからアンインストールされるまでの間、Broadcastを受信できる
-                                                                                                                                                          
-
-  動的Broadcast Receiver   プログラム中でregisterReceiver()およびunregisterReceiver()を呼び出すことにより、動的にBroadcast Receiverを登録／登録解除する   -   静的Broadcast Receiverでは受信できないBroadcastでも受信できる
-                                                                                                                                                          
-                                                                                                                                                          -   Activityが前面に出ている期間だけBroadcastを受信したいなど、Broadcastの受信可能期間をプログラムで制御できる
-                                                                                                                                                          
-                                                                                                                                                          -   非公開のBroadcast Receiverを作ることはできない
-                                                                                                                                                          
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
++----------------------+----------------------+----------------------+
+|                      | 定義方法             | 特徴                 |
++======================+======================+======================+
+| 静的Broadcast        | AndroidManifest.xmlに | -   システムから送信される一部のBr |
+| Receiver             | \<receiver\>要素を記述するこ | oadcast（ACTION\_BATT |
+|                      | とで定義する         | ERY\_CHANGEDなど）を受信でき |
+|                      |                      | ない制約がある       |
+|                      |                      |                      |
+|                      |                      | -   アプリが初回起動してからアンイン |
+|                      |                      | ストールされるまでの間、Broadcas |
+|                      |                      | tを受信できる        |
++----------------------+----------------------+----------------------+
+| 動的Broadcast        | プログラム中でregisterRecei | -   静的Broadcast |
+| Receiver             | ver()およびunregisterRe |     Receiverでは受信できない |
+|                      | ceiver()を呼び出すことにより、動 | Broadcastでも受信できる |
+|                      | 的にBroadcast        |                      |
+|                      | Receiverを登録／登録解除する |              |
+|                      |                      | -   Activityが前面に出ている |
+|                      |                      | 期間だけBroadcastを受信したいな |
+|                      |                      | ど、Broadcastの受信可能期間をプ |
+|                      |                      | ログラムで制御できる |
+|                      |                      |                      |
+|                      |                      | -   非公開のBroadcast |
+|                      |                      |                      |
+|                      |                      |     Receiverを作ることはでき |
+|                      |                      | ない                 |
++----------------------+----------------------+----------------------+
 
 #### 非公開Broadcast Receiver - Broadcastを受信する・送信する
 
@@ -2967,61 +3283,62 @@ Receiverでは静的Broadcast Receiverだけで構成される。
 
 > ポイント(Broadcastを受信する)：
 
-1.  exported="false"により、明示的に非公開設定する
+1.  exported=\"false\"により、明示的に非公開設定する
 
 &nbsp;
+
 1.  同一アプリ内から送信されたBroadcastであっても、受信Intentの安全性を確認する
 
 2.  結果を返す場合、送信元は同一アプリ内であるから、センシティブな情報を返送してよい
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.broadcast.privatereceiver" &gt;
+package=\"org.jssec.android.broadcast.privatereceiver\" \>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;!-- 非公開Broadcast Receiverを定義する --&gt;
+\<!\-- 非公開Broadcast Receiverを定義する \--\>
 
-&lt;!-- ★ポイント1★ exported="false"により、明示的に非公開設定する
---&gt;
+\<!\-- ★ポイント1★ exported=\"false\"により、明示的に非公開設定する
+\--\>
 
-&lt;receiver
+\<receiver
 
-android:name=".PrivateReceiver"
+android:name=\".PrivateReceiver\"
 
-android:exported="false" /&gt;
+android:exported=\"false\" /\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateSenderActivity"
+android:name=\".PrivateSenderActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true"&gt;
+android:exported=\"true\"\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PrivateReceiver.java
 
@@ -3048,11 +3365,11 @@ public void onReceive(Context context, Intent intent) {
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-String param = intent.getStringExtra("PARAM");
+String param = intent.getStringExtra(\"PARAM\");
 
 Toast.makeText(context,
 
-String.format("「%s」を受信した。", param),
+String.format(\"「%s」を受信した。\", param),
 
 Toast.LENGTH\_SHORT).show();
 
@@ -3061,7 +3378,7 @@ Toast.LENGTH\_SHORT).show();
 
 setResultCode(Activity.RESULT\_OK);
 
-setResultData("センシティブな情報 from Receiver");
+setResultData(\"センシティブな情報 from Receiver\");
 
 abortBroadcast();
 
@@ -3109,7 +3426,7 @@ Intent intent = new Intent(this, PrivateReceiver.class);
 // ★ポイント5★
 送信先は同一アプリ内Receiverであるため、センシティブな情報を送信してよい
 
-intent.putExtra("PARAM", "センシティブな情報 from Sender");
+intent.putExtra(\"PARAM\", \"センシティブな情報 from Sender\");
 
 sendBroadcast(intent);
 
@@ -3125,7 +3442,7 @@ Intent intent = new Intent(this, PrivateReceiver.class);
 // ★ポイント5★
 送信先は同一アプリ内Receiverであるため、センシティブな情報を送信してよい
 
-intent.putExtra("PARAM", "センシティブな情報 from Sender");
+intent.putExtra(\"PARAM\", \"センシティブな情報 from Sender\");
 
 sendOrderedBroadcast(intent, null, mResultReceiver, null, 0, null,
 null);
@@ -3147,7 +3464,7 @@ String data = getResultData();
 
 PrivateSenderActivity.this.logLine(
 
-String.format("結果「%s」を受信した。", data));
+String.format(\"結果「%s」を受信した。\", data));
 
 }
 
@@ -3171,7 +3488,7 @@ private void logLine(String line) {
 
 mLogView.append(line);
 
-mLogView.append("\\n");
+mLogView.append(\"\\n\");
 
 }
 
@@ -3185,11 +3502,12 @@ Receiverである。マルウェアが送信したBroadcastを受信すること
 
 > ポイント(Broadcastを受信する)：
 
-1.  exported="true"により、明示的に公開設定する
+1.  exported=\"true\"により、明示的に公開設定する
 
 2.  受信Intentの安全性を確認する
 
 &nbsp;
+
 1.  結果を返す場合、センシティブな情報を含めない
 
 公開Broadcast ReceiverのサンプルコードであるPublic
@@ -3214,14 +3532,14 @@ public class PublicReceiver extends BroadcastReceiver {
 
 private static final String MY\_BROADCAST\_PUBLIC =
 
-"org.jssec.android.broadcast.MY\_BROADCAST\_PUBLIC";
+\"org.jssec.android.broadcast.MY\_BROADCAST\_PUBLIC\";
 
 public boolean isDynamic = false;
 
 private String getName() {
 
-return isDynamic ? "公開動的 Broadcast Receiver" : "公開静的 Broadcast
-Receiver";
+return isDynamic ? \"公開動的 Broadcast Receiver\" : \"公開静的
+Broadcast Receiver\";
 
 }
 
@@ -3238,11 +3556,11 @@ Receiverであるため利用元アプリがマルウェアである可能性が
 
 if (MY\_BROADCAST\_PUBLIC.equals(intent.getAction())) {
 
-String param = intent.getStringExtra("PARAM");
+String param = intent.getStringExtra(\"PARAM\");
 
 Toast.makeText(context,
 
-String.format("%s:\\n「%s」を受信した。", getName(), param),
+String.format(\"%s:\\n「%s」を受信した。\", getName(), param),
 
 Toast.LENGTH\_SHORT).show();
 
@@ -3259,7 +3577,7 @@ Toast.LENGTH\_SHORT).show();
 
 setResultCode(Activity.RESULT\_OK);
 
-setResultData(String.format("センシティブではない情報 from %s",
+setResultData(String.format(\"センシティブではない情報 from %s\",
 getName()));
 
 abortBroadcast();
@@ -3272,64 +3590,64 @@ abortBroadcast();
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.broadcast.publicreceiver" &gt;
+package=\"org.jssec.android.broadcast.publicreceiver\" \>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;!-- 公開静的Broadcast Receiverを定義する --&gt;
+\<!\-- 公開静的Broadcast Receiverを定義する \--\>
 
-&lt;!-- ★ポイント1★ exported="true"により、明示的に公開設定する --&gt;
+\<!\-- ★ポイント1★ exported=\"true\"により、明示的に公開設定する \--\>
 
-&lt;receiver android:name=".PublicReceiver"
+\<receiver android:name=\".PublicReceiver\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action
-android:name="org.jssec.android.broadcast.MY\_BROADCAST\_PUBLIC" /&gt;
+\<action
+android:name=\"org.jssec.android.broadcast.MY\_BROADCAST\_PUBLIC\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/receiver&gt;
+\</receiver\>
 
-&lt;service
+\<service
 
-android:name=".DynamicReceiverService"
+android:name=\".DynamicReceiverService\"
 
-android:exported="false" /&gt;
+android:exported=\"false\" /\>
 
-&lt;activity
+\<activity
 
-android:name=".PublicReceiverActivity"
+android:name=\".PublicReceiverActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 動的Broadcast
 Receiverはプログラム中でregisterReceiver()およびunregisterReceiver()を呼び出すことにより登録／登録解除する。ボタン操作により登録／登録解除を行うためにPublicReceiverActivity上にボタンを配置している。動的Broadcast
@@ -3355,7 +3673,7 @@ public class DynamicReceiverService extends Service {
 
 private static final String MY\_BROADCAST\_PUBLIC =
 
-"org.jssec.android.broadcast.MY\_BROADCAST\_PUBLIC";
+\"org.jssec.android.broadcast.MY\_BROADCAST\_PUBLIC\";
 
 private PublicReceiver mReceiver;
 
@@ -3390,7 +3708,7 @@ registerReceiver(mReceiver, filter);
 
 Toast.makeText(this,
 
-"動的 Broadcast Receiver を登録した。",
+\"動的 Broadcast Receiver を登録した。\",
 
 Toast.LENGTH\_SHORT).show();
 
@@ -3410,7 +3728,7 @@ mReceiver = null;
 
 Toast.makeText(this,
 
-"動的 Broadcast Receiver を登録解除した。",
+\"動的 Broadcast Receiver を登録解除した。\",
 
 Toast.LENGTH\_SHORT).show();
 
@@ -3492,7 +3810,7 @@ public class PublicSenderActivity extends Activity {
 
 private static final String MY\_BROADCAST\_PUBLIC =
 
-"org.jssec.android.broadcast.MY\_BROADCAST\_PUBLIC";
+\"org.jssec.android.broadcast.MY\_BROADCAST\_PUBLIC\";
 
 public void onSendNormalClick(View view) {
 
@@ -3500,7 +3818,7 @@ public void onSendNormalClick(View view) {
 
 Intent intent = new Intent(MY\_BROADCAST\_PUBLIC);
 
-intent.putExtra("PARAM", "センシティブではない情報 from Sender");
+intent.putExtra(\"PARAM\", \"センシティブではない情報 from Sender\");
 
 sendBroadcast(intent);
 
@@ -3512,7 +3830,7 @@ public void onSendOrderedClick(View view) {
 
 Intent intent = new Intent(MY\_BROADCAST\_PUBLIC);
 
-intent.putExtra("PARAM", "センシティブではない情報 from Sender");
+intent.putExtra(\"PARAM\", \"センシティブではない情報 from Sender\");
 
 sendOrderedBroadcast(intent, null, mResultReceiver, null, 0, null,
 null);
@@ -3525,7 +3843,7 @@ public void onSendStickyClick(View view) {
 
 Intent intent = new Intent(MY\_BROADCAST\_PUBLIC);
 
-intent.putExtra("PARAM", "センシティブではない情報 from Sender");
+intent.putExtra(\"PARAM\", \"センシティブではない情報 from Sender\");
 
 //sendStickyBroadcastメソッドはAPI Level 21でdeprecatedとなった
 
@@ -3539,7 +3857,7 @@ public void onSendStickyOrderedClick(View view) {
 
 Intent intent = new Intent(MY\_BROADCAST\_PUBLIC);
 
-intent.putExtra("PARAM", "センシティブではない情報 from Sender");
+intent.putExtra(\"PARAM\", \"センシティブではない情報 from Sender\");
 
 //sendStickyBroadcastメソッドはAPI Level 21でdeprecatedとなった
 
@@ -3572,7 +3890,7 @@ String data = getResultData();
 
 PublicSenderActivity.this.logLine(
 
-String.format("結果「%s」を受信した。", data));
+String.format(\"結果「%s」を受信した。\", data));
 
 }
 
@@ -3596,7 +3914,7 @@ private void logLine(String line) {
 
 mLogView.append(line);
 
-mLogView.append("\\n");
+mLogView.append(\"\\n\");
 
 }
 
@@ -3613,9 +3931,10 @@ Receiverである。複数の自社製アプリでシステムを構成し、自
 1.  Broadcast受信用の独自定義Signature Permissionを定義する
 
 &nbsp;
+
 1.  結果受信用の独自定義Signature Permissionを利用宣言する
 
-2.  exported="true"により、明示的に公開設定する
+2.  exported=\"true\"により、明示的に公開設定する
 
 3.  静的Broadcast Receiver定義にて、独自定義Signature
     Permissionを要求宣言する
@@ -3659,7 +3978,7 @@ public class InhouseReceiver extends BroadcastReceiver {
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.broadcast.inhousereceiver.MY\_PERMISSION";
+\"org.jssec.android.broadcast.inhousereceiver.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -3671,17 +3990,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -3693,14 +4012,14 @@ return sMyCertHash;
 
 private static final String MY\_BROADCAST\_INHOUSE =
 
-"org.jssec.android.broadcast.MY\_BROADCAST\_INHOUSE";
+\"org.jssec.android.broadcast.MY\_BROADCAST\_INHOUSE\";
 
 public boolean isDynamic = false;
 
 private String getName() {
 
-return isDynamic ? "自社限定動的 Broadcast Receiver" : "自社限定静的
-Broadcast Receiver";
+return isDynamic ? \"自社限定動的 Broadcast Receiver\" : \"自社限定静的
+Broadcast Receiver\";
 
 }
 
@@ -3713,8 +4032,8 @@ Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(context, MY\_PERMISSION, myCertHash(context))) {
 
-Toast.makeText(context, "独自定義Signature
-Permissionが自社アプリにより定義されていない。",
+Toast.makeText(context, \"独自定義Signature
+Permissionが自社アプリにより定義されていない。\",
 Toast.LENGTH\_LONG).show();
 
 return;
@@ -3728,11 +4047,11 @@ return;
 
 if (MY\_BROADCAST\_INHOUSE.equals(intent.getAction())) {
 
-String param = intent.getStringExtra("PARAM");
+String param = intent.getStringExtra(\"PARAM\");
 
 Toast.makeText(context,
 
-String.format("%s:\\n「%s」を受信した。", getName(), param),
+String.format(\"%s:\\n「%s」を受信した。\", getName(), param),
 
 Toast.LENGTH\_SHORT).show();
 
@@ -3743,7 +4062,7 @@ Toast.LENGTH\_SHORT).show();
 
 setResultCode(Activity.RESULT\_OK);
 
-setResultData(String.format("センシティブな情報 from %s", getName()));
+setResultData(String.format(\"センシティブな情報 from %s\", getName()));
 
 abortBroadcast();
 
@@ -3755,86 +4074,86 @@ abortBroadcast();
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.broadcast.inhousereceiver" &gt;
+package=\"org.jssec.android.broadcast.inhousereceiver\" \>
 
-&lt;!-- ★ポイント1★ Broadcast受信用の独自定義Signature
-Permissionを定義する --&gt;
+\<!\-- ★ポイント1★ Broadcast受信用の独自定義Signature
+Permissionを定義する \--\>
 
-&lt;permission
+\<permission
 
-android:name="org.jssec.android.broadcast.inhousereceiver.MY\_PERMISSION"
+android:name=\"org.jssec.android.broadcast.inhousereceiver.MY\_PERMISSION\"
 
-android:protectionLevel="signature" /&gt;
+android:protectionLevel=\"signature\" /\>
 
-&lt;!-- ★ポイント2★ 結果受信用の独自定義Signature
-Permissionを利用宣言する --&gt;
+\<!\-- ★ポイント2★ 結果受信用の独自定義Signature
+Permissionを利用宣言する \--\>
 
-&lt;uses-permission
+\<uses-permission
 
-android:name="org.jssec.android.broadcast.inhousesender.MY\_PERMISSION"
-/&gt;
+android:name=\"org.jssec.android.broadcast.inhousesender.MY\_PERMISSION\"
+/\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false"&gt;
+android:allowBackup=\"false\"\>
 
-&lt;!-- ★ポイント3★ exported="true"により、明示的に公開設定する --&gt;
+\<!\-- ★ポイント3★ exported=\"true\"により、明示的に公開設定する \--\>
 
-&lt;!-- ★ポイント4★ 静的Broadcast Receiver定義にて、独自定義Signature
-Permissionを要求宣言する --&gt;
+\<!\-- ★ポイント4★ 静的Broadcast Receiver定義にて、独自定義Signature
+Permissionを要求宣言する \--\>
 
-&lt;receiver
+\<receiver
 
-android:name="org.jssec.android.broadcast.inhousereceiver.InhouseReceiver"
+android:name=\"org.jssec.android.broadcast.inhousereceiver.InhouseReceiver\"
 
-android:exported="true"
+android:exported=\"true\"
 
-android:permission="org.jssec.android.broadcast.inhousereceiver.MY\_PERMISSION"&gt;
+android:permission=\"org.jssec.android.broadcast.inhousereceiver.MY\_PERMISSION\"\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action
-android:name="org.jssec.android.broadcast.MY\_BROADCAST\_INHOUSE" /&gt;
+\<action
+android:name=\"org.jssec.android.broadcast.MY\_BROADCAST\_INHOUSE\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/receiver&gt;
+\</receiver\>
 
-&lt;service
+\<service
 
-android:name="org.jssec.android.broadcast.inhousereceiver.DynamicReceiverService"
+android:name=\"org.jssec.android.broadcast.inhousereceiver.DynamicReceiverService\"
 
-android:exported="false" /&gt;
+android:exported=\"false\" /\>
 
-&lt;activity
+\<activity
 
-android:name="org.jssec.android.broadcast.inhousereceiver.InhouseReceiverActivity"
+android:name=\"org.jssec.android.broadcast.inhousereceiver.InhouseReceiverActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 動的Broadcast
 Receiverはプログラム中でregisterReceiver()およびunregisterReceiver()を呼び出すことにより登録／登録解除する。ボタン操作により登録／登録解除を行うためにProprietaryReceiverActivity上にボタンを配置している。動的Broadcast
@@ -3900,7 +4219,7 @@ public class DynamicReceiverService extends Service {
 
 private static final String MY\_BROADCAST\_INHOUSE =
 
-"org.jssec.android.broadcast.MY\_BROADCAST\_INHOUSE";
+\"org.jssec.android.broadcast.MY\_BROADCAST\_INHOUSE\";
 
 private InhouseReceiver mReceiver;
 
@@ -3933,11 +4252,11 @@ Receiverを優先させる
 Permissionを要求宣言する
 
 registerReceiver(mReceiver, filter,
-"org.jssec.android.broadcast.inhousereceiver.MY\_PERMISSION", null);
+\"org.jssec.android.broadcast.inhousereceiver.MY\_PERMISSION\", null);
 
 Toast.makeText(this,
 
-"動的 Broadcast Receiver を登録した。",
+\"動的 Broadcast Receiver を登録した。\",
 
 Toast.LENGTH\_SHORT).show();
 
@@ -3955,7 +4274,7 @@ mReceiver = null;
 
 Toast.makeText(this,
 
-"動的 Broadcast Receiver を登録解除した。",
+\"動的 Broadcast Receiver を登録解除した。\",
 
 Toast.LENGTH\_SHORT).show();
 
@@ -3982,7 +4301,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, sigPermName));
 
@@ -4048,7 +4367,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -4087,7 +4406,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -4105,7 +4424,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -4143,61 +4462,61 @@ height="3.2743055555555554in"}
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.broadcast.inhousesender" &gt;
+package=\"org.jssec.android.broadcast.inhousesender\" \>
 
-&lt;uses-permission
-android:name="android.permission.BROADCAST\_STICKY"/&gt;
+\<uses-permission
+android:name=\"android.permission.BROADCAST\_STICKY\"/\>
 
-&lt;!-- ★ポイント10★ 結果受信用の独自定義Signature Permissionを定義する
---&gt;
+\<!\-- ★ポイント10★ 結果受信用の独自定義Signature Permissionを定義する
+\--\>
 
-&lt;permission
+\<permission
 
-android:name="org.jssec.android.broadcast.inhousesender.MY\_PERMISSION"
+android:name=\"org.jssec.android.broadcast.inhousesender.MY\_PERMISSION\"
 
-android:protectionLevel="signature" /&gt;
+android:protectionLevel=\"signature\" /\>
 
-&lt;!-- ★ポイント11★ Broadcast受信用の独自定義Signature
-Permissionを利用宣言する --&gt;
+\<!\-- ★ポイント11★ Broadcast受信用の独自定義Signature
+Permissionを利用宣言する \--\>
 
-&lt;uses-permission
+\<uses-permission
 
-android:name="org.jssec.android.broadcast.inhousereceiver.MY\_PERMISSION"
-/&gt;
+android:name=\"org.jssec.android.broadcast.inhousereceiver.MY\_PERMISSION\"
+/\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;activity
+\<activity
 
-android:name="org.jssec.android.broadcast.inhousesender.InhouseSenderActivity"
+android:name=\"org.jssec.android.broadcast.inhousesender.InhouseSenderActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > InhouseSenderActivity.java
 
@@ -4228,7 +4547,7 @@ public class InhouseSenderActivity extends Activity {
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.broadcast.inhousesender.MY\_PERMISSION";
+\"org.jssec.android.broadcast.inhousesender.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -4240,17 +4559,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -4262,7 +4581,7 @@ return sMyCertHash;
 
 private static final String MY\_BROADCAST\_INHOUSE =
 
-"org.jssec.android.broadcast.MY\_BROADCAST\_INHOUSE";
+\"org.jssec.android.broadcast.MY\_BROADCAST\_INHOUSE\";
 
 public void onSendNormalClick(View view) {
 
@@ -4271,8 +4590,8 @@ Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(this, MY\_PERMISSION, myCertHash(this))) {
 
-Toast.makeText(this, "独自定義Signature
-Permissionが自社アプリにより定義されていない。",
+Toast.makeText(this, \"独自定義Signature
+Permissionが自社アプリにより定義されていない。\",
 Toast.LENGTH\_LONG).show();
 
 return;
@@ -4284,12 +4603,12 @@ Receiverは自社アプリ限定であるから、センシティブな情報を
 
 Intent intent = new Intent(MY\_BROADCAST\_INHOUSE);
 
-intent.putExtra("PARAM", "センシティブな情報 from Sender");
+intent.putExtra(\"PARAM\", \"センシティブな情報 from Sender\");
 
 // ★ポイント14★ Receiverに独自定義Signature Permissionを要求する
 
 sendBroadcast(intent,
-"org.jssec.android.broadcast.inhousesender.MY\_PERMISSION");
+\"org.jssec.android.broadcast.inhousesender.MY\_PERMISSION\");
 
 }
 
@@ -4300,8 +4619,8 @@ Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(this, MY\_PERMISSION, myCertHash(this))) {
 
-Toast.makeText(this, "独自定義Signature
-Permissionが自社アプリにより定義されていない。",
+Toast.makeText(this, \"独自定義Signature
+Permissionが自社アプリにより定義されていない。\",
 Toast.LENGTH\_LONG).show();
 
 return;
@@ -4313,12 +4632,12 @@ Receiverは自社アプリ限定であるから、センシティブな情報を
 
 Intent intent = new Intent(MY\_BROADCAST\_INHOUSE);
 
-intent.putExtra("PARAM", "センシティブな情報 from Sender");
+intent.putExtra(\"PARAM\", \"センシティブな情報 from Sender\");
 
 // ★ポイント14★ Receiverに独自定義Signature Permissionを要求する
 
 sendOrderedBroadcast(intent,
-"org.jssec.android.broadcast.inhousesender.MY\_PERMISSION",
+\"org.jssec.android.broadcast.inhousesender.MY\_PERMISSION\",
 
 mResultReceiver, null, 0, null, null);
 
@@ -4336,7 +4655,7 @@ public void onReceive(Context context, Intent intent) {
 
 String data = getResultData();
 
-InhouseSenderActivity.this.logLine(String.format("結果「%s」を受信した。",
+InhouseSenderActivity.this.logLine(String.format(\"結果「%s」を受信した。\",
 data));
 
 }
@@ -4361,7 +4680,7 @@ private void logLine(String line) {
 
 mLogView.append(line);
 
-mLogView.append("\\n");
+mLogView.append(\"\\n\");
 
 }
 
@@ -4386,7 +4705,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, sigPermName));
 
@@ -4452,7 +4771,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -4491,7 +4810,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -4509,7 +4828,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -4565,21 +4884,21 @@ Filter経由で呼び出したときに意図せず他アプリの公開Receiver
 
 > AndroidManifest.xml(非推奨)
 
-&lt;!-- 外部アプリに非公開とするBroadcast Receiver --&gt;
+\<!\-- 外部アプリに非公開とするBroadcast Receiver \--\>
 
-&lt;!-- ポイント1: exported=“false”とする --&gt;
+\<!\-- ポイント1: exported="false"とする \--\>
 
-&lt;receiver android:name=".PrivateReceiver"
+\<receiver android:name=\".PrivateReceiver\"
 
-android:exported="false" &gt;
+android:exported=\"false\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="org.jssec.android.broadcast.MY\_ACTION" /&gt;
+\<action android:name=\"org.jssec.android.broadcast.MY\_ACTION\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/receiver&gt;
+\</receiver\>
 
 「4.2.3.1 使用してよいexported
 設定とintent-filter設定の組み合わせ(Receiverの場合)」も参照すること。
@@ -4689,49 +5008,49 @@ Permissionにより保護されている情報資産および機能資産を他�
 #### 使用してよいexported 設定とintent-filter設定の組み合わせ(Receiverの場合)
 
 表
-4.2‑2は、Receiverを実装するときに使用してもよいexported属性とintent-filter要素の組み合わせを示している。「exported=”false”かつintent-filter定義あり」の使用を原則禁止としている理由については以下で説明する。
+4.2‑2は、Receiverを実装するときに使用してもよいexported属性とintent-filter要素の組み合わせを示している。「exported="false"かつintent-filter定義あり」の使用を原則禁止としている理由については以下で説明する。
 
 []{#_Ref350162028 .anchor}表 4.2‑2
 exported属性とintent-filter要素の組み合わせの使用可否
 
-                            exported属性の値
+                            exported属性の値              
   ------------------------- ------------------ ---------- --------
                             true               false      無指定
   intent-filter定義がある   可                 原則禁止   禁止
   intent-filter定義がない   可                 可         禁止
 
-Receiverのexported属性が無指定である場合にそのReceiverが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが[^6]、本ガイドではReceiverのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
+Receiverのexported属性が無指定である場合にそのReceiverが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが[^7]、本ガイドではReceiverのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
 
-intent-filterを定義し、かつ、exported=“false”を指定することを原則禁止としているのは、同一アプリ内の非公開Receiverに向けてBroadcastを送信したつもりでも、意図せず他アプリの公開Receiverを呼び出してしまう場合が存在するからである。以下の2つの図で意図せぬ呼び出しが起こる様子を説明する。
+intent-filterを定義し、かつ、exported="false"を指定することを原則禁止としているのは、同一アプリ内の非公開Receiverに向けてBroadcastを送信したつもりでも、意図せず他アプリの公開Receiverを呼び出してしまう場合が存在するからである。以下の2つの図で意図せぬ呼び出しが起こる様子を説明する。
 
 図
-4.2‑4は、同一アプリ内からしか非公開Receiver(アプリA）を暗黙的Intentで呼び出せない正常な動作の例である。Intent-filter(図中action="X")を定義しているのが、アプリAしかいないので意図通りの動きとなっている。
+4.2‑4は、同一アプリ内からしか非公開Receiver(アプリA）を暗黙的Intentで呼び出せない正常な動作の例である。Intent-filter(図中action=\"X\")を定義しているのが、アプリAしかいないので意図通りの動きとなっている。
 
-![](media/image38.png){width="4.739583333333333in"
+![](media/image40.png){width="4.739583333333333in"
 height="3.8020833333333335in"}
 
 []{#_Ref336007844 .anchor}図 4.2‑4
 
 図
-4.2‑5は、アプリAに加えてアプリBでも同じintent-filter(図中action="X")を定義している場合である。まず、他のアプリ(アプリC)が暗黙的IntentでBroadcastを送信するのは、非公開Receiver(A-1)側は受信をしないので特にセキュリティ的には問題にならない(図の橙色の矢印)。
+4.2‑5は、アプリAに加えてアプリBでも同じintent-filter(図中action=\"X\")を定義している場合である。まず、他のアプリ(アプリC)が暗黙的IntentでBroadcastを送信するのは、非公開Receiver(A-1)側は受信をしないので特にセキュリティ的には問題にならない(図の橙色の矢印)。
 
 セキュリティ面で問題になるのは、アプリAによる同一アプリ内の非公開Receiverの呼び出しである。アプリAが暗黙的IntentをBroadcastすると、同一アプリ内の非公開Receiverに加えて、同じIntent-filterを定義したBの持つ公開Receiver(B-1)もそのIntentを受信できてしまうからである(図の赤色の矢印)。AからアプリBに対してセンシティブな情報を送信する可能性が生じてしまう。アプリBがマルウェアであれば、そのままセンシティブな情報の漏洩に繋がる。また、BroadcastがOrdered
 Broadcastであった場合は、意図しない結果情報を受け取ってしまう可能性もある。
 
-![](media/image39.png){width="4.739583333333333in"
+![](media/image41.png){width="4.739583333333333in"
 height="3.8020833333333335in"}
 
 []{#_Ref336007850 .anchor}図 4.2‑5
 
 ただし、システムの送信するBroadcast
-Intentのみを受信するBroadcastReceiverを実装する場合には、「exported=”false”かつintent-filter定義あり」を使用すること。かつ、これ以外の組み合わせは使っていけない。これは、システムが送信するBroadcast
-Intentに関してはexported=”false”でも受信可能であるという事実にもとづく。システムが送信するBroadcast
-Intentと同じACTIONのIntentを他アプリが送信した場合、それを受信してしまうと意図しない動作を引き起こす可能性があるが、これはexported=”false”を指定することによって防ぐことができる。
+Intentのみを受信するBroadcastReceiverを実装する場合には、「exported="false"かつintent-filter定義あり」を使用すること。かつ、これ以外の組み合わせは使っていけない。これは、システムが送信するBroadcast
+Intentに関してはexported="false"でも受信可能であるという事実にもとづく。システムが送信するBroadcast
+Intentと同じACTIONのIntentを他アプリが送信した場合、それを受信してしまうと意図しない動作を引き起こす可能性があるが、これはexported="false"を指定することによって防ぐことができる。
 
 #### Receiverはアプリを起動しないと登録されない
 
 AndroidManifest.xmlに静的に定義したBroadcast
-Receiverは、インストールしただけでは有効にならないので注意が必要である[^7]。アプリを1回起動することで、それ以降のBroadcastを受信できるようになるため、インストール後にBroadcast受信をトリガーにして処理を起動させることはできない。ただしBroadcastの送信側でIntentにIntent.FLAG\_INCLUDE\_STOPPED\_PACKAGES
+Receiverは、インストールしただけでは有効にならないので注意が必要である[^8]。アプリを1回起動することで、それ以降のBroadcastを受信できるようになるため、インストール後にBroadcast受信をトリガーにして処理を起動させることはできない。ただしBroadcastの送信側でIntentにIntent.FLAG\_INCLUDE\_STOPPED\_PACKAGES
 を設定してBroadcast送信した場合は、一度も起動していないアプリであってもこのBroadcast
 を受信することができる。
 
@@ -4771,19 +5090,32 @@ Broadcastの特徴的な振る舞いの視点で、上表を逆引き的に再�
 
 表 4.2‑5
 
-  -------------------------------------------------------------------------------------------------------------
-  Broadcastの特徴的な振る舞い                              Normal      Ordered     Sticky      Sticky Ordered
-                                                                                               
-                                                           Broadcast   Broadcast   Broadcast   Broadcast
-  -------------------------------------------------------- ----------- ----------- ----------- ----------------
-  受信可能なBroadcast ReceiverをPermissionにより制限する   ○           ○           －          －
-
-  Broadcast Receiverからの処理結果を取得する               －          ○           －          ○
-
-  順番にBroadcast ReceiverにBroadcastを処理させる          －          ○           －          ○
-
-  既に送信されているBroadcastを後から受信する              －          －          ○           ○
-  -------------------------------------------------------------------------------------------------------------
++-------------+-------------+-------------+-------------+-------------+
+| Broadcastの特 | Normal    | Ordered     | Sticky      | Sticky      |
+| 徴的な振る舞い |          |             |             | Ordered     |
+|             | Broadcast   | Broadcast   | Broadcast   |             |
+|             |             |             |             | Broadcast   |
++=============+=============+=============+=============+=============+
+| 受信可能なBroadc | ○      | ○           | －          | －          |
+| ast         |             |             |             |             |
+| ReceiverをPe |            |             |             |             |
+| rmissionにより |          |             |             |             |
+| 制限する    |             |             |             |             |
++-------------+-------------+-------------+-------------+-------------+
+| Broadcast   | －          | ○           | －          | ○           |
+| Receiverからの |          |             |             |             |
+| 処理結果を取得する |      |             |             |             |
++-------------+-------------+-------------+-------------+-------------+
+| 順番にBroadcas | －       | ○           | －          | ○           |
+| t           |             |             |             |             |
+| ReceiverにBr |            |             |             |             |
+| oadcastを処理さ |         |             |             |             |
+| せる        |             |             |             |             |
++-------------+-------------+-------------+-------------+-------------+
+| 既に送信されているBr | － | －          | ○           | ○           |
+| oadcastを後から |         |             |             |             |
+| 受信する    |             |             |             |             |
++-------------+-------------+-------------+-------------+-------------+
 
 #### Broadcast送信した情報がLogCatに出力される場合がある
 
@@ -4816,7 +5148,7 @@ Intent targetIntent = new Intent(this, TargetActivity.class);
 // ショートカット作成依頼のためのIntent
 
 Intent intent = new
-Intent("com.android.launcher.action.INSTALL\_SHORTCUT");
+Intent(\"com.android.launcher.action.INSTALL\_SHORTCUT\");
 
 // ショートカットのタップ時に起動するIntentを指定
 
@@ -4829,13 +5161,13 @@ intent.putExtra(Intent.EXTRA\_SHORTCUT\_ICON\_RESOURCE, icon);
 
 intent.putExtra(Intent.EXTRA\_SHORTCUT\_NAME, title);
 
-intent.putExtra("duplicate", false);
+intent.putExtra(\"duplicate\", false);
 
 // BroadCastを使って、システムにショートカット作成を依頼する
 
 context.sendBroadcast(intent);
 
-上記で送信しているBroadcastは、受け手がホーム画面アプリであり、パッケージ名を特定することが難しいため、暗黙的Intentによる公開Receiverへの送信となっていることに注意が必要である。つまり、上記で送信したBroadcastはマルウェアを含めた任意のアプリが受信することができ、そのため、Intentにセンシティブな情報が含まれていると情報漏えいの被害につながる可能性がある。URLを基にしたショートカットを作成する場合、URLに秘密の情報が含まれていることもあるため、特に注意が必要である。
+上記で送信しているBroadcastは、受け手がホーム画面アプリであり、パッケージ名を特定することが難しいため、暗黙的Intentによる公開Receiverへの送信となっていることに注意が必要である。つまり、上記で送信したBroadcastはマルウェアを含めた任意のアプリが受信することができ、そのため、Intentにセンシティブな情報が含まれていると情報漏洩の被害につながる可能性がある。URLを基にしたショートカットを作成する場合、URLに秘密の情報が含まれていることもあるため、特に注意が必要である。
 
 対策方法としては、「4.2.1.2公開Broadcast Receiver -
 Broadcastを受信する・送信する」に記載されているポイントに従い、送信するIntentにセンシティブな情報が含まないようにすることが必要である。
@@ -4854,7 +5186,7 @@ Content Providerがどのように利用されるかによって、Content
 Providerが抱えるリスクや適切な防御手段が異なる。次の判定フローによって作成するContent
 Providerがどのタイプであるかを判断できる。
 
-![](media/image40.png){width="6.889763779527559in"
+![](media/image42.png){width="6.889763779527559in"
 height="3.0866141732283463in"}
 
 図 4.3‑1
@@ -4862,65 +5194,66 @@ height="3.0866141732283463in"}
 #### 非公開Content Providerを作る・利用する
 
 非公開Content Providerは、同一アプリ内だけで利用されるContent
-Providerであり、もっとも安全性の高いContent Providerである[^8]。
+Providerであり、もっとも安全性の高いContent Providerである[^9]。
 
 以下、非公開Content Providerの実装例を示す。
 
 > ポイント(Content Providerを作る）：
 
-1.  exported="false"により、明示的に非公開設定する
+1.  exported=\"false\"により、明示的に非公開設定する
 
 &nbsp;
+
 1.  同一アプリ内からのリクエストであっても、パラメータの安全性を確認する
 
 2.  利用元アプリは同一アプリであるから、センシティブな情報を返送してよい
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.provider.privateprovider"&gt;
+package=\"org.jssec.android.provider.privateprovider\"\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateUserActivity"
+android:name=\".PrivateUserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;!-- ★ポイント1★ exported="false"により、明示的に非公開設定する
---&gt;
+\<!\-- ★ポイント1★ exported=\"false\"により、明示的に非公開設定する
+\--\>
 
-&lt;provider
+\<provider
 
-android:name=".PrivateProvider"
+android:name=\".PrivateProvider\"
 
-android:authorities="org.jssec.android.provider.privateprovider"
+android:authorities=\"org.jssec.android.provider.privateprovider\"
 
-android:exported="false" /&gt;
+android:exported=\"false\" /\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PrivateProvider.java
 
@@ -4943,31 +5276,31 @@ import android.net.Uri;
 public class PrivateProvider extends ContentProvider {
 
 public static final String AUTHORITY =
-"org.jssec.android.provider.privateprovider";
+\"org.jssec.android.provider.privateprovider\";
 
 public static final String CONTENT\_TYPE =
-"vnd.android.cursor.dir/vnd.org.jssec.contenttype";
+\"vnd.android.cursor.dir/vnd.org.jssec.contenttype\";
 
 public static final String CONTENT\_ITEM\_TYPE =
-"vnd.android.cursor.item/vnd.org.jssec.contenttype";
+\"vnd.android.cursor.item/vnd.org.jssec.contenttype\";
 
 // Content Providerが提供するインターフェースを公開
 
 public interface Download {
 
-public static final String PATH = "downloads";
+public static final String PATH = \"downloads\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
 public interface Address {
 
-public static final String PATH = "addresses";
+public static final String PATH = \"addresses\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
@@ -4989,12 +5322,12 @@ sUriMatcher = new UriMatcher(UriMatcher.NO\_MATCH);
 
 sUriMatcher.addURI(AUTHORITY, Download.PATH, DOWNLOADS\_CODE);
 
-sUriMatcher.addURI(AUTHORITY, Download.PATH + "/\#",
+sUriMatcher.addURI(AUTHORITY, Download.PATH + \"/\#\",
 DOWNLOADS\_ID\_CODE);
 
 sUriMatcher.addURI(AUTHORITY, Address.PATH, ADDRESSES\_CODE);
 
-sUriMatcher.addURI(AUTHORITY, Address.PATH + "/\#",
+sUriMatcher.addURI(AUTHORITY, Address.PATH + \"/\#\",
 ADDRESSES\_ID\_CODE);
 
 }
@@ -5003,28 +5336,28 @@ ADDRESSES\_ID\_CODE);
 DBを使用せずに固定値を返す例にしているため、queryメソッドで返すCursorを事前に定義
 
 private static MatrixCursor sAddressCursor = new MatrixCursor(new
-String\[\] { "\_id", "pref" });
+String\[\] { \"\_id\", \"pref\" });
 
 static {
 
-sAddressCursor.addRow(new String\[\] { "1", "北海道" });
+sAddressCursor.addRow(new String\[\] { \"1\", \"北海道\" });
 
-sAddressCursor.addRow(new String\[\] { "2", "青森" });
+sAddressCursor.addRow(new String\[\] { \"2\", \"青森\" });
 
-sAddressCursor.addRow(new String\[\] { "3", "岩手" });
+sAddressCursor.addRow(new String\[\] { \"3\", \"岩手\" });
 
 }
 
 private static MatrixCursor sDownloadCursor = new MatrixCursor(new
-String\[\] { "\_id", "path" });
+String\[\] { \"\_id\", \"path\" });
 
 static {
 
-sDownloadCursor.addRow(new String\[\] { "1",
-"/sdcard/downloads/sample.jpg" });
+sDownloadCursor.addRow(new String\[\] { \"1\",
+\"/sdcard/downloads/sample.jpg\" });
 
-sDownloadCursor.addRow(new String\[\] { "2",
-"/sdcard/downloads/sample.txt" });
+sDownloadCursor.addRow(new String\[\] { \"2\",
+\"/sdcard/downloads/sample.txt\" });
 
 }
 
@@ -5069,7 +5402,7 @@ return CONTENT\_ITEM\_TYPE;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -5111,7 +5444,7 @@ return sAddressCursor;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -5148,7 +5481,7 @@ return ContentUris.withAppendedId(Address.CONTENT\_URI, 4);
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -5195,7 +5528,7 @@ return 1;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -5240,7 +5573,7 @@ return 1;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -5276,7 +5609,7 @@ public class PrivateUserActivity extends Activity {
 
 public void onQueryClick(View view) {
 
-logLine("\[Query\]");
+logLine(\"\[Query\]\");
 
 // ★ポイント4★
 同一アプリ内へのリクエストであるから、センシティブな情報をリクエストに含めてよい
@@ -5296,7 +5629,7 @@ PrivateProvider.Download.CONTENT\_URI, null, null, null, null);
 
 if (cursor == null) {
 
-logLine(" null cursor");
+logLine(\" null cursor\");
 
 } else {
 
@@ -5304,7 +5637,7 @@ boolean moved = cursor.moveToFirst();
 
 while (moved) {
 
-logLine(String.format(" %d, %s", cursor.getInt(0),
+logLine(String.format(\" %d, %s\", cursor.getInt(0),
 cursor.getString(1)));
 
 moved = cursor.moveToNext();
@@ -5325,7 +5658,7 @@ if (cursor != null) cursor.close();
 
 public void onInsertClick(View view) {
 
-logLine("\[Insert\]");
+logLine(\"\[Insert\]\");
 
 // ★ポイント4★
 同一アプリ内へのリクエストであるから、センシティブな情報をリクエストに含めてよい
@@ -5339,13 +5672,13 @@ null);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(" uri:" + uri);
+logLine(\" uri:\" + uri);
 
 }
 
 public void onUpdateClick(View view) {
 
-logLine("\[Update\]");
+logLine(\"\[Update\]\");
 
 // ★ポイント4★
 同一アプリ内へのリクエストであるから、センシティブな情報をリクエストに含めてよい
@@ -5359,13 +5692,13 @@ null, null);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(String.format(" %s records updated", count));
+logLine(String.format(\" %s records updated\", count));
 
 }
 
 public void onDeleteClick(View view) {
 
-logLine("\[Delete\]");
+logLine(\"\[Delete\]\");
 
 // ★ポイント4★
 同一アプリ内へのリクエストであるから、センシティブな情報をリクエストに含めてよい
@@ -5379,7 +5712,7 @@ PrivateProvider.Download.CONTENT\_URI, null, null);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(String.format(" %s records deleted", count));
+logLine(String.format(\" %s records deleted\", count));
 
 }
 
@@ -5401,7 +5734,7 @@ private void logLine(String line) {
 
 mLogView.append(line);
 
-mLogView.append("\\n");
+mLogView.append(\"\\n\");
 
 }
 
@@ -5424,40 +5757,41 @@ Providerに成り済ましできない。
 
 > ポイント(Content Providerを作る)：
 
-1.  exported="true"により、明示的に公開設定する
+1.  exported=\"true\"により、明示的に公開設定する
 
 2.  リクエストパラメータの安全性を確認する
 
 &nbsp;
+
 1.  センシティブな情報を返送してはならない
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.provider.publicprovider"&gt;
+package=\"org.jssec.android.provider.publicprovider\"\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- ★ポイント1★ exported="true"により、明示的に公開設定する --&gt;
+\<!\-- ★ポイント1★ exported=\"true\"により、明示的に公開設定する \--\>
 
-&lt;provider
+\<provider
 
-android:name=".PublicProvider"
+android:name=\".PublicProvider\"
 
-android:authorities="org.jssec.android.provider.publicprovider"
+android:authorities=\"org.jssec.android.provider.publicprovider\"
 
-android:exported="true"/&gt;
+android:exported=\"true\"/\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PublicProvider.java
 
@@ -5480,31 +5814,31 @@ import android.net.Uri;
 public class PublicProvider extends ContentProvider {
 
 public static final String AUTHORITY =
-"org.jssec.android.provider.publicprovider";
+\"org.jssec.android.provider.publicprovider\";
 
 public static final String CONTENT\_TYPE =
-"vnd.android.cursor.dir/vnd.org.jssec.contenttype";
+\"vnd.android.cursor.dir/vnd.org.jssec.contenttype\";
 
 public static final String CONTENT\_ITEM\_TYPE =
-"vnd.android.cursor.item/vnd.org.jssec.contenttype";
+\"vnd.android.cursor.item/vnd.org.jssec.contenttype\";
 
 // Content Providerが提供するインターフェースを公開
 
 public interface Download {
 
-public static final String PATH = "downloads";
+public static final String PATH = \"downloads\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
 public interface Address {
 
-public static final String PATH = "addresses";
+public static final String PATH = \"addresses\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
@@ -5526,12 +5860,12 @@ sUriMatcher = new UriMatcher(UriMatcher.NO\_MATCH);
 
 sUriMatcher.addURI(AUTHORITY, Download.PATH, DOWNLOADS\_CODE);
 
-sUriMatcher.addURI(AUTHORITY, Download.PATH + "/\#",
+sUriMatcher.addURI(AUTHORITY, Download.PATH + \"/\#\",
 DOWNLOADS\_ID\_CODE);
 
 sUriMatcher.addURI(AUTHORITY, Address.PATH, ADDRESSES\_CODE);
 
-sUriMatcher.addURI(AUTHORITY, Address.PATH + "/\#",
+sUriMatcher.addURI(AUTHORITY, Address.PATH + \"/\#\",
 ADDRESSES\_ID\_CODE);
 
 }
@@ -5540,28 +5874,28 @@ ADDRESSES\_ID\_CODE);
 DBを使用せずに固定値を返す例にしているため、queryメソッドで返すCursorを事前に定義
 
 private static MatrixCursor sAddressCursor = new MatrixCursor(new
-String\[\] { "\_id", "pref" });
+String\[\] { \"\_id\", \"pref\" });
 
 static {
 
-sAddressCursor.addRow(new String\[\] { "1", "北海道" });
+sAddressCursor.addRow(new String\[\] { \"1\", \"北海道\" });
 
-sAddressCursor.addRow(new String\[\] { "2", "青森" });
+sAddressCursor.addRow(new String\[\] { \"2\", \"青森\" });
 
-sAddressCursor.addRow(new String\[\] { "3", "岩手" });
+sAddressCursor.addRow(new String\[\] { \"3\", \"岩手\" });
 
 }
 
 private static MatrixCursor sDownloadCursor = new MatrixCursor(new
-String\[\] { "\_id", "path" });
+String\[\] { \"\_id\", \"path\" });
 
 static {
 
-sDownloadCursor.addRow(new String\[\] { "1",
-"/sdcard/downloads/sample.jpg" });
+sDownloadCursor.addRow(new String\[\] { \"1\",
+\"/sdcard/downloads/sample.jpg\" });
 
-sDownloadCursor.addRow(new String\[\] { "2",
-"/sdcard/downloads/sample.txt" });
+sDownloadCursor.addRow(new String\[\] { \"2\",
+\"/sdcard/downloads/sample.txt\" });
 
 }
 
@@ -5593,7 +5927,7 @@ return CONTENT\_ITEM\_TYPE;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -5638,7 +5972,7 @@ return sAddressCursor;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -5678,7 +6012,7 @@ return ContentUris.withAppendedId(Address.CONTENT\_URI, 4);
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -5728,7 +6062,7 @@ return 1;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -5776,7 +6110,7 @@ return 1;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -5817,24 +6151,24 @@ public class PublicUserActivity extends Activity {
 // 利用先のContent Provider情報
 
 private static final String AUTHORITY =
-"org.jssec.android.provider.publicprovider";
+\"org.jssec.android.provider.publicprovider\";
 
 private interface Address {
 
-public static final String PATH = "addresses";
+public static final String PATH = \"addresses\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
 public void onQueryClick(View view) {
 
-logLine("\[Query\]");
+logLine(\"\[Query\]\");
 
 if (!providerExists(Address.CONTENT\_URI)) {
 
-logLine(" Content Providerが不在");
+logLine(\" Content Providerが不在\");
 
 return;
 
@@ -5860,7 +6194,7 @@ null, null);
 
 if (cursor == null) {
 
-logLine(" null cursor");
+logLine(\" null cursor\");
 
 } else {
 
@@ -5868,7 +6202,7 @@ boolean moved = cursor.moveToFirst();
 
 while (moved) {
 
-logLine(String.format(" %d, %s", cursor.getInt(0),
+logLine(String.format(\" %d, %s\", cursor.getInt(0),
 cursor.getString(1)));
 
 moved = cursor.moveToNext();
@@ -5889,11 +6223,11 @@ if (cursor != null) cursor.close();
 
 public void onInsertClick(View view) {
 
-logLine("\[Insert\]");
+logLine(\"\[Insert\]\");
 
 if (!providerExists(Address.CONTENT\_URI)) {
 
-logLine(" Content Providerが不在");
+logLine(\" Content Providerが不在\");
 
 return;
 
@@ -5908,7 +6242,7 @@ return;
 
 ContentValues values = new ContentValues();
 
-values.put("pref", "東京都");
+values.put(\"pref\", \"東京都\");
 
 Uri uri = getContentResolver().insert(Address.CONTENT\_URI, values);
 
@@ -5916,17 +6250,17 @@ Uri uri = getContentResolver().insert(Address.CONTENT\_URI, values);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(" uri:" + uri);
+logLine(\" uri:\" + uri);
 
 }
 
 public void onUpdateClick(View view) {
 
-logLine("\[Update\]");
+logLine(\"\[Update\]\");
 
 if (!providerExists(Address.CONTENT\_URI)) {
 
-logLine(" Content Providerが不在");
+logLine(\" Content Providerが不在\");
 
 return;
 
@@ -5941,11 +6275,11 @@ return;
 
 ContentValues values = new ContentValues();
 
-values.put("pref", "東京都");
+values.put(\"pref\", \"東京都\");
 
-String where = "\_id = ?";
+String where = \"\_id = ?\";
 
-String\[\] args = { "4" };
+String\[\] args = { \"4\" };
 
 int count = getContentResolver().update(Address.CONTENT\_URI, values,
 where, args);
@@ -5954,17 +6288,17 @@ where, args);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(String.format(" %s records updated", count));
+logLine(String.format(\" %s records updated\", count));
 
 }
 
 public void onDeleteClick(View view) {
 
-logLine("\[Delete\]");
+logLine(\"\[Delete\]\");
 
 if (!providerExists(Address.CONTENT\_URI)) {
 
-logLine(" Content Providerが不在");
+logLine(\" Content Providerが不在\");
 
 return;
 
@@ -5984,7 +6318,7 @@ null);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(String.format(" %s records deleted", count));
+logLine(String.format(\" %s records deleted\", count));
 
 }
 
@@ -6015,7 +6349,7 @@ private void logLine(String line) {
 
 mLogView.append(line);
 
-mLogView.append("\\n");
+mLogView.append(\"\\n\");
 
 }
 
@@ -6030,42 +6364,43 @@ Providerである。パートナー企業のアプリと自社アプリが連携
 
 > ポイント(Content Providerを作る)：
 
-1.  exported="true"により、明示的に公開設定する
+1.  exported=\"true\"により、明示的に公開設定する
 
 2.  利用元アプリの証明書がホワイトリストに登録されていることを確認する
 
 &nbsp;
+
 1.  パートナーアプリからのリクエストであっても、パラメータの安全性を確認する
 
 2.  パートナーアプリに開示してよい情報に限り返送してよい
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.provider.partnerprovider"&gt;
+package=\"org.jssec.android.provider.partnerprovider\"\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- ★ポイント1★ exported="true"により、明示的に公開設定する --&gt;
+\<!\-- ★ポイント1★ exported=\"true\"により、明示的に公開設定する \--\>
 
-&lt;provider
+\<provider
 
-android:name="org.jssec.android.provider.partnerprovider.PartnerProvider"
+android:name=\"org.jssec.android.provider.partnerprovider.PartnerProvider\"
 
-android:authorities="org.jssec.android.provider.partnerprovider"
+android:authorities=\"org.jssec.android.provider.partnerprovider\"
 
-android:exported="true"/&gt;
+android:exported=\"true\"/\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PartnerProvider.java
 
@@ -6104,31 +6439,31 @@ import android.os.Build;
 public class PartnerProvider extends ContentProvider {
 
 public static final String AUTHORITY =
-"org.jssec.android.provider.partnerprovider";
+\"org.jssec.android.provider.partnerprovider\";
 
 public static final String CONTENT\_TYPE =
-"vnd.android.cursor.dir/vnd.org.jssec.contenttype";
+\"vnd.android.cursor.dir/vnd.org.jssec.contenttype\";
 
 public static final String CONTENT\_ITEM\_TYPE =
-"vnd.android.cursor.item/vnd.org.jssec.contenttype";
+\"vnd.android.cursor.item/vnd.org.jssec.contenttype\";
 
 // Content Providerが提供するインターフェースを公開
 
 public interface Download {
 
-public static final String PATH = "downloads";
+public static final String PATH = \"downloads\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
 public interface Address {
 
-public static final String PATH = "addresses";
+public static final String PATH = \"addresses\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
@@ -6150,12 +6485,12 @@ sUriMatcher = new UriMatcher(UriMatcher.NO\_MATCH);
 
 sUriMatcher.addURI(AUTHORITY, Download.PATH, DOWNLOADS\_CODE);
 
-sUriMatcher.addURI(AUTHORITY, Download.PATH + "/\#",
+sUriMatcher.addURI(AUTHORITY, Download.PATH + \"/\#\",
 DOWNLOADS\_ID\_CODE);
 
 sUriMatcher.addURI(AUTHORITY, Address.PATH, ADDRESSES\_CODE);
 
-sUriMatcher.addURI(AUTHORITY, Address.PATH + "/\#",
+sUriMatcher.addURI(AUTHORITY, Address.PATH + \"/\#\",
 ADDRESSES\_ID\_CODE);
 
 }
@@ -6164,28 +6499,28 @@ ADDRESSES\_ID\_CODE);
 DBを使用せずに固定値を返す例にしているため、queryメソッドで返すCursorを事前に定義
 
 private static MatrixCursor sAddressCursor = new MatrixCursor(new
-String\[\] { "\_id", "pref" });
+String\[\] { \"\_id\", \"pref\" });
 
 static {
 
-sAddressCursor.addRow(new String\[\] { "1", "北海道" });
+sAddressCursor.addRow(new String\[\] { \"1\", \"北海道\" });
 
-sAddressCursor.addRow(new String\[\] { "2", "青森" });
+sAddressCursor.addRow(new String\[\] { \"2\", \"青森\" });
 
-sAddressCursor.addRow(new String\[\] { "3", "岩手" });
+sAddressCursor.addRow(new String\[\] { \"3\", \"岩手\" });
 
 }
 
 private static MatrixCursor sDownloadCursor = new MatrixCursor(new
-String\[\] { "\_id", "path" });
+String\[\] { \"\_id\", \"path\" });
 
 static {
 
-sDownloadCursor.addRow(new String\[\] { "1",
-"/sdcard/downloads/sample.jpg" });
+sDownloadCursor.addRow(new String\[\] { \"1\",
+\"/sdcard/downloads/sample.jpg\" });
 
-sDownloadCursor.addRow(new String\[\] { "2",
-"/sdcard/downloads/sample.txt" });
+sDownloadCursor.addRow(new String\[\] { \"2\",
+\"/sdcard/downloads/sample.txt\" });
 
 }
 
@@ -6203,19 +6538,19 @@ sWhitelists = new PkgCertWhitelists();
 // パートナーアプリ org.jssec.android.provider.partneruser
 の証明書ハッシュ値を登録
 
-sWhitelists.add("org.jssec.android.provider.partneruser", isdebug ?
+sWhitelists.add(\"org.jssec.android.provider.partneruser\", isdebug ?
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
-F77C8255" :
+\"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
+F77C8255\" :
 
-// keystoreの"partner key"の証明書ハッシュ値
+// keystoreの\"partner key\"の証明書ハッシュ値
 
-"1F039BB5 7861C27A 3916C778 8E78CE00 690B3974 3EB8259F E2627B8D
-4C0EC35A");
+\"1F039BB5 7861C27A 3916C778 8E78CE00 690B3974 3EB8259F E2627B8D
+4C0EC35A\");
 
-// 以下同様に他のパートナーアプリを登録...
+// 以下同様に他のパートナーアプリを登録\...
 
 }
 
@@ -6233,7 +6568,7 @@ private String getCallingPackage(Context context) {
 
 String pkgname;
 
-if (Build.VERSION.SDK\_INT &gt;= Build.VERSION\_CODES.KITKAT) {
+if (Build.VERSION.SDK\_INT \>= Build.VERSION\_CODES.KITKAT) {
 
 pkgname = super.getCallingPackage();
 
@@ -6244,8 +6579,7 @@ pkgname = null;
 ActivityManager am = (ActivityManager)
 context.getSystemService(Context.ACTIVITY\_SERVICE);
 
-List&lt;RunningAppProcessInfo&gt; procList =
-am.getRunningAppProcesses();
+List\<RunningAppProcessInfo\> procList = am.getRunningAppProcesses();
 
 int callingPid = Binder.getCallingPid();
 
@@ -6299,7 +6633,7 @@ return CONTENT\_ITEM\_TYPE;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -6316,7 +6650,8 @@ String\[\] selectionArgs, String sortOrder) {
 
 if (!checkPartner(getContext(), getCallingPackage(getContext()))) {
 
-throw new SecurityException("利用元アプリはパートナーアプリではない。");
+throw new
+SecurityException(\"利用元アプリはパートナーアプリではない。\");
 
 }
 
@@ -6348,7 +6683,7 @@ return sAddressCursor;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -6363,7 +6698,8 @@ public Uri insert(Uri uri, ContentValues values) {
 
 if (!checkPartner(getContext(), getCallingPackage(getContext()))) {
 
-throw new SecurityException("利用元アプリはパートナーアプリではない。");
+throw new
+SecurityException(\"利用元アプリはパートナーアプリではない。\");
 
 }
 
@@ -6392,7 +6728,7 @@ return ContentUris.withAppendedId(Address.CONTENT\_URI, 4);
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -6409,7 +6745,8 @@ String\[\] selectionArgs) {
 
 if (!checkPartner(getContext(), getCallingPackage(getContext()))) {
 
-throw new SecurityException("利用元アプリはパートナーアプリではない。");
+throw new
+SecurityException(\"利用元アプリはパートナーアプリではない。\");
 
 }
 
@@ -6446,7 +6783,7 @@ return 1;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -6461,7 +6798,8 @@ public int delete(Uri uri, String selection, String\[\] selectionArgs) {
 
 if (!checkPartner(getContext(), getCallingPackage(getContext()))) {
 
-throw new SecurityException("利用元アプリはパートナーアプリではない。");
+throw new
+SecurityException(\"利用元アプリはパートナーアプリではない。\");
 
 }
 
@@ -6498,7 +6836,7 @@ return 1;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -6550,14 +6888,14 @@ public class PartnerUserActivity extends Activity {
 // 利用先のContent Provider情報
 
 private static final String AUTHORITY =
-"org.jssec.android.provider.partnerprovider";
+\"org.jssec.android.provider.partnerprovider\";
 
 private interface Address {
 
-public static final String PATH = "addresses";
+public static final String PATH = \"addresses\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
@@ -6575,19 +6913,20 @@ sWhitelists = new PkgCertWhitelists();
 // パートナー限定Content Providerアプリ
 org.jssec.android.provider.partnerprovider の証明書ハッシュ値を登録
 
-sWhitelists.add("org.jssec.android.provider.partnerprovider", isdebug ?
+sWhitelists.add(\"org.jssec.android.provider.partnerprovider\", isdebug
+?
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
-F77C8255" :
+\"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
+F77C8255\" :
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B D7B3A7C2
-42E142CA");
+\"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B D7B3A7C2
+42E142CA\");
 
-// 以下同様に他のパートナー限定Content Providerアプリを登録...
+// 以下同様に他のパートナー限定Content Providerアプリを登録\...
 
 }
 
@@ -6616,15 +6955,15 @@ return pkgname;
 
 public void onQueryClick(View view) {
 
-logLine("\[Query\]");
+logLine(\"\[Query\]\");
 
 // ★ポイント5★ 利用先パートナー限定Content
 Providerアプリの証明書がホワイトリストに登録されていることを確認する
 
 if (!checkPartner(this, providerPkgname(Address.CONTENT\_URI))) {
 
-logLine(" 利用先 Content Provider
-アプリはホワイトリストに登録されていない。");
+logLine(\" 利用先 Content Provider
+アプリはホワイトリストに登録されていない。\");
 
 return;
 
@@ -6647,7 +6986,7 @@ Providerアプリからの結果であっても、結果データの安全性を
 
 if (cursor == null) {
 
-logLine(" null cursor");
+logLine(\" null cursor\");
 
 } else {
 
@@ -6655,7 +6994,7 @@ boolean moved = cursor.moveToFirst();
 
 while (moved) {
 
-logLine(String.format(" %d, %s", cursor.getInt(0),
+logLine(String.format(\" %d, %s\", cursor.getInt(0),
 cursor.getString(1)));
 
 moved = cursor.moveToNext();
@@ -6676,15 +7015,15 @@ if (cursor != null) cursor.close();
 
 public void onInsertClick(View view) {
 
-logLine("\[Insert\]");
+logLine(\"\[Insert\]\");
 
 // ★ポイント5★ 利用先パートナー限定Content
 Providerアプリの証明書がホワイトリストに登録されていることを確認する
 
 if (!checkPartner(this, providerPkgname(Address.CONTENT\_URI))) {
 
-logLine(" 利用先 Content Provider
-アプリはホワイトリストに登録されていない。");
+logLine(\" 利用先 Content Provider
+アプリはホワイトリストに登録されていない。\");
 
 return;
 
@@ -6695,7 +7034,7 @@ Providerアプリに開示してよい情報に限りリクエストに含めて
 
 ContentValues values = new ContentValues();
 
-values.put("pref", "東京都");
+values.put(\"pref\", \"東京都\");
 
 Uri uri = getContentResolver().insert(Address.CONTENT\_URI, values);
 
@@ -6704,21 +7043,21 @@ Providerアプリからの結果であっても、結果データの安全性を
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(" uri:" + uri);
+logLine(\" uri:\" + uri);
 
 }
 
 public void onUpdateClick(View view) {
 
-logLine("\[Update\]");
+logLine(\"\[Update\]\");
 
 // ★ポイント5★ 利用先パートナー限定Content
 Providerアプリの証明書がホワイトリストに登録されていることを確認する
 
 if (!checkPartner(this, providerPkgname(Address.CONTENT\_URI))) {
 
-logLine(" 利用先 Content Provider
-アプリはホワイトリストに登録されていない。");
+logLine(\" 利用先 Content Provider
+アプリはホワイトリストに登録されていない。\");
 
 return;
 
@@ -6729,11 +7068,11 @@ Providerアプリに開示してよい情報に限りリクエストに含めて
 
 ContentValues values = new ContentValues();
 
-values.put("pref", "東京都");
+values.put(\"pref\", \"東京都\");
 
-String where = "\_id = ?";
+String where = \"\_id = ?\";
 
-String\[\] args = { "4" };
+String\[\] args = { \"4\" };
 
 int count = getContentResolver().update(Address.CONTENT\_URI, values,
 where, args);
@@ -6743,21 +7082,21 @@ Providerアプリからの結果であっても、結果データの安全性を
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(String.format(" %s records updated", count));
+logLine(String.format(\" %s records updated\", count));
 
 }
 
 public void onDeleteClick(View view) {
 
-logLine("\[Delete\]");
+logLine(\"\[Delete\]\");
 
 // ★ポイント5★ 利用先パートナー限定Content
 Providerアプリの証明書がホワイトリストに登録されていることを確認する
 
 if (!checkPartner(this, providerPkgname(Address.CONTENT\_URI))) {
 
-logLine(" 利用先 Content Provider
-アプリはホワイトリストに登録されていない。");
+logLine(\" 利用先 Content Provider
+アプリはホワイトリストに登録されていない。\");
 
 return;
 
@@ -6774,7 +7113,7 @@ Providerアプリからの結果であっても、結果データの安全性を
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(String.format(" %s records deleted", count));
+logLine(String.format(\" %s records deleted\", count));
 
 }
 
@@ -6796,7 +7135,7 @@ private void logLine(String line) {
 
 mLogView.append(line);
 
-mLogView.append("\\n");
+mLogView.append(\"\\n\");
 
 }
 
@@ -6814,8 +7153,8 @@ import android.content.Context;
 
 public class PkgCertWhitelists {
 
-private Map&lt;String, String&gt; mWhitelists = new HashMap&lt;String,
-String&gt;();
+private Map\<String, String\> mWhitelists = new HashMap\<String,
+String\>();
 
 public boolean add(String pkgname, String sha256) {
 
@@ -6823,14 +7162,14 @@ if (pkgname == null) return false;
 
 if (sha256 == null) return false;
 
-sha256 = sha256.replaceAll(" ", "");
+sha256 = sha256.replaceAll(\" \", \"\");
 
 if (sha256.length() != 64) return false; // SHA-256は32バイト
 
 sha256 = sha256.toUpperCase();
 
-if (sha256.replaceAll("\[0-9A-F\]+", "").length() != 0) return false; //
-0-9A-F 以外の文字がある
+if (sha256.replaceAll(\"\[0-9A-F\]+\", \"\").length() != 0) return
+false; // 0-9A-F 以外の文字がある
 
 mWhitelists.put(pkgname, sha256);
 
@@ -6877,7 +7216,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -6916,7 +7255,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -6934,7 +7273,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -6957,9 +7296,10 @@ Providerである。複数の自社製アプリでシステムを構成し、自
 1.  独自定義Signature Permissionを定義する
 
 &nbsp;
+
 1.  独自定義Signature Permissionを要求宣言する
 
-2.  exported="true"により、明示的に公開設定する
+2.  exported=\"true\"により、明示的に公開設定する
 
 3.  独自定義Signature
     Permissionが自社アプリにより定義されていることを確認する
@@ -6972,43 +7312,43 @@ Providerである。複数の自社製アプリでシステムを構成し、自
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.provider.inhouseprovider"&gt;
+package=\"org.jssec.android.provider.inhouseprovider\"\>
 
-&lt;!-- ★ポイント1★ 独自定義Signature Permissionを定義する --&gt;
+\<!\-- ★ポイント1★ 独自定義Signature Permissionを定義する \--\>
 
-&lt;permission
+\<permission
 
-android:name="org.jssec.android.provider.inhouseprovider.MY\_PERMISSION"
+android:name=\"org.jssec.android.provider.inhouseprovider.MY\_PERMISSION\"
 
-android:protectionLevel="signature" /&gt;
+android:protectionLevel=\"signature\" /\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- ★ポイント2★ 独自定義Signature Permissionを要求宣言する --&gt;
+\<!\-- ★ポイント2★ 独自定義Signature Permissionを要求宣言する \--\>
 
-&lt;!-- ★ポイント3★ exported="true"により、明示的に公開設定する --&gt;
+\<!\-- ★ポイント3★ exported=\"true\"により、明示的に公開設定する \--\>
 
-&lt;provider
+\<provider
 
-android:name="org.jssec.android.provider.inhouseprovider.InhouseProvider"
+android:name=\"org.jssec.android.provider.inhouseprovider.InhouseProvider\"
 
-android:authorities="org.jssec.android.provider.inhouseprovider"
+android:authorities=\"org.jssec.android.provider.inhouseprovider\"
 
-android:permission="org.jssec.android.provider.inhouseprovider.MY\_PERMISSION"
+android:permission=\"org.jssec.android.provider.inhouseprovider.MY\_PERMISSION\"
 
-android:exported="true"/&gt;
+android:exported=\"true\"/\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > InhouseProvider.java
 
@@ -7037,31 +7377,31 @@ import android.net.Uri;
 public class InhouseProvider extends ContentProvider {
 
 public static final String AUTHORITY =
-"org.jssec.android.provider.inhouseprovider";
+\"org.jssec.android.provider.inhouseprovider\";
 
 public static final String CONTENT\_TYPE =
-"vnd.android.cursor.dir/vnd.org.jssec.contenttype";
+\"vnd.android.cursor.dir/vnd.org.jssec.contenttype\";
 
 public static final String CONTENT\_ITEM\_TYPE =
-"vnd.android.cursor.item/vnd.org.jssec.contenttype";
+\"vnd.android.cursor.item/vnd.org.jssec.contenttype\";
 
 // Content Providerが提供するインターフェースを公開
 
 public interface Download {
 
-public static final String PATH = "downloads";
+public static final String PATH = \"downloads\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
 public interface Address {
 
-public static final String PATH = "addresses";
+public static final String PATH = \"addresses\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
@@ -7083,12 +7423,12 @@ sUriMatcher = new UriMatcher(UriMatcher.NO\_MATCH);
 
 sUriMatcher.addURI(AUTHORITY, Download.PATH, DOWNLOADS\_CODE);
 
-sUriMatcher.addURI(AUTHORITY, Download.PATH + "/\#",
+sUriMatcher.addURI(AUTHORITY, Download.PATH + \"/\#\",
 DOWNLOADS\_ID\_CODE);
 
 sUriMatcher.addURI(AUTHORITY, Address.PATH, ADDRESSES\_CODE);
 
-sUriMatcher.addURI(AUTHORITY, Address.PATH + "/\#",
+sUriMatcher.addURI(AUTHORITY, Address.PATH + \"/\#\",
 ADDRESSES\_ID\_CODE);
 
 }
@@ -7097,35 +7437,35 @@ ADDRESSES\_ID\_CODE);
 DBを使用せずに固定値を返す例にしているため、queryメソッドで返すCursorを事前に定義
 
 private static MatrixCursor sAddressCursor = new MatrixCursor(new
-String\[\] { "\_id", "pref" });
+String\[\] { \"\_id\", \"pref\" });
 
 static {
 
-sAddressCursor.addRow(new String\[\] { "1", "北海道" });
+sAddressCursor.addRow(new String\[\] { \"1\", \"北海道\" });
 
-sAddressCursor.addRow(new String\[\] { "2", "青森" });
+sAddressCursor.addRow(new String\[\] { \"2\", \"青森\" });
 
-sAddressCursor.addRow(new String\[\] { "3", "岩手" });
+sAddressCursor.addRow(new String\[\] { \"3\", \"岩手\" });
 
 }
 
 private static MatrixCursor sDownloadCursor = new MatrixCursor(new
-String\[\] { "\_id", "path" });
+String\[\] { \"\_id\", \"path\" });
 
 static {
 
-sDownloadCursor.addRow(new String\[\] { "1",
-"/sdcard/downloads/sample.jpg" });
+sDownloadCursor.addRow(new String\[\] { \"1\",
+\"/sdcard/downloads/sample.jpg\" });
 
-sDownloadCursor.addRow(new String\[\] { "2",
-"/sdcard/downloads/sample.txt" });
+sDownloadCursor.addRow(new String\[\] { \"2\",
+\"/sdcard/downloads/sample.txt\" });
 
 }
 
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.provider.inhouseprovider.MY\_PERMISSION";
+\"org.jssec.android.provider.inhouseprovider.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -7137,17 +7477,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -7185,7 +7525,7 @@ return CONTENT\_ITEM\_TYPE;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -7203,8 +7543,8 @@ Permissionが自社アプリにより定義されていることを確認する
 if (!SigPerm.test(getContext(), MY\_PERMISSION,
 myCertHash(getContext()))) {
 
-throw new SecurityException("独自定義Signature
-Permissionが自社アプリにより定義されていない。");
+throw new SecurityException(\"独自定義Signature
+Permissionが自社アプリにより定義されていない。\");
 
 }
 
@@ -7237,7 +7577,7 @@ return sAddressCursor;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -7253,8 +7593,8 @@ Permissionが自社アプリにより定義されていることを確認する
 if (!SigPerm.test(getContext(), MY\_PERMISSION,
 myCertHash(getContext()))) {
 
-throw new SecurityException("独自定義Signature
-Permissionが自社アプリにより定義されていない。");
+throw new SecurityException(\"独自定義Signature
+Permissionが自社アプリにより定義されていない。\");
 
 }
 
@@ -7284,7 +7624,7 @@ return ContentUris.withAppendedId(Address.CONTENT\_URI, 4);
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -7302,8 +7642,8 @@ Permissionが自社アプリにより定義されていることを確認する
 if (!SigPerm.test(getContext(), MY\_PERMISSION,
 myCertHash(getContext()))) {
 
-throw new SecurityException("独自定義Signature
-Permissionが自社アプリにより定義されていない。");
+throw new SecurityException(\"独自定義Signature
+Permissionが自社アプリにより定義されていない。\");
 
 }
 
@@ -7341,7 +7681,7 @@ return 1;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -7357,8 +7697,8 @@ Permissionが自社アプリにより定義されていることを確認する
 if (!SigPerm.test(getContext(), MY\_PERMISSION,
 myCertHash(getContext()))) {
 
-throw new SecurityException("独自定義Signature
-Permissionが自社アプリにより定義されていない。");
+throw new SecurityException(\"独自定義Signature
+Permissionが自社アプリにより定義されていない。\");
 
 }
 
@@ -7396,7 +7736,7 @@ return 1;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -7423,7 +7763,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, sigPermName));
 
@@ -7489,7 +7829,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -7528,7 +7868,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -7546,7 +7886,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -7585,46 +7925,46 @@ height="3.2743055555555554in"}
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.provider.inhouseuser"&gt;
+package=\"org.jssec.android.provider.inhouseuser\"\>
 
-&lt;!-- ★ポイント7★ 独自定義Signature Permissionを利用宣言する --&gt;
+\<!\-- ★ポイント7★ 独自定義Signature Permissionを利用宣言する \--\>
 
-&lt;uses-permission
+\<uses-permission
 
-android:name="org.jssec.android.provider.inhouseprovider.MY\_PERMISSION"
-/&gt;
+android:name=\"org.jssec.android.provider.inhouseprovider.MY\_PERMISSION\"
+/\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;activity
+\<activity
 
-android:name="org.jssec.android.provider.inhouseuser.InhouseUserActivity"
+android:name=\"org.jssec.android.provider.inhouseuser.InhouseUserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > InhouseUserActivity.java
 
@@ -7661,21 +8001,21 @@ public class InhouseUserActivity extends Activity {
 // 利用先のContent Provider情報
 
 private static final String AUTHORITY =
-"org.jssec.android.provider.inhouseprovider";
+\"org.jssec.android.provider.inhouseprovider\";
 
 private interface Address {
 
-public static final String PATH = "addresses";
+public static final String PATH = \"addresses\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.provider.inhouseprovider.MY\_PERMISSION";
+\"org.jssec.android.provider.inhouseprovider.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -7687,17 +8027,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -7725,15 +8065,15 @@ return pkgname;
 
 public void onQueryClick(View view) {
 
-logLine("\[Query\]");
+logLine(\"\[Query\]\");
 
 // ★ポイント9★ 独自定義Signature
 Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(this, MY\_PERMISSION, myCertHash(this))) {
 
-logLine(" 独自定義Signature
-Permissionが自社アプリにより定義されていない。");
+logLine(\" 独自定義Signature
+Permissionが自社アプリにより定義されていない。\");
 
 return;
 
@@ -7746,7 +8086,7 @@ String pkgname = providerPkgname(this, Address.CONTENT\_URI);
 
 if (!PkgCert.test(this, pkgname, myCertHash(this))) {
 
-logLine(" 利用先 Content Provider は自社アプリではない。");
+logLine(\" 利用先 Content Provider は自社アプリではない。\");
 
 return;
 
@@ -7769,7 +8109,7 @@ Providerアプリからの結果であっても、結果データの安全性を
 
 if (cursor == null) {
 
-logLine(" null cursor");
+logLine(\" null cursor\");
 
 } else {
 
@@ -7777,7 +8117,7 @@ boolean moved = cursor.moveToFirst();
 
 while (moved) {
 
-logLine(String.format(" %d, %s", cursor.getInt(0),
+logLine(String.format(\" %d, %s\", cursor.getInt(0),
 cursor.getString(1)));
 
 moved = cursor.moveToNext();
@@ -7798,7 +8138,7 @@ if (cursor != null) cursor.close();
 
 public void onInsertClick(View view) {
 
-logLine("\[Insert\]");
+logLine(\"\[Insert\]\");
 
 // ★ポイント9★ 独自定義Signature
 Permissionが自社アプリにより定義されていることを確認する
@@ -7807,8 +8147,8 @@ String correctHash = myCertHash(this);
 
 if (!SigPerm.test(this, MY\_PERMISSION, correctHash)) {
 
-logLine(" 独自定義Signature
-Permissionが自社アプリにより定義されていない。");
+logLine(\" 独自定義Signature
+Permissionが自社アプリにより定義されていない。\");
 
 return;
 
@@ -7821,7 +8161,7 @@ String pkgname = providerPkgname(this, Address.CONTENT\_URI);
 
 if (!PkgCert.test(this, pkgname, correctHash)) {
 
-logLine(" 利用先 Content Provider は自社アプリではない。");
+logLine(\" 利用先 Content Provider は自社アプリではない。\");
 
 return;
 
@@ -7832,7 +8172,7 @@ Providerアプリに開示してよい情報に限りリクエストに含めて
 
 ContentValues values = new ContentValues();
 
-values.put("pref", "東京都");
+values.put(\"pref\", \"東京都\");
 
 Uri uri = getContentResolver().insert(Address.CONTENT\_URI, values);
 
@@ -7841,13 +8181,13 @@ Providerアプリからの結果であっても、結果データの安全性を
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(" uri:" + uri);
+logLine(\" uri:\" + uri);
 
 }
 
 public void onUpdateClick(View view) {
 
-logLine("\[Update\]");
+logLine(\"\[Update\]\");
 
 // ★ポイント9★ 独自定義Signature
 Permissionが自社アプリにより定義されていることを確認する
@@ -7856,8 +8196,8 @@ String correctHash = myCertHash(this);
 
 if (!SigPerm.test(this, MY\_PERMISSION, correctHash)) {
 
-logLine(" 独自定義Signature
-Permissionが自社アプリにより定義されていない。");
+logLine(\" 独自定義Signature
+Permissionが自社アプリにより定義されていない。\");
 
 return;
 
@@ -7870,7 +8210,7 @@ String pkgname = providerPkgname(this, Address.CONTENT\_URI);
 
 if (!PkgCert.test(this, pkgname, correctHash)) {
 
-logLine(" 利用先 Content Provider は自社アプリではない。");
+logLine(\" 利用先 Content Provider は自社アプリではない。\");
 
 return;
 
@@ -7881,11 +8221,11 @@ Providerアプリに開示してよい情報に限りリクエストに含めて
 
 ContentValues values = new ContentValues();
 
-values.put("pref", "東京都");
+values.put(\"pref\", \"東京都\");
 
-String where = "\_id = ?";
+String where = \"\_id = ?\";
 
-String\[\] args = { "4" };
+String\[\] args = { \"4\" };
 
 int count = getContentResolver().update(Address.CONTENT\_URI, values,
 where, args);
@@ -7895,13 +8235,13 @@ Providerアプリからの結果であっても、結果データの安全性を
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(String.format(" %s records updated", count));
+logLine(String.format(\" %s records updated\", count));
 
 }
 
 public void onDeleteClick(View view) {
 
-logLine("\[Delete\]");
+logLine(\"\[Delete\]\");
 
 // ★ポイント9★ 独自定義Signature
 Permissionが自社アプリにより定義されていることを確認する
@@ -7910,8 +8250,8 @@ String correctHash = myCertHash(this);
 
 if (!SigPerm.test(this, MY\_PERMISSION, correctHash)) {
 
-logLine(" 独自定義Signature
-Permissionが自社アプリにより定義されていない。");
+logLine(\" 独自定義Signature
+Permissionが自社アプリにより定義されていない。\");
 
 return;
 
@@ -7924,7 +8264,7 @@ String pkgname = providerPkgname(this, Address.CONTENT\_URI);
 
 if (!PkgCert.test(this, pkgname, correctHash)) {
 
-logLine(" 利用先 Content Provider は自社アプリではない。");
+logLine(\" 利用先 Content Provider は自社アプリではない。\");
 
 return;
 
@@ -7941,7 +8281,7 @@ Providerアプリからの結果であっても、結果データの安全性を
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-logLine(String.format(" %s records deleted", count));
+logLine(String.format(\" %s records deleted\", count));
 
 }
 
@@ -7963,7 +8303,7 @@ private void logLine(String line) {
 
 mLogView.append(line);
 
-mLogView.append("\\n");
+mLogView.append(\"\\n\");
 
 }
 
@@ -7988,7 +8328,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, sigPermName));
 
@@ -8054,7 +8394,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -8093,7 +8433,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -8111,7 +8451,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -8140,9 +8480,10 @@ Provider側アプリが受動的にアクセス許可を与えることもでき
 
 > ポイント(Content Providerを作る)：
 
-1.  exported="false”により、一時許可するPath以外を非公開設定する
+1.  exported=\"false"により、一時許可するPath以外を非公開設定する
 
 &nbsp;
+
 1.  grant-uri-permissionにより、一時許可するPathを指定する
 
 2.  一時的に許可したアプリからのリクエストであっても、パラメータの安全性を確認する
@@ -8159,67 +8500,67 @@ Provider側アプリが受動的にアクセス許可を与えることもでき
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.provider.temporaryprovider"&gt;
+package=\"org.jssec.android.provider.temporaryprovider\"\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;activity
+\<activity
 
-android:name=".TemporaryActiveGrantActivity"
+android:name=\".TemporaryActiveGrantActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;!-- 一時許可Content Provider --&gt;
+\<!\-- 一時許可Content Provider \--\>
 
-&lt;!-- ★ポイント1★
-exported="false"により、一時許可するPath以外を非公開設定する --&gt;
+\<!\-- ★ポイント1★
+exported=\"false\"により、一時許可するPath以外を非公開設定する \--\>
 
-&lt;provider
+\<provider
 
-android:name=".TemporaryProvider"
+android:name=\".TemporaryProvider\"
 
-android:authorities="org.jssec.android.provider.temporaryprovider"
+android:authorities=\"org.jssec.android.provider.temporaryprovider\"
 
-android:exported="false" &gt;
+android:exported=\"false\" \>
 
-&lt;!-- ★ポイント2★
-grant-uri-permissionにより、一時許可するPathを指定する --&gt;
+\<!\-- ★ポイント2★
+grant-uri-permissionにより、一時許可するPathを指定する \--\>
 
-&lt;grant-uri-permission android:path="/addresses" /&gt;
+\<grant-uri-permission android:path=\"/addresses\" /\>
 
-&lt;/provider&gt;
+\</provider\>
 
-&lt;activity
+\<activity
 
-android:name=".TemporaryPassiveGrantActivity"
+android:name=\".TemporaryPassiveGrantActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" /&gt;
+android:exported=\"true\" /\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > TemporaryProvider.java
 
@@ -8242,31 +8583,31 @@ import android.net.Uri;
 public class TemporaryProvider extends ContentProvider {
 
 public static final String AUTHORITIY =
-"org.jssec.android.provider.temporaryprovider";
+\"org.jssec.android.provider.temporaryprovider\";
 
 public static final String CONTENT\_TYPE =
-"vnd.android.cursor.dir/vnd.org.jssec.contenttype";
+\"vnd.android.cursor.dir/vnd.org.jssec.contenttype\";
 
 public static final String CONTENT\_ITEM\_TYPE =
-"vnd.android.cursor.item/vnd.org.jssec.contenttype";
+\"vnd.android.cursor.item/vnd.org.jssec.contenttype\";
 
 // Content Providerが提供するインターフェースを公開
 
 public interface Download {
 
-public static final String PATH = "downloads";
+public static final String PATH = \"downloads\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITIY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITIY + \"/\" + PATH);
 
 }
 
 public interface Address {
 
-public static final String PATH = "addresses";
+public static final String PATH = \"addresses\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITIY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITIY + \"/\" + PATH);
 
 }
 
@@ -8288,12 +8629,12 @@ sUriMatcher = new UriMatcher(UriMatcher.NO\_MATCH);
 
 sUriMatcher.addURI(AUTHORITIY, Download.PATH, DOWNLOADS\_CODE);
 
-sUriMatcher.addURI(AUTHORITIY, Download.PATH + "/\#",
+sUriMatcher.addURI(AUTHORITIY, Download.PATH + \"/\#\",
 DOWNLOADS\_ID\_CODE);
 
 sUriMatcher.addURI(AUTHORITIY, Address.PATH, ADDRESSES\_CODE);
 
-sUriMatcher.addURI(AUTHORITIY, Address.PATH + "/\#",
+sUriMatcher.addURI(AUTHORITIY, Address.PATH + \"/\#\",
 ADDRESSES\_ID\_CODE);
 
 }
@@ -8302,28 +8643,28 @@ ADDRESSES\_ID\_CODE);
 DBを使用せずに固定値を返す例にしているため、queryメソッドで返すCursorを事前に定義
 
 private static MatrixCursor sAddressCursor = new MatrixCursor(new
-String\[\] { "\_id", "pref" });
+String\[\] { \"\_id\", \"pref\" });
 
 static {
 
-sAddressCursor.addRow(new String\[\] { "1", "北海道" });
+sAddressCursor.addRow(new String\[\] { \"1\", \"北海道\" });
 
-sAddressCursor.addRow(new String\[\] { "2", "青森" });
+sAddressCursor.addRow(new String\[\] { \"2\", \"青森\" });
 
-sAddressCursor.addRow(new String\[\] { "3", "岩手" });
+sAddressCursor.addRow(new String\[\] { \"3\", \"岩手\" });
 
 }
 
 private static MatrixCursor sDownloadCursor = new MatrixCursor(new
-String\[\] { "\_id", "path" });
+String\[\] { \"\_id\", \"path\" });
 
 static {
 
-sDownloadCursor.addRow(new String\[\] { "1",
-"/sdcard/downloads/sample.jpg" });
+sDownloadCursor.addRow(new String\[\] { \"1\",
+\"/sdcard/downloads/sample.jpg\" });
 
-sDownloadCursor.addRow(new String\[\] { "2",
-"/sdcard/downloads/sample.txt" });
+sDownloadCursor.addRow(new String\[\] { \"2\",
+\"/sdcard/downloads/sample.txt\" });
 
 }
 
@@ -8355,7 +8696,7 @@ return CONTENT\_ITEM\_TYPE;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -8397,7 +8738,7 @@ return sAddressCursor;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -8434,7 +8775,7 @@ return ContentUris.withAppendedId(Address.CONTENT\_URI, 4);
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -8481,7 +8822,7 @@ return 1;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -8526,7 +8867,7 @@ return 1;
 
 default:
 
-throw new IllegalArgumentException("Invalid URI：" + uri);
+throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
@@ -8555,10 +8896,10 @@ public class TemporaryActiveGrantActivity extends Activity {
 // User Activityに関する情報
 
 private static final String TARGET\_PACKAGE =
-"org.jssec.android.provider.temporaryuser";
+\"org.jssec.android.provider.temporaryuser\";
 
 private static final String TARGET\_ACTIVITY =
-"org.jssec.android.provider.temporaryuser.TemporaryUserActivity";
+\"org.jssec.android.provider.temporaryuser.TemporaryUserActivity\";
 
 @Override
 
@@ -8595,7 +8936,7 @@ startActivity(intent);
 
 } catch (ActivityNotFoundException e) {
 
-Toast.makeText(this, "User Activityが見つからない。",
+Toast.makeText(this, \"User Activityが見つからない。\",
 Toast.LENGTH\_LONG).show();
 
 }
@@ -8696,22 +9037,22 @@ public class TemporaryUserActivity extends Activity {
 // Provider Activityに関する情報
 
 private static final String TARGET\_PACKAGE =
-"org.jssec.android.provider.temporaryprovider";
+\"org.jssec.android.provider.temporaryprovider\";
 
 private static final String TARGET\_ACTIVITY =
-"org.jssec.android.provider.temporaryprovider.TemporaryPassiveGrantActivity";
+\"org.jssec.android.provider.temporaryprovider.TemporaryPassiveGrantActivity\";
 
 // 利用先のContent Provider情報
 
 private static final String AUTHORITY =
-"org.jssec.android.provider.temporaryprovider";
+\"org.jssec.android.provider.temporaryprovider\";
 
 private interface Address {
 
-public static final String PATH = "addresses";
+public static final String PATH = \"addresses\";
 
-public static final Uri CONTENT\_URI = Uri.parse("content://" +
-AUTHORITY + "/" + PATH);
+public static final Uri CONTENT\_URI = Uri.parse(\"content://\" +
+AUTHORITY + \"/\" + PATH);
 
 }
 
@@ -8719,7 +9060,7 @@ private static final int REQUEST\_CODE = 1;
 
 public void onQueryClick(View view) {
 
-logLine("\[Query\]");
+logLine(\"\[Query\]\");
 
 Cursor cursor = null;
 
@@ -8727,7 +9068,7 @@ try {
 
 if (!providerExists(Address.CONTENT\_URI)) {
 
-logLine(" Content Providerが不在");
+logLine(\" Content Providerが不在\");
 
 return;
 
@@ -8749,7 +9090,7 @@ null, null);
 
 if (cursor == null) {
 
-logLine(" null cursor");
+logLine(\" null cursor\");
 
 } else {
 
@@ -8757,7 +9098,7 @@ boolean moved = cursor.moveToFirst();
 
 while (moved) {
 
-logLine(String.format(" %d, %s", cursor.getInt(0),
+logLine(String.format(\" %d, %s\", cursor.getInt(0),
 cursor.getString(1)));
 
 moved = cursor.moveToNext();
@@ -8768,7 +9109,7 @@ moved = cursor.moveToNext();
 
 } catch (SecurityException ex) {
 
-logLine(" 例外:" + ex.getMessage());
+logLine(\" 例外:\" + ex.getMessage());
 
 }
 
@@ -8795,7 +9136,7 @@ startActivityForResult(intent, REQUEST\_CODE);
 
 } catch (ActivityNotFoundException e) {
 
-logLine("Grantの要求に失敗しました。\\nTemporaryProviderがインストールされているか確認してください。");
+logLine(\"Grantの要求に失敗しました。\\nTemporaryProviderがインストールされているか確認してください。\");
 
 }
 
@@ -8831,7 +9172,7 @@ private void logLine(String line) {
 
 mLogView.append(line);
 
-mLogView.append("\\n");
+mLogView.append(\"\\n\");
 
 }
 
@@ -8868,16 +9209,16 @@ Providerは明示的に非公開設定し、非公開Content Providerとすべ�
 
 > AndroidManifest.xml
 
-&lt;!-- ★ポイント2★ exported="false"により、明示的に非公開設定する
---&gt;
+\<!\-- ★ポイント2★ exported=\"false\"により、明示的に非公開設定する
+\--\>
 
-&lt;provider
+\<provider
 
-android:name=".PrivateProvider"
+android:name=\".PrivateProvider\"
 
-android:authorities="org.jssec.android.provider.privateprovider"
+android:authorities=\"org.jssec.android.provider.privateprovider\"
 
-android:exported="false" /&gt;
+android:exported=\"false\" /\>
 
 #### リクエストパラメータの安全性を確認する （必須）
 
@@ -8932,7 +9273,7 @@ Serviceを作る・利用する
 
 Serviceがどのように利用されるかによって、Serviceが抱えるリスクや適切な防御手段が異なる。次の判定フローによって作成するServiceがどのタイプであるかを判断できる。なお、作成するServiceのタイプによってServiceを利用する側の実装も決まるので、利用側の実装についても合わせて説明する。
 
-![](media/image41.png){width="7.26875in" height="3.186301399825022in"}
+![](media/image43.png){width="7.26875in" height="3.186301399825022in"}
 
 図 4.4‑1
 
@@ -8943,21 +9284,21 @@ Serviceの実装方法について」および各Serviceタイプのサンプル
 
 []{#_Ref338407860 .anchor}表 4.4‑1
 
-  -------------------------------------------------------------------------
-  分類               非公開    公開      パートナー限定Service   自社限定
-                                                                 
-                     Service   Service                           Service
-  ------------------ --------- --------- ----------------------- ----------
-  startService型     **○\***   ○         -                       ○
-
-  IntentService型    ○         **○\***   -                       ○
-
-  local bind型       ○         -         -                       -
-
-  Messenger bind型   ○         ○         -                       **○\***
-
-  AIDL bind型        ○         ○         **○\***                 ○
-  -------------------------------------------------------------------------
++------------------+---------+---------+-----------------------+----------+
+| 分類             | 非公開  | 公開    | パートナー限定Service | 自社限定 |
+|                  |         |         |                       |          |
+|                  | Service | Service |                       | Service  |
++==================+=========+=========+=======================+==========+
+| startService型   | **○\*** | ○       | \-                    | ○        |
++------------------+---------+---------+-----------------------+----------+
+| IntentService型  | ○       | **○\*** | \-                    | ○        |
++------------------+---------+---------+-----------------------+----------+
+| local bind型     | ○       | \-      | \-                    | \-       |
++------------------+---------+---------+-----------------------+----------+
+| Messenger bind型 | ○       | ○       | \-                    | **○\***  |
++------------------+---------+---------+-----------------------+----------+
+| AIDL bind型      | ○       | ○       | **○\***               | ○        |
++------------------+---------+---------+-----------------------+----------+
 
 以下では表
 4.4‑1中の\*印の組み合わせを使って各セキュリティタイプのServiceのサンプルコードを示す。[]{#_非公開Serviceを作る・利用する
@@ -8973,68 +9314,69 @@ Serviceの実装方法について」および各Serviceタイプのサンプル
 
 > ポイント(Serviceを作る）：
 
-1.  exported="false"により、明示的に非公開設定する
+1.  exported=\"false\"により、明示的に非公開設定する
 
 &nbsp;
+
 1.  同一アプリからのIntentであっても、受信Intentの安全性を確認する
 
 2.  結果を返す場合、利用元アプリは同一アプリであるから、センシティブな情報を返送してよい
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.service.privateservice" &gt;
+package=\"org.jssec.android.service.privateservice\" \>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false"&gt;
+android:allowBackup=\"false\"\>
 
-&lt;activity
+\<activity
 
-android:name=".PrivateUserActivity"
+android:name=\".PrivateUserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;!-- 非公開Service --&gt;
+\<!\-- 非公開Service \--\>
 
-&lt;!-- ★ポイント1★ exported="false"により、明示的に非公開設定する
---&gt;
+\<!\-- ★ポイント1★ exported=\"false\"により、明示的に非公開設定する
+\--\>
 
-&lt;service android:name=".PrivateStartService"
-android:exported="false"/&gt;
+\<service android:name=\".PrivateStartService\"
+android:exported=\"false\"/\>
 
-&lt;!-- IntentServiceを継承したService --&gt;
+\<!\-- IntentServiceを継承したService \--\>
 
-&lt;!-- 非公開Service --&gt;
+\<!\-- 非公開Service \--\>
 
-&lt;!-- ★ポイント1★ exported="false"により、明示的に非公開設定する
---&gt;
+\<!\-- ★ポイント1★ exported=\"false\"により、明示的に非公開設定する
+\--\>
 
-&lt;service android:name=".PrivateIntentService"
-android:exported="false"/&gt;
+\<service android:name=\".PrivateIntentService\"
+android:exported=\"false\"/\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PrivateStartService.java
 
@@ -9056,8 +9398,8 @@ public class PrivateStartService extends Service{
 
 public void onCreate() {
 
-Toast.makeText(this, this.getClass().getSimpleName() + " - onCreate()",
-Toast.LENGTH\_SHORT).show();
+Toast.makeText(this, this.getClass().getSimpleName() + \" -
+onCreate()\", Toast.LENGTH\_SHORT).show();
 
 }
 
@@ -9072,9 +9414,9 @@ public int onStartCommand(Intent intent, int flags, int startId) {
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-String param = intent.getStringExtra("PARAM");
+String param = intent.getStringExtra(\"PARAM\");
 
-Toast.makeText(this, String.format("パラメータ「%s」を受け取った。",
+Toast.makeText(this, String.format(\"パラメータ「%s」を受け取った。\",
 param), Toast.LENGTH\_LONG).show();
 
 // サービスは明示的に終了させる
@@ -9094,8 +9436,8 @@ return Service.START\_NOT\_STICKY;
 
 public void onDestroy() {
 
-Toast.makeText(this, this.getClass().getSimpleName() + " - onDestroy()",
-Toast.LENGTH\_SHORT).show();
+Toast.makeText(this, this.getClass().getSimpleName() + \" -
+onDestroy()\", Toast.LENGTH\_SHORT).show();
 
 }
 
@@ -9156,7 +9498,7 @@ Intent intent = new Intent(this, PrivateStartService.class);
 // ★ポイント5★
 利用先アプリは同一アプリであるから、センシティブな情報を送信してもよい
 
-intent.putExtra("PARAM", "センシティブな情報");
+intent.putExtra(\"PARAM\", \"センシティブな情報\");
 
 startService(intent);
 
@@ -9205,7 +9547,7 @@ Intent intent = new Intent(this, PrivateIntentService.class);
 // ★ポイント5★
 利用先アプリは同一アプリであるから、センシティブな情報を送信してもよい
 
-intent.putExtra("PARAM", "センシティブな情報");
+intent.putExtra(\"PARAM\", \"センシティブな情報\");
 
 startService(intent);
 
@@ -9221,66 +9563,67 @@ startService(intent);
 
 > ポイント（Serviceを作る）：
 
-1.  exported="true"により、明示的に公開設定する
+1.  exported=\"true\"により、明示的に公開設定する
 
 2.  受信Intentの安全性を確認する
 
 &nbsp;
+
 1.  結果を返す場合、センシティブな情報を含めない
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.service.publicservice" &gt;
+package=\"org.jssec.android.service.publicservice\" \>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;!-- 最も標準的なService --&gt;
+\<!\-- 最も標準的なService \--\>
 
-&lt;!-- ★ポイント1★ exported="true"により、明示的に公開設定する --&gt;
+\<!\-- ★ポイント1★ exported=\"true\"により、明示的に公開設定する \--\>
 
-&lt;service android:name=".PublicStartService"
-android:exported="true"&gt;
+\<service android:name=\".PublicStartService\"
+android:exported=\"true\"\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action
-android:name="org.jssec.android.service.publicservice.action.startservice"
-/&gt;
+\<action
+android:name=\"org.jssec.android.service.publicservice.action.startservice\"
+/\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/service&gt;
+\</service\>
 
-&lt;!-- IntentServiceを継承したService --&gt;
+\<!\-- IntentServiceを継承したService \--\>
 
-&lt;!-- ★ポイント1★ exported="true"により、明示的に公開設定する --&gt;
+\<!\-- ★ポイント1★ exported=\"true\"により、明示的に公開設定する \--\>
 
-&lt;service android:name=".PublicIntentService"
-android:exported="true"&gt;
+\<service android:name=\".PublicIntentService\"
+android:exported=\"true\"\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action
-android:name="org.jssec.android.service.publicservice.action.intentservice"
-/&gt;
+\<action
+android:name=\"org.jssec.android.service.publicservice.action.intentservice\"
+/\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/service&gt;
+\</service\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PublicIntentService.java
 
@@ -9304,7 +9647,7 @@ public class PublicIntentService extends IntentService{
 
 public PublicIntentService() {
 
-super("CreatingTypeBService");
+super(\"CreatingTypeBService\");
 
 }
 
@@ -9316,8 +9659,8 @@ public void onCreate() {
 
 super.onCreate();
 
-Toast.makeText(this, this.getClass().getSimpleName() + " - onCreate()",
-Toast.LENGTH\_SHORT).show();
+Toast.makeText(this, this.getClass().getSimpleName() + \" -
+onCreate()\", Toast.LENGTH\_SHORT).show();
 
 }
 
@@ -9333,9 +9676,9 @@ protected void onHandleIntent(Intent intent) {
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-String param = intent.getStringExtra("PARAM");
+String param = intent.getStringExtra(\"PARAM\");
 
-Toast.makeText(this, String.format("パラメータ「%s」を受け取った。",
+Toast.makeText(this, String.format(\"パラメータ「%s」を受け取った。\",
 param), Toast.LENGTH\_LONG).show();
 
 }
@@ -9346,8 +9689,8 @@ param), Toast.LENGTH\_LONG).show();
 
 public void onDestroy() {
 
-Toast.makeText(this, this.getClass().getSimpleName() + " - onDestroy()",
-Toast.LENGTH\_SHORT).show();
+Toast.makeText(this, this.getClass().getSimpleName() + \" -
+onDestroy()\", Toast.LENGTH\_SHORT).show();
 
 }
 
@@ -9363,41 +9706,41 @@ Toast.LENGTH\_SHORT).show();
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.service.publicserviceuser" &gt;
+package=\"org.jssec.android.service.publicserviceuser\" \>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;activity
+\<activity
 
-android:name=".PublicUserActivity"
+android:name=\".PublicUserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true"&gt;
+android:exported=\"true\"\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > PublicUserActivity.java
 
@@ -9416,13 +9759,13 @@ public class PublicUserActivity extends Activity {
 // 利用先Service情報
 
 private static final String TARGET\_PACKAGE =
-"org.jssec.android.service.publicservice";
+\"org.jssec.android.service.publicservice\";
 
 private static final String TARGET\_START\_CLASS =
-"org.jssec.android.service.publicservice.PublicStartService";
+\"org.jssec.android.service.publicservice.PublicStartService\";
 
 private static final String TARGET\_INTENT\_CLASS =
-"org.jssec.android.service.publicservice.PublicIntentService";
+\"org.jssec.android.service.publicservice.PublicIntentService\";
 
 @Override
 
@@ -9439,7 +9782,7 @@ setContentView(R.layout.publicservice\_activity);
 public void onStartServiceClick(View v) {
 
 Intent intent = new
-Intent("org.jssec.android.service.publicservice.action.startservice");
+Intent(\"org.jssec.android.service.publicservice.action.startservice\");
 
 // ★ポイント4★ Serviceは明示的Intentで呼び出す
 
@@ -9447,7 +9790,7 @@ intent.setClassName(TARGET\_PACKAGE, TARGET\_START\_CLASS);
 
 // ★ポイント5★ センシティブな情報を送信してはならない
 
-intent.putExtra("PARAM", "センシティブではない情報");
+intent.putExtra(\"PARAM\", \"センシティブではない情報\");
 
 startService(intent);
 
@@ -9471,7 +9814,7 @@ doStopService();
 public void onIntentServiceClick(View v) {
 
 Intent intent = new
-Intent("org.jssec.android.service.publicservice.action.intentservice");
+Intent(\"org.jssec.android.service.publicservice.action.intentservice\");
 
 // ★ポイント4★ Serviceは明示的Intentで呼び出す
 
@@ -9479,7 +9822,7 @@ intent.setClassName(TARGET\_PACKAGE, TARGET\_INTENT\_CLASS);
 
 // ★ポイント5★ センシティブな情報を送信してはならない
 
-intent.putExtra("PARAM", "センシティブではない情報");
+intent.putExtra(\"PARAM\", \"センシティブではない情報\");
 
 startService(intent);
 
@@ -9502,7 +9845,7 @@ doStopService();
 private void doStopService() {
 
 Intent intent = new
-Intent("org.jssec.android.service.publicservice.action.startservice");
+Intent(\"org.jssec.android.service.publicservice.action.startservice\");
 
 // ★ポイント4★ Serviceは明示的Intentで呼び出す
 
@@ -9522,9 +9865,10 @@ stopService(intent);
 
 > ポイント(Serviceを作る)：
 
-1.  Intent Filterを定義せず、exported="true"を明示的に設定する
+1.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
 
 &nbsp;
+
 1.  利用元アプリの証明書がホワイトリストに登録されていることを確認する
 
 2.  onBind(onStartCommand,onHandleIntent)で呼び出し元がパートナーかどうか判別できない
@@ -9533,39 +9877,39 @@ stopService(intent);
 
 4.  パートナーアプリに開示してよい情報に限り返送してよい
 
-なお、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「[*5.2.1.3*
-アプリの証明書のハッシュ値を確認する方法](#_アプリの証明書のハッシュ値を確認する方法)」を参照すること。
+なお、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「[[5.2.1.3]{.underline}
+アプリの証明書のハッシュ値を確認する方法[]{.underline}](#_アプリの証明書のハッシュ値を確認する方法)」を参照すること。
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.service.partnerservice.aidl" &gt;
+package=\"org.jssec.android.service.partnerservice.aidl\" \>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false"&gt;
+android:allowBackup=\"false\"\>
 
-&lt;!-- AIDLを利用したService --&gt;
+\<!\-- AIDLを利用したService \--\>
 
-&lt;!-- ★ポイント1★ Intent
-Filterを定義せず、exported="true"を明示的に設定する --&gt;
+\<!\-- ★ポイント1★ Intent
+Filterを定義せず、exported=\"true\"を明示的に設定する \--\>
 
-&lt;service
+\<service
 
-android:name="org.jssec.android.service.partnerservice.aidl.PartnerAIDLService"
+android:name=\"org.jssec.android.service.partnerservice.aidl.PartnerAIDLService\"
 
-android:exported="true" /&gt;
+android:exported=\"true\" /\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 今回の例ではAIDLファイルを２つ作成する。１つは、ServiceからActivityにデータを渡すためのコールバックインターフェースで、もう１つはActivityからServiceにデータを渡し、情報を取得するインターフェースである。なお、AIDLファイルに記述するパッケージ名は、javaファイルに記述するパッケージ名と同様に、AIDLファイルを作成するディレクトリ階層に一致させる必要がある。
 
@@ -9670,20 +10014,20 @@ sWhitelists = new PkgCertWhitelists();
 // パートナーアプリ org.jssec.android.service.partnerservice.aidluser
 の証明書ハッシュ値を登録
 
-sWhitelists.add("org.jssec.android.service.partnerservice.aidluser",
+sWhitelists.add(\"org.jssec.android.service.partnerservice.aidluser\",
 isdebug ?
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
-F77C8255" :
+\"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
+F77C8255\" :
 
-// keystoreの"partner key"の証明書ハッシュ値
+// keystoreの\"partner key\"の証明書ハッシュ値
 
-"1F039BB5 7861C27A 3916C778 8E78CE00 690B3974 3EB8259F E2627B8D
-4C0EC35A");
+\"1F039BB5 7861C27A 3916C778 8E78CE00 690B3974 3EB8259F E2627B8D
+4C0EC35A\");
 
-// 以下同様に他のパートナーアプリを登録...
+// 以下同様に他のパートナーアプリを登録\...
 
 }
 
@@ -9699,10 +10043,10 @@ return sWhitelists.test(context, pkgname);
 
 // RemoteCallbackList の提供するメソッドはスレッドセーフになっている。
 
-private final RemoteCallbackList&lt;IPartnerAIDLServiceCallback&gt;
+private final RemoteCallbackList\<IPartnerAIDLServiceCallback\>
 mCallbacks =
 
-new RemoteCallbackList&lt;&gt;();
+new RemoteCallbackList\<\>();
 
 // コールバックに対してServiceからデータを送信するためのHandler
 
@@ -9710,14 +10054,12 @@ protected static class ServiceHandler extends Handler{
 
 private Context mContext;
 
-private RemoteCallbackList&lt;IPartnerAIDLServiceCallback&gt;
-mCallbacks;
+private RemoteCallbackList\<IPartnerAIDLServiceCallback\> mCallbacks;
 
 private int mValue = 0;
 
 public ServiceHandler(Context context,
-RemoteCallbackList&lt;IPartnerAIDLServiceCallback&gt; callback, int
-value){
+RemoteCallbackList\<IPartnerAIDLServiceCallback\> callback, int value){
 
 this.mContext = context;
 
@@ -9748,7 +10090,7 @@ beginBroadcast()は、getBroadcastItem()で取得可能なコピーを作成し�
 
 final int N = mCallbacks.beginBroadcast();
 
-for (int i = 0; i &lt; N; i++) {
+for (int i = 0; i \< N; i++) {
 
 IPartnerAIDLServiceCallback target = mCallbacks.getBroadcastItem(i);
 
@@ -9756,8 +10098,8 @@ try {
 
 // ★ポイント5★ パートナーアプリに開示してよい情報に限り送信してよい
 
-target.valueChanged("パートナーアプリに開示してよい情報(callback from
-Service) No." + (++mValue));
+target.valueChanged(\"パートナーアプリに開示してよい情報(callback from
+Service) No.\" + (++mValue));
 
 } catch (RemoteException e) {
 
@@ -9830,7 +10172,8 @@ mHandler.post(new Runnable() {
 public void run() {
 
 Toast.makeText(PartnerAIDLService.this,
-"利用元アプリはパートナーアプリではない。", Toast.LENGTH\_LONG).show();
+\"利用元アプリはパートナーアプリではない。\",
+Toast.LENGTH\_LONG).show();
 
 }
 
@@ -9880,14 +10223,14 @@ Message msg = new Message();
 msg.what = GETINFO\_MSG;
 
 msg.obj =
-String.format("パートナーアプリからのメソッド呼び出し。「%s」を受信した。",
+String.format(\"パートナーアプリからのメソッド呼び出し。「%s」を受信した。\",
 param);
 
 PartnerAIDLService.this.mHandler.sendMessage(msg);
 
 // ★ポイント5★ パートナーアプリに開示してよい情報に限り返送してよい
 
-return "パートナーアプリに開示してよい情報(method from Service)";
+return \"パートナーアプリに開示してよい情報(method from Service)\";
 
 }
 
@@ -9924,8 +10267,8 @@ return mBinder;
 
 public void onCreate() {
 
-Toast.makeText(this, this.getClass().getSimpleName() + " - onCreate()",
-Toast.LENGTH\_SHORT).show();
+Toast.makeText(this, this.getClass().getSimpleName() + \" -
+onCreate()\", Toast.LENGTH\_SHORT).show();
 
 // Serviceが実行中の間は、定期的にインクリメントした数字を通知する
 
@@ -9937,8 +10280,8 @@ mHandler.sendEmptyMessage(REPORT\_MSG);
 
 public void onDestroy() {
 
-Toast.makeText(this, this.getClass().getSimpleName() + " - onDestroy()",
-Toast.LENGTH\_SHORT).show();
+Toast.makeText(this, this.getClass().getSimpleName() + \" -
+onDestroy()\", Toast.LENGTH\_SHORT).show();
 
 // コールバックを全て解除する
 
@@ -9962,8 +10305,8 @@ import android.content.Context;
 
 public class PkgCertWhitelists {
 
-private Map&lt;String, String&gt; mWhitelists = new HashMap&lt;String,
-String&gt;();
+private Map\<String, String\> mWhitelists = new HashMap\<String,
+String\>();
 
 public boolean add(String pkgname, String sha256) {
 
@@ -9971,14 +10314,14 @@ if (pkgname == null) return false;
 
 if (sha256 == null) return false;
 
-sha256 = sha256.replaceAll(" ", "");
+sha256 = sha256.replaceAll(\" \", \"\");
 
 if (sha256.length() != 64) return false; // SHA-256は32バイト
 
 sha256 = sha256.toUpperCase();
 
-if (sha256.replaceAll("\[0-9A-F\]+", "").length() != 0) return false; //
-0-9A-F 以外の文字がある
+if (sha256.replaceAll(\"\[0-9A-F\]+\", \"\").length() != 0) return
+false; // 0-9A-F 以外の文字がある
 
 mWhitelists.put(pkgname, sha256);
 
@@ -10025,7 +10368,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -10064,7 +10407,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -10082,7 +10425,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -10166,20 +10509,20 @@ sWhitelists = new PkgCertWhitelists();
 // パートナー限定Serviceアプリ
 org.jssec.android.service.partnerservice.aidl の証明書ハッシュ値を登録
 
-sWhitelists.add("org.jssec.android.service.partnerservice.aidl", isdebug
-?
+sWhitelists.add(\"org.jssec.android.service.partnerservice.aidl\",
+isdebug ?
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
-F77C8255" :
+\"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
+F77C8255\" :
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B D7B3A7C2
-42E142CA");
+\"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B D7B3A7C2
+42E142CA\");
 
-// 以下同様に他のパートナー限定Serviceアプリを登録...
+// 以下同様に他のパートナー限定Serviceアプリを登録\...
 
 }
 
@@ -10194,10 +10537,10 @@ return sWhitelists.test(context, pkgname);
 // 利用先のパートナー限定Activityに関する情報
 
 private static final String TARGET\_PACKAGE =
-"org.jssec.android.service.partnerservice.aidl";
+\"org.jssec.android.service.partnerservice.aidl\";
 
 private static final String TARGET\_CLASS =
-"org.jssec.android.service.partnerservice.aidl.PartnerAIDLService";
+\"org.jssec.android.service.partnerservice.aidl.PartnerAIDLService\";
 
 private static class ReceiveHandler extends Handler{
 
@@ -10220,7 +10563,7 @@ case MGS\_VALUE\_CHANGED: {
 String info = (String)msg.obj;
 
 Toast.makeText(mContext,
-String.format("コールバックで「%s」を受信した。", info),
+String.format(\"コールバックで「%s」を受信した。\", info),
 Toast.LENGTH\_SHORT).show();
 
 break;
@@ -10289,7 +10632,7 @@ mService.registerCallback(mCallback);
 
 }
 
-Toast.makeText(mContext, "Connected to service",
+Toast.makeText(mContext, \"Connected to service\",
 Toast.LENGTH\_SHORT).show();
 
 }
@@ -10300,7 +10643,7 @@ Toast.LENGTH\_SHORT).show();
 
 public void onServiceDisconnected(ComponentName className) {
 
-Toast.makeText(mContext, "Disconnected from service",
+Toast.makeText(mContext, \"Disconnected from service\",
 Toast.LENGTH\_SHORT).show();
 
 }
@@ -10370,8 +10713,9 @@ if (!mIsBound){
 
 if (!checkPartner(this, TARGET\_PACKAGE)) {
 
-Toast.makeText(this, "利用先 Service
-アプリはホワイトリストに登録されていない。", Toast.LENGTH\_LONG).show();
+Toast.makeText(this, \"利用先 Service
+アプリはホワイトリストに登録されていない。\",
+Toast.LENGTH\_LONG).show();
 
 return;
 
@@ -10382,7 +10726,7 @@ Intent intent = new Intent();
 // ★ポイント7★
 利用先パートナー限定アプリに開示してよい情報に限り送信してよい
 
-intent.putExtra("PARAM", "パートナーアプリに開示してよい情報");
+intent.putExtra(\"PARAM\", \"パートナーアプリに開示してよい情報\");
 
 // ★ポイント8★ 明示的Intentによりパートナー限定Serviceを呼び出す
 
@@ -10457,8 +10801,8 @@ try {
 // ★ポイント7★
 利用先パートナー限定アプリに開示してよい情報に限り送信してよい
 
-info = mService.getInfo("パートナーアプリに開示してよい情報(method from
-activity)");
+info = mService.getInfo(\"パートナーアプリに開示してよい情報(method from
+activity)\");
 
 } catch (RemoteException e) {
 
@@ -10471,8 +10815,9 @@ e.printStackTrace();
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-Toast.makeText(mContext, String.format("サービスから「%s」を取得した。",
-info), Toast.LENGTH\_SHORT).show();
+Toast.makeText(mContext,
+String.format(\"サービスから「%s」を取得した。\", info),
+Toast.LENGTH\_SHORT).show();
 
 }
 
@@ -10492,8 +10837,8 @@ import android.content.Context;
 
 public class PkgCertWhitelists {
 
-private Map&lt;String, String&gt; mWhitelists = new HashMap&lt;String,
-String&gt;();
+private Map\<String, String\> mWhitelists = new HashMap\<String,
+String\>();
 
 public boolean add(String pkgname, String sha256) {
 
@@ -10501,14 +10846,14 @@ if (pkgname == null) return false;
 
 if (sha256 == null) return false;
 
-sha256 = sha256.replaceAll(" ", "");
+sha256 = sha256.replaceAll(\" \", \"\");
 
 if (sha256.length() != 64) return false; // SHA-256は32バイト
 
 sha256 = sha256.toUpperCase();
 
-if (sha256.replaceAll("\[0-9A-F\]+", "").length() != 0) return false; //
-0-9A-F 以外の文字がある
+if (sha256.replaceAll(\"\[0-9A-F\]+\", \"\").length() != 0) return
+false; // 0-9A-F 以外の文字がある
 
 mWhitelists.put(pkgname, sha256);
 
@@ -10555,7 +10900,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -10594,7 +10939,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -10612,7 +10957,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -10635,9 +10980,10 @@ return hexadecimal.toString();
 1.  独自定義Signature Permissionを定義する
 
 &nbsp;
+
 1.  独自定義Signature Permissionを要求宣言する
 
-2.  Intent Filterを定義せず、exported="true"を明示的に設定する
+2.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
 
 3.  独自定義Signature
     Permissionが自社アプリにより定義されていることを確認する
@@ -10650,47 +10996,47 @@ return hexadecimal.toString();
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.service.inhouseservice.messenger" &gt;
+package=\"org.jssec.android.service.inhouseservice.messenger\" \>
 
-&lt;!-- ★ポイント1★ 独自定義Signature Permissionを定義する --&gt;
+\<!\-- ★ポイント1★ 独自定義Signature Permissionを定義する \--\>
 
-&lt;permission
+\<permission
 
-android:name="org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION"
+android:name=\"org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION\"
 
-android:protectionLevel="signature" /&gt;
+android:protectionLevel=\"signature\" /\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;!-- Messengerを利用したService --&gt;
+\<!\-- Messengerを利用したService \--\>
 
-&lt;!-- ★ポイント2★ 独自定義Signature Permissionを要求宣言する --&gt;
+\<!\-- ★ポイント2★ 独自定義Signature Permissionを要求宣言する \--\>
 
-&lt;!-- ★ポイント3★ Intent
-Filterを定義せず、exported="true"を明示的に設定する --&gt;
+\<!\-- ★ポイント3★ Intent
+Filterを定義せず、exported=\"true\"を明示的に設定する \--\>
 
-&lt;service
+\<service
 
-android:name="org.jssec.android.service.inhouseservice.messenger.InhouseMessengerService"
+android:name=\"org.jssec.android.service.inhouseservice.messenger.InhouseMessengerService\"
 
-android:exported="true"
+android:exported=\"true\"
 
-android:permission="org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION"
-/&gt;
+android:permission=\"org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION\"
+/\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > InhouseMessengerService.java
 
@@ -10729,7 +11075,7 @@ public class InhouseMessengerService extends Service{
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION";
+\"org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -10741,17 +11087,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -10763,8 +11109,7 @@ return sMyCertHash;
 
 // Serviceのクライアント(データ送信先)をリストで管理する
 
-private ArrayList&lt;Messenger&gt; mClients = new
-ArrayList&lt;Messenger&gt;();
+private ArrayList\<Messenger\> mClients = new ArrayList\<Messenger\>();
 
 // クライアントからのデータを受信するときに利用するMessenger
 
@@ -10775,9 +11120,9 @@ ServiceSideHandler(mClients));
 
 private static class ServiceSideHandler extends Handler{
 
-private ArrayList&lt;Messenger&gt; mClients;
+private ArrayList\<Messenger\> mClients;
 
-public ServiceSideHandler(ArrayList&lt;Messenger&gt; clients){
+public ServiceSideHandler(ArrayList\<Messenger\> clients){
 
 this.mClients = clients;
 
@@ -10829,20 +11174,20 @@ break;
 
 \*/
 
-private static void sendMessageToClients(ArrayList&lt;Messenger&gt;
+private static void sendMessageToClients(ArrayList\<Messenger\>
 mClients){
 
 // ★ポイント6★
 利用元アプリは自社アプリであるから、センシティブな情報を返送してよい
 
-String sendValue = "センシティブな情報(from Service)";
+String sendValue = \"センシティブな情報(from Service)\";
 
 // 登録されているクライアントへ、順番に送信する
 
 //
 ループ途中でremoveしても全てのデータにアクセスしたいのでIteratorを利用する
 
-Iterator&lt;Messenger&gt; ite = mClients.iterator();
+Iterator\<Messenger\> ite = mClients.iterator();
 
 while(ite.hasNext()){
 
@@ -10853,7 +11198,7 @@ null);
 
 Bundle data = new Bundle();
 
-data.putString("key", sendValue);
+data.putString(\"key\", sendValue);
 
 sendMsg.setData(data);
 
@@ -10882,8 +11227,8 @@ Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(this, MY\_PERMISSION, myCertHash(this))) {
 
-Toast.makeText(this, "独自定義Signature
-Permissionが自社アプリにより定義されていない。",
+Toast.makeText(this, \"独自定義Signature
+Permissionが自社アプリにより定義されていない。\",
 Toast.LENGTH\_LONG).show();
 
 return null;
@@ -10895,9 +11240,9 @@ return null;
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-String param = intent.getStringExtra("PARAM");
+String param = intent.getStringExtra(\"PARAM\");
 
-Toast.makeText(this, String.format("パラメータ「%s」を受け取った。",
+Toast.makeText(this, String.format(\"パラメータ「%s」を受け取った。\",
 param), Toast.LENGTH\_LONG).show();
 
 return mMessenger.getBinder();
@@ -10908,7 +11253,7 @@ return mMessenger.getBinder();
 
 public void onCreate() {
 
-Toast.makeText(this, "Service - onCreate()",
+Toast.makeText(this, \"Service - onCreate()\",
 Toast.LENGTH\_SHORT).show();
 
 }
@@ -10917,7 +11262,7 @@ Toast.LENGTH\_SHORT).show();
 
 public void onDestroy() {
 
-Toast.makeText(this, "Service - onDestroy()",
+Toast.makeText(this, \"Service - onDestroy()\",
 Toast.LENGTH\_SHORT).show();
 
 }
@@ -10943,7 +11288,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, sigPermName));
 
@@ -11009,7 +11354,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -11048,7 +11393,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -11066,7 +11411,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -11104,48 +11449,48 @@ height="3.2743055555555554in"}
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.service.inhouseservice.messengeruser" &gt;
+package=\"org.jssec.android.service.inhouseservice.messengeruser\" \>
 
-&lt;!-- ★ポイント8★ 独自定義Signature Permissionを利用宣言する --&gt;
+\<!\-- ★ポイント8★ 独自定義Signature Permissionを利用宣言する \--\>
 
-&lt;uses-permission
+\<uses-permission
 
-android:name="org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION"
-/&gt;
+android:name=\"org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION\"
+/\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;activity
+\<activity
 
-android:name="org.jssec.android.service.inhouseservice.messengeruser.InhouseMessengerUserActivity"
+android:name=\"org.jssec.android.service.inhouseservice.messengeruser.InhouseMessengerUserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > InhouseMessengerUserActivity.java
 
@@ -11192,15 +11537,15 @@ private Context mContext;
 // 利用先のActivity情報
 
 private static final String TARGET\_PACKAGE =
-"org.jssec.android.service.inhouseservice.messenger";
+\"org.jssec.android.service.inhouseservice.messenger\";
 
 private static final String TARGET\_CLASS =
-"org.jssec.android.service.inhouseservice.messenger.InhouseMessengerService";
+\"org.jssec.android.service.inhouseservice.messenger.InhouseMessengerService\";
 
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION";
+\"org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -11212,17 +11557,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -11255,14 +11600,14 @@ case CommonValue.MSG\_SET\_VALUE:
 
 Bundle data = msg.getData();
 
-String info = data.getString("key");
+String info = data.getString(\"key\");
 
 // ★ポイント13★ 自社アプリからの結果情報であっても、値の安全性を確認する
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-Toast.makeText(mContext, String.format("サービスから「%s」を取得した。",
-info),
+Toast.makeText(mContext,
+String.format(\"サービスから「%s」を取得した。\", info),
 
 Toast.LENGTH\_SHORT).show();
 
@@ -11292,7 +11637,7 @@ public void onServiceConnected(ComponentName className, IBinder service)
 
 mServiceMessenger = new Messenger(service);
 
-Toast.makeText(mContext, "Connect to service",
+Toast.makeText(mContext, \"Connect to service\",
 Toast.LENGTH\_SHORT).show();
 
 try {
@@ -11321,7 +11666,7 @@ public void onServiceDisconnected(ComponentName className) {
 
 mServiceMessenger = null;
 
-Toast.makeText(mContext, "Disconnected from service",
+Toast.makeText(mContext, \"Disconnected from service\",
 Toast.LENGTH\_SHORT).show();
 
 }
@@ -11391,8 +11736,8 @@ Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(this, MY\_PERMISSION, myCertHash(this))) {
 
-Toast.makeText(this, "独自定義Signature
-Permissionが自社アプリにより定義されていない。",
+Toast.makeText(this, \"独自定義Signature
+Permissionが自社アプリにより定義されていない。\",
 Toast.LENGTH\_LONG).show();
 
 return;
@@ -11403,7 +11748,7 @@ return;
 
 if (!PkgCert.test(this, TARGET\_PACKAGE, myCertHash(this))) {
 
-Toast.makeText(this, "利用先サービスは自社アプリではない。",
+Toast.makeText(this, \"利用先サービスは自社アプリではない。\",
 Toast.LENGTH\_LONG).show();
 
 return;
@@ -11415,7 +11760,7 @@ Intent intent = new Intent();
 // ★ポイント11★
 利用先アプリは自社アプリであるから、センシティブな情報を送信してもよい
 
-intent.putExtra("PARAM", "センシティブな情報");
+intent.putExtra(\"PARAM\", \"センシティブな情報\");
 
 // ★ポイント12★ 明示的Intentにより自社限定Serviceを呼び出す
 
@@ -11496,7 +11841,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, sigPermName));
 
@@ -11562,7 +11907,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -11601,7 +11946,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -11619,7 +11964,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -11643,6 +11988,7 @@ Service実装時には以下のルールを守ること。
 1.  アプリ内でのみ使用するServiceは非公開設定する （必須）
 
 &nbsp;
+
 1.  受信データの安全性を確認する （必須）
 
 2.  独自定義Signature
@@ -11671,13 +12017,13 @@ Service実装時には以下のルールを守ること。
 
 > AndroidManifest.xml
 
-&lt;!-- 非公開Service --&gt;
+\<!\-- 非公開Service \--\>
 
-&lt;!-- ★ポイント1★ exported="false"により、明示的に非公開設定する
---&gt;
+\<!\-- ★ポイント1★ exported=\"false\"により、明示的に非公開設定する
+\--\>
 
-&lt;service android:name=".PrivateStartService"
-android:exported="false"/&gt;
+\<service android:name=\".PrivateStartService\"
+android:exported=\"false\"/\>
 
 また、ケースは少ないと思われるが、同一アプリ内からのみ利用されるServiceであり、かつIntent
 Filterを設置するような設計はしてはならない。Intent
@@ -11686,21 +12032,21 @@ Filter経由で呼び出したときに意図せず他アプリの公開Service�
 
 > AndroidManifest.xml(非推奨)
 
-&lt;!-- 非公開Service --&gt;
+\<!\-- 非公開Service \--\>
 
-&lt;!-- ★ポイント1★ exported="false"により、明示的に非公開設定する
---&gt;
+\<!\-- ★ポイント1★ exported=\"false\"により、明示的に非公開設定する
+\--\>
 
-&lt;service android:name=".PrivateStartService"
-android:exported="false"&gt;
+\<service android:name=\".PrivateStartService\"
+android:exported=\"false\"\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name=”org.jssec.android.service.OPEN /&gt;
+\<action android:name="org.jssec.android.service.OPEN /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/service&gt;
+\</service\>
 
 「4.4.3.1 exported
 設定とintent-filter設定の組み合わせ(Serviceの場合)」も参照すること。
@@ -11770,15 +12116,15 @@ Permissionにより保護されている情報資産および機能資産を他�
 
 表 4.4‑2
 
-                            exported属性の値
+                            exported属性の値                                
   ------------------------- -------------------------------- -------------- --------------
                             true                             false          無指定
   intent-filter定義がある   公開                             （使用禁止）   （使用禁止）
   intent-filter定義がない   公開、パートナー限定、自社限定   非公開         （使用禁止）
 
-Serviceのexported属性が無指定である場合にそのServiceが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが[^9]、本ガイドではServiceのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
+Serviceのexported属性が無指定である場合にそのServiceが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが[^10]、本ガイドではServiceのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
 
-「intent-filter定義がある」&「exported=“false”」を使用禁止にしているのは、Androidの振る舞いとして、同一アプリ内の非公開Serviceを呼び出したつもりでも、意図せず他アプリの公開Serviceを呼び出してしまう場合が存在するためである。
+「intent-filter定義がある」&「exported="false"」を使用禁止にしているのは、Androidの振る舞いとして、同一アプリ内の非公開Serviceを呼び出したつもりでも、意図せず他アプリの公開Serviceを呼び出してしまう場合が存在するためである。
 
 具体的には、Androidは以下のような振る舞いをするのでアプリ設計時に検討が必要である。
 
@@ -11787,19 +12133,19 @@ Serviceのexported属性が無指定である場合にそのServiceが�
 -   暗黙的Intentを使った場合は、OSによって優先のServiceが自動的に選ばれて、呼び出される。
 
 以下の3つの図でAndroidの振る舞いによる意図せぬ呼び出しが起こる仕組みを説明する。図
-4.4‑4は、同一アプリ内からしか非公開Service(アプリA）を暗黙的Intentで呼び出せない正常な動作の例である。Intent-filter(図中action="X")を定義しているのが、アプリAしかいないので意図通りの動きとなっている。
+4.4‑4は、同一アプリ内からしか非公開Service(アプリA）を暗黙的Intentで呼び出せない正常な動作の例である。Intent-filter(図中action=\"X\")を定義しているのが、アプリAしかいないので意図通りの動きとなっている。
 
-![](media/image42.png){width="4.739583333333333in" height="2.9375in"}
+![](media/image44.png){width="4.739583333333333in" height="2.9375in"}
 
 []{#_Ref336007893 .anchor}図 4.4‑4
 
 図 4.4‑5および図
-4.4‑6は、アプリAに加えてアプリBでも同じintent-filter(図中action="X")を定義している場合である。
+4.4‑6は、アプリAに加えてアプリBでも同じintent-filter(図中action=\"X\")を定義している場合である。
 
 図
 4.4‑5は、アプリA→アプリBの順でインストールされた場合である。この場合、アプリCが暗黙的Intentを送信すると、非公開のService(A-1)を呼び出そうとして失敗する。一方、アプリAは暗黙的Intentを使って意図通りに同一アプリ内の非公開Serviceを呼び出せるので、セキュリティの(マルウェア対策の)面では問題は起こらない。
 
-![](media/image43.png){width="4.739583333333333in"
+![](media/image45.png){width="4.739583333333333in"
 height="3.8020833333333335in"}
 
 []{#_Ref336007902 .anchor}図 4.4‑5
@@ -11807,7 +12153,7 @@ height="3.8020833333333335in"}
 図
 4.4‑6は、アプリB→アプリAの順でインストールされた場合であり、セキュリティ面からみて問題がある。アプリAが暗黙的Intentを送信して同一アプリ内の非公開Serviceを呼び出そうとするが、先にインストールしたアプリBの公開Activity(B-1)が呼び出されてしまう例を示している。これによりアプリAからアプリBに対してセンシティブな情報を送信する可能性が生じてしまう。アプリBがマルウェアであれば、そのままセンシティブな情報の漏洩に繋がる。
 
-![](media/image44.png){width="4.739583333333333in"
+![](media/image46.png){width="4.739583333333333in"
 height="3.8020833333333335in"}
 
 []{#_Ref336007914 .anchor}図 4.4‑6
@@ -11834,21 +12180,28 @@ Serviceの実装方法は多様であり、サンプルコードで分類した�
 
 []{#_Ref338407990 .anchor}表 4.4‑3 Serviceの実装方法の分類
 
-  ---------------------------------------------------------------------------------------------------
-  分類               Serviceの公開   データの相互送受信   Serviceの制御   プロセス間通信   並行処理
-                                                                                           
-                                                          (起動・終了)                     
-  ------------------ --------------- -------------------- --------------- ---------------- ----------
-  startService型     ○               ×                    ○               ○                ×
-
-  IntentService型    ○               ×                    ×               ○                ×
-
-  local bind型       ×               ○                    ○               ×                ×
-
-  Messenger bind型   ○               ○                    ○               ○                ×
-
-  AIDL bind型        ○               ○                    ○               ○                ○
-  ---------------------------------------------------------------------------------------------------
++----------+----------+----------+----------+----------+----------+
+| 分類     | Serviceの | データの相互送受 | Serviceの | プロセス間通信 | 並行処理 |
+|          | 公開     | 信       | 制御     |          |          |
+|          |          |          |          |          |          |
+|          |          |          | (起動・終了) |      |          |
++==========+==========+==========+==========+==========+==========+
+| startSer | ○        | ×        | ○        | ○        | ×        |
+| vice型   |          |          |          |          |          |
++----------+----------+----------+----------+----------+----------+
+| IntentSe | ○        | ×        | ×        | ○        | ×        |
+| rvice型  |          |          |          |          |          |
++----------+----------+----------+----------+----------+----------+
+| local    | ×        | ○        | ○        | ×        | ×        |
+| bind型   |          |          |          |          |          |
++----------+----------+----------+----------+----------+----------+
+| Messenge | ○        | ○        | ○        | ○        | ×        |
+| r        |          |          |          |          |          |
+| bind型   |          |          |          |          |          |
++----------+----------+----------+----------+----------+----------+
+| AIDL     | ○        | ○        | ○        | ○        | ○        |
+| bind型   |          |          |          |          |          |
++----------+----------+----------+----------+----------+----------+
 
 ##### startService型
 
@@ -11915,9 +12268,9 @@ Provider
 
 #### データベースの作成と操作　
 
-Androidのアプリでデータベースを扱う場合、SQLiteOpenHelperを使用することでデータベースファイルの適切な配置およびアクセス権の設定（他のアプリがアクセスできない設定）ができる[^10]。ここでは、アプリ起動時にデータベースを作成し、UI上からデータの検索・追加・変更・削除を行う簡単なアプリを例に、外部からの入力に対して不正なSQLが実行されないようにSQLインジェクション対策したサンプルコードを示す。
+Androidのアプリでデータベースを扱う場合、SQLiteOpenHelperを使用することでデータベースファイルの適切な配置およびアクセス権の設定（他のアプリがアクセスできない設定）ができる[^11]。ここでは、アプリ起動時にデータベースを作成し、UI上からデータの検索・追加・変更・削除を行う簡単なアプリを例に、外部からの入力に対して不正なSQLが実行されないようにSQLインジェクション対策したサンプルコードを示す。
 
-![](media/image45.png){width="5.541666666666667in"
+![](media/image47.png){width="5.541666666666667in"
 height="4.395833333333333in"}
 
 図 4.5‑1
@@ -11927,6 +12280,7 @@ height="4.395833333333333in"}
 1.  データベース作成にはSQLiteOpenHelperを使用する
 
 &nbsp;
+
 1.  SQLインジェクションの対策として入力値をSQL文に使用する場合にはプレースホルダを利用する
 
 2.  SQLインジェクションの保険的な対策としてアプリ要件に従って入力値をチェックする
@@ -12066,17 +12420,18 @@ private Context mContext;
 
 private static final String CREATE\_TABLE\_COMMANDS
 
-= "CREATE TABLE " + CommonData.TABLE\_NAME + " ("
+= \"CREATE TABLE \" + CommonData.TABLE\_NAME + \" (\"
 
-+ "\_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+\+ \"\_id INTEGER PRIMARY KEY AUTOINCREMENT, \"
 
-+ "idno INTEGER UNIQUE, "
+\+ \"idno INTEGER UNIQUE, \"
 
-+ "name VARCHAR(" + CommonData.TEXT\_DATA\_LENGTH\_MAX + ") NOT NULL, "
+\+ \"name VARCHAR(\" + CommonData.TEXT\_DATA\_LENGTH\_MAX + \") NOT
+NULL, \"
 
-+ "info VARCHAR(" + CommonData.TEXT\_DATA\_LENGTH\_MAX + ")"
+\+ \"info VARCHAR(\" + CommonData.TEXT\_DATA\_LENGTH\_MAX + \")\"
 
-+ ");";
+\+ \");\";
 
 public SampleDbOpenHelper(Context context) {
 
@@ -12140,8 +12495,7 @@ import android.util.Log;
 
 //データ検索タスク
 
-public class DataSearchTask extends AsyncTask&lt;String, Void,
-Cursor&gt; {
+public class DataSearchTask extends AsyncTask\<String, Void, Cursor\> {
 
 private MainActivity mActivity;
 
@@ -12157,7 +12511,7 @@ mActivity = activity;
 
 @Override
 
-protected Cursor doInBackground(String... params) {
+protected Cursor doInBackground(String\... params) {
 
 String idno = params\[0\];
 
@@ -12165,7 +12519,7 @@ String name = params\[1\];
 
 String info = params\[2\];
 
-String cols\[\] = {"\_id", "idno","name","info"};
+String cols\[\] = {\"\_id\", \"idno\",\"name\",\"info\"};
 
 Cursor cur;
 
@@ -12181,11 +12535,11 @@ return null;
 
 //引数が全部nullだったら全件検索する）
 
-if ((idno == null || idno.length() == 0) &&
+if ((idno == null \|\| idno.length() == 0) &&
 
-(name == null || name.length() == 0) &&
+(name == null \|\| name.length() == 0) &&
 
-(info == null || info.length() == 0) ) {
+(info == null \|\| info.length() == 0) ) {
 
 try {
 
@@ -12207,7 +12561,7 @@ return cur;
 
 //Noが指定されていたらNoで検索
 
-if (idno != null && idno.length() &gt; 0) {
+if (idno != null && idno.length() \> 0) {
 
 String selectionArgs\[\] = {idno};
 
@@ -12215,7 +12569,7 @@ try {
 
 //★ポイント2★ プレースホルダを使用する
 
-cur = mSampleDB.query(CommonData.TABLE\_NAME, cols, "idno = ?",
+cur = mSampleDB.query(CommonData.TABLE\_NAME, cols, \"idno = ?\",
 selectionArgs, null, null, null);
 
 } catch (SQLException e) {
@@ -12233,7 +12587,7 @@ return cur;
 
 //Nameが指定されていたらNameで完全一致検索
 
-if (name != null && name.length() &gt; 0) {
+if (name != null && name.length() \> 0) {
 
 String selectionArgs\[\] = {name};
 
@@ -12241,7 +12595,7 @@ try {
 
 //★ポイント2★ プレースホルダを使用する
 
-cur = mSampleDB.query(CommonData.TABLE\_NAME, cols, "name = ?",
+cur = mSampleDB.query(CommonData.TABLE\_NAME, cols, \"name = ?\",
 selectionArgs, null, null, null);
 
 } catch (SQLException e) {
@@ -12259,13 +12613,13 @@ return cur;
 
 //それ以外の場合はinfoを条件にして部分一致検索
 
-String argString = info.replaceAll("@", "@@");
+String argString = info.replaceAll(\"@\", \"@@\");
 //入力として受け取ったinfo内の\$をエスケープ
 
-argString = argString.replaceAll("%", "@%");
+argString = argString.replaceAll(\"%\", \"@%\");
 //入力として受け取ったinfo内の%をエスケープ
 
-argString = argString.replaceAll("\_", "@\_");
+argString = argString.replaceAll(\"\_\", \"@\_\");
 //入力として受け取ったinfo内の\_をエスケープ
 
 String selectionArgs\[\] = {argString};
@@ -12274,8 +12628,8 @@ try {
 
 //★ポイント2★ プレースホルダを使用する
 
-cur = mSampleDB.query(CommonData.TABLE\_NAME, cols, "info LIKE '%' || ?
-|| '%' ESCAPE '@'", selectionArgs, null, null, null);
+cur = mSampleDB.query(CommonData.TABLE\_NAME, cols, \"info LIKE \'%\'
+\|\| ? \|\| \'%\' ESCAPE \'@\'\", selectionArgs, null, null, null);
 
 } catch (SQLException e) {
 
@@ -12314,7 +12668,7 @@ public static boolean validateNo(String idno) {
 
 //null、空文字はOK
 
-if (idno == null || idno.length() == 0) {
+if (idno == null \|\| idno.length() == 0) {
 
 return true;
 
@@ -12324,7 +12678,7 @@ return true;
 
 try {
 
-if (!idno.matches("\[1-9\]\[0-9\]\*")) {
+if (!idno.matches(\"\[1-9\]\[0-9\]\*\")) {
 
 //数字以外の時はエラー
 
@@ -12350,7 +12704,7 @@ public static boolean validateLength(String str, int max\_length) {
 
 //null、空文字はOK
 
-if (str == null || str.length() == 0) {
+if (str == null \|\| str.length() == 0) {
 
 return true;
 
@@ -12360,7 +12714,7 @@ return true;
 
 try {
 
-if (str.length() &gt; max\_length) {
+if (str.length() \> max\_length) {
 
 //MAXより長い時はエラー
 
@@ -12414,6 +12768,7 @@ SQLiteを使用する際には以下のルールを守ること。
 1.  DBファイルの配置場所、アクセス権を正しく設定する （必須）
 
 &nbsp;
+
 1.  他アプリとDBデータを共有する場合はContent Providerでアクセス制御する
     > （必須）
 
@@ -12435,7 +12790,7 @@ DBファイルのデータの保護を考えた場合、DBファイルの配置�
 
 > Context\#getDatabasePath(String
 > name)で取得できるファイルパスや場合によってはContext\#getFilesDir
-> で取得できるディレクトリの場所に配置する[^11]
+> で取得できるディレクトリの場所に配置する[^12]
 
 2\. アクセス権
 
@@ -12451,7 +12806,7 @@ DBファイルの作成に際しては、SQLiteDatabase\#openOrCreateDatabaseを
 
 ##### SQLiteOpenHelperを使用する
 
-SQLiteOpenHelperを使用する場合、開発者はあまり多くのことを考えなくてもよい。SQLiteOpenHelperを派生したクラスを作成し、コンストラクタの引数にDBの名前（ファイル名に使われる）[^12]を指定すれば、自動的に上記のセキュリティ要件を満たすDBファイルを作成してくれる。
+SQLiteOpenHelperを使用する場合、開発者はあまり多くのことを考えなくてもよい。SQLiteOpenHelperを派生したクラスを作成し、コンストラクタの引数にDBの名前（ファイル名に使われる）[^13]を指定すれば、自動的に上記のセキュリティ要件を満たすDBファイルを作成してくれる。
 
 「4.5.1.1
 データベースの作成と操作」に具体的な使用方法を示しているので参照すること。
@@ -12476,7 +12831,7 @@ try {
 
 //MODE\_PRIVATEを設定してDBを作成
 
-db = Context.openOrCreateDatabase("Sample.db",
+db = Context.openOrCreateDatabase(\"Sample.db\",
 
 MODE\_PRIVATE, null);
 
@@ -12499,7 +12854,7 @@ return;
 と合わせて以下の3種類があり、MODE\_WORLD\_READABLEとMODE\_WORLD\_WRITEABLEはOR演算で同時指定することもできる。ただし、MODE\_PRIVATE以外はAPI
 Level 17以降ではdeprecatedとなっており、API Level 24
 以降ではセキュリティ例外が発生する。API Level
-15以降を対象とする場合でも、通常はこのフラグを使用しないことが望ましい[^13]。
+15以降を対象とする場合でも、通常はこのフラグを使用しないことが望ましい[^14]。
 
 -   MODE\_PRIVATE 作成アプリのみ読み書き可能
 
@@ -12549,8 +12904,7 @@ SQLインジェクションを防ぐという意味で、任意の入力値を�
 
 //データ追加タスク
 
-public class DataInsertTask extends AsyncTask&lt;String, Void, Void&gt;
-{
+public class DataInsertTask extends AsyncTask\<String, Void, Void\> {
 
 private MainActivity mActivity;
 
@@ -12566,7 +12920,7 @@ mActivity = activity;
 
 @Override
 
-protected Void doInBackground(String... params) {
+protected Void doInBackground(String\... params) {
 
 String idno = params\[0\];
 
@@ -12588,8 +12942,8 @@ return null;
 
 //プレースホルダを使用する
 
-String commandString = "INSERT INTO " + CommonData.TABLE\_NAME + "
-(idno, name, info) VALUES (?, ?, ?)";
+String commandString = \"INSERT INTO \" + CommonData.TABLE\_NAME + \"
+(idno, name, info) VALUES (?, ?, ?)\";
 
 SQLiteStatement sqlStmt = mSampleDB.compileStatement(commandString);
 
@@ -12664,17 +13018,17 @@ return
 
 ContentValues insertValues = new ContentValues();
 
-insertValues.put("idno", idno);
+insertValues.put(\"idno\", idno);
 
-insertValues.put("name", name);
+insertValues.put(\"name\", name);
 
-insertValues.put("info", info);
+insertValues.put(\"info\", info);
 
 //Insert実行
 
 try {
 
-mSampleDb.insert("SampleTable", null, insertValues);
+mSampleDb.insert(\"SampleTable\", null, insertValues);
 
 } catch (SQLException e) {
 
@@ -12693,7 +13047,7 @@ return;
 
 #### SQL文のLIKE述語でワイルドカードを使用する際にエスケープ処理を施す
 
-LIKE述語のワイルドカード（%、\_）を含む文字列をプレースホルダの入力値として使用した場合、そのままだとワイルドカードとして機能するため、必要に応じて事前にエスケープ処理を施す必要がある。必要なケースとしてはワイルドカードを単体の文字（"%"や"\_"）として扱いたい場合が当てはまる。
+LIKE述語のワイルドカード（%、\_）を含む文字列をプレースホルダの入力値として使用した場合、そのままだとワイルドカードとして機能するため、必要に応じて事前にエスケープ処理を施す必要がある。必要なケースとしてはワイルドカードを単体の文字（\"%\"や\"\_\"）として扱いたい場合が当てはまる。
 
 実際のエスケープ処理は、以下のサンプルコードのようにESCAPE句を使用して行うことができる。
 
@@ -12701,8 +13055,7 @@ LIKE述語のワイルドカード（%、\_）を含む文字列をプレース�
 
 //データ検索タスク
 
-public class DataSearchTask extends AsyncTask&lt;String, Void,
-Cursor&gt; {
+public class DataSearchTask extends AsyncTask\<String, Void, Cursor\> {
 
 private MainActivity mActivity;
 
@@ -12720,7 +13073,7 @@ mActivity = activity;
 
 @Override
 
-protected Cursor doInBackground(String... params) {
+protected Cursor doInBackground(String\... params) {
 
 String idno = params\[0\];
 
@@ -12728,7 +13081,7 @@ String name = params\[1\];
 
 String info = params\[2\];
 
-String cols\[\] = {"\_id", "idno","name","info"};
+String cols\[\] = {\"\_id\", \"idno\",\"name\",\"info\"};
 
 Cursor cur;
 
@@ -12738,13 +13091,13 @@ Cursor cur;
 
 //ポイント：ワイルドカードに相当する文字はエスケープ処理する
 
-String argString = info.replaceAll("@", "@@");
+String argString = info.replaceAll(\"@\", \"@@\");
 //入力として受け取ったinfo内の\$をエスケープ
 
-argString = argString.replaceAll("%", "@%");
+argString = argString.replaceAll(\"%\", \"@%\");
 //入力として受け取ったinfo内の%をエスケープ
 
-argString = argString.replaceAll("\_", "@\_");
+argString = argString.replaceAll(\"\_\", \"@\_\");
 //入力として受け取ったinfo内の\_をエスケープ
 
 String selectionArgs\[\] = {argString};
@@ -12753,8 +13106,8 @@ try {
 
 //ポイント：プレースホルダを使用する
 
-cur = mSampleDB.query("SampleTable", cols, "info LIKE '%' || ? || '%'
-ESCAPE '@'",
+cur = mSampleDB.query(\"SampleTable\", cols, \"info LIKE \'%\' \|\| ?
+\|\| \'%\' ESCAPE \'@\'\",
 
 selectionArgs, null, null, null);
 
@@ -12800,11 +13153,11 @@ mActivity.updateCursor(resultCur);
 を実施する。
 
 > 参照：
-> [*http://www.ipa.go.jp/security/vuln/documents/website\_security\_sql.pdf*](http://www.ipa.go.jp/security/vuln/documents/website_security_sql.pdf)
+> [[http://www.ipa.go.jp/security/vuln/documents/website\_security\_sql.pdf]{.underline}](http://www.ipa.go.jp/security/vuln/documents/website_security_sql.pdf)
 
 #### 不用意にデータベースの書き換えが行われないための対策を行う
 
-SQLiteOpenHelper\#getReadableDatabase、getWritableDatabaseを使用してDBのインスタンスを取得した場合、どちらのメソッドを利用してもDBは読み書き可能な状態でオープンされる[^14]。また、Context\#openOrCreateDatabase、SQLiteDatabase\#openOrCreateDatabaseなども同様である。
+SQLiteOpenHelper\#getReadableDatabase、getWritableDatabaseを使用してDBのインスタンスを取得した場合、どちらのメソッドを利用してもDBは読み書き可能な状態でオープンされる[^15]。また、Context\#openOrCreateDatabase、SQLiteDatabase\#openOrCreateDatabaseなども同様である。
 
 これは、アプリ操作や実装の不具合により意図せずDBの中身を書き換えてしまう（書き換えられてしまう）可能性を意味している。基本的にはアプリの仕様と実装の範囲で対応できると考えられるが、アプリの検索機能など、読み取りしか必要のない機能を実装する場合は、データベースを読み取り専用でオープンすることで、設計や検証の簡素化ひいてはアプリ品質の向上に繋がる場合があるので、状況に応じて検討をお勧めする。
 
@@ -12819,15 +13172,15 @@ SQLiteOpenHelper\#getReadableDatabase、getWritableDatabaseを使用してDBの�
 SQLiteDatabase db
 
 =
-SQLiteDatabase.openDatabase(SQLiteDatabase.getDatabasePath("Sample.db"),
+SQLiteDatabase.openDatabase(SQLiteDatabase.getDatabasePath(\"Sample.db\"),
 null, OPEN\_READONLY);
 
-> 参照：[*http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html - getReadableDatabase()*](http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html#getReadableDatabase())
+> 参照：[[http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html - getReadableDatabase()]{.underline}](http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html#getReadableDatabase())
 
 #### アプリの要件に従ってDBの入出力データの妥当性をチェックする
 
 SQLiteは型に寛容なデータベースであり、DB上でIntegerとして宣言されているカラムに対して文字型のデータを格納することが可能である。DB内のデータは、数値型を含む全てのデータが平文の文字データとしてDB内に格納されている。このため、Integer型のカラムに対して文字列型の検索（　LIKE
-‘%123%’ など）を行うことも可能である。また、VARCHAR(100)
+'%123%' など）を行うことも可能である。また、VARCHAR(100)
 のようにデータの最大長を記述してもそれ以上の長さのデータが入力可能であるなど、SQLiteでの値の制限（正当性確認）は期待できない。
 
 このため、SQLiteを使用するアプリは、このようなDBの特性に注意して予期せぬデータをDBに格納したり取得したりしないようにアプリの要件に従って対処する必要がある。対処の方法としては次の2つがある。
@@ -12868,7 +13221,7 @@ task.execute(idno, name, info);
 
 private boolean validateNo(String idno, int request) {
 
-if (idno == null || idno.length() == 0) {
+if (idno == null \|\| idno.length() == 0) {
 
 if (request == CommonData.REQUEST\_SEARCH) {
 
@@ -12895,7 +13248,7 @@ try {
 
 // 1以上の値
 
-if (!idno.matches("\[1-9\]\[0-9\]\*")) {
+if (!idno.matches(\"\[1-9\]\[0-9\]\*\")) {
 
 //数字以外の時はエラー
 
@@ -12951,7 +13304,7 @@ LLCによって維持・管理されている。モバイルの世界では、SQ
 SQLCipher for
 Androidプロジェクトは、Android環境におけるSQLiteデータベースの標準の統合化された暗号化をサポートすることを目的としている。標準のSQLiteのAPIをSQLCipher用に作成することで、開発者は通常と同じコーディングで暗号化されたデータベースを利用できるようになっている。
 
-参照：[*https://guardianproject.info/code/sqlcipher/*](https://guardianproject.info/code/sqlcipher/)
+参照：[[https://guardianproject.info/code/sqlcipher/]{.underline}](https://guardianproject.info/code/sqlcipher/)
 
 ##### 使い方
 
@@ -13030,35 +13383,47 @@ SDカード等の外部記憶デバイスは十分なアクセス制御ができ
 []{#_Ref338972309 .anchor}表
 4.6‑1　セキュリティ観点によるファイルの分類と比較
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------
-  ファイルの分類         他アプリへのアクセス許可   格納場所                     概要
-  ---------------------- -------------------------- ---------------------------- ----------------------------------------------------------------------
-  非公開ファイル         なし                       アプリディレクトリ内         -   アプリ内でのみ読み書きできる。
-                                                                                 
-                                                                                 -   センシティブな情報を扱うことができる。
-                                                                                 
-                                                                                 -   ファイルは原則このタイプにするべき。
-                                                                                 
-
-  読み取り公開ファイル   読み取り                   アプリディレクトリ内         -   他アプリおよびユーザーも読み取り可能。
-                                                                                 
-                                                                                 -   アプリ外部に公開（閲覧）可能な情報を扱う。
-                                                                                 
-
-  読み書き公開ファイル   読み取り                   アプリディレクトリ内         -   他アプリおよびユーザーも読み書き可能。
-                                                                                 
-                         書き込み                                                -   セキュリティの観点からもアプリ設計の観点からも使用は避けるべき。
-                                                                                 
-
-  外部記憶ファイル       読み取り                   SDカードなどの外部記憶装置   -   アクセス権のコントロールができない。
-                                                                                 
-  (読み書き公開)         書き込み                                                -   他アプリやユーザーによるファイルの読み書き・削除が常に可能。
-                                                                                 
-                                                                                 -   使用は必要最小限にするべき。
-                                                                                 
-                                                                                 -   比較的容量の大きなファイルを扱うことができる。
-                                                                                 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------
++-----------------+-----------------+-----------------+-----------------+
+| ファイルの分類  | 他アプリへのアクセス許可 | 格納場所 | 概要          |
++=================+=================+=================+=================+
+| 非公開ファイル  | なし            | アプリディレクトリ内 | -   アプリ内でのみ読み書き |
+|                 |                 |                 | できる。        |
+|                 |                 |                 |                 |
+|                 |                 |                 | -   センシティブな情報を扱 |
+|                 |                 |                 | うことができる。 |
+|                 |                 |                 |                 |
+|                 |                 |                 |                 |
+|                 |                 |                 | -   ファイルは原則このタイ |
+|                 |                 |                 | プにするべき。  |
++-----------------+-----------------+-----------------+-----------------+
+| 読み取り公開ファイル | 読み取り   | アプリディレクトリ内 | -   他アプリおよびユーザー |
+|                 |                 |                 | も読み取り可能。 |
+|                 |                 |                 |                 |
+|                 |                 |                 |                 |
+|                 |                 |                 | -   アプリ外部に公開（閲覧 |
+|                 |                 |                 | ）可能な情報を扱う。 |
++-----------------+-----------------+-----------------+-----------------+
+| 読み書き公開ファイル | 読み取り   | アプリディレクトリ内 | -   他アプリおよびユーザー |
+|                 |                 |                 | も読み書き可能。 |
+|                 | 書き込み        |                 |                 |
+|                 |                 |                 |                 |
+|                 |                 |                 | -   セキュリティの観点から |
+|                 |                 |                 | もアプリ設計の観点からも使用は |
+|                 |                 |                 | 避けるべき。    |
++-----------------+-----------------+-----------------+-----------------+
+| 外部記憶ファイル | 読み取り       | SDカードなどの外部記憶装置 | -   アクセス権のコントロー |
+|                 |                 |                 | ルができない。  |
+|                 | 書き込み        |                 |                 |
+| (読み書き公開)  |                 |                 | -   他アプリやユーザーによ |
+|                 |                 |                 | るファイルの読み書き・削除が常 |
+|                 |                 |                 | に可能。        |
+|                 |                 |                 |                 |
+|                 |                 |                 | -   使用は必要最小限にする |
+|                 |                 |                 | べき。          |
+|                 |                 |                 |                 |
+|                 |                 |                 | -   比較的容量の大きなファ |
+|                 |                 |                 | イルを扱うことができる。 |
++-----------------+-----------------+-----------------+-----------------+
 
 #### 非公開ファイルを扱う
 
@@ -13070,6 +13435,7 @@ Provider、Service)を利用して行うことを原則とする。
 1.  ファイルは、アプリディレクトリ内に作成する
 
 &nbsp;
+
 1.  ファイルのアクセス権は、他のアプリが利用できないようにプライベートモードにする
 
 2.  センシティブな情報を格納することができる
@@ -13102,7 +13468,7 @@ public class PrivateFileActivity extends Activity {
 
 private TextView mFileView;
 
-private static final String FILE\_NAME = "private\_file.dat";
+private static final String FILE\_NAME = \"private\_file.dat\";
 
 @Override
 
@@ -13146,8 +13512,8 @@ fos = openFileOutput(FILE\_NAME, MODE\_PRIVATE);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-fos.write(new String("センシティブな情報(File
-Activity)\\n").getBytes());
+fos.write(new String(\"センシティブな情報(File
+Activity)\\n\").getBytes());
 
 } catch (FileNotFoundException e) {
 
@@ -13155,8 +13521,8 @@ mFileView.setText(R.string.file\_view);
 
 } catch (IOException e) {
 
-android.util.Log.e("PrivateFileActivity",
-"ファイルの作成に失敗しました");
+android.util.Log.e(\"PrivateFileActivity\",
+\"ファイルの作成に失敗しました\");
 
 } finally {
 
@@ -13168,8 +13534,8 @@ fos.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("PrivateFileActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.e(\"PrivateFileActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -13213,8 +13579,8 @@ mFileView.setText(R.string.file\_view);
 
 } catch (IOException e) {
 
-android.util.Log.e("PrivateFileActivity",
-"ファイルの読込に失敗しました");
+android.util.Log.e(\"PrivateFileActivity\",
+\"ファイルの読込に失敗しました\");
 
 } finally {
 
@@ -13226,8 +13592,8 @@ fis.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("PrivateFileActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.e(\"PrivateFileActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -13249,7 +13615,7 @@ android.util.Log.e("PrivateFileActivity",
 
 public void onDeleteFileClick(View view) {
 
-File file = new File(this.getFilesDir() + "/" + FILE\_NAME);
+File file = new File(this.getFilesDir() + \"/\" + FILE\_NAME);
 
 file.delete();
 
@@ -13285,7 +13651,7 @@ public class PrivateUserActivity extends Activity {
 
 private TextView mFileView;
 
-private static final String FILE\_NAME = "private\_file.dat";
+private static final String FILE\_NAME = \"private\_file.dat\";
 
 @Override
 
@@ -13362,8 +13728,8 @@ mFileView.setText(R.string.file\_view);
 
 } catch (IOException e) {
 
-android.util.Log.d("PrivateFileActivity",
-"ファイルの読込に失敗しました");
+android.util.Log.d(\"PrivateFileActivity\",
+\"ファイルの読込に失敗しました\");
 
 } finally {
 
@@ -13375,8 +13741,8 @@ fis.close();
 
 } catch (IOException e) {
 
-android.util.Log.d("PrivateFileActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.d(\"PrivateFileActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -13416,8 +13782,8 @@ fos = openFileOutput(FILE\_NAME, MODE\_APPEND);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-fos.write(new String("センシティブな情報(User
-Activity)\\n").getBytes());
+fos.write(new String(\"センシティブな情報(User
+Activity)\\n\").getBytes());
 
 } catch (FileNotFoundException e) {
 
@@ -13425,8 +13791,8 @@ mFileView.setText(R.string.file\_view);
 
 } catch (IOException e) {
 
-android.util.Log.d("PrivateFileActivity",
-"ファイルの作成に失敗しました");
+android.util.Log.d(\"PrivateFileActivity\",
+\"ファイルの作成に失敗しました\");
 
 } finally {
 
@@ -13438,8 +13804,8 @@ fos.close();
 
 } catch (IOException e) {
 
-android.util.Log.d("PrivateFileActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.d(\"PrivateFileActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -13465,6 +13831,7 @@ Providerによるファイル共有方法が望ましい。
 1.  ファイルは、アプリディレクトリ内に作成する
 
 &nbsp;
+
 1.  ファイルのアクセス権は、他のアプリに対しては読み取り専用モードにする
 
 2.  センシティブな情報は格納しない
@@ -13497,7 +13864,7 @@ public class PublicFileActivity extends Activity {
 
 private TextView mFileView;
 
-private static final String FILE\_NAME = "public\_file.dat";
+private static final String FILE\_NAME = \"public\_file.dat\";
 
 @Override
 
@@ -13546,7 +13913,8 @@ fos = openFileOutput(FILE\_NAME, MODE\_WORLD\_READABLE);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-fos.write(new String("センシティブでない情報(Public File Activity)\\n")
+fos.write(new String(\"センシティブでない情報(Public File
+Activity)\\n\")
 
 .getBytes());
 
@@ -13556,8 +13924,8 @@ mFileView.setText(R.string.file\_view);
 
 } catch (IOException e) {
 
-android.util.Log.e("PublicFileActivity",
-"ファイルの作成に失敗しました");
+android.util.Log.e(\"PublicFileActivity\",
+\"ファイルの作成に失敗しました\");
 
 } finally {
 
@@ -13569,8 +13937,8 @@ fos.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("PublicFileActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.e(\"PublicFileActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -13614,8 +13982,8 @@ mFileView.setText(R.string.file\_view);
 
 } catch (IOException e) {
 
-android.util.Log.e("PublicFileActivity",
-"ファイルの読込に失敗しました");
+android.util.Log.e(\"PublicFileActivity\",
+\"ファイルの読込に失敗しました\");
 
 } finally {
 
@@ -13627,8 +13995,8 @@ fis.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("PublicFileActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.e(\"PublicFileActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -13650,7 +14018,7 @@ android.util.Log.e("PublicFileActivity",
 
 public void onDeleteFileClick(View view) {
 
-File file = new File(this.getFilesDir() + "/" + FILE\_NAME);
+File file = new File(this.getFilesDir() + \"/\" + FILE\_NAME);
 
 file.delete();
 
@@ -13695,12 +14063,12 @@ public class PublicUserActivity extends Activity {
 private TextView mFileView;
 
 private static final String TARGET\_PACKAGE =
-"org.jssec.android.file.publicfile.readonly";
+\"org.jssec.android.file.publicfile.readonly\";
 
 private static final String TARGET\_CLASS =
-"org.jssec.android.file.publicfile.readonly.PublicFileActivity";
+\"org.jssec.android.file.publicfile.readonly.PublicFileActivity\";
 
-private static final String FILE\_NAME = "public\_file.dat";
+private static final String FILE\_NAME = \"public\_file.dat\";
 
 @Override
 
@@ -13726,7 +14094,7 @@ startActivity(intent);
 
 } catch (ActivityNotFoundException e) {
 
-mFileView.setText("(File Activity がありませんでした)");
+mFileView.setText(\"(File Activity がありませんでした)\");
 
 }
 
@@ -13783,12 +14151,12 @@ mFileView.setText(str);
 
 } catch (FileNotFoundException e) {
 
-android.util.Log.e("PublicUserActivity", "ファイルがありません");
+android.util.Log.e(\"PublicUserActivity\", \"ファイルがありません\");
 
 } catch (IOException e) {
 
-android.util.Log.e("PublicUserActivity",
-"ファイルの読込に失敗しました");
+android.util.Log.e(\"PublicUserActivity\",
+\"ファイルの読込に失敗しました\");
 
 } finally {
 
@@ -13800,8 +14168,8 @@ fis.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("PublicUserActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.e(\"PublicUserActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -13835,7 +14203,8 @@ File file = new File(getFilesPath(FILE\_NAME));
 
 fos = new FileOutputStream(file, true);
 
-fos.write(new String("センシティブでない情報(Public User Activity)\\n")
+fos.write(new String(\"センシティブでない情報(Public User
+Activity)\\n\")
 
 .getBytes());
 
@@ -13871,7 +14240,7 @@ callFileActivity();
 
 private String getFilesPath(String filename) {
 
-String path = "";
+String path = \"\";
 
 try {
 
@@ -13885,7 +14254,7 @@ path = file.getPath();
 
 } catch (NameNotFoundException e) {
 
-android.util.Log.e("PublicUserActivity", "ファイルがありません");
+android.util.Log.e(\"PublicUserActivity\", \"ファイルがありません\");
 
 }
 
@@ -13921,6 +14290,7 @@ Androidアプリの慣例として、バックアップファイルは外部記�
 1.  センシティブな情報は格納しない
 
 &nbsp;
+
 1.  アプリ毎にユニークなディレクトリにファイルを配置する
 
 2.  ファイルに格納する(された)情報に対しては、その入手先に関わらず内容の安全性を確認する
@@ -13929,56 +14299,56 @@ Androidアプリの慣例として、バックアップファイルは外部記�
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.file.externalfile" &gt;
+package=\"org.jssec.android.file.externalfile\" \>
 
-&lt;!-- android.permission.WRITE\_EXTERNAL\_STORAGE
-Permissionを利用宣言する --&gt;
+\<!\-- android.permission.WRITE\_EXTERNAL\_STORAGE
+Permissionを利用宣言する \--\>
 
-&lt;!-- Android 4.4 (API Level
+\<!\-- Android 4.4 (API Level
 19)以降では、外部ストレージのアプリデータ領域を
 
-読み書きする際にPermissionが不要なため、maxSdkVersionを宣言する --&gt;
+読み書きする際にPermissionが不要なため、maxSdkVersionを宣言する \--\>
 
-&lt;uses-permission
-android:name="android.permission.WRITE\_EXTERNAL\_STORAGE"
+\<uses-permission
+android:name=\"android.permission.WRITE\_EXTERNAL\_STORAGE\"
 
-android:maxSdkVersion="18"/&gt;
+android:maxSdkVersion=\"18\"/\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;activity
+\<activity
 
-android:name=".ExternalFileActivity"
+android:name=\".ExternalFileActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
-> ExternalFileActivity.java
+ExternalFileActivity.java
 
 package org.jssec.android.file.externalfile;
 
@@ -14004,9 +14374,9 @@ public class ExternalFileActivity extends Activity {
 
 private TextView mFileView;
 
-private static final String TARGET\_TYPE = "external";
+private static final String TARGET\_TYPE = \"external\";
 
-private static final String FILE\_NAME = "external\_file.dat";
+private static final String FILE\_NAME = \"external\_file.dat\";
 
 @Override
 
@@ -14049,8 +14419,8 @@ fos = new FileOutputStream(file, false);
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-fos.write(new String("センシティブでない情報(External File
-Activity)\\n")
+fos.write(new String(\"センシティブでない情報(External File
+Activity)\\n\")
 
 .getBytes());
 
@@ -14060,8 +14430,8 @@ mFileView.setText(R.string.file\_view);
 
 } catch (IOException e) {
 
-android.util.Log.e("ExternalFileActivity",
-"ファイルの読込に失敗しました");
+android.util.Log.e(\"ExternalFileActivity\",
+\"ファイルの読込に失敗しました\");
 
 } finally {
 
@@ -14073,8 +14443,8 @@ fos.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("ExternalUserActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.e(\"ExternalUserActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -14125,8 +14495,8 @@ mFileView.setText(R.string.file\_view);
 
 } catch (IOException e) {
 
-android.util.Log.e("ExternalFileActivity",
-"ファイルの読込に失敗しました");
+android.util.Log.e(\"ExternalFileActivity\",
+\"ファイルの読込に失敗しました\");
 
 } finally {
 
@@ -14138,8 +14508,8 @@ fis.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("ExternalFileActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.e(\"ExternalFileActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -14210,14 +14580,14 @@ public class ExternalUserActivity extends Activity {
 private TextView mFileView;
 
 private static final String TARGET\_PACKAGE =
-"org.jssec.android.file.externalfile";
+\"org.jssec.android.file.externalfile\";
 
 private static final String TARGET\_CLASS =
-"org.jssec.android.file.externalfile.ExternalFileActivity";
+\"org.jssec.android.file.externalfile.ExternalFileActivity\";
 
-private static final String TARGET\_TYPE = "external";
+private static final String TARGET\_TYPE = \"external\";
 
-private static final String FILE\_NAME = "external\_file.dat";
+private static final String FILE\_NAME = \"external\_file.dat\";
 
 @Override
 
@@ -14243,7 +14613,7 @@ startActivity(intent);
 
 } catch (ActivityNotFoundException e) {
 
-mFileView.setText("(File Activity がありませんでした)");
+mFileView.setText(\"(File Activity がありませんでした)\");
 
 }
 
@@ -14304,8 +14674,8 @@ mFileView.setText(R.string.file\_view);
 
 } catch (IOException e) {
 
-android.util.Log.e("ExternalUserActivity",
-"ファイルの読込に失敗しました");
+android.util.Log.e(\"ExternalUserActivity\",
+\"ファイルの読込に失敗しました\");
 
 } finally {
 
@@ -14317,8 +14687,8 @@ fis.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("ExternalUserActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.e(\"ExternalUserActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -14349,11 +14719,11 @@ final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 
 this);
 
-alertDialogBuilder.setTitle("ポイント4");
+alertDialogBuilder.setTitle(\"ポイント4\");
 
-alertDialogBuilder.setMessage("利用側のアプリで書き込みを行わないこと");
+alertDialogBuilder.setMessage(\"利用側のアプリで書き込みを行わないこと\");
 
-alertDialogBuilder.setPositiveButton("OK",
+alertDialogBuilder.setPositiveButton(\"OK\",
 
 new DialogInterface.OnClickListener() {
 
@@ -14373,7 +14743,7 @@ alertDialogBuilder.create().show();
 
 private String getFilesPath(String filename) {
 
-String path = "";
+String path = \"\";
 
 try {
 
@@ -14387,7 +14757,7 @@ path = file.getPath();
 
 } catch (NameNotFoundException e) {
 
-android.util.Log.e("ExternalUserActivity", "ファイルがありません");
+android.util.Log.e(\"ExternalUserActivity\", \"ファイルがありません\");
 
 }
 
@@ -14399,51 +14769,51 @@ return path;
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.file.externaluser" &gt;
+package=\"org.jssec.android.file.externaluser\" \>
 
-&lt;!-- Android 4.0.3 (API Level
+\<!\-- Android 4.0.3 (API Level
 14)以降では、外部ストレージを読むためのPermissionが
 
 定義されたので利用宣言をする。実際にはAndroid 4.4(API Level 19)以降で
 
-他のアプリデータ領域を読む場合に必須となる --&gt;
+他のアプリデータ領域を読む場合に必須となる \--\>
 
-&lt;uses-permission
-android:name="android.permission.READ\_EXTERNAL\_STORAGE"/&gt;
+\<uses-permission
+android:name=\"android.permission.READ\_EXTERNAL\_STORAGE\"/\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;activity
+\<activity
 
-android:name=".ExternalUserActivity"
+android:name=\".ExternalUserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true"&gt;
+android:exported=\"true\"\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 ### ルールブック
 
@@ -14515,25 +14885,25 @@ ProviderやServiceの中で非公開ファイルをオープンし、そのフ�
 
 []{#_Ref338963383 .anchor}表 4.6‑2　アプリ間ファイル共有方法の比較
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  ファイル共有方法                                       アクセス権設定のバリエーション   アクセスを許可するアプリの範囲
-  ------------------------------------------------------ -------------------------------- ---------------------------------------------------------------------------------------------------------
-  他のアプリにファイルを直接アクセスさせるファイル共有   読み取り                         すべてのアプリに対して一律アクセス許可してしまう
-                                                                                          
-                                                         書き込み                         
-                                                                                          
-                                                         読み取り＋書き込み               
-
-  ファイルディスクリプタ経由のファイル共有               読み取り                         Content ProviderやServiceにアクセスしてくるアプリに対して個別に一時的にアクセス許可・不許可を制御できる
-                                                                                          
-                                                         書き込み                         
-                                                                                          
-                                                         追記のみ                         
-                                                                                          
-                                                         読み取り＋書き込み               
-                                                                                          
-                                                         読み取り＋追記のみ               
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
++----------------------+----------------------+----------------------+
+| ファイル共有方法     | アクセス権設定のバリエーション | アクセスを許可するアプリの範囲 |
++======================+======================+======================+
+| 他のアプリにファイルを直接アクセスさせる | 読み取り | すべてのアプリに対して一律アクセス許可し |
+| ファイル共有         |                      | てしまう             |
+|                      | 書き込み             |                      |
+|                      |                      |                      |
+|                      | 読み取り＋書き込み   |                      |
++----------------------+----------------------+----------------------+
+| ファイルディスクリプタ経由のファイル共有 | 読み取り | Content      |
+|                      |                      | ProviderやServiceにアクセ |
+|                      | 書き込み             | スしてくるアプリに対して個別に一時的にア |
+|                      |                      | クセス許可・不許可を制御できる |
+|                      | 追記のみ             |                      |
+|                      |                      |                      |
+|                      | 読み取り＋書き込み   |                      |
+|                      |                      |                      |
+|                      | 読み取り＋追記のみ   |                      |
++----------------------+----------------------+----------------------+
 
 上記ファイル共有方法のどちらにも共通することであるが、他のアプリにファイルの書き込みを許可するとファイル内容の完全性が保証しづらくなる。特に複数のアプリから同時に書き込みが行われると、ファイル内容のデータ構造が壊れてしまいアプリが正常に動作しなくなるリスクがある。他のアプリとのファイル共有においては、読み込み権限だけを許可するのが望ましい。
 
@@ -14575,12 +14945,12 @@ import android.os.ParcelFileDescriptor;
 
 public class InhouseProvider extends ContentProvider {
 
-private static final String FILENAME = "sensitive.txt";
+private static final String FILENAME = \"sensitive.txt\";
 
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.file.inhouseprovider.MY\_PERMISSION";
+\"org.jssec.android.file.inhouseprovider.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -14592,17 +14962,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -14627,11 +14997,11 @@ fos = new FileOutputStream(new File(dir, FILENAME));
 // ★ポイント1★
 利用元アプリは自社アプリであるから、センシティブな情報を保存してよい
 
-fos.write(new String("センシティブな情報").getBytes());
+fos.write(new String(\"センシティブな情報\").getBytes());
 
 } catch (IOException e) {
 
-android.util.Log.e("InHouseProvider", "ファイル保存に失敗しました");
+android.util.Log.e(\"InHouseProvider\", \"ファイル保存に失敗しました\");
 
 } finally {
 
@@ -14641,7 +15011,7 @@ fos.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("InHouseProvider", "ファイル終了に失敗しました");
+android.util.Log.e(\"InHouseProvider\", \"ファイル終了に失敗しました\");
 
 }
 
@@ -14666,7 +15036,7 @@ if (!SigPerm
 
 throw new SecurityException(
 
-"独自定義Signature Permissionが自社アプリにより定義されていない。");
+\"独自定義Signature Permissionが自社アプリにより定義されていない。\");
 
 }
 
@@ -14686,7 +15056,7 @@ return ParcelFileDescriptor.open(file, modeBits);
 
 public String getType(Uri uri) {
 
-return "";
+return \"\";
 
 }
 
@@ -14767,12 +15137,12 @@ public class InhouseUserActivity extends Activity {
 // 利用先のContent Provider情報
 
 private static final String AUTHORITY =
-"org.jssec.android.file.inhouseprovider";
+\"org.jssec.android.file.inhouseprovider\";
 
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.file.inhouseprovider.MY\_PERMISSION";
+\"org.jssec.android.file.inhouseprovider.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -14784,17 +15154,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -14825,15 +15195,15 @@ return pkgname;
 
 public void onReadFileClick(View view) {
 
-logLine("\[ReadFile\]");
+logLine(\"\[ReadFile\]\");
 
 // 独自定義Signature
 Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(this, MY\_PERMISSION, myCertHash(this))) {
 
-logLine(" 独自定義Signature
-Permissionが自社アプリにより定義されていない。");
+logLine(\" 独自定義Signature
+Permissionが自社アプリにより定義されていない。\");
 
 return;
 
@@ -14846,7 +15216,7 @@ String pkgname = providerPkgname(this, AUTHORITY);
 
 if (!PkgCert.test(this, pkgname, myCertHash(this))) {
 
-logLine(" 利用先 Content Provider は自社アプリではない。");
+logLine(\" 利用先 Content Provider は自社アプリではない。\");
 
 return;
 
@@ -14861,11 +15231,11 @@ try {
 
 pfd = getContentResolver().openFileDescriptor(
 
-Uri.parse("content://" + AUTHORITY), "r");
+Uri.parse(\"content://\" + AUTHORITY), \"r\");
 
 } catch (FileNotFoundException e) {
 
-android.util.Log.e("InHouseUserActivity", "ファイルがありません");
+android.util.Log.e(\"InHouseUserActivity\", \"ファイルがありません\");
 
 }
 
@@ -14890,8 +15260,8 @@ logLine(new String(buf));
 
 } catch (IOException e) {
 
-android.util.Log.e("InHouseUserActivity",
-"ファイルの読み込みに失敗しました");
+android.util.Log.e(\"InHouseUserActivity\",
+\"ファイルの読み込みに失敗しました\");
 
 } finally {
 
@@ -14901,8 +15271,8 @@ fis.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("InHouseUserActivity",
-"ファイルの終了に失敗しました");
+android.util.Log.e(\"InHouseUserActivity\",
+\"ファイルの終了に失敗しました\");
 
 }
 
@@ -14916,14 +15286,14 @@ pfd.close();
 
 } catch (IOException e) {
 
-android.util.Log.e("InHouseUserActivity",
-"ファイルディスクリプタの終了に失敗しました");
+android.util.Log.e(\"InHouseUserActivity\",
+\"ファイルディスクリプタの終了に失敗しました\");
 
 }
 
 } else {
 
-logLine(" null file descriptor");
+logLine(\" null file descriptor\");
 
 }
 
@@ -14947,7 +15317,7 @@ private void logLine(String line) {
 
 mLogView.append(line);
 
-mLogView.append("\\n");
+mLogView.append(\"\\n\");
 
 }
 
@@ -14963,36 +15333,42 @@ Androidには、アプリディレクトリ内にサブディレクトリを取�
 []{#_Ref338968127 .anchor}表
 4.6‑3　アプリディレクトリ配下のサブディレクトリ取得・作成メソッド
 
-  ------------------------------------------------------------------------------------------------------------------------------------
-                                           他アプリに対する          ユーザーによる削除
-                                                                     
-                                           アクセス権の指定          
-  ---------------------------------------- ------------------------- -----------------------------------------------------------------
-  Context\#getFilesDir()                   不可(実行権限のみ)        「設定」→「アプリ」→アプリケーションを選択→「データを消去」
-
-  Context\#getCacheDir()                   不可(実行権限のみ)        「設定」→「アプリ」→アプリケーションを選択→「キャッシュを消去」
-                                                                     
-                                                                     ※「データを消去」でも削除される。
-
-  Context\#getDir(String name, int mode)   mode に以下を指定可能。   「設定」→「アプリ」→アプリケーションを選択→「データを消去」
-                                                                     
-                                           MODE\_PRIVATE             
-                                                                     
-                                           MODE\_WORLD\_READABLE     
-                                                                     
-                                           MODE\_WORLD\_WRITEABLE    
-  ------------------------------------------------------------------------------------------------------------------------------------
++----------------------+----------------------+----------------------+
+|                      | 他アプリに対する     | ユーザーによる削除   |
+|                      |                      |                      |
+|                      | アクセス権の指定     |                      |
++======================+======================+======================+
+| Context\#getFilesDir | 不可(実行権限のみ)   | 「設定」→「アプリ」→アプリケーションを |
+| ()                   |                      | 選択→「データを消去」 |
++----------------------+----------------------+----------------------+
+| Context\#getCacheDir | 不可(実行権限のみ)   | 「設定」→「アプリ」→アプリケーションを |
+| ()                   |                      | 選択→「キャッシュを消去」 |
+|                      |                      |                      |
+|                      |                      |                      |
+|                      |                      | ※「データを消去」でも削除される。 |
++----------------------+----------------------+----------------------+
+| Context\#getDir(Stri | mode                 | 「設定」→「アプリ」→アプリケーションを |
+| ng                   | に以下を指定可能。   | 選択→「データを消去」 |
+| name, int mode)      |                      |                      |
+|                      | MODE\_PRIVATE        |                      |
+|                      |                      |                      |
+|                      | MODE\_WORLD\_READABL |                      |
+|                      | E                    |                      |
+|                      |                      |                      |
+|                      | MODE\_WORLD\_WRITEAB |                      |
+|                      | LE                   |                      |
++----------------------+----------------------+----------------------+
 
 ここで特に気を付けるのはContext\#getDir()によるアクセス権の設定である。ファイルの作成でも説明しているように、Androidのセキュリティ設計の観点からディレクトリも基本的には非公開にするべきであり、アクセス権の設定によって情報の共有を行うと思わぬ副作用があるので、情報の共有には他の手段を考えるべきである。
 
 ##### MODE\_WORLD\_READABLE
 
 すべてのアプリに対してディレクトリの読み取り権限を与えるフラグである。すべてのアプリがディレクトリ内のファイル一覧や個々のファイルの属性情報を取得可能になる。このディレクトリ配下に秘密のファイルを配置することはできないため、通常はこのフラグを使用してはならない[]{#_Ref472502438
-.anchor}[^15]。
+.anchor}[^16]。
 
 ##### MODE\_WORLD\_WRITEABLE
 
-他アプリに対してディレクトリの書き込み権限を与えるフラグである。すべてのアプリがディレクトリ内のファイルを作成、移動[^16]、リネーム、削除が可能になる。これらの操作はファイル自体のアクセス権設定（読み取り、書き込み、実行）とは無関係であり、ディレクトリの書き込み権限があるだけで可能となる操作であることに注意が必要だ。他のアプリから勝手にファイルを削除されたり置き換えられたりするため、通常はこのフラグを使用してはならない^15^。
+他アプリに対してディレクトリの書き込み権限を与えるフラグである。すべてのアプリがディレクトリ内のファイルを作成、移動[^17]、リネーム、削除が可能になる。これらの操作はファイル自体のアクセス権設定（読み取り、書き込み、実行）とは無関係であり、ディレクトリの書き込み権限があるだけで可能となる操作であることに注意が必要だ。他のアプリから勝手にファイルを削除されたり置き換えられたりするため、通常はこのフラグを使用してはならない^16^。
 
 表
 4.6‑3の「ユーザーによる削除」に関しては、「4.6.2.4ファイルの生存期間を考慮してアプリの設計を行う
@@ -15028,8 +15404,8 @@ PREFERENCE\_FILE\_NAME, MODE\_PRIVATE);
 
 Editor editor = preference.edit();
 
-editor.putString("prep\_key", "prep\_value");// key:"prep\_key",
-value:"prep\_value"
+editor.putString(\"prep\_key\", \"prep\_value\");// key:\"prep\_key\",
+value:\"prep\_value\"
 
 editor.commit();
 
@@ -15054,58 +15430,58 @@ Android 4.4 (API Level
 この仕様では、Android
 OSのバージョンによってPermissionの利用宣言の要・不要が変わっているため、Android
 4.4 (API Level
-19)をまたいで端末のサポートが必要なアプリの場合は、インストールする端末のバージョンによって不要なPermissionをユーザーに要求することになり、好ましい状況とは言えない。よって、上記仕様(1)のみに該当するアプリの場合は、&lt;uses-permission&gt;タグのmaxSdkVersion属性を以下のように記述して対応することをお薦めする。
+19)をまたいで端末のサポートが必要なアプリの場合は、インストールする端末のバージョンによって不要なPermissionをユーザーに要求することになり、好ましい状況とは言えない。よって、上記仕様(1)のみに該当するアプリの場合は、\<uses-permission\>タグのmaxSdkVersion属性を以下のように記述して対応することをお薦めする。
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.file.externalfile" &gt;
+package=\"org.jssec.android.file.externalfile\" \>
 
-&lt;!-- android.permission.WRITE\_EXTERNAL\_STORAGE
-Permissionを利用宣言する --&gt;
+\<!\-- android.permission.WRITE\_EXTERNAL\_STORAGE
+Permissionを利用宣言する \--\>
 
-&lt;!-- Android 4.4 (API Level
+\<!\-- Android 4.4 (API Level
 19)以降では、外部ストレージのアプリデータ領域を
 
-読み書きする際にPermissionが不要なため、maxSdkVersionを宣言する --&gt;
+読み書きする際にPermissionが不要なため、maxSdkVersionを宣言する \--\>
 
-&lt;uses-permission
-android:name="android.permission.WRITE\_EXTERNAL\_STORAGE"
+\<uses-permission
+android:name=\"android.permission.WRITE\_EXTERNAL\_STORAGE\"
 
-android:maxSdkVersion="18"/&gt;
+android:maxSdkVersion=\"18\"/\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;activity
+\<activity
 
-android:name=".ExternalFileActivity"
+android:name=\".ExternalFileActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 #### Android 7.0（API Level 24）における外部ストレージの特定ディレクトリへのアクセスに関する仕様変更について
 
@@ -15169,81 +15545,82 @@ Intentという機能である。アプリは、URIスキームをManifestファ
 1.  (Webページ側)対応するURIスキーマを使ったリンクのパラメータにセンシティブな情報を含めない
 
 &nbsp;
+
 1.  URLのパラメータを利用する前に値の安全性を確認する
 
 > Starter.html
 
-&lt;html&gt;
+\<html\>
 
-&lt;body&gt;
+\<body\>
 
-&lt;!-- ★ポイント1★ URLにセンシティブな情報を含めない --&gt;
+\<!\-- ★ポイント1★ URLにセンシティブな情報を含めない \--\>
 
-&lt;!--
+\<!\--
 URLパラメータとして渡す文字列は、UTF-8で、かつURIエンコードしておくこと
---&gt;
+\--\>
 
-&lt;a href="secure://jssec?user=user\_id"&gt; Login &lt;/a&gt;
+\<a href=\"secure://jssec?user=user\_id\"\> Login \</a\>
 
-&lt;/body&gt;
+\</body\>
 
-&lt;/html&gt;
+\</html\>
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.browsableintent" &gt;
+package=\"org.jssec.android.browsableintent\" \>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;activity
+\<activity
 
-android:name=".BrowsableIntentActivity"
+android:name=\".BrowsableIntentActivity\"
 
-android:label="@string/title\_activity\_browsable\_intent"
+android:label=\"@string/title\_activity\_browsable\_intent\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.VIEW" /&gt;
+\<action android:name=\"android.intent.action.VIEW\" /\>
 
 // 暗黙的intentを受け付ける
 
-&lt;category android:name="android.intent.category.DEFAULT" /&gt;
+\<category android:name=\"android.intent.category.DEFAULT\" /\>
 
 // Browsable intentを受け付ける
 
-&lt;category android:name="android.intent.category.BROWSABLE" /&gt;
+\<category android:name=\"android.intent.category.BROWSABLE\" /\>
 
-// URI 'secure://jssec' を受け付ける
+// URI \'secure://jssec\' を受け付ける
 
-&lt;data android:scheme="secure" android:host="jssec"/&gt;
+\<data android:scheme=\"secure\" android:host=\"jssec\"/\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > BrowsableIntentActivity.java
 
@@ -15281,7 +15658,7 @@ if (uri != null) {
 
 // サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
 
-String userID = "User ID = " + uri.getQueryParameter("user");
+String userID = \"User ID = \" + uri.getQueryParameter(\"user\");
 
 TextView tv = (TextView)findViewById(R.id.text\_userid);
 
@@ -15314,7 +15691,8 @@ Filterが設定されたアプリが複数存在する場合は、通常の暗�
 
 insecure://sample/login?userID=12345&password=abcdef
 
-また、URLのパラメータがユーザーIDなどセンシティブでない情報のみの場合でも、アプリ起動時のパスワード入力をアプリ側でさせるような仕様では、ユーザーが気付かずにマルウェアを起動してしまい、マルウェアに対してパスワードを入力してしまう危険性もある。そのため、一連のログイン処理自体はアプリ側で完結するような仕様を検討すべきである。Browsable
+[]{#_Ref334021773
+.anchor}また、URLのパラメータがユーザーIDなどセンシティブでない情報のみの場合でも、アプリ起動時のパスワード入力をアプリ側でさせるような仕様では、ユーザーが気付かずにマルウェアを起動してしまい、マルウェアに対してパスワードを入力してしまう危険性もある。そのため、一連のログイン処理自体はアプリ側で完結するような仕様を検討すべきである。Browsable
 Intentによるアプリ起動はあくまで暗黙的Intentによるアプリ起動であり、意図したアプリが起動される保証がないことを念頭に置いたアプリ・サービス設計を心がける必要がある。
 
 #### URLのパラメータを利用する前に値の安全性を確認する （必須）
@@ -15326,7 +15704,7 @@ URIスキーマに合わせたリンクは、アプリ開発者に限らず誰�
 LogCatにログ出力する
 --------------------
 
-AndroidはLogCatと呼ばれるシステムログ機構があり、システムのログ情報だけでなくアプリのログ情報もLogCatに出力される。LogCatのログ情報は同じ端末内の他のアプリからも読み取り可能[^17]であるため、センシティブな情報をLogCatにログ出力してしまうアプリには情報漏洩の脆弱性があるとされる。LogCatにはセンシティブな情報をログ出力すべきではない。
+AndroidはLogCatと呼ばれるシステムログ機構があり、システムのログ情報だけでなくアプリのログ情報もLogCatに出力される。LogCatのログ情報は同じ端末内の他のアプリからも読み取り可能[^18]であるため、センシティブな情報をLogCatにログ出力してしまうアプリには情報漏洩の脆弱性があるとされる。LogCatにはセンシティブな情報をログ出力すべきではない。
 
 セキュリティ観点ではリリース版アプリでは一切ログ出力しないことが望ましい。しかし様々な理由によりリリース版アプリでもログ出力するケースがある。ここではリリース版アプリにおいてもログ出力しつつ、センシティブな情報はログ出力しない方法を紹介する。また「4.8.3.1
 リリース版アプリにおけるログ出力の2つの考え方」も参照すること。
@@ -15344,11 +15722,11 @@ DEBUGログとVERBOSEログは自動的に削除されるわけではない」�
 
 > ポイント：
 
-1.  センシティブな情報はLog.e()/w()/i()、System.out/errで出力しない
-2.  センシティブな情報をログ出力する場合はLog.d()/v()で出力する
-3.  Log.d()/v()の呼び出しでは戻り値を使用しない(代入や比較)
-4.  リリースビルドではLog.d()/v()の呼び出しが自動削除される仕組みを導入する
-5.  リリース版アプリのAPKファイルはリリースビルドで作成する
+1.  []{#_Ref342576300 .anchor}センシティブな情報はLog.e()/w()/i()、System.out/errで出力しない
+2.  [[]{#_Ref343526702 .anchor}]{#_Ref342576341 .anchor}センシティブな情報をログ出力する場合はLog.d()/v()で出力する
+3.  []{#_Ref343861062 .anchor}Log.d()/v()の呼び出しでは戻り値を使用しない(代入や比較)
+4.  [[]{#_Ref342579197 .anchor}]{#_Ref342576362 .anchor}リリースビルドではLog.d()/v()の呼び出しが自動削除される仕組みを導入する
+5.  []{#_Ref342579164 .anchor}リリース版アプリのAPKファイルはリリースビルドで作成する
 
 > ProGuardActivity.java
 
@@ -15362,7 +15740,7 @@ import android.util.Log;
 
 public class ProGuardActivity extends Activity {
 
-final static String LOG\_TAG = "ProGuardActivity";
+final static String LOG\_TAG = \"ProGuardActivity\";
 
 @Override
 
@@ -15375,20 +15753,20 @@ setContentView(R.layout.activity\_proguard);
 // ★ポイント1★
 センシティブな情報はLog.e()/w()/i()、System.out/errで出力しない
 
-Log.e(LOG\_TAG, "センシティブではない情報(ERROR)");
+Log.e(LOG\_TAG, \"センシティブではない情報(ERROR)\");
 
-Log.w(LOG\_TAG, "センシティブではない情報(WARN)");
+Log.w(LOG\_TAG, \"センシティブではない情報(WARN)\");
 
-Log.i(LOG\_TAG, "センシティブではない情報(INFO)");
+Log.i(LOG\_TAG, \"センシティブではない情報(INFO)\");
 
 // ★ポイント2★
 センシティブな情報をログ出力する場合はLog.d()/v()で出力する
 
 // ★ポイント3★ Log.d()/v()の呼び出しでは戻り値を使用しない(代入や比較)
 
-Log.d(LOG\_TAG, "センシティブな情報(DEBUG)");
+Log.d(LOG\_TAG, \"センシティブな情報(DEBUG)\");
 
-Log.v(LOG\_TAG, "センシティブな情報(VERBOSE)");
+Log.v(LOG\_TAG, \"センシティブな情報(VERBOSE)\");
 
 }
 
@@ -15405,22 +15783,22 @@ Log.v(LOG\_TAG, "センシティブな情報(VERBOSE)");
 
 -assumenosideeffects class android.util.Log {
 
-public static int d(...);
+public static int d(\...);
 
-public static int v(...);
+public static int v(\...);
 
 }
 
 ★ポイント5★ リリース版アプリのAPKファイルはリリースビルドで作成する
 
-![](media/image46.png){width="7.26875in" height="2.7849146981627295in"}
+![](media/image48.png){width="7.26875in" height="2.7849146981627295in"}
 
 図 4.8‑1リリース版アプリを作成する方法(Exportする)
 
 開発版アプリ（デバッグビルド）とリリース版アプリ（リリースビルド）のLogCat出力の違いを図
 4.8‑2に示す。
 
-![](media/image47.png){width="6.889763779527559in"
+![](media/image49.png){width="6.889763779527559in"
 height="2.2236220472440946in"}
 
 []{#_Ref342927944 .anchor}図 4.8‑2
@@ -15465,9 +15843,9 @@ ProGuardは使用されていないメソッド等、実質的に不要なコー
 
 -assumenosideeffects class android.util.Log {
 
-public static int d(...);
+public static int d(\...);
 
-public static int v(...);
+public static int v(\...);
 
 }
 
@@ -15477,9 +15855,9 @@ Log.d()の戻り値を使用してはならない。たとえば、次の実験�
 
 > 削除指定したLog.v()が削除されない実験コード
 
-int i = android.util.Log.v("tag", "message");
+int i = android.util.Log.v(\"tag\", \"message\");
 
-System.out.println(String.format(“Log.v()が%dを返した。”, i)); //
+System.out.println(String.format("Log.v()が%dを返した。", i)); //
 実験のためLog.v()の戻り値を使用。
 
 また、上記ProGuard設定により、Log.d()及びLog.v()が自動削除されることを前提としたソースコードがあったとする。もしそのソースコードをProGuard設定がされていない他のプロジェクトで再利用してしまうと、Log.d()及びLog.v()が削除されないため、センシティブな情報が漏洩してしまう危険性がある。ソースコードを再利用する際は、ProGuard設定を含めたプロジェクト環境の整合性を確保すること。
@@ -15487,8 +15865,8 @@ System.out.println(String.format(“Log.v()が%dを返した。”, i)); //
 #### Throwableオブジェクトをログ出力するときはLog.d()/v()メソッドを使う （推奨）
 
 「4.8.1 サンプルコード」および「4.8.3.2
-ログレベルとログ出力メソッドの選択基準」に示した通り、Log.e()/w()/i()ではセンシティブな情報をログ出力してはならない。一方で、開発者がプログラムの異常を詳細にログ出力するために、例外発生時にLog.e(…,
-Throwable tr)/w(…, Throwable tr)/i(…, Throwable
+ログレベルとログ出力メソッドの選択基準」に示した通り、Log.e()/w()/i()ではセンシティブな情報をログ出力してはならない。一方で、開発者がプログラムの異常を詳細にログ出力するために、例外発生時にLog.e(...,
+Throwable tr)/w(..., Throwable tr)/i(..., Throwable
 tr)でスタックトレースをLogCatにログ出力しているケースがみられる。しかしながら、スタックトレースはプログラムの内部構造を詳細に出力してしまうので、アプリケーションによってはセンシティブな情報が含まれてしまう場合がある。例えば、SQLiteExceptionをそのまま出力してしまうと、どのようなSQLステートメントが発行されたかが明らかになるので、SQLインジェクション攻撃の手がかりを与えてしまうことがある。よって、Throwableオブジェクトをログ出力する際には、Log.d()/Log.v()メソッドのみを使用することを推奨する。
 
 #### ログ出力にはandroid.util.Logクラスのメソッドのみ使用する （推奨）
@@ -15515,7 +15893,7 @@ Style Guidelineも2つ目の考え方に基づいている。
 
 > Code Style Guidelines for Contributors / Log Sparingly
 >
-> [*http://source.android.com/source/code-style.html\#log-sparingly*](http://source.android.com/source/code-style.html#log-sparingly)
+> [[http://source.android.com/source/code-style.html\#log-sparingly]{.underline}](http://source.android.com/source/code-style.html#log-sparingly)
 
 #### ログレベルとログ出力メソッドの選択基準
 
@@ -15537,12 +15915,12 @@ Androidのandroid.util.LogクラスにはERROR、WARN、INFO、DEBUG,VERBOSEの5
 
 > Code Style Guidelines for Contributors / Log Sparingly
 >
-> [*http://source.android.com/source/code-style.html\#log-sparingly*](http://source.android.com/source/code-style.html#log-sparingly)
+> [[http://source.android.com/source/code-style.html\#log-sparingly]{.underline}](http://source.android.com/source/code-style.html#log-sparingly)
 
 #### DEBUGログとVERBOSEログは自動的に削除されるわけではない
 
 Developer
-Referenceのandroid.util.Logクラスの解説[^18]には次のような記載がある。
+Referenceのandroid.util.Logクラスの解説[^19]には次のような記載がある。
 
 The order in terms of verbosity, from least to most is ERROR, WARN,
 INFO, DEBUG, VERBOSE. Verbose should never be compiled into an
@@ -15564,14 +15942,14 @@ stripped at runtime. Error, warning and info logs are always kept.
 
 下記ソースコードをProGuardでリリースビルドしてLog.d()を削除した場合、Log.d()の呼び出し処理（下記コードの2行目）は削除されるものの、その前段でセンシティブな情報を組み立てる処理（下記コードの1行目）は削除されないことに注意が必要である。
 
-String debug\_info = String.format("%s:%s", "センシティブな情報1",
-"センシティブな情報2");
+String debug\_info = String.format(\"%s:%s\", \"センシティブな情報1\",
+\"センシティブな情報2\");
 
 if (BuildConfig.DEBUG) android.util.Log.d(TAG, debug\_info);
 
-上記ソースコードをリリースビルドしたAPKファイルを逆アセンブルすると次のようになる。確かにLog.d()の呼び出し処理は存在しないが、”センシティブな情報1”といった文字列定数定義とString\#format()メソッドの呼び出し処理が削除されず残っていることが分かる。
+上記ソースコードをリリースビルドしたAPKファイルを逆アセンブルすると次のようになる。確かにLog.d()の呼び出し処理は存在しないが、"センシティブな情報1"といった文字列定数定義とString\#format()メソッドの呼び出し処理が削除されず残っていることが分かる。
 
-const-string v1, "%s:%s"
+const-string v1, \"%s:%s\"
 
 const/4 v2, 0x2
 
@@ -15579,42 +15957,42 @@ new-array v2, v2, \[Ljava/lang/Object;
 
 const/4 v3, 0x0
 
-const-string v4, "センシティブな情報1"
+const-string v4, \"センシティブな情報1\"
 
 aput-object v4, v2, v3
 
 const/4 v3, 0x1
 
-const-string v4, "センシティブな情報2"
+const-string v4, \"センシティブな情報2\"
 
 aput-object v4, v2, v3
 
 invoke-static {v1, v2},
-Ljava/lang/String;-&gt;format(Ljava/lang/String;\[Ljava/lang/Object;)Ljava/lang/String;
+Ljava/lang/String;-\>format(Ljava/lang/String;\[Ljava/lang/Object;)Ljava/lang/String;
 
 move-result-object v0
 
 実際にはAPKファイルを逆アセンブルして、上記のようにログ出力情報を組み立てている箇所を発見するのは容易なことではない。しかし非常に機密度の高い情報を扱っているアプリにおいては、このような処理がAPKファイルに残ってしまってはならない場合もあり得る。
 
-もし上記のようなログ出力情報の組み立て処理も削除してしまいたい場合には、次のように記述するとよい[^19]。リリースビルド時にはコンパイラの最適化処理によって、下記サンプルコードの処理は丸ごと削除される。
+もし上記のようなログ出力情報の組み立て処理も削除してしまいたい場合には、次のように記述するとよい[^20]。リリースビルド時にはコンパイラの最適化処理によって、下記サンプルコードの処理は丸ごと削除される。
 
 if (BuildConfig.DEBUG) {
 
-String debug\_info = String.format("%s:%s", "センシティブな情報1",
-"センシティブな情報2");
+String debug\_info = String.format(\"%s:%s\", \"センシティブな情報1\",
+\"センシティブな情報2\");
 
 if (BuildConfig.DEBUG) android.util.Log.d(TAG, debug\_info);
 
 }
 
-なお、下記ソースコードにProGuardを適用した場合も、同様にログ情報の組み立て処理（"result:"
+なお、下記ソースコードにProGuardを適用した場合も、同様にログ情報の組み立て処理（\"result:\"
 + valueの部分）が残ってしまう。
 
-Log.d(TAG, "result:" + value);
+Log.d(TAG, \"result:\" + value);
 
 この場合も下記のように対処すればよい。
 
-if (BuildConfig.DEBUG) Log.d(TAG, "result:" + value);
+if (BuildConfig.DEBUG) Log.d(TAG, \"result:\" + value);
 
 #### Intentの内容がLogCatに出力される
 
@@ -15702,41 +16080,41 @@ System.setErr(savedErr);
 
 > AndroidManifest.xml
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.log.outputredirection" &gt;
+package=\"org.jssec.android.log.outputredirection\" \>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:name=".OutputRedirectApplication"
+android:name=\".OutputRedirectApplication\"
 
-android:allowBackup="false" &gt;
+android:allowBackup=\"false\" \>
 
-&lt;activity
+\<activity
 
-android:name=".LogActivity"
+android:name=\".LogActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > proguard-project.txt
 
@@ -15748,9 +16126,9 @@ android:exported="true" &gt;
 
 -assumenosideeffects class android.util.Log {
 
-public static int d(...);
+public static int d(\...);
 
-public static int v(...);
+public static int v(\...);
 
 }
 
@@ -15759,14 +16137,14 @@ public static int v(...);
 -assumenosideeffects class
 org.jssec.android.log.outputredirection.OutputRedirectApplication {
 
-private void resetStreams(...);
+private void resetStreams(\...);
 
 }
 
 開発版アプリ（デバッグビルド）とリリース版アプリ（リリースビルド）のLogCat出力の違いを図
 4.8‑3に示す。
 
-![](media/image48.png){width="7.26875in" height="2.237303149606299in"}
+![](media/image50.png){width="7.26875in" height="2.237303149606299in"}
 
 []{#_Ref342932556 .anchor}図 4.8‑3
 System.out/errの開発版アプリとリリース版アプリのLogCat出力の違い
@@ -15782,7 +16160,7 @@ WebViewを使用することにより容易にWebサイト、HTMLファイル閲
 
 特に気をつけなければいけないのはJavaScriptの使用である。WebViewのデフォルト設定ではJavaScriptの機能が無効になっているが、WebSettings\#setJavaScriptEnabled()メソッドにより有効にすることが可能である。JavaScriptを使用することでインタラクティブなコンテンツの表示が可能になるが、悪意のある第三者により端末の情報を取得される、あるいは端末を操作されるという被害が発生する可能性がある。
 
-WebViewを用いてコンテンツにアクセスするアプリを開発する際は、次の原則に従うこと[^20]。
+WebViewを用いてコンテンツにアクセスするアプリを開発する際は、次の原則に従うこと[^21]。
 
 (1) 自社が管理しているコンテンツにのみアクセスする場合に限りJavaScriptを有効にしてよい
 
@@ -15791,7 +16169,7 @@ WebViewを用いてコンテンツにアクセスするアプリを開発する�
 開発しているアプリがアクセスするコンテンツの特性を踏まえ、図
 4.9‑1に従いサンプルコードを選択することが必要である。
 
-![](media/image49.png){width="6.889763779527559in"
+![](media/image51.png){width="6.889763779527559in"
 height="2.912204724409449in"}
 
 [[]{#_Ref350458582 .anchor}]{#_Ref350458604 .anchor}図 4.9‑1
@@ -15806,9 +16184,7 @@ WebViewのサンプルコードを選択するフローチャート
 > ポイント：
 
 1.  assetsとresディレクトリ以外の場所に配置したファイルへのアクセスを禁止にする
-
-&nbsp;
-1.  JavaScriptを有効にしてよい
+2.  JavaScriptを有効にしてよい
 
 > WebViewAssetsActivity.java
 
@@ -15853,7 +16229,7 @@ webSettings.setJavaScriptEnabled(true);
 
 // assets内に配置したコンテンツを表示する
 
-webView.loadUrl("file:///android\_asset/sample/index.html");
+webView.loadUrl(\"file:///android\_asset/sample/index.html\");
 
 }
 
@@ -15876,7 +16252,7 @@ webView.loadUrl("file:///android\_asset/sample/index.html");
 
 以下では、アプリ側での実装の例として、WebViewを使って自社管理コンテンツを表示するActivityの例を示す。
 
-![](media/image50.png){width="6.471653543307086in"
+![](media/image52.png){width="6.471653543307086in"
 height="4.366141732283465in"}
 
 [[]{#_Ref348614297 .anchor}]{#_Ref348614818 .anchor}図
@@ -15885,13 +16261,9 @@ height="4.366141732283465in"}
 > ポイント：
 
 1.  WebViewのSSL通信エラーを適切にハンドリングする
-
-&nbsp;
-1.  WebViewのJavaScriptを有効にしてもよい
-
-2.  WebViewで表示するURLをHTTPSプロトコルだけに限定する
-
-3.  WebViewで表示するURLを自社管理コンテンツだけに限定する
+2.  WebViewのJavaScriptを有効にしてもよい
+3.  WebViewで表示するURLをHTTPSプロトコルだけに限定する
+4.  WebViewで表示するURLを自社管理コンテンツだけに限定する
 
 > WebViewTrustedContentsActivity.java
 
@@ -15969,7 +16341,7 @@ webView.getSettings().setJavaScriptEnabled(true);
 
 // ★ポイント4★ WebViewで表示するURLを自社管理コンテンツだけに限定する
 
-webView.loadUrl("https://url.to.your.contents/");
+webView.loadUrl(\"https://url.to.your.contents/\");
 
 }
 
@@ -15998,9 +16370,9 @@ setResult(RESULT\_OK);
 
 AlertDialog dialog = new AlertDialog.Builder(
 
-WebViewTrustedContentsActivity.this).setTitle("SSL接続エラー")
+WebViewTrustedContentsActivity.this).setTitle(\"SSL接続エラー\")
 
-.setMessage(errorMsg).setPositiveButton("OK", onClickOk)
+.setMessage(errorMsg).setPositiveButton(\"OK\", onClickOk)
 
 .create();
 
@@ -16012,18 +16384,18 @@ private String createErrorMessage(SslError error) {
 
 SslCertificate cert = error.getCertificate();
 
-SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd
-HH:mm:ss");
+SimpleDateFormat dateFormat = new SimpleDateFormat(\"yyyy/MM/dd
+HH:mm:ss\");
 
 StringBuilder result = new StringBuilder()
 
-.append("サイトのセキュリティ証明書が信頼できません。接続を終了しました。\\n\\nエラーの原因\\n");
+.append(\"サイトのセキュリティ証明書が信頼できません。接続を終了しました。\\n\\nエラーの原因\\n\");
 
 switch (error.getPrimaryError()) {
 
 case SslError.SSL\_EXPIRED:
 
-result.append("証明書の有効期限が切れています。\\n\\n終了時刻=")
+result.append(\"証明書の有効期限が切れています。\\n\\n終了時刻=\")
 
 .append(dateFormat.format(cert.getValidNotAfterDate()));
 
@@ -16031,7 +16403,7 @@ return result.toString();
 
 case SslError.SSL\_IDMISMATCH:
 
-result.append("ホスト名が一致しません。\\n\\nCN=")
+result.append(\"ホスト名が一致しません。\\n\\nCN=\")
 
 .append(cert.getIssuedTo().getCName());
 
@@ -16039,7 +16411,7 @@ return result.toString();
 
 case SslError.SSL\_NOTYETVALID:
 
-result.append("証明書はまだ有効ではありません\\n\\n開始時刻=")
+result.append(\"証明書はまだ有効ではありません\\n\\n開始時刻=\")
 
 .append(dateFormat.format(cert.getValidNotBeforeDate()));
 
@@ -16047,7 +16419,7 @@ return result.toString();
 
 case SslError.SSL\_UNTRUSTED:
 
-result.append("証明書を発行した認証局が信頼できません\\n\\n認証局\\n")
+result.append(\"証明書を発行した認証局が信頼できません\\n\\n認証局\\n\")
 
 .append(cert.getIssuedBy().getDName());
 
@@ -16055,7 +16427,7 @@ return result.toString();
 
 default:
 
-result.append("原因不明のエラーが発生しました");
+result.append(\"原因不明のエラーが発生しました\");
 
 return result.toString();
 
@@ -16252,9 +16624,9 @@ setResult(RESULT\_OK);
 
 AlertDialog dialog = new AlertDialog.Builder(
 
-WebViewUntrustActivity.this).setTitle("SSL接続エラー")
+WebViewUntrustActivity.this).setTitle(\"SSL接続エラー\")
 
-.setMessage(errorMsg).setPositiveButton("OK", onClickOk)
+.setMessage(errorMsg).setPositiveButton(\"OK\", onClickOk)
 
 .create();
 
@@ -16266,18 +16638,18 @@ private String createErrorMessage(SslError error) {
 
 SslCertificate cert = error.getCertificate();
 
-SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd
-HH:mm:ss");
+SimpleDateFormat dateFormat = new SimpleDateFormat(\"yyyy/MM/dd
+HH:mm:ss\");
 
 StringBuilder result = new StringBuilder()
 
-.append("サイトのセキュリティ証明書が信頼できません。接続を終了しました。\\n\\nエラーの原因\\n");
+.append(\"サイトのセキュリティ証明書が信頼できません。接続を終了しました。\\n\\nエラーの原因\\n\");
 
 switch (error.getPrimaryError()) {
 
 case SslError.SSL\_EXPIRED:
 
-result.append("証明書の有効期限が切れています。\\n\\n終了時刻=")
+result.append(\"証明書の有効期限が切れています。\\n\\n終了時刻=\")
 
 .append(dateFormat.format(cert.getValidNotAfterDate()));
 
@@ -16285,7 +16657,7 @@ return result.toString();
 
 case SslError.SSL\_IDMISMATCH:
 
-result.append("ホスト名が一致しません。\\n\\nCN=")
+result.append(\"ホスト名が一致しません。\\n\\nCN=\")
 
 .append(cert.getIssuedTo().getCName());
 
@@ -16293,7 +16665,7 @@ return result.toString();
 
 case SslError.SSL\_NOTYETVALID:
 
-result.append("証明書はまだ有効ではありません\\n\\n開始時刻=")
+result.append(\"証明書はまだ有効ではありません\\n\\n開始時刻=\")
 
 .append(dateFormat.format(cert.getValidNotBeforeDate()));
 
@@ -16301,7 +16673,7 @@ return result.toString();
 
 case SslError.SSL\_UNTRUSTED:
 
-result.append("証明書を発行した認証局が信頼できません\\n\\n認証局\\n")
+result.append(\"証明書を発行した認証局が信頼できません\\n\\n認証局\\n\")
 
 .append(cert.getIssuedBy().getDName());
 
@@ -16309,7 +16681,7 @@ return result.toString();
 
 default:
 
-result.append("原因不明のエラーが発生しました");
+result.append(\"原因不明のエラーが発生しました\");
 
 return result.toString();
 
@@ -16423,13 +16795,13 @@ settings.setAllowFileAccessFromFileURLs(false);
 
 Android 6.0(API Level 23)において、HTML5 Web
 Messagingを実現するためのAPIが追加された。Web
-Messagingは異なるブラウジング・コンテキスト間でデータを送受信するための仕組みであり、HTML5で定義されている[^21]。
+Messagingは異なるブラウジング・コンテキスト間でデータを送受信するための仕組みであり、HTML5で定義されている[^22]。
 
 WebViewクラスに追加されたpostWebMessage()はWeb
 Messagingで定義されているCross-domain
-messagingによるデータ送信を処理するメソッドである。このメソッドは第一引数で指定されたメッセージオブジェクトをWebViewに読み込んでいるブラウジング・コンテキストに対して送信するのだが、その際第二引数として送信先のオリジンを指定する必要がある。指定されたオリジン[^22]が送信先コンテキストのオリジンと一致しない限りメッセージは送信されない。送信先オリジンを制限することで、意図しない送信先にメッセージを渡してしまうことを防いでいるのである。
+messagingによるデータ送信を処理するメソッドである。このメソッドは第一引数で指定されたメッセージオブジェクトをWebViewに読み込んでいるブラウジング・コンテキストに対して送信するのだが、その際第二引数として送信先のオリジンを指定する必要がある。指定されたオリジン[^23]が送信先コンテキストのオリジンと一致しない限りメッセージは送信されない。送信先オリジンを制限することで、意図しない送信先にメッセージを渡してしまうことを防いでいるのである。
 
-ただし、postWebMessage()メソッドではオリジンとしてワイルドカードを指定できることに注意が必要である[^23]。ワイルドカードを指定するとメッセージの送信先オリジンがチェックされず、どのようなオリジンに対してもメッセージを送信してしまう。もしWebViewに悪意のあるコンテンツが読み込まれている状況でオリジンの制限なしに重要なメッセージを送信してしまうと何らかの被害につながる可能性も生じる。WebViewを用いてWeb
+ただし、postWebMessage()メソッドではオリジンとしてワイルドカードを指定できることに注意が必要である[^24]。ワイルドカードを指定するとメッセージの送信先オリジンがチェックされず、どのようなオリジンに対してもメッセージを送信してしまう。もしWebViewに悪意のあるコンテンツが読み込まれている状況でオリジンの制限なしに重要なメッセージを送信してしまうと何らかの被害につながる可能性も生じる。WebViewを用いてWeb
 messagingを行う際は、postWebMessage()メソッドに特定のオリジンを明示的に指定するべきである。
 
 Notificationを使用する
@@ -16437,7 +16809,7 @@ Notificationを使用する
 
 Androidにはエンドユーザーへのメッセージを通知するNotification機能がある。Notificationを使うと、画面上部のステータスバーと呼ばれる領域に、アイコンやメッセージを表示することができる。
 
-![](media/image51.png){width="3.716666666666667in"
+![](media/image53.png){width="3.716666666666667in"
 height="6.603472222222222in"}
 
 図 4.10‑1　Notifcationの表示例
@@ -16457,7 +16829,7 @@ Notificationの通知機能は、Android 5.0(API Level
 
 Notificationに端末ユーザーのプライベートな情報を含む場合、プライベート情報を取り除いた通知を画面ロック時の表示用に作成し、加えておくこと。
 
-![](media/image52.png){width="3.716666666666667in"
+![](media/image54.png){width="3.716666666666667in"
 height="6.603472222222222in"}
 
 図 4.10‑2　ロック画面上のNotification
@@ -16521,17 +16893,17 @@ public void onSendNotificationClick(View view) {
 を用意する
 
 Notification.Builder publicNotificationBuilder = new
-Notification.Builder(this).setContentTitle("Notification : Public");
+Notification.Builder(this).setContentTitle(\"Notification : Public\");
 
-if (Build.VERSION.SDK\_INT &gt;= 21)
+if (Build.VERSION.SDK\_INT \>= 21)
 
 publicNotificationBuilder.setVisibility(Notification.VISIBILITY\_PUBLIC);
 
-// ★ポイント1★ 公開用（画面ロック時の表示用）の
+// ★ポイント2★ 公開用（画面ロック時の表示用）の
 Notificationにはプライベート情報を含めない
 
-publicNotificationBuilder.setContentText("Visibility Public : Omitting
-sensitive data.");
+publicNotificationBuilder.setContentText(\"Visibility Public : Omitting
+sensitive data.\");
 
 publicNotificationBuilder.setSmallIcon(R.drawable.ic\_launcher);
 
@@ -16540,27 +16912,27 @@ Notification publicNotification = publicNotificationBuilder.build();
 // プライベート情報を含む Notification を作成する
 
 Notification.Builder privateNotificationBuilder = new
-Notification.Builder(this).setContentTitle("Notification : Private");
+Notification.Builder(this).setContentTitle(\"Notification : Private\");
 
 // ★ポイント3★ 明示的に Visibility を Private に設定して、Notification
 を作成する
 
-if (Build.VERSION.SDK\_INT &gt;= 21)
+if (Build.VERSION.SDK\_INT \>= 21)
 
 privateNotificationBuilder.setVisibility(Notification.VISIBILITY\_PRIVATE);
 
 // ★ポイント4★ Visibility が Private
 の場合、プライベート情報を含めて通知してもよい
 
-privateNotificationBuilder.setContentText("Visibility Private :
-Including user info.");
+privateNotificationBuilder.setContentText(\"Visibility Private :
+Including user info.\");
 
 privateNotificationBuilder.setSmallIcon(R.drawable.ic\_launcher);
 
 //
 VisibilityがPrivateのNotificationを利用する場合、VisibilityをPublicにした公開用のNotificationを合わせて設定する
 
-if (Build.VERSION.SDK\_INT &gt;= 21)
+if (Build.VERSION.SDK\_INT \>= 21)
 
 privateNotificationBuilder.setPublicVersion(publicNotification);
 
@@ -16630,15 +17002,15 @@ VisibilityがPublicに設定されたNotificationによって通知を行う場�
 Notification を用意する
 
 Notification.Builder publicNotificationBuilder = new
-Notification.Builder(this).setContentTitle("Notification : Public");
+Notification.Builder(this).setContentTitle(\"Notification : Public\");
 
 publicNotificationBuilder.setVisibility(Notification.VISIBILITY\_PUBLIC);
 
 // 公開用（画面ロック時の表示用）の
 Notificationにはプライベート情報を含めない
 
-publicNotificationBuilder.setContentText("Visibility Public :
-センシティブな情報は含めずに通知");
+publicNotificationBuilder.setContentText(\"Visibility Public :
+センシティブな情報は含めずに通知\");
 
 publicNotificationBuilder.setSmallIcon(R.drawable.ic\_launcher);
 
@@ -16658,7 +17030,7 @@ publicNotificationBuilder.setSmallIcon(R.drawable.ic\_launcher);
 // プライベート情報を含む Notification を作成する
 
 Notification.Builder priavteNotificationBuilder = new
-Notification.Builder(this).setContentTitle("Notification : Private");
+Notification.Builder(this).setContentTitle(\"Notification : Private\");
 
 // ★ポイント★ 明示的に Visibility を Private に設定して、Notification
 を作成する
@@ -16676,27 +17048,27 @@ VisibilityがPrivateに設定されたNotificationに公開用のNotificationを
 // プライベート情報を含む Notification を作成する
 
 Notification.Builder privateNotificationBuilder = new
-Notification.Builder(this).setContentTitle("Notification : Private");
+Notification.Builder(this).setContentTitle(\"Notification : Private\");
 
 // ★ポイント★ 明示的に Visibility を Private に設定して、Notification
 を作成する
 
-if (Build.VERSION.SDK\_INT &gt;= 21)
+if (Build.VERSION.SDK\_INT \>= 21)
 
 privateNotificationBuilder.setVisibility(Notification.VISIBILITY\_PRIVATE);
 
 // ★ポイント★ Visibility が Private
 の場合、プライベート情報を含めて通知してもよい
 
-privateNotificationBuilder.setContentText("Visibility Private :
-Including user info.");
+privateNotificationBuilder.setContentText(\"Visibility Private :
+Including user info.\");
 
 privateNotificationBuilder.setSmallIcon(R.drawable.ic\_launcher);
 
 //
 VisibilityがPrivateのNotificationを利用する場合、VisibilityをPublicにした公開用のNotificationを合わせて設定する
 
-if (Build.VERSION.SDK\_INT &gt;= 21)
+if (Build.VERSION.SDK\_INT \>= 21)
 
 privateNotificationBuilder.setPublicVersion(publicNotification);
 
@@ -16709,7 +17081,7 @@ Visibilityの設定に依らず、Notificationにはセンシティブな情報�
 （必須）」で述べたように、Android4.3(API Level
 18)以降の端末では、ユーザーが許可を与えた場合、指定されたアプリは全てのNotificationの情報を読み取ることが可能になる。ただし、ユーザー許可の対象となるためには、アプリがNotificationListenerServiceを継承したServiceを実装しておく必要がある。
 
-![](media/image53.png){width="3.71875in" height="6.604166666666667in"}
+![](media/image55.png){width="3.71875in" height="6.604166666666667in"}
 
 図 4.10‑3　Notificationの読み取りを設定する「通知へのアクセス」画面
 
@@ -16717,37 +17089,37 @@ NotificationListenerServiceを使ったサンプルコードを以下に示す�
 
 > AndroidManifest.xml
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.notification.notificationListenerService"&gt;
+package=\"org.jssec.notification.notificationListenerService\"\>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;service android:name=".MyNotificationListenerService"
+\<service android:name=\".MyNotificationListenerService\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:permission="android.permission.BIND\_NOTIFICATION\_LISTENER\_SERVICE"&gt;
+android:permission=\"android.permission.BIND\_NOTIFICATION\_LISTENER\_SERVICE\"\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name=
+\<action android:name=
 
-"android.service.notification.NotificationListenerService" /&gt;
+\"android.service.notification.NotificationListenerService\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/service&gt;
+\</service\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > MyNotificationListenerService.java
 
@@ -16770,7 +17142,7 @@ public void onNotificationPosted(StatusBarNotification sbn) {
 
 // Notification is posted.
 
-outputNotificationData(sbn, "Notification Posted : ");
+outputNotificationData(sbn, \"Notification Posted : \");
 
 }
 
@@ -16780,7 +17152,7 @@ public void onNotificationRemoved(StatusBarNotification sbn) {
 
 // Notification is deleted.
 
-outputNotificationData(sbn, "Notification Deleted : ");
+outputNotificationData(sbn, \"Notification Deleted : \");
 
 }
 
@@ -16795,12 +17167,12 @@ String packageName = sbn.getPackageName();
 
 long PostTime = sbn.getPostTime();
 
-String message = prefix + "Visibility :" + notification.visibility + "
-ID : " + notificationID;
+String message = prefix + \"Visibility :\" + notification.visibility +
+\" ID : \" + notificationID;
 
-message += " Package : " + packageName + " PostTime : " + PostTime;
+message += \" Package : \" + packageName + \" PostTime : \" + PostTime;
 
-Log.d("NotificationListen", message);
+Log.d(\"NotificationListen\", message);
 
 }
 

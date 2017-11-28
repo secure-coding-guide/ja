@@ -34,16 +34,16 @@ EditTextなど)からのコピー・カットを禁止にすることである�
 Type)がPassword属性に固定されているとは、入力タイプ(Input
 Type)がアプリの実行時に常に下記のいずれかであることを指す。この場合は、デフォルトでコピー・カットが禁止されているので、特に対策する必要はない。
 
--   InputType.TYPE\_CLASS\_TEXT |
+-   InputType.TYPE\_CLASS\_TEXT \|
     InputType.TYPE\_TEXT\_VARIATION\_PASSWORD
 
--   InputType.TYPE\_CLASS\_TEXT |
+-   InputType.TYPE\_CLASS\_TEXT \|
     InputType.TYPE\_TEXT\_VARIATION\_WEB\_PASSWORD
 
--   InputType.TYPE\_CLASS\_NUMBER |
+-   InputType.TYPE\_CLASS\_NUMBER \|
     InputType.TYPE\_NUMBER\_VARIATION\_PASSWORD
 
-![](media/image91.png){width="3.9358267716535433in"
+![](media/image93.png){width="3.9358267716535433in"
 height="3.6429133858267715in"}
 
 [[]{#_Ref350183803 .anchor}]{#_Ref350183809 .anchor}図
@@ -62,6 +62,7 @@ TextView.setCustomSelectionActionModeCallback()メソッドによって、文字
 1.  文字列選択時のメニューからandroid.R.id.copyを削除する。
 
 &nbsp;
+
 1.  文字列選択時のメニューからandroid.R.id.cutを削除する。
 
 > UncopyableActivity.java
@@ -196,42 +197,41 @@ Click)を無効にすることでも実現できる。Viewの長押し無効化�
 
 > unlongclickable.xml
 
-&lt;LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
+\<LinearLayout
+xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-xmlns:tools="http://schemas.android.com/tools"
+xmlns:tools=\"http://schemas.android.com/tools\"
 
-android:layout\_width="match\_parent"
+android:layout\_width=\"match\_parent\"
 
-android:layout\_height="match\_parent"
+android:layout\_height=\"match\_parent\"
 
-android:orientation="vertical"&gt;
+android:orientation=\"vertical\"\>
 
-&lt;TextView
+\<TextView
 
-android:layout\_width="match\_parent"
+android:layout\_width=\"match\_parent\"
 
-android:layout\_height="wrap\_content"
+android:layout\_height=\"wrap\_content\"
 
-android:text="@string/unlongclickable\_description" /&gt;
+android:text=\"@string/unlongclickable\_description\" /\>
 
-&lt;!-- コピー・カットを禁止するEditText --&gt;
+\<!\-- コピー・カットを禁止するEditText \--\>
 
-&lt;!-- ★ポイント1★
-コピー・カットを禁止するViewはandroid:longClickableをfalseにする。
---&gt;
+\<!\-- ★ポイント1★
+コピー・カットを禁止するViewはandroid:longClickableをfalseにする。 \--\>
 
-&lt;EditText
+\<EditText
 
-android:layout\_width="match\_parent"
+android:layout\_width=\"match\_parent\"
 
-android:layout\_height="wrap\_content"
+android:layout\_height=\"wrap\_content\"
 
-android:longClickable="false"
+android:longClickable=\"false\"
 
-android:hint="@string/unlongclickable\_hint" /&gt;
+android:hint=\"@string/unlongclickable\_hint\" /\>
 
-&lt;/LinearLayout&gt;
+\</LinearLayout\>
 
 ### ルールブック
 
@@ -255,7 +255,7 @@ TextViewはデフォルトでは文字列選択不可であるため、通常は
 
 また、「6.1.1
 サンプルコード」の判定フローにも記載されているように、パスワードの入力を想定した入力タイプ(InputType.TYPE\_CLASS\_TEXT
-|
+\|
 InputType.TYPE\_TEXT\_VARIATION\_PASSWORDなど)のEditTextについては、デフォルトで文字列のコピーが禁止されているため通常は対策不要である。しかし、「5.1.2.2.
 パスワードを平文表示するオプションを用意する
 （必須）」に記載したように「パスワードを平文表示する」オプションを用意している場合は、パスワード平文表示の際に入力タイプが変化し、コピー・カットが有効になってしまうので、同様の対策が必要である。
@@ -306,7 +306,7 @@ import android.widget.Toast;
 
 public class ClipboardListeningService extends Service {
 
-private static final String TAG = "ClipboardListeningService";
+private static final String TAG = \"ClipboardListeningService\";
 
 private ClipboardManager mClipboardManager;
 
@@ -334,7 +334,7 @@ mClipboardManager.addPrimaryClipChangedListener(clipListener);
 } else {
 
 Log.e(TAG,
-"ClipboardServiceの取得に失敗しました。サービスを終了します。");
+\"ClipboardServiceの取得に失敗しました。サービスを終了します。\");
 
 this.stopSelf();
 
@@ -373,9 +373,9 @@ Toast
 
 getApplicationContext(),
 
-"コピーあるいはカットされた文字列:\\n"
+\"コピーあるいはカットされた文字列:\\n\"
 
-+ item.coerceToText(getApplicationContext()),
+\+ item.coerceToText(getApplicationContext()),
 
 Toast.LENGTH\_SHORT)
 
@@ -411,7 +411,7 @@ import android.widget.Toast;
 
 public class ClipboardListeningActivity extends Activity {
 
-private static final String TAG = "ClipboardListeningActivity";
+private static final String TAG = \"ClipboardListeningActivity\";
 
 @Override
 
@@ -427,7 +427,7 @@ public void onClickStartService(View view) {
 
 if (view.getId() != R.id.start\_service\_button) {
 
-Log.w(TAG, "View IDが不正です");
+Log.w(TAG, \"View IDが不正です\");
 
 } else {
 
@@ -438,9 +438,9 @@ ClipboardListeningService.class));
 
 if (cn == null) {
 
-Log.e(TAG, "サービスの起動に失敗しました");
+Log.e(TAG, \"サービスの起動に失敗しました\");
 
-Toast.makeText(this, "サービスの起動に失敗しました",
+Toast.makeText(this, \"サービスの起動に失敗しました\",
 Toast.LENGTH\_SHORT).show();
 
 }
@@ -453,7 +453,7 @@ public void onClickStopService(View view) {
 
 if (view.getId() != R.id.stop\_service\_button) {
 
-Log.w(TAG, "View IDが不正です");
+Log.w(TAG, \"View IDが不正です\");
 
 } else {
 
@@ -476,7 +476,7 @@ ClipboardListeningService.class));
 [^2]: 江川、藤井、麻野、藤田、山田、山岡、佐野、竹端著「Google Android
     プログラミング入門」 (アスキー・メディアワークス、2009年7月)
 
-[^3]: [*http://developer.android.com/guide/components/tasks-and-back-stack.html*](http://developer.android.com/guide/components/tasks-and-back-stack.html)
+[^3]: [[http://developer.android.com/guide/components/tasks-and-back-stack.html]{.underline}](http://developer.android.com/guide/components/tasks-and-back-stack.html)
 
 [^4]: intent-filterが定義されていれば公開Activity、定義されていなければ非公開Activityとなる。
     https://developer.android.com/guide/topics/manifest/activity-element.html\#exported
@@ -486,86 +486,107 @@ ClipboardListeningService.class));
 
     https://securityintelligence.com/new-vulnerability-android-framework-fragment-injection/
 
-[^6]: intent-filterが定義されていれば公開Receiver、定義されていなければ非公開Receiverとなる。
+[^6]: 「利用アプリ」と「Autofill
+    service」は、それぞれ同じパッケージ(APKファイル)であることも、別パッケージであることもあり得る。
+
+[^7]: intent-filterが定義されていれば公開Receiver、定義されていなければ非公開Receiverとなる。
     https://developer.android.com/guide/topics/manifest/receiver-element.html\#exported
     を参照のこと。
 
-[^7]: Android
+[^8]: Android
     3.0未満ではアプリのインストールをしただけでReceiverが登録される
 
-[^8]: ただし、Content Providerの非公開設定はAndroid 2.2 (API Level 8)
+[^9]: ただし、Content Providerの非公開設定はAndroid 2.2 (API Level 8)
     以前では機能しない。
 
-[^9]: intent-filterが定義されていれば公開Service、定義されていなければ非公開Serviceとなる。
+[^10]: intent-filterが定義されていれば公開Service、定義されていなければ非公開Serviceとなる。
     https://developer.android.com/guide/topics/manifest/service-element.html\#exported
     を参照のこと。
 
-[^10]: ファイルの配置に関しては、SQLiteOpenHelperのコンストラクタの第2引数（name）にファイルの絶対パスも指定できる。そのため、誤ってSDカードを直接指定した場合には他のアプリからの読み書きが可能になるので注意が必要である。
+[^11]: ファイルの配置に関しては、SQLiteOpenHelperのコンストラクタの第2引数（name）にファイルの絶対パスも指定できる。そのため、誤ってSDカードを直接指定した場合には他のアプリからの読み書きが可能になるので注意が必要である。
 
-[^11]: どちらのメソッドも該当するアプリだけが読み書き権限を与えられ、他のアプリからはアクセスができないディレクトリ（パッケージディレクトリ）のサブディレクトリ以下のパスが取得できる。
+[^12]: どちらのメソッドも該当するアプリだけが読み書き権限を与えられ、他のアプリからはアクセスができないディレクトリ（パッケージディレクトリ）のサブディレクトリ以下のパスが取得できる。
 
-[^12]: （ドキュメントに記述はないが）SQLiteOpenHelper
+[^13]: （ドキュメントに記述はないが）SQLiteOpenHelper
     の実装ではDBの名前にはファイルのフルパスを指定できるので、SDカードなどアクセス権の設定できない場所のパスが意図せず入力されないように注意が必要である。
 
-[^13]: MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEの性質と注意点については、「4.6.3.2
+[^14]: MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEの性質と注意点については、「4.6.3.2
     ディレクトリのアクセス権設定」を参照
 
-[^14]: getReableDatabase
+[^15]: getReableDatabase
     は基本的にはgetWritableDatabaseで取得するのと同じオブジェクトを返す。ディスクフルなどの状況で書き込み可能オブジェクトを生成できない場合にリードオンリーのオブジェクトを返すという仕様である（getWritableDatabaseはディスクフルなどの状況では実行エラーとなる）。
 
-[^15]: MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEは API Level17
+[^16]: MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEは API Level17
     以降ではdeprecated となっており、API Level 24
     以降ではセキュリティ例外が発生するため使用できなくなっている。
 
-[^16]: 内部ストレージから外部記憶装置(SDカードなど)への移動などマウントポイントを超えた移動はできない。そのため、読み取り権限のない内部ストレージファイルが外部記憶装置に移動されて読み書き可能になるようなことはない。
+[^17]: 内部ストレージから外部記憶装置(SDカードなど)への移動などマウントポイントを超えた移動はできない。そのため、読み取り権限のない内部ストレージファイルが外部記憶装置に移動されて読み書き可能になるようなことはない。
 
-[^17]: LogCat に出力されたログ情報は、READ\_LOGS
+[^18]: LogCat に出力されたログ情報は、READ\_LOGS
     Permissionを利用宣言したアプリであれば読み取り可能である。ただしAndroid
     4.1 以降ではLogCat
     に出力された他のアプリのログ情報は読み取り不可となった。また、スマートフォンユーザーであれば、ADB
     経由でLogCat のログ情報を参照することも可能である。
 
-[^18]: http://developer.android.com/intl/ja/reference/android/util/Log.html
+[^19]: http://developer.android.com/intl/ja/reference/android/util/Log.html
 
-[^19]: 前述のサンプルコードを、条件式にBuildConfig.DEBUGを用いたif文で囲った。Log.d()呼び出し前のif文は不要であるが、前述のサンプルコードと対比させるため、そのまま残した。
+[^20]: 前述のサンプルコードを、条件式にBuildConfig.DEBUGを用いたif文で囲った。Log.d()呼び出し前のif文は不要であるが、前述のサンプルコードと対比させるため、そのまま残した。
 
-[^20]: 厳密に言えば安全性を保証できるコンテンツであればJavaScriptを有効にしてよい。自社管理のコンテンツであれば自社の努力で安全性を確保できるし責任も取れる。では信頼できる提携会社のコンテンツは安全だろうか？これは会社間の信頼関係により決まる。信頼できる提携会社のコンテンツを安全であると信頼してJavaScriptを有効にしてもよいが、万一の場合は自社責任も伴うため、ビジネス責任者の判断が必要となる。
+[^21]: 厳密に言えば安全性を保証できるコンテンツであればJavaScriptを有効にしてよい。自社管理のコンテンツであれば自社の努力で安全性を確保できるし責任も取れる。では信頼できる提携会社のコンテンツは安全だろうか？これは会社間の信頼関係により決まる。信頼できる提携会社のコンテンツを安全であると信頼してJavaScriptを有効にしてもよいが、万一の場合は自社責任も伴うため、ビジネス責任者の判断が必要となる。
 
-[^21]: http://www.w3.org/TR/webmessaging/
+[^22]: http://www.w3.org/TR/webmessaging/
 
-[^22]: オリジンとは、URLのスキーム、ホスト名、ポート番号の組み合わせのこと。詳細な定義は[*http://tools.ietf.org/html/rfc6454*](http://tools.ietf.org/html/rfc6454)を参照。
+[^23]: オリジンとは、URLのスキーム、ホスト名、ポート番号の組み合わせのこと。詳細な定義は[[http://tools.ietf.org/html/rfc6454]{.underline}](http://tools.ietf.org/html/rfc6454)を参照。
 
-[^23]: Uri.EMPTYおよびUri.parse("")がワイルドカードとして機能する(2016年9月1日版執筆時)
+[^24]: Uri.EMPTYおよびUri.parse(\"\")がワイルドカードとして機能する(2016年9月1日版執筆時)
 
-[^24]: Android 6.0(API Level
+[^25]: Android 6.0(API Level
     23)以降では、ユーザー確認と権限の付与はインストール時に行われず、アプリの実行中に権限の利用を要求する仕様に変更された。詳細は「5.2.1.4
     Android 6.0以降でDangerous Permissionを利用する方法」および「5.2.3.6
     Android
     6.0以降のPermissionモデルの仕様変更について」を参照すること。
 
-[^25]: Normal/Dangerous
+[^26]: Normal/Dangerous
     Permissionを利用する場合には、Permissionが未定義のまま利用側アプリが先にインストールされると、利用側アプリへの権限の付与が行われず、提供側アプリがインストールされた後もアクセスができない
 
-[^26]: Normal PermissionおよびSignature PermissionはAndroid
+[^27]: Normal PermissionおよびSignature PermissionはAndroid
     OSにより自動的に付与されるため、ユーザー確認を行う必要はない。
 
-[^27]: この場合も、アプリによるandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARの利用宣言はともに必要である。
+[^28]: この場合も、アプリによるandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARの利用宣言はともに必要である。
 
-[^28]: Account
+[^29]: Account
     Managerはオンラインサービスとの同期の仕組みも提供するが、本節では扱っていない。
 
-[^29]: 中間者攻撃については次のページを参照。[*http://www.ipa.go.jp/about/press/20140919\_1.html*](http://www.ipa.go.jp/about/press/20140919_1.html)
+[^30]: WRITE\_CONTACTS
+    Permissionを利用宣言しているAuthenticatorはアカウント情報をContactsProviderに書き込むとの想定で、READ\_CONTACTS
+    Permissionを持つアプリにアカウント情報取得を許可していると考えられる。
 
-[^30]: この危険性については以下の記事で詳しく説明されている
+[^31]: Android 8.0(API Level
+    26)以降ではプラットフォームレベルでSSLv3を用いた接続が非サポートになっている。
 
-    [*https://www.cigital.com/blog/ineffective-certificate-pinning-implementations/*](https://www.cigital.com/blog/ineffective-certificate-pinning-implementations/)
+[^32]: 　本サンプルコード内で画像検索APIとして利用している Google Image
+    Search API
+    は2016年2月15日をもって正式にサービス提供を終了している。そのため、サンプルコードをそのまま動作させるには同等のサービスに置き換える必要がある。
 
-[^31]: Network Security Configurationの詳細については以下を参照すること
+[^33]: 中間者攻撃については次のページを参照。[[http://www.ipa.go.jp/about/press/20140919\_1.html]{.underline}](http://www.ipa.go.jp/about/press/20140919_1.html)
+
+[^34]: 本サンプルコード内で画像検索APIとして利用している Google Image
+    Search API
+    は2016年2月15日をもって正式にサービス提供を終了している。そのため、サンプルコードをそのまま動作させるには同等のサービスに置き換える必要がある。
+
+[^35]: Android 8.0(API Level
+    26)以降ではプラットフォームレベルで禁止しているためSSLv3での接続は起こらないが、サーバー側でのSSLv3無効化対策は行うことをお勧めする。
+
+[^36]: この危険性については以下の記事で詳しく説明されている
+
+    [[https://www.cigital.com/blog/ineffective-certificate-pinning-implementations/]{.underline}](https://www.cigital.com/blog/ineffective-certificate-pinning-implementations/)
+
+[^37]: Network Security Configurationの詳細については以下を参照すること
     https://developer.android.com/training/articles/security-config.html
 
-[^32]: HTTP以外の通信方式に対してどのような制御が行われるかについては、以下を参照すること
+[^38]: HTTP以外の通信方式に対してどのような制御が行われるかについては、以下を参照すること
     https://developer.android.com/reference/android/security/NetworkSecurityPolicy.html\#isCleartextTrafficPermitted()
 
-[^33]: http://www.kddilabs.jp/tech/public-tech/appgen.html
+[^39]: http://www.kddilabs.jp/tech/public-tech/appgen.html
 
-[^34]: 2016年9月1日版執筆時点の情報。後日、修正される可能性がある。
+[^40]: 2016年9月1日版執筆時点の情報。後日、修正される可能性がある。

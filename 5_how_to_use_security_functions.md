@@ -10,7 +10,7 @@
 
 パスワード入力画面を作る際、セキュリティ上考慮すべきポイントについて述べる。ここではパスワードの入力に関する内容のみとする。パスワードの保存方法については今後の版にて別途記事を設ける予定である。
 
-![スクリーンショット2](media/image54.png){width="2.0in"
+![スクリーンショット2](media/image56.png){width="2.0in"
 height="3.345138888888889in"}
 
 図 5.1‑1
@@ -18,11 +18,8 @@ height="3.345138888888889in"}
 > ポイント：
 
 1.  入力したパスワードはマスク表示（●で表示）する
-
-&nbsp;
-1.  パスワードを平文表示するオプションを用意する
-
-2.  パスワード平文表示時の危険性を注意喚起する
+2.  パスワードを平文表示するオプションを用意する
+3.  パスワード平文表示時の危険性を注意喚起する
 
 > ポイント：　前回入力したパスワードを扱う場合には上記ポイントに加え、下記ポイントにも気を付けること
 
@@ -34,108 +31,108 @@ height="3.345138888888889in"}
 
 > password\_activity.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
+\<LinearLayout
+xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-android:layout\_width="fill\_parent"
+android:layout\_width=\"fill\_parent\"
 
-android:layout\_height="fill\_parent"
+android:layout\_height=\"fill\_parent\"
 
-android:orientation="vertical"
+android:orientation=\"vertical\"
 
-android:padding="10dp" &gt;
+android:padding=\"10dp\" \>
 
-&lt;!-- パスワード項目のラベル --&gt;
+\<!\-- パスワード項目のラベル \--\>
 
-&lt;TextView
+\<TextView
 
-android:layout\_width="fill\_parent"
+android:layout\_width=\"fill\_parent\"
 
-android:layout\_height="wrap\_content"
+android:layout\_height=\"wrap\_content\"
 
-android:text="@string/password" /&gt;
+android:text=\"@string/password\" /\>
 
-&lt;!-- パスワード入力項目 --&gt;
+\<!\-- パスワード入力項目 \--\>
 
-&lt;!-- ★ポイント1★ 入力したパスワードはマスク表示（●で表示）する --&gt;
+\<!\-- ★ポイント1★ 入力したパスワードはマスク表示（●で表示）する \--\>
 
-&lt;EditText
+\<EditText
 
-android:id="@+id/password\_edit"
+android:id=\"@+id/password\_edit\"
 
-android:layout\_width="fill\_parent"
+android:layout\_width=\"fill\_parent\"
 
-android:layout\_height="wrap\_content"
+android:layout\_height=\"wrap\_content\"
 
-android:hint="@string/hint\_password"
+android:hint=\"@string/hint\_password\"
 
-android:inputType="textPassword" /&gt;
+android:inputType=\"textPassword\" /\>
 
-&lt;!-- ★ポイント2★ パスワードを平文表示するオプションを用意する --&gt;
+\<!\-- ★ポイント2★ パスワードを平文表示するオプションを用意する \--\>
 
-&lt;CheckBox
+\<CheckBox
 
-android:id="@+id/password\_display\_check"
+android:id=\"@+id/password\_display\_check\"
 
-android:layout\_width="fill\_parent"
+android:layout\_width=\"fill\_parent\"
 
-android:layout\_height="wrap\_content"
+android:layout\_height=\"wrap\_content\"
 
-android:text="@string/display\_password" /&gt;
+android:text=\"@string/display\_password\" /\>
 
-&lt;!-- ★ポイント3★ パスワード平文表示時の危険性を注意喚起する --&gt;
+\<!\-- ★ポイント3★ パスワード平文表示時の危険性を注意喚起する \--\>
 
-&lt;TextView
+\<TextView
 
-android:layout\_width="fill\_parent"
+android:layout\_width=\"fill\_parent\"
 
-android:layout\_height="wrap\_content"
+android:layout\_height=\"wrap\_content\"
 
-android:text="@string/alert\_password" /&gt;
+android:text=\"@string/alert\_password\" /\>
 
-&lt;!-- キャンセル、OKボタン --&gt;
+\<!\-- キャンセル、OKボタン \--\>
 
-&lt;LinearLayout
+\<LinearLayout
 
-android:layout\_width="fill\_parent"
+android:layout\_width=\"fill\_parent\"
 
-android:layout\_height="wrap\_content"
+android:layout\_height=\"wrap\_content\"
 
-android:layout\_marginTop="50dp"
+android:layout\_marginTop=\"50dp\"
 
-android:gravity="center"
+android:gravity=\"center\"
 
-android:orientation="horizontal" &gt;
+android:orientation=\"horizontal\" \>
 
-&lt;Button
+\<Button
 
-android:layout\_width="0dp"
+android:layout\_width=\"0dp\"
 
-android:layout\_height="wrap\_content"
+android:layout\_height=\"wrap\_content\"
 
-android:layout\_weight="1"
+android:layout\_weight=\"1\"
 
-android:onClick="onClickCancelButton"
+android:onClick=\"onClickCancelButton\"
 
-android:text="@android:string/cancel" /&gt;
+android:text=\"@android:string/cancel\" /\>
 
-&lt;Button
+\<Button
 
-android:layout\_width="0dp"
+android:layout\_width=\"0dp\"
 
-android:layout\_height="wrap\_content"
+android:layout\_height=\"wrap\_content\"
 
-android:layout\_weight="1"
+android:layout\_weight=\"1\"
 
-android:onClick="onClickOkButton"
+android:onClick=\"onClickOkButton\"
 
-android:text="@android:string/ok" /&gt;
+android:text=\"@android:string/ok\" /\>
 
-&lt;/LinearLayout&gt;
+\</LinearLayout\>
 
-&lt;/LinearLayout&gt;
+\</LinearLayout\>
 
 次のPasswordActivity.javaの最後に配置した3つのメソッドは用途に合わせて実装内容を調整すること。
 
@@ -178,7 +175,7 @@ public class PasswordActivity extends Activity {
 // 状態保存用のキー
 
 private static final String KEY\_DUMMY\_PASSWORD =
-"KEY\_DUMMY\_PASSWORD";
+\"KEY\_DUMMY\_PASSWORD\";
 
 // Activity内のView
 
@@ -220,7 +217,7 @@ if (getPreviousPassword() != null) {
 
 // 表示はダミーパスワードにする
 
-mPasswordEdit.setText("\*\*\*\*\*\*\*\*\*\*");
+mPasswordEdit.setText(\"\*\*\*\*\*\*\*\*\*\*\");
 
 //
 パスワード入力時にダミーパスワードをクリアするため、テキスト変更リスナーを設定
@@ -370,13 +367,13 @@ if (isChecked) {
 
 // チェックON時は平文表示
 
-type |= InputType.TYPE\_TEXT\_VARIATION\_VISIBLE\_PASSWORD;
+type \|= InputType.TYPE\_TEXT\_VARIATION\_VISIBLE\_PASSWORD;
 
 } else {
 
 // チェックOFF時はマスク表示
 
-type |= InputType.TYPE\_TEXT\_VARIATION\_PASSWORD;
+type \|= InputType.TYPE\_TEXT\_VARIATION\_PASSWORD;
 
 }
 
@@ -410,7 +407,7 @@ private String getPreviousPassword() {
 
 // パスワードを保存しない用途ではnullを返す
 
-return "hirake5ma";
+return \"hirake5ma\";
 
 }
 
@@ -466,7 +463,7 @@ password = mPasswordEdit.getText().toString();
 
 // パスワードをToast表示する
 
-Toast.makeText(this, "password is \\"" + password + "\\"",
+Toast.makeText(this, \"password is \\\"\" + password + \"\\\"\",
 
 Toast.LENGTH\_SHORT).show();
 
@@ -486,6 +483,7 @@ finish();
     > （必須）
 
 &nbsp;
+
 1.  パスワードを平文表示するオプションを用意する （必須）
 
 2.  Activity起動時はパスワードをマスク表示にする （必須）
@@ -497,7 +495,7 @@ finish();
 
 スマートフォンは電車やバス等の人混みで利用されることが多く、第三者にパスワードを盗み見られるリスクが大きい。アプリの仕様として、パスワードをマスク表示する機能が必要である。
 
-パスワードを入力するEditTextをマスク表示する方法には、静的にレイアウトXMLで指定する方法と、動的にプログラム上で切り替える方法の2種類がある。前者は、android:inputType属性に"textPassword"を指定することで実現でき、またandroid:password属性でも実現できる。後者は、EditTextクラスのsetInputType()メソッドでEditTextの入力タイプにInputType.TYPE\_TEXT\_VARIATION\_PASSWORDを追加することで実装できる。
+パスワードを入力するEditTextをマスク表示する方法には、静的にレイアウトXMLで指定する方法と、動的にプログラム上で切り替える方法の2種類がある。前者は、android:inputType属性に\"textPassword\"を指定することで実現でき、またandroid:password属性でも実現できる。後者は、EditTextクラスのsetInputType()メソッドでEditTextの入力タイプにInputType.TYPE\_TEXT\_VARIATION\_PASSWORDを追加することで実装できる。
 
 以下、それぞれのサンプルコードを示す。
 
@@ -505,21 +503,21 @@ finish();
 
 > password\_activity.xml
 
-&lt;!-- パスワード入力項目 --&gt;
+\<!\-- パスワード入力項目 \--\>
 
-&lt;!-- android:passwordをtrueに設定する --&gt;
+\<!\-- android:passwordをtrueに設定する \--\>
 
-&lt;EditText
+\<EditText
 
-android:id="@+id/password\_edit"
+android:id=\"@+id/password\_edit\"
 
-android:layout\_width="fill\_parent"
+android:layout\_width=\"fill\_parent\"
 
-android:layout\_height="wrap\_content"
+android:layout\_height=\"wrap\_content\"
 
-android:hint="@string/hint\_password"
+android:hint=\"@string/hint\_password\"
 
-android:inputType="textPassword" /&gt;
+android:inputType=\"textPassword\" /\>
 
 Activity内で指定する方法
 
@@ -533,7 +531,7 @@ EditText passwordEdit = (EditText) findViewById(R.id.password\_edit);
 
 int type = InputType.TYPE\_CLASS\_TEXT
 
-| InputType.TYPE\_TEXT\_VARIATION\_PASSWORD;
+\| InputType.TYPE\_TEXT\_VARIATION\_PASSWORD;
 
 passwordEdit.setInputType(type);
 
@@ -544,7 +542,7 @@ passwordEdit.setInputType(type);
 
 ただし、パスワードを平文表示した際に覗き見される可能性もあるため、そのオプションを使う際に、ユーザーに背後からの覗き見への注意を促す必要がある。また、平文表示するオプションをつけた場合、平文表示の時間を設定するなど平文表示の自動解除を行う仕組みも用意する必要がある。パスワードの平文表示の制限については今後の版にて別途記事を設ける予定である。そのため、この版のサンプルコードにはパスワードの平文表示の制限は含めていない。
 
-![](media/image55.png){width="5.786111111111111in"
+![](media/image57.png){width="5.786111111111111in"
 height="3.345833333333333in"}
 
 図 5.1‑2
@@ -595,13 +593,13 @@ if (isChecked) {
 
 // チェックON時は平文表示
 
-type |= InputType.TYPE\_TEXT\_VARIATION\_VISIBLE\_PASSWORD;
+type \|= InputType.TYPE\_TEXT\_VARIATION\_VISIBLE\_PASSWORD;
 
 } else {
 
 // チェックOFF時はマスク表示
 
-type |= InputType.TYPE\_TEXT\_VARIATION\_PASSWORD;
+type \|= InputType.TYPE\_TEXT\_VARIATION\_PASSWORD;
 
 }
 
@@ -643,7 +641,7 @@ if (getPreviousPassword() != null) {
 
 // 表示はダミーパスワードにする
 
-mPasswordEdit.setText("\*\*\*\*\*\*\*\*\*\*");
+mPasswordEdit.setText(\"\*\*\*\*\*\*\*\*\*\*\");
 
 //
 パスワード入力時にダミーパスワードをクリアするため、テキスト変更リスナーを設定
@@ -676,7 +674,7 @@ private String getPreviousPassword() {
 
 // パスワードを保存しない用途ではnullを返す
 
-return "hirake5ma";
+return \"hirake5ma\";
 
 }
 
@@ -725,7 +723,7 @@ mPasswordEdit.setText(null);
 // 状態保存用のキー
 
 private static final String KEY\_DUMMY\_PASSWORD =
-"KEY\_DUMMY\_PASSWORD";
+\"KEY\_DUMMY\_PASSWORD\";
 
 ～省略～
 
@@ -747,7 +745,7 @@ if (getPreviousPassword() != null) {
 
 // 表示はダミーパスワードにする
 
-mPasswordEdit.setText("\*\*\*\*\*\*\*\*\*\*");
+mPasswordEdit.setText(\"\*\*\*\*\*\*\*\*\*\*\");
 
 //
 パスワード入力時にダミーパスワードをクリアするため、テキスト変更リスナーを設定
@@ -877,19 +875,19 @@ public void afterTextChanged(Editable s) {
 
 Androidの設定メニューの中に「パスワードを表示」という設定がある。
 
-設定 &gt;セキュリティ &gt; パスワードを表示
+設定 \>セキュリティ \> パスワードを表示
 
 Android 5.0より前のバージョンまで、この手順で設定できる。ただしAndroid
 5.0以降では、「パスワードを表示」はチェックボックスからトグルボタンに変更されている。
 
-![設定-パスワードを表示](media/image59.png){width="1.6598425196850393in"
+![設定-パスワードを表示](media/image61.png){width="1.6598425196850393in"
 height="2.7598425196850394in"}
 
 図 5.1‑3
 
 「パスワードを表示」設定をオンにすると最後に入力した１文字が平文表示となる。一定時間（2秒程度）経過後、または次の文字が入力されると平文表示されていた文字はマスク表示される。オフにすると、入力直後からマスク表示となる。これはシステム全体に影響する設定であり、EditTextのパスワード表示機能を使用しているすべてのアプリに適用される。
 
-![](media/image60.png){width="5.404166666666667in"
+![](media/image62.png){width="5.404166666666667in"
 height="3.011111111111111in"}
 
 図 5.1‑4
@@ -913,9 +911,9 @@ Permissionと呼ばれる。以下、このような名称を使う。
 
 Android
 OSは電話帳やGPSなどのユーザー資産をマルウェアから保護するためのPermissionというセキュリティの仕組みがある。Android
-OSが保護対象としている、こうした情報や機能にアクセスするアプリは、明示的にそれらにアクセスするための権限（Permission）を利用宣言しなければならない。ユーザー確認が必要なPermissionでは、そのPermissionを利用宣言したアプリがインストールされるときに次のようなユーザー確認画面が表示される[^24]。
+OSが保護対象としている、こうした情報や機能にアクセスするアプリは、明示的にそれらにアクセスするための権限（Permission）を利用宣言しなければならない。ユーザー確認が必要なPermissionでは、そのPermissionを利用宣言したアプリがインストールされるときに次のようなユーザー確認画面が表示される[^25]。
 
-![usespermission\_install](media/image64.png){width="1.8645833333333333in"
+![usespermission\_install](media/image66.png){width="1.8645833333333333in"
 height="3.34375in"}
 
 図 5.2‑1
@@ -930,53 +928,53 @@ height="3.34375in"}
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.permission.usespermission"&gt;
+package=\"org.jssec.android.permission.usespermission\"\>
 
-&lt;!-- ★ポイント1★ アプリで利用するPermissionを利用宣言する --&gt;
+\<!\-- ★ポイント1★ アプリで利用するPermissionを利用宣言する \--\>
 
-&lt;!-- インターネットにアクセスするPermission --&gt;
+\<!\-- インターネットにアクセスするPermission \--\>
 
-&lt;uses-permission android:name="android.permission.INTERNET"/&gt;
+\<uses-permission android:name=\"android.permission.INTERNET\"/\>
 
-&lt;!-- ★ポイント2★ 不必要なPermissionは利用宣言しない --&gt;
+\<!\-- ★ポイント2★ 不必要なPermissionは利用宣言しない \--\>
 
-&lt;!--
+\<!\--
 アプリの動作に不必要なPermissionを利用宣言していると、ユーザーに不信感を与えてしまう
---&gt;
+\--\>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;activity
+\<activity
 
-android:name=".MainActivity"
+android:name=\".MainActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 #### 独自定義のSignature Permissionで自社アプリ連携する方法
 
@@ -988,16 +986,17 @@ Permission（UserApp）」はサンプルプログラム「独自定義Signature
 Permission（ProtectedApp）」にstartActivity()する。両アプリは同じ開発者鍵で署名されている必要がある。もし署名した開発者鍵が異なる場合は、UserAppはIntentを送信せず、ProtectedAppは受信したIntentを処理しない。またアドバンストセクションで説明しているインストール順序によるSignature
 Permission回避の問題にも対処している。
 
-![](media/image65.png){width="6.889763779527559in"
+![](media/image67.png){width="6.889763779527559in"
 height="2.0933070866141734in"}
 
 図 5.2‑2
 
 > ポイント：Componentを提供するアプリ
 
-1.  独自PermissionをprotectionLevel="signature"で定義する
+1.  独自PermissionをprotectionLevel=\"signature\"で定義する
 
 &nbsp;
+
 1.  Componentにはpermission属性で独自Permission名を指定する
 
 2.  ComponentがActivityの場合にはintent-filterを定義しない
@@ -1009,51 +1008,51 @@ height="2.0933070866141734in"}
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.permission.protectedapp"&gt;
+package=\"org.jssec.android.permission.protectedapp\"\>
 
-&lt;!-- ★ポイント1★
-独自PermissionをprotectionLevel="signature"で定義する --&gt;
+\<!\-- ★ポイント1★
+独自PermissionをprotectionLevel=\"signature\"で定義する \--\>
 
-&lt;permission
+\<permission
 
-android:name="org.jssec.android.permission.protectedapp.MY\_PERMISSION"
+android:name=\"org.jssec.android.permission.protectedapp.MY\_PERMISSION\"
 
-android:protectionLevel="signature" /&gt;
+android:protectionLevel=\"signature\" /\>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- ★ポイント2★
-Componentにはpermission属性で独自Permission名を指定する --&gt;
+\<!\-- ★ポイント2★
+Componentにはpermission属性で独自Permission名を指定する \--\>
 
-&lt;activity
+\<activity
 
-android:name=".ProtectedActivity"
+android:name=\".ProtectedActivity\"
 
-android:exported="true"
+android:exported=\"true\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:permission="org.jssec.android.permission.protectedapp.MY\_PERMISSION"
-&gt;
+android:permission=\"org.jssec.android.permission.protectedapp.MY\_PERMISSION\"
+\>
 
-&lt;!-- ★ポイント3★
-ComponentがActivityの場合にはintent-filterを定義しない --&gt;
+\<!\-- ★ポイント3★
+ComponentがActivityの場合にはintent-filterを定義しない \--\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > ProtectedActivity.java
 
@@ -1076,7 +1075,7 @@ public class ProtectedActivity extends Activity {
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.permission.protectedapp.MY\_PERMISSION";
+\"org.jssec.android.permission.protectedapp.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -1088,17 +1087,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -1125,8 +1124,8 @@ Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(this, MY\_PERMISSION, myCertHash(this))) {
 
-mMessageView.setText("独自定義Signature
-Permissionが自社アプリにより定義されていない。");
+mMessageView.setText(\"独自定義Signature
+Permissionが自社アプリにより定義されていない。\");
 
 return;
 
@@ -1134,8 +1133,8 @@ return;
 
 // ★ポイント4★ 証明書が一致する場合にのみ、処理を続行する
 
-mMessageView.setText("独自定義Signature
-Permissionが自社アプリにより定義されていることを確認できた。");
+mMessageView.setText(\"独自定義Signature
+Permissionが自社アプリにより定義されていることを確認できた。\");
 
 }
 
@@ -1160,7 +1159,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, sigPermName));
 
@@ -1226,7 +1225,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -1265,7 +1264,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -1283,7 +1282,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -1293,10 +1292,10 @@ return hexadecimal.toString();
 
 }
 
-★ポイント5★ Android Studioからメニュー：Build -&gt; Generated Signed
+★ポイント5★ Android Studioからメニュー：Build -\> Generated Signed
 APKと選択し、Componentを提供するアプリと同じ開発者鍵で署名する。
 
-![](media/image66.png){width="4.646481846019247in"
+![](media/image68.png){width="4.646481846019247in"
 height="3.2817082239720037in"}
 
 図 5.2‑3
@@ -1306,6 +1305,7 @@ height="3.2817082239720037in"}
 1.  独自定義Signature Permissionは定義しない
 
 &nbsp;
+
 1.  uses-permissionにより独自Permissionを利用宣言する
 
 2.  ソースコード上で、独自定義Signature
@@ -1319,51 +1319,51 @@ height="3.2817082239720037in"}
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.permission.userapp"&gt;
+package=\"org.jssec.android.permission.userapp\"\>
 
-&lt;!-- ★ポイント6★ 独自定義Signature Permissionは定義しない --&gt;
+\<!\-- ★ポイント6★ 独自定義Signature Permissionは定義しない \--\>
 
-&lt;!-- ★ポイント7★ uses-permissionにより独自Permissionを利用宣言する
---&gt;
+\<!\-- ★ポイント7★ uses-permissionにより独自Permissionを利用宣言する
+\--\>
 
-&lt;uses-permission
+\<uses-permission
 
-android:name="org.jssec.android.permission.protectedapp.MY\_PERMISSION"
-/&gt;
+android:name=\"org.jssec.android.permission.protectedapp.MY\_PERMISSION\"
+/\>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;activity
+\<activity
 
-android:name=".UserActivity"
+android:name=\".UserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > UserActivity.java
 
@@ -1392,15 +1392,15 @@ public class UserActivity extends Activity {
 // 利用先のActivity情報
 
 private static final String TARGET\_PACKAGE =
-"org.jssec.android.permission.protectedapp";
+\"org.jssec.android.permission.protectedapp\";
 
 private static final String TARGET\_ACTIVITY =
-"org.jssec.android.permission.protectedapp.ProtectedActivity";
+\"org.jssec.android.permission.protectedapp.ProtectedActivity\";
 
 // 自社のSignature Permission
 
 private static final String MY\_PERMISSION =
-"org.jssec.android.permission.protectedapp.MY\_PERMISSION";
+\"org.jssec.android.permission.protectedapp.MY\_PERMISSION\";
 
 // 自社の証明書のハッシュ値
 
@@ -1412,17 +1412,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -1449,8 +1449,8 @@ Permissionが自社アプリにより定義されていることを確認する
 
 if (!SigPerm.test(this, MY\_PERMISSION, myCertHash(this))) {
 
-Toast.makeText(this, "独自定義Signature
-Permissionが自社アプリにより定義されていない。",
+Toast.makeText(this, \"独自定義Signature
+Permissionが自社アプリにより定義されていない。\",
 Toast.LENGTH\_LONG).show();
 
 return;
@@ -1461,7 +1461,7 @@ return;
 
 if (!PkgCert.test(this, TARGET\_PACKAGE, myCertHash(this))) {
 
-Toast.makeText(this, "利用先アプリは自社アプリではない。",
+Toast.makeText(this, \"利用先アプリは自社アプリではない。\",
 Toast.LENGTH\_LONG).show();
 
 return;
@@ -1482,7 +1482,7 @@ startActivity(intent);
 
 Toast.makeText(this,
 
-String.format("例外発生:%s", e.getMessage()),
+String.format(\"例外発生:%s\", e.getMessage()),
 
 Toast.LENGTH\_LONG).show();
 
@@ -1504,8 +1504,8 @@ import android.content.Context;
 
 public class PkgCertWhitelists {
 
-private Map&lt;String, String&gt; mWhitelists = new HashMap&lt;String,
-String&gt;();
+private Map\<String, String\> mWhitelists = new HashMap\<String,
+String\>();
 
 public boolean add(String pkgname, String sha256) {
 
@@ -1513,14 +1513,14 @@ if (pkgname == null) return false;
 
 if (sha256 == null) return false;
 
-sha256 = sha256.replaceAll(" ", "");
+sha256 = sha256.replaceAll(\" \", \"\");
 
 if (sha256.length() != 64) return false; // SHA-256は32バイト
 
 sha256 = sha256.toUpperCase();
 
-if (sha256.replaceAll("\[0-9A-F\]+", "").length() != 0) return false; //
-0-9A-F 以外の文字がある
+if (sha256.replaceAll(\"\[0-9A-F\]+\", \"\").length() != 0) return
+false; // 0-9A-F 以外の文字がある
 
 mWhitelists.put(pkgname, sha256);
 
@@ -1567,7 +1567,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -1606,7 +1606,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -1624,7 +1624,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -1634,10 +1634,10 @@ return hexadecimal.toString();
 
 }
 
-★ポイント11★ Android Studioからメニュー：Build -&gt; Generated Signed
+★ポイント11★ Android Studioからメニュー：Build -\> Generated Signed
 APKと選択し、Componentを提供するアプリと同じ開発者鍵で署名する。
 
-![](media/image66.png){width="4.646481846019247in"
+![](media/image68.png){width="4.646481846019247in"
 height="3.2817082239720037in"}
 
 図 5.2‑4
@@ -1649,12 +1649,12 @@ height="3.2817082239720037in"}
 ##### Keytoolにより確認する方法
 
 JDKに付属するkeytoolというプログラムを利用すると開発者鍵の公開鍵証明書のハッシュ値（証明書のフィンガープリントとも言う）を求めることができる。ハッシュ値にはハッシュアルゴリズムの違いによりMD5やSHA1、SHA256など様々なものがあるが、このガイド文書では暗号ビット長の安全性を考慮してSHA256の利用を推奨している。残念なことにAndroid
-SDKで利用されているJDK6に付属するkeytoolはSHA256でのハッシュ値出力に対応しておらず、JDK7に付属するkeytoolを使う必要がある。
+SDKで利用されているJDK6に付属するkeytoolはSHA256でのハッシュ値出力に対応しておらず、JDK7以降に付属するkeytoolを使う必要がある。
 
 > Androidのデバッグ証明書の内容をkeytoolで出力する例
 
-&gt; keytool -list -v -keystore &lt;キーストアファイル&gt; -storepass
-&lt;パスワード&gt;
+\> keytool -list -v -keystore \<キーストアファイル\> -storepass
+\<パスワード\>
 
 キーストアのタイプ: JKS
 
@@ -1700,11 +1700,11 @@ FB:75:E9:B9:2E:9E:6B:4D:AB:3F:94:B2:EC:A1:F0:33:09:74:D8:7A:CF:42:58:22:A2:56:85
 
 ##### JSSEC証明書ハッシュ値チェッカーにより確認する方法
 
-JDK7をインストールしなくても、JSSEC証明書ハッシュ値チェッカーを使えば簡単に証明書ハッシュ値を確認できる。
+JDK7以降をインストールしなくても、JSSEC証明書ハッシュ値チェッカーを使えば簡単に証明書ハッシュ値を確認できる。
 
 ![C:\\Users\\0025110063\\AppData\\Local\\Microsoft\\Windows\\Temporary
 Internet
-Files\\Content.Word\\Screenshot\_2012-04-24-13-01-57.png](media/image67.png){width="3.93125in"
+Files\\Content.Word\\Screenshot\_2012-04-24-13-01-57.png](media/image69.png){width="3.93125in"
 height="2.2180555555555554in"}
 
 図 5.2‑5
@@ -1724,14 +1724,14 @@ Android 5.1(API Level 22)以前のPermissionモデル（「5.2.3.6 Android
 Permissionについてはアプリが適切なタイミングでPermissionを要求するよう、アプリ開発者が明示的に実装しなければならない。アプリがPermissionを要求すると、Android
 OSはユーザーに対して下記のような確認画面を表示し、そのPermissionの利用を許可するかどうかの判断を求めることになる。ユーザーがPermissionの利用を許可すれば、アプリはそのPermissionを必要とする処理を実行することができる。
 
-![](media/image68.png){width="2.0072648731408576in"
+![](media/image70.png){width="2.0072648731408576in"
 height="3.571259842519685in"}
 
 図 5.2‑6
 
 Permissionを付与する単位にも変更が加えられている。従来はすべてのPermissionが一括して付与されていたが、Android
-6.0（API Level 23）以降、Permission（Permission
-Group）毎に個別に付与される。これに伴いユーザー確認画面も個別に表示され、ユーザーはPermission利用の可・不可について従来よりも柔軟に判断できるようになった。アプリ開発者は、Permissionの付与が拒否された場合も考慮して、アプリの仕様や設計を見直す必要がある。
+6.0（API Level 23）以降ではPermission Group毎に、Android 8.0(API Level
+26)以降ではPermission個別に付与される。これに伴いユーザー確認画面も個別に表示され、ユーザーはPermission利用の可・不可について従来よりも柔軟に判断できるようになった。アプリ開発者は、Permissionの付与が拒否された場合も考慮して、アプリの仕様や設計を見直す必要がある。
 
 Android 6.0以降のPermissionモデルについての詳細は「5.2.3.6 Android
 6.0以降のPermissionモデルの仕様変更について」を参照すること。
@@ -1750,62 +1750,61 @@ Android 6.0以降のPermissionモデルについての詳細は「5.2.3.6 Androi
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.permission.permissionrequestingpermissionatruntime"
-&gt;
+package=\"org.jssec.android.permission.permissionrequestingpermissionatruntime\"
+\>
 
-&lt;!-- ★ポイント1★ アプリで利用するPermissionを利用宣言する --&gt;
+\<!\-- ★ポイント1★ アプリで利用するPermissionを利用宣言する \--\>
 
-&lt;!-- 連絡先情報を読み取るPermission (Protection Level: dangerous)
---&gt;
+\<!\-- 連絡先情報を読み取るPermission (Protection Level: dangerous)
+\--\>
 
-&lt;uses-permission android:name="android.permission.READ\_CONTACTS"
-/&gt;
+\<uses-permission android:name=\"android.permission.READ\_CONTACTS\" /\>
 
-&lt;!-- ★ポイント2★ 不必要なPermissionは利用宣言しない --&gt;
+\<!\-- ★ポイント2★ 不必要なPermissionは利用宣言しない \--\>
 
-&lt;application
+\<application
 
-android:allowBackup="true"
+android:allowBackup=\"true\"
 
-android:icon="@mipmap/ic\_launcher"
+android:icon=\"@mipmap/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:supportsRtl="true"
+android:supportsRtl=\"true\"
 
-android:theme="@style/AppTheme" &gt;
+android:theme=\"@style/AppTheme\" \>
 
-&lt;activity
+\<activity
 
-android:name=".MainActivity"
+android:name=\".MainActivity\"
 
-android:exported="true"&gt;
+android:exported=\"true\"\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;activity
+\<activity
 
-android:name=".ContactListActivity"
+android:name=\".ContactListActivity\"
 
-android:exported="false"&gt;
+android:exported=\"false\"\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 > MainActivity.java
 
@@ -1897,7 +1896,7 @@ switch (requestCode) {
 
 case REQUEST\_CODE\_READ\_CONTACTS:
 
-if (grantResults.length &gt; 0 && grantResults\[0\] ==
+if (grantResults.length \> 0 && grantResults\[0\] ==
 PackageManager.PERMISSION\_GRANTED) {
 
 //
@@ -1912,7 +1911,8 @@ Permissionの利用が許可されていないため、連絡先情報を利用�
 
 // ★ポイント5★ Permissionの利用が許可されていない場合の処理を実装する
 
-Toast.makeText(this, String.format("連絡先の利用が許可されていません"),
+Toast.makeText(this,
+String.format(\"連絡先の利用が許可されていません\"),
 Toast.LENGTH\_LONG).show();
 
 }
@@ -1947,6 +1947,7 @@ startActivity(intent);
     > Permissionはユーザーの資産を保護するためにだけ利用する （必須）
 
 &nbsp;
+
 1.  独自定義のDangerous Permissionは利用してはならない （必須）
 
 2.  独自定義Signature PermissionはComponentの提供側アプリでのみ定義する
@@ -1973,7 +1974,7 @@ Permissionを利用宣言しているアプリを端末にインストールす�
 PermissionおよびNormal
 Permission）を利用しようとしているのかをユーザーが知ることができる。ユーザーが「インストール」をタップすることで、そのアプリは利用宣言した権限が付与され、インストールされるようになっている。
 
-![permission\_network](media/image69.png){width="1.6666666666666667in"
+![permission\_network](media/image71.png){width="1.6666666666666667in"
 height="2.7736111111111112in"}
 
 図 5.2‑7
@@ -2035,7 +2036,7 @@ Permissionを定義してはならない。
 
 こうすることで、提供側アプリのインストール時に権限付与が行われ、かつ、アンインストール時にPermissionが未定義となり、提供側アプリとPermissionの定義の存在期間が必ず一致するので、適正なComponentの提供と保護が可能である。
 なお、独自定義Signature
-Permissionに関しては、連携するアプリのインストール順によらず、利用側アプリにPermission利用権限が付与されるため、この議論が成り立つことに注意[^25]。
+Permissionに関しては、連携するアプリのインストール順によらず、利用側アプリにPermission利用権限が付与されるため、この議論が成り立つことに注意[^26]。
 
 #### 独自定義Signature Permissionは自社アプリにより定義されていることを確認する （必須）
 
@@ -2050,16 +2051,16 @@ OSの特性とその対策」を参照すること。
 
 1.  保護したいComponentのあるアプリのAndroidManifest.xmlにて、独自Signature
     Permissionを定義する（Permissionの定義）\
-    例： &lt;permission android:name=”xxx”
-    android:protectionLevel=”signature” /&gt;
+    例： \<permission android:name="xxx"
+    android:protectionLevel="signature" /\>
 
 2.  保護したいComponentのあるAndroidManifest.xmlにて、そのComponentの定義タグのpermission属性で、独自定義Signature
     Permissionを指定する（Permissionの要求宣言）\
-    例： &lt;activity android:permission=”xxx” … &gt;…&lt;/activity&gt;
+    例： \<activity android:permission="xxx" ... \>...\</activity\>
 
 3.  保護したいComponentにアクセスする連携アプリのAndroidManifest.xmlにて、uses-permissionタグに独自定義Signature
     Permissionを指定する（Permissionの利用宣言）\
-    例： &lt;uses-permission android:name=”xxx” /&gt;
+    例： \<uses-permission android:name="xxx" /\>
 
 続いて、ソースコード上にて次を実装する。
 
@@ -2117,24 +2118,23 @@ Permissionは、同じ開発者鍵で署名されたアプリ間だけでアプ�
 Permissionによる保護は自社アプリだけで連携する場合に使われることが多い。
 
 まずは、AndroidのDev
-Guide（[*http://developer.android.com/guide/topics/security/security.html*](http://developer.android.com/guide/topics/security/security.html)）で説明されている独自定義Signature
+Guide（[[http://developer.android.com/guide/topics/security/security.html]{.underline}](http://developer.android.com/guide/topics/security/security.html)）で説明されている独自定義Signature
 Permissionの基本的な使い方を紹介する。ただし、後述するように、この使い方にはPermission回避の問題があることが分かっており、本ガイドに掲載した対策が必要となる。
 
 以下、独自定義Signature Permissionの基本的な使い方である。
 
 1.  保護したいComponentのあるアプリのAndroidManifest.xmlにて、独自Signature
     > Permissionを定義する\
-    > 例： &lt;permission android:name=”xxx”
-    > android:protectionLevel=”signature” /&gt;
+    > 例： \<permission android:name="xxx"
+    > android:protectionLevel="signature" /\>
 
 2.  保護したいComponentを持つアプリのAndroidManifest.xmlで、保護したいComponentにandroid:permission属性を指定し、1.で定義したSignature
     > Permissionを要求する\
-    > 例： &lt;activity android:permission=”xxx”
-    > … &gt;…&lt;/activity&gt;
+    > 例： \<activity android:permission="xxx" ... \>...\</activity\>
 
 3.  保護したいComponentにアクセスしたい連携アプリのAndroidManifest.xmlにて、独自定義Signature
     > Permissionを利用宣言する\
-    > 例： &lt;uses-permission android:name=”xxx” /&gt;
+    > 例： \<uses-permission android:name="xxx" /\>
 
 4.  連携するすべてのアプリのAPKを同じ開発者鍵で署名する
 
@@ -2149,17 +2149,17 @@ Permission回避の抜け道とは、AttackerAppは署名が一致していな�
     Permissionと同じ名前でNormal Permissionを定義する（厳密にはSignature
     Permissionでも構わない）
 
-> 例: &lt;permission android:name=" xxx "
-> android:protectionLevel="normal" /&gt;
+> 例: \<permission android:name=\" xxx \"
+> android:protectionLevel=\"normal\" /\>
 
 1.  AttackerAppは独自定義したNormal
     Permissionをuses-permissionで利用宣言する
 
-> 例: &lt;uses-permission android:name="xxx" /&gt;
+> 例: \<uses-permission android:name=\"xxx\" /\>
 
 1.  AttackerAppをProtectedAppより先に端末にインストールする
 
-![](media/image70.png){width="6.5in" height="4.270833333333333in"}
+![](media/image72.png){width="6.5in" height="4.270833333333333in"}
 
 図 5.2‑8
 
@@ -2197,7 +2197,7 @@ setContentView(R.layout.main);
 
 // AndroidManifest.xmlに定義したPermissionを取得
 
-List&lt;String&gt; list = getDefinedPermissionList();
+List\<String\> list = getDefinedPermissionList();
 
 // 改ざんを検知する
 
@@ -2205,11 +2205,11 @@ if( checkPermissions(list) ){
 
 // OK
 
-Log.d("dbg", "OK.");
+Log.d(\"dbg\", \"OK.\");
 
 }else{
 
-Log.d("dbg", "manifest file is stale.");
+Log.d(\"dbg\", \"manifest file is stale.\");
 
 finish();
 
@@ -2225,11 +2225,11 @@ finish();
 
 \*/
 
-private List&lt;String&gt; getDefinedPermissionList(){
+private List\<String\> getDefinedPermissionList(){
 
-List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+List\<String\> list = new ArrayList\<String\>();
 
-list.add("android.permission.INTERNET");
+list.add(\"android.permission.INTERNET\");
 
 return list;
 
@@ -2245,7 +2245,7 @@ return list;
 
 \*/
 
-private boolean checkPermissions(List&lt;String&gt; permissionList){
+private boolean checkPermissions(List\<String\> permissionList){
 
 try {
 
@@ -2330,17 +2330,17 @@ if (sMyCertHash == null) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-sMyCertHash = "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
-1E29DD26 F77C8255";
+sMyCertHash = \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC
+1E29DD26 F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-sMyCertHash = "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
-D7B3A7C2 42E142CA";
+sMyCertHash = \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B
+D7B3A7C2 42E142CA\";
 
 }
 
@@ -2363,7 +2363,7 @@ setContentView(R.layout.main);
 
 if (!PkgCert.test(this, this.getPackageName(), myCertHash(this))) {
 
-Toast.makeText(this, "自己署名の照合　NG", Toast.LENGTH\_LONG).show();
+Toast.makeText(this, \"自己署名の照合　NG\", Toast.LENGTH\_LONG).show();
 
 finish();
 
@@ -2371,7 +2371,7 @@ return;
 
 }
 
-Toast.makeText(this, "自己署名の照合　OK", Toast.LENGTH\_LONG).show();
+Toast.makeText(this, \"自己署名の照合　OK\", Toast.LENGTH\_LONG).show();
 
 }
 
@@ -2402,7 +2402,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -2441,7 +2441,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -2459,7 +2459,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -2480,7 +2480,7 @@ OSに保護されている電話帳やGPSといった情報や機能にアクセ
 5.2‑9に示す。中央のアプリはandroid.permission.READ\_CONTACTSを利用宣言したアプリが連絡先情報を読み取って自分のDBに蓄積している。何の制限もなくContent
 Provider経由で蓄積した情報を他のアプリに提供した場合に、Permissionの再委譲問題が生じる。
 
-![](media/image71.png){width="5.375in" height="3.8020833333333335in"}
+![](media/image73.png){width="5.375in" height="3.8020833333333335in"}
 
 []{#_Ref337212915 .anchor}図
 5.2‑9　Permissionを持たないアプリが連絡先情報を取得する
@@ -2501,60 +2501,59 @@ Permissionの利用宣言をして得た情報資産・機能資産をほぼそ�
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.permission.transferpermission" &gt;
+package=\"org.jssec.android.permission.transferpermission\" \>
 
-&lt;uses-permission
-android:name="android.permission.READ\_CONTACTS"/&gt;
+\<uses-permission android:name=\"android.permission.READ\_CONTACTS\"/\>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:theme="@style/AppTheme" &gt;
+android:theme=\"@style/AppTheme\" \>
 
-&lt;activity
+\<activity
 
-android:name=".TransferPermissionActivity"
+android:name=\".TransferPermissionActivity\"
 
-android:label="@string/title\_activity\_transfer\_permission" &gt;
+android:label=\"@string/title\_activity\_transfer\_permission\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;provider
+\<provider
 
-android:name=".TransferPermissionContentProvider"
+android:name=\".TransferPermissionContentProvider\"
 
-&lt;!-- ★ポイント1★ Manifestで提供元と同じPermissionを要求する --&gt;
+\<!\-- ★ポイント1★ Manifestで提供元と同じPermissionを要求する \--\>
 
-android:authorities="org.jssec.android.permission.transferpermission"
+android:authorities=\"org.jssec.android.permission.transferpermission\"
 
-android:enabled="true"
+android:enabled=\"true\"
 
-android:exported="true"
+android:exported=\"true\"
 
-android:readPermission="android.permission.READ\_CONTACTS" &gt;
+android:readPermission=\"android.permission.READ\_CONTACTS\" \>
 
-&lt;/provider&gt;
+\</provider\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 アプリが複数のPermissionを要求する必要がある場合は、上記の方法では解決することができない。ソースコード上でContext\#checkCallingPermission()やPackageManager\#checkPermission()を使用して、呼び出し元のアプリがManifestですべてのPermissionの利用宣言を行っているかどうかを確認することになる。
 
@@ -2564,10 +2563,10 @@ public void onCreate(Bundle savedInstanceState) {
 
 ～省略～
 
-if (checkCallingPermission("android.permission.READ\_CONTACTS") ==
+if (checkCallingPermission(\"android.permission.READ\_CONTACTS\") ==
 PackageManager.PERMISSION\_GRANTED
 
-&& checkCallingPermission("android.permission.WRITE\_CONTACTS") ==
+&& checkCallingPermission(\"android.permission.WRITE\_CONTACTS\") ==
 PackageManager.PERMISSION\_GRANTED) {
 
 // 呼び出し元が正しくPermissionを利用宣言していた時の処理
@@ -2606,7 +2605,8 @@ Permissionは自社アプリにより定義されていることを確認する
 
 Android 6.0(API Level
 23)においてアプリの仕様や設計にも影響を及ぼすPermissionモデルの仕様変更が行われた。本節ではAndroid
-6.0以降のPermissionモデルの概要を解説する。
+6.0以降のPermissionモデルの概要を解説する。またAndroid
+8.0以降での変更点についても記載する。
 
 ##### 権限の付与・取り消しのタイミング
 
@@ -2620,11 +2620,11 @@ Permission以外の権限を含め)全ての権限はアプリに付与され、
 しかしAndroid
 6.0以降の仕様では、権限の付与はアプリの実行時に行う仕様となり、アプリのインストール時には権限の付与もユーザーへの確認も行われない。アプリは、Dangerous
 Permissionを必要とする処理を実行する際、事前にその権限がアプリに付与されているかどうかを確認し、権限が付与されていない場合にはAndroid
-OSに確認画面を表示させ、ユーザーに権限利用の許可を求める必要がある[^26]。ユーザーが確認画面で許可することでその権限はアプリに付与される。ただし、ユーザーは一度アプリに許可した権限(Dangerous
+OSに確認画面を表示させ、ユーザーに権限利用の許可を求める必要がある[^27]。ユーザーが確認画面で許可することでその権限はアプリに付与される。ただし、ユーザーは一度アプリに許可した権限(Dangerous
 Permission)を、設定メニューを通じて任意のタイミングで取り消すことができる（図
 5.2‑10）ため、権限がアプリに付与されておらず必要な情報や機能にアクセスすることができない状況においても、アプリが異常な動作を起こすことがないよう適切な処理を実装する必要がある。
 
-![](media/image72.png){width="1.9999628171478565in"
+![](media/image74.png){width="1.9999628171478565in"
 height="3.558266622922135in"}
 
 []{#_Ref436138183 .anchor}図 5.2‑10
@@ -2635,10 +2635,19 @@ height="3.558266622922135in"}
 Groupと呼ばれる単位でグループ化されている。例えば、カレンダー情報の読み取りに必要なPermissionであるandroid.permission.READ\_CALENDARと、カレンダー情報の書き込みに必要なPermissionであるandroid.permission.WRITE\_CALENDARは、どちらもandroid.permission-group.CALENDARというPermission
 Groupに属している。
 
-Android
-6.0以降の新しいPermissionモデルにおいて、権限の付与や取り消しはこのPermission
-Groupを単位として行われる。つまり、アプリの実行時にandroid.permission.READ\_CALENDARの要求が行われ、ユーザーがこれを許可すると、Android
-OSはandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARの利用が両方とも許可されたとみなし、その後android.permission.WRITE\_CALENDARが要求されても、ユーザーに確認ダイアログが表示されることなく即時に権限が付与されるのである[^27]。
+Android 6.0（API Level
+23）以降のPermissionモデルにおいて、権限の付与や取り消しはこのPermission
+Groupを単位として行われる。ただし、OSとSDKのバージョンの組み合わせによってこの単位が変わるので注意が必要となる（下記参照）。
+
+まず、端末がAndroid 6.0(API Level
+23)でアプリのtargetSdkVersionが23以上26未満に設定されている場合、Manifestにandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARが記載されている状態で、アプリの実行時にandroid.permission.READ\_CALENDARの要求が行われ、ユーザーがこれを許可すると、Android
+OSはandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARの利用が両方とも許可されたとみなし権限が付与される。
+
+一方、Android 8.0（API Level
+26）以降の端末でtargetSdkVersionが26以上に設定されている場合は要求したPermissionの権限のみが付与されるように修正された。つまりManifestにandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARが記載されていても、android.permission.READ\_CALENDARのみを要求しユーザーに許可されたのならandroid.permission.READ\_CALENDARの権限のみが付与される。ただし、その後android.permission.WRITE\_CALENDARが要求された場合は、ユーザーに確認ダイアログが表示されることなく即時に権限が付与される[^28]。
+
+また、権限の付与とは異なり、設定メニューからの権限の取り消しはAndroid
+8.0以降でもPermission Group単位で行われる。
 
 Permission Groupの分類についてはDeveloper Reference
 (http://developer.android.com/intl/ja/guide/topics/security/permissions.html\#perm-groups)を参照すること。
@@ -2646,21 +2655,25 @@ Permission Groupの分類についてはDeveloper Reference
 ##### 仕様変更の影響範囲
 
 アプリの実行時にPermission要求が必要なのは、端末がAndroid
-6.0以降で動作していることに加え、アプリのmaxSdkVersionが23以上に設定されている場合に限られる。端末がAndroid
-5.1以前で動作している場合や、アプリのmaxSdkVersionが23未満である場合、権限は従来通りアプリのインストール時にまとめて付与される。ただし、アプリのtargetSDKVersionが23未満であっても、端末がAndroid
-6.0以降であれば、インストールされたアプリのPermissionをユーザーが任意のタイミングで取り消すことができるため、意図しないアプリの異常終了が起きる可能性がある。早急に仕様変更に対応するか、アプリのmaxSdkVersionを22以前に設定して、Android
+6.0以降で動作していることに加え、アプリのtargetSdkVersionが23以上に設定されている場合に限られる。端末がAndroid
+5.1以前で動作している場合や、アプリのtargetSdkVersionが23未満である場合、権限は従来通りアプリのインストール時にまとめて付与される。ただし、アプリのtargetSDKVersionが23未満であっても、端末がAndroid
+6.0(API Level
+23)以降であれば、インストールされたアプリのPermissionをユーザーが任意のタイミングで取り消すことができるため、意図しないアプリの異常終了が起きる可能性がある。早急に仕様変更に対応するか、アプリのmaxSdkVersionを22以前に設定して、Android
 6.0(API Level
 23)以降の端末にイントールされないようにするなどの対応が必要である（表
 5.2‑1）。
 
 []{#_Ref436138322 .anchor}表 5.2‑1
 
-  端末のAndroid OSバージョン   アプリのtargetSDKVersion   アプリへの権限付与のタイミング   ユーザーによる権限制御
-  ---------------------------- -------------------------- -------------------------------- ------------------------
-  ≧6.0                         ≧23                        アプリ実行時                     あり
-                               ＜23                       インストール時                   あり(早急な対応が必要)
-  ≦5.1                         ≧23                        インストール時                   なし
-                               ＜23                       インストール時                   なし
+  端末のAndroid OSバージョン   アプリのtargetSDKVersion   アプリへの権限付与のタイミング       ユーザーによる権限制御
+  ---------------------------- -------------------------- ------------------------------------ ------------------------
+  ≧8.0                         ≧26                        アプリ実行時(付与はPermission単位)   あり
+                               \<26                       アプリ実行時(付与はGroup単位)        あり
+                               ＜23                       インストール時                       あり(早急な対応が必要)
+  ≧6.0                         ≧23                        アプリ実行時(付与はGroup単位)        あり
+                               ＜23                       インストール時                       あり(早急な対応が必要)
+  ≦5.1                         ≧23                        インストール時                       なし
+                               ＜23                       インストール時                       なし
 
 ただし、maxSdkVersion
 の効果は限定的であることに注意が必要である。maxSdkVersionを22以前に設定した場合、アプリをGoogle
@@ -2671,8 +2684,8 @@ Play以外のマーケットプレイスではmaxSdkVersionの値がチェック
 
 このようにmaxSdkVersionの効果は限定的であること、さらにGoogleがmaxSdkVersionの使用を推奨していないことを踏まえ、早急に仕様変更に対応することをお勧めする。
 
-なお、以下のネットワーク通信に関するPermissionは、Android
-6.0以降Protection
+なお、以下のネットワーク通信に関するPermissionは、Android 6.0(API Level
+23)以降Protection
 Levelがdangerousからnormalに変更されている。つまり、これらのPermissionは利用宣言していても、ユーザーの明示的な許可を必要としないため、今回の仕様変更の影響を受けない。
 
 -   android.permission.BLUETOOTH
@@ -2696,7 +2709,7 @@ Account Managerに独自アカウントを追加する
 
 Account
 Managerはアプリがオンラインサービスへアクセスするために必要となるアカウント情報（アカウント名、パスワード）および認証トークンを一元管理するAndroid
-OSの仕組みである[^28]。ユーザーは事前にアカウント情報をAccount
+OSの仕組みである[^29]。ユーザーは事前にアカウント情報をAccount
 Managerに登録しておき、アプリがオンラインサービスにアクセスしようとしたときにユーザーの許可を得て、Account
 Managerがアプリに認証トークンを自動提供する仕組みである。パスワードという極めてセンシティブな情報をアプリが扱わなくて済むことがAccount
 Managerの利点である。
@@ -2707,7 +2720,7 @@ Managerの利点である。
 > Managerに提供することにより、Account
 > Managerがそのオンラインサービスのアカウント情報および認証トークンを一元管理できるようになる。利用アプリとAuthenticatorアプリは別のアプリである必要はなく、一つのアプリとして実装することもできる。
 >
-> ![](media/image73.png){width="6.889763779527559in"
+> ![](media/image75.png){width="6.889763779527559in"
 > height="1.9748031496062992in"}
 
 []{#_Ref351642081 .anchor}図 5.3‑1Account
@@ -2738,9 +2751,11 @@ Manager経由で間接的に呼び出されることに注意してほしい。
 1.  Authenticatorを提供するServiceは非公開Serviceとする
 
 &nbsp;
+
 1.  ログイン画面ActivityはAuthenticatorアプリで実装する
 
 &nbsp;
+
 1.  ログイン画面Acitivityは公開Activityとする
 
 2.  KEY\_INTENTには、ログイン画面Activityのクラス名を指定した明示的Intentを与える
@@ -2756,95 +2771,94 @@ Managerに提供するサービスを定義。meta-dataにてAuthenticatorを記
 
 > AccountManager Authenticator/AndroidManifest.xml
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.accountmanager.authenticator"
+package=\"org.jssec.android.accountmanager.authenticator\"
 
-xmlns:tools="http://schemas.android.com/tools"&gt;
+xmlns:tools=\"http://schemas.android.com/tools\"\>
 
-&lt;!-- Authenticatorを実装するのに必要なPermission --&gt;
+\<!\-- Authenticatorを実装するのに必要なPermission \--\>
 
-&lt;uses-permission android:name="android.permission.GET\_ACCOUNTS"
-/&gt;
+\<uses-permission android:name=\"android.permission.GET\_ACCOUNTS\" /\>
 
-&lt;uses-permission
-android:name="android.permission.AUTHENTICATE\_ACCOUNTS" /&gt;
+\<uses-permission
+android:name=\"android.permission.AUTHENTICATE\_ACCOUNTS\" /\>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;!-- AuthenticatorのIBinderをAccountManagerに提供するサービス --&gt;
+\<!\-- AuthenticatorのIBinderをAccountManagerに提供するサービス \--\>
 
-&lt;!-- ★ポイント1★ Authenticatorを提供するServiceは非公開Serviceとする
---&gt;
+\<!\-- ★ポイント1★ Authenticatorを提供するServiceは非公開Serviceとする
+\--\>
 
-&lt;service
+\<service
 
-android:name=".AuthenticationService"
+android:name=\".AuthenticationService\"
 
-android:exported="false" &gt;
+android:exported=\"false\" \>
 
-&lt;!-- intent-filterとmeta-dataはお決まりのパターン --&gt;
+\<!\-- intent-filterとmeta-dataはお決まりのパターン \--\>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.accounts.AccountAuthenticator" /&gt;
+\<action android:name=\"android.accounts.AccountAuthenticator\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;meta-data
+\<meta-data
 
-android:name="android.accounts.AccountAuthenticator"
+android:name=\"android.accounts.AccountAuthenticator\"
 
-android:resource="@xml/authenticator" /&gt;
+android:resource=\"@xml/authenticator\" /\>
 
-&lt;/service&gt;
+\</service\>
 
-&lt;!-- アカウントを追加するときなどに表示されるログイン画面用のActivity
---&gt;
+\<!\-- アカウントを追加するときなどに表示されるログイン画面用のActivity
+\--\>
 
-&lt;!-- ★ポイント2★ ログイン画面ActivityはAuthenticatorアプリで実装する
---&gt;
+\<!\-- ★ポイント2★ ログイン画面ActivityはAuthenticatorアプリで実装する
+\--\>
 
-&lt;!-- ★ポイント3★ ログイン画面Activityは公開Activityとする --&gt;
+\<!\-- ★ポイント3★ ログイン画面Activityは公開Activityとする \--\>
 
-&lt;activity
+\<activity
 
-android:name=".LoginActivity"
+android:name=\".LoginActivity\"
 
-android:exported="true"
+android:exported=\"true\"
 
-android:label="@string/login\_activity\_title"
+android:label=\"@string/login\_activity\_title\"
 
-android:theme="@android:style/Theme.Dialog"
+android:theme=\"@android:style/Theme.Dialog\"
 
-tools:ignore="ExportedActivity" /&gt;
+tools:ignore=\"ExportedActivity\" /\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 XMLファイルでAuthenticatorを定義。独自アカウントのアカウントタイプ等を指定する。
 
 > res/xml/authenticator.xml
 
-&lt;account-authenticator
-xmlns:android="http://schemas.android.com/apk/res/android"
+\<account-authenticator
+xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-android:accountType="org.jssec.android.accountmanager"
+android:accountType=\"org.jssec.android.accountmanager\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/label"
+android:label=\"@string/label\"
 
-android:smallIcon="@drawable/ic\_launcher"
+android:smallIcon=\"@drawable/ic\_launcher\"
 
-android:customTokens="true" /&gt;
+android:customTokens=\"true\" /\>
 
 AuthenticatorのインスタンスをAccount
 Managerに提供するサービス。このサンプルで実装するAuthenticatorであるJssecAuthenticatorクラスのインスタンスをonBind()でreturnするだけの簡単な実装でよい。
@@ -2908,14 +2922,14 @@ import android.os.Bundle;
 public class JssecAuthenticator extends AbstractAccountAuthenticator {
 
 public static final String JSSEC\_ACCOUNT\_TYPE =
-"org.jssec.android.accountmanager";
+\"org.jssec.android.accountmanager\";
 
-public static final String JSSEC\_AUTHTOKEN\_TYPE = "webservice";
+public static final String JSSEC\_AUTHTOKEN\_TYPE = \"webservice\";
 
-public static final String JSSEC\_AUTHTOKEN\_LABEL = "JSSEC Web
-Service";
+public static final String JSSEC\_AUTHTOKEN\_LABEL = \"JSSEC Web
+Service\";
 
-public static final String RE\_AUTH\_NAME = "reauth\_name";
+public static final String RE\_AUTH\_NAME = \"reauth\_name\";
 
 protected final Context mContext;
 
@@ -2942,7 +2956,7 @@ Account\[\] accounts = am.getAccountsByType(JSSEC\_ACCOUNT\_TYPE);
 
 Bundle bundle = new Bundle();
 
-if (accounts.length &gt; 0) {
+if (accounts.length \> 0) {
 
 // 本サンプルコードではアカウントが既に存在する場合はエラーとする
 
@@ -2989,6 +3003,9 @@ KEY\_INTENTには、ログイン画面Activityのクラス名を指定した明�
 Intent intent = new Intent(mContext, LoginActivity.class);
 
 intent.putExtra(RE\_AUTH\_NAME, account.name);
+
+intent.putExtra(AccountManager.KEY\_ACCOUNT\_AUTHENTICATOR\_RESPONSE,
+response);
 
 bundle.putParcelable(AccountManager.KEY\_INTENT, intent);
 
@@ -3186,7 +3203,7 @@ String name = mNameEdit.getText().toString();
 
 String pass = mPassEdit.getText().toString();
 
-if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pass)) {
+if (TextUtils.isEmpty(name) \|\| TextUtils.isEmpty(pass)) {
 
 // 入力値が不正である場合の処理
 
@@ -3217,7 +3234,7 @@ finish();
 // ★ポイント5★
 アカウント情報や認証トークンなどのセンシティブな情報はログ出力しない
 
-Log.i(TAG, "WebService login succeeded");
+Log.i(TAG, \"WebService login succeeded\");
 
 if (mReAuthName == null) {
 
@@ -3312,7 +3329,7 @@ private String getAuthToken(String username, String password) {
 
 // サンプルにつき、通信は行わずに固定値を返す
 
-return "c2f981bda5f34f90c0419e171f60f45c";
+return \"c2f981bda5f34f90c0419e171f60f45c\";
 
 }
 
@@ -3323,7 +3340,7 @@ return "c2f981bda5f34f90c0419e171f60f45c";
 独自アカウントの追加と認証トークンの取得を行うアプリのサンプルコードを以下に示す。もう一つのサンプルアプリ「5.3.1.1
 独自アカウントを作る」が端末にインストールされているときに、独自アカウントの追加や認証トークンの取得ができる。「アクセスリクエスト」　画面は両アプリの署名鍵が異なる場合にだけ表示される。
 
-![](media/image74.png){width="6.889763779527559in"
+![](media/image76.png){width="6.889763779527559in"
 height="2.296456692913386in"}
 
 図 5.3‑2 サンプルアプリAccountManager Userの動作画面
@@ -3337,50 +3354,49 @@ Account Managerの利用とPermission」を参照。
 
 > AccountManager User/AndroidManifest.xml
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.accountmanager.user" &gt;
+package=\"org.jssec.android.accountmanager.user\" \>
 
-&lt;uses-permission android:name="android.permission.GET\_ACCOUNTS"
-/&gt;
+\<uses-permission android:name=\"android.permission.GET\_ACCOUNTS\" /\>
 
-&lt;uses-permission android:name="android.permission.MANAGE\_ACCOUNTS"
-/&gt;
+\<uses-permission android:name=\"android.permission.MANAGE\_ACCOUNTS\"
+/\>
 
-&lt;uses-permission android:name="android.permission.USE\_CREDENTIALS"
-/&gt;
+\<uses-permission android:name=\"android.permission.USE\_CREDENTIALS\"
+/\>
 
-&lt;application
+\<application
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:theme="@style/AppTheme" &gt;
+android:theme=\"@style/AppTheme\" \>
 
-&lt;activity
+\<activity
 
-android:name=".UserActivity"
+android:name=\".UserActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 利用アプリのActivity。画面上のボタンをタップするとaddAcount()またはgetAuthToken()が実行される。指定のアカウントタイプに対応したAuthenticatorが偽物であるケースがあるので、正規のAuthenticatorであることを確認してからアカウント処理を始めていることに注意。
 
@@ -3423,9 +3439,9 @@ public class UserActivity extends Activity {
 // 利用するAuthenticatorの情報
 
 private static final String JSSEC\_ACCOUNT\_TYPE =
-"org.jssec.android.accountmanager";
+\"org.jssec.android.accountmanager\";
 
-private static final String JSSEC\_TOKEN\_TYPE = "webservice";
+private static final String JSSEC\_TOKEN\_TYPE = \"webservice\";
 
 private TextView mLogView;
 
@@ -3445,7 +3461,7 @@ public void addAccount(View view) {
 
 logLine();
 
-logLine("新しいアカウントを追加します");
+logLine(\"新しいアカウントを追加します\");
 
 // ★ポイント1★
 Authenticatorが正規のものであることを確認してからアカウント処理を実施する
@@ -3457,11 +3473,11 @@ AccountManager am = AccountManager.get(this);
 am.addAccount(JSSEC\_ACCOUNT\_TYPE, JSSEC\_TOKEN\_TYPE, null, null,
 this,
 
-new AccountManagerCallback&lt;Bundle&gt;() {
+new AccountManagerCallback\<Bundle\>() {
 
 @Override
 
-public void run(AccountManagerFuture&lt;Bundle&gt; future) {
+public void run(AccountManagerFuture\<Bundle\> future) {
 
 try {
 
@@ -3473,11 +3489,11 @@ String name = result.getString(AccountManager.KEY\_ACCOUNT\_NAME);
 
 if (type != null && name != null) {
 
-logLine("以下のアカウントを追加しました：");
+logLine(\"以下のアカウントを追加しました：\");
 
-logLine("　　アカウント種別: %s", type);
+logLine(\"　　アカウント種別: %s\", type);
 
-logLine("　　アカウント名: %s", name);
+logLine(\"　　アカウント名: %s\", name);
 
 } else {
 
@@ -3485,9 +3501,9 @@ String code = result.getString(AccountManager.KEY\_ERROR\_CODE);
 
 String msg = result.getString(AccountManager.KEY\_ERROR\_MESSAGE);
 
-logLine("アカウントが追加できませんでした");
+logLine(\"アカウントが追加できませんでした\");
 
-logLine(" エラーコード %s: %s", code, msg);
+logLine(\" エラーコード %s: %s\", code, msg);
 
 }
 
@@ -3511,7 +3527,7 @@ public void getAuthToken(View view) {
 
 logLine();
 
-logLine("トークンを取得します");
+logLine(\"トークンを取得します\");
 
 // ★ポイント1★
 Authenticatorが正規のものであることを確認してからアカウント処理を実施する
@@ -3522,17 +3538,17 @@ AccountManager am = AccountManager.get(this);
 
 Account\[\] accounts = am.getAccountsByType(JSSEC\_ACCOUNT\_TYPE);
 
-if (accounts.length &gt; 0) {
+if (accounts.length \> 0) {
 
 Account account = accounts\[0\];
 
 am.getAuthToken(account, JSSEC\_TOKEN\_TYPE, null, this,
 
-new AccountManagerCallback&lt;Bundle&gt;() {
+new AccountManagerCallback\<Bundle\>() {
 
 @Override
 
-public void run(AccountManagerFuture&lt;Bundle&gt; future) {
+public void run(AccountManagerFuture\<Bundle\> future) {
 
 try {
 
@@ -3542,29 +3558,29 @@ String name = result.getString(AccountManager.KEY\_ACCOUNT\_NAME);
 
 String authtoken = result.getString(AccountManager.KEY\_AUTHTOKEN);
 
-logLine(" %sさんのトークン:", name);
+logLine(\" %sさんのトークン:\", name);
 
 if (authtoken != null) {
 
-logLine(" %s", authtoken);
+logLine(\" %s\", authtoken);
 
 } else {
 
-logLine(" 取得できませんでした");
+logLine(\" 取得できませんでした\");
 
 }
 
 } catch (OperationCanceledException e) {
 
-logLine(" 例外: %s",e.getClass().getName());
+logLine(\" 例外: %s\",e.getClass().getName());
 
 } catch (AuthenticatorException e) {
 
-logLine(" 例外: %s",e.getClass().getName());
+logLine(\" 例外: %s\",e.getClass().getName());
 
 } catch (IOException e) {
 
-logLine(" 例外: %s",e.getClass().getName());
+logLine(\" 例外: %s\",e.getClass().getName());
 
 }
 
@@ -3574,7 +3590,7 @@ logLine(" 例外: %s",e.getClass().getName());
 
 } else {
 
-logLine("アカウントが登録されていません");
+logLine(\"アカウントが登録されていません\");
 
 }
 
@@ -3602,27 +3618,27 @@ break;
 
 if (pkgname == null) {
 
-logLine("Authenticatorが見つかりません");
+logLine(\"Authenticatorが見つかりません\");
 
 return false;
 
 }
 
-logLine(" アカウントタイプ： %s", JSSEC\_ACCOUNT\_TYPE);
+logLine(\" アカウントタイプ： %s\", JSSEC\_ACCOUNT\_TYPE);
 
-logLine(" Authenticatorのパッケージ名：");
+logLine(\" Authenticatorのパッケージ名：\");
 
-logLine(" %s", pkgname);
+logLine(\" %s\", pkgname);
 
 if (!PkgCert.test(this, pkgname, getTrustedCertificateHash(this))) {
 
-logLine(" 正規のAuthenticatorではありません（証明書不一致）");
+logLine(\" 正規のAuthenticatorではありません（証明書不一致）\");
 
 return false;
 
 }
 
-logLine(" 正規のAuthenticatorです");
+logLine(\" 正規のAuthenticatorです\");
 
 return true;
 
@@ -3636,17 +3652,17 @@ private String getTrustedCertificateHash(Context context) {
 
 if (Utils.isDebuggable(context)) {
 
-// debug.keystoreの"androiddebugkey"の証明書ハッシュ値
+// debug.keystoreの\"androiddebugkey\"の証明書ハッシュ値
 
-return "0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
-F77C8255";
+return \"0EFB7236 328348A9 89718BAD DF57F544 D5CCB4AE B9DB34BC 1E29DD26
+F77C8255\";
 
 } else {
 
-// keystoreの"my company key"の証明書ハッシュ値
+// keystoreの\"my company key\"の証明書ハッシュ値
 
-return "D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B D7B3A7C2
-42E142CA";
+return \"D397D343 A5CBC10F 4EDDEB7C A10062DE 5690984F 1FB9E88B D7B3A7C2
+42E142CA\";
 
 }
 
@@ -3660,11 +3676,11 @@ mLogView.append(str);
 
 private void logLine(String line) {
 
-log(line + "\\n");
+log(line + \"\\n\");
 
 }
 
-private void logLine(String fmt, Object... args) {
+private void logLine(String fmt, Object\... args) {
 
 logLine(String.format(fmt, args));
 
@@ -3672,7 +3688,7 @@ logLine(String.format(fmt, args));
 
 private void logLine() {
 
-log("\\n");
+log(\"\\n\");
 
 }
 
@@ -3703,7 +3719,7 @@ correctHash) {
 
 if (correctHash == null) return false;
 
-correctHash = correctHash.replaceAll(" ", "");
+correctHash = correctHash.replaceAll(\" \", \"\");
 
 return correctHash.equals(hash(ctx, pkgname));
 
@@ -3742,7 +3758,7 @@ private static byte\[\] computeSha256(byte\[\] data) {
 
 try {
 
-return MessageDigest.getInstance("SHA-256").digest(data);
+return MessageDigest.getInstance(\"SHA-256\").digest(data);
 
 } catch (NoSuchAlgorithmException e) {
 
@@ -3760,7 +3776,7 @@ final StringBuilder hexadecimal = new StringBuilder();
 
 for (final byte b : data) {
 
-hexadecimal.append(String.format("%02X", b));
+hexadecimal.append(String.format(\"%02X\", b));
 
 }
 
@@ -3820,7 +3836,15 @@ Authenticatorアプリがログイン画面を用意することにより、ロ�
 #### KEY\_INTENTには、ログイン画面Activityのクラス名を指定した明示的Intentを与える （必須）
 
 Authenticatorがログイン画面Activityを開きたいときには、Account
-Managerに返すBundleの中にログイン画面Activityを起動するIntentをKEY\_INTENTで与えることになっている。ここで与えるIntentはログイン画面Activityをクラス名で指定する明示的Intentでなければならない。もしアクション名指定の暗黙的Intentを指定してしまうと、Authenticatorアプリが自ら用意したログイン画面Activityではなく、他のアプリが用意したActivityが起動される可能性が生じてしまうからだ。悪意あるアプリが正規のログイン画面に似せたログイン画面を用意していた場合、偽のログイン画面でユーザーがパスワードを入力してしまう危険がある。
+Managerに返すBundleの中にログイン画面Activityを起動するIntentをKEY\_INTENTで与えることになっている。ここで与えるIntentはログイン画面Activityをクラス名で指定する明示的Intentでなければならない。暗黙的Intentを与えた場合は、フレームワークがAuthenticatorアプリがログイン画面のために用意したActivity以外のActivityの起動を試みる可能性がある。これによって、Andorid
+4.4（API Level 19）以降のバージョンではアプリがクラッシュしたり、Android
+4.4（API Level
+19）より前のバージョンでは他のアプリの用意した意図しないActivityが起動したりする場合がある。
+
+Android 4.4（API Level
+19）以降のバージョンでは、フレームワークがKEY\_INTENTで与えるIntentで起動されるアプリの署名とAuthenticatorアプリの署名が一致しない場合にはSecurityExceptionを発生させるため、偽のログイン画面を起動される恐れはないが、正規のログイン画面を起動できずユーザーの正常なアプリ利用を妨げられるおそれがある。Android
+4.4（API Level
+19）より前のバージョンでは、悪意のあるアプリの用意した偽のログイン画面を起動され、ユーザーが悪意のあるアプリにパスワード等認証情報を入力してしまう危険がある。よって、いずれにバージョンであっても、KEY\_INTENTで与えるIntentは明示的Intentでなければならない。
 
 #### アカウント情報や認証トークンなどのセンシティブな情報はログ出力しない （必須）
 
@@ -3834,10 +3858,17 @@ Account
 Managerに登録するアカウントには、パスワードと認証トークンの2つの認証情報を保存することができる。これらの情報は次のディレクトリのaccounts.dbの中に平文で（つまり暗号化されず）保存される。\
 ・Android 4.1以前\
 /data/system/accounts.db\
-・Android 4.2以降\
+・Android 4.2以降Android 6.0以前\
 /data/system/users/0/accounts.db\
+・Android 7.0以降
+
+/data/system\_ce/0/accounts\_ce.db\
 ※Android
-4.2以降はマルチユーザー機能がサポートされているため、ユーザーに合わせたディレクトリへ保存されるように変更されている。
+4.2以降はマルチユーザー機能がサポートされているため、ユーザーに合わせたディレクトリへ保存されるように変更されている。また、Android
+7.0以降ではDirect Boot対応のため、ロック時にデータを扱う際のデータベース
+/data/system\_de/0/accounts\_de\_db とアンロック時にデータを扱う
+/data/system\_ce/0/accounts\_ce.db
+にデータベースファイルが分割された。認証情報は平文の状態で後者のデータベースファイルに保存される。
 
 このaccounts.dbの内容を読み取るためにはroot権限またはsystem権限が必要であり、市販のAndroid端末では読み取ることができない。もし、攻撃者にroot権限やsystem権限が奪われてしまう脆弱性がAndroid
 OSにある場合には、accounts.dbの中に保存された認証情報が危険にさらされることになる。
@@ -3866,72 +3897,95 @@ Managerにパスワードを保存する設計はできるだけ避けるべき�
 
 #### Account Managerの利用とPermission
 
-AccountManagerクラスの各メソッドを利用するためには、アプリのAndroidManifest.xmlにそれぞれ適正なPermissionの利用宣言をする必要がある。Permissionとメソッドの対応を表
+AccountManagerクラスの各メソッドを利用するためには、アプリのAndroidManifest.xmlにそれぞれ適正なPermissionの利用宣言をする必要がある。Android
+5.1(API Level
+22)以前のバージョンではAUTHENTICATE\_ACCOUNTSやGET\_ACCOUNTS,
+MANAGE\_ACCOUNTSといった権限が必要であり、メソッドとの対応を表
 5.3‑1に示す。
 
 []{#_Ref351768346 .anchor}表 5.3‑1　Account Managerの機能とPermission
 
-  --------------------------------------------------------------------------------------------------------------------------------------------
-                                                           Account Managerが提供する機能
-  -------------------------------------------------------- -------------------------------- --------------------------------------------------
-  Permission                                               メソッド                         説明
-
-  AUTHENTICATE\_ACCOUNTS                                   getPassword()                    パスワードの取得
-                                                                                            
-  (Authenticatorと同じ鍵で署名されたPackageのみ利用可能)                                    
-
-                                                           getUserData()                    利用者情報の取得
-
-                                                           addAccountExplicitly()           アカウントのDBへの追加
-
-                                                           peekAuthToken()                  キャッシュされたトークンの取得
-
-                                                           setAuthToken()                   認証トークンの登録
-
-                                                           setPassword()                    パスワードの変更
-
-                                                           setUserData()                    利用者情報の設定
-
-                                                           renameAccount()                  アカウント名の変更
-
-  GET\_ACCOUNTS                                            getAccounts()                    すべてのアカウントの一覧取得
-
-                                                           getAccountsByType()              アカウントタイプが同じアカウントの一覧取得
-
-                                                           getAccountsByTypeAndFeatures()   指定した機能を持ったアカウントの一覧取得
-
-                                                           addOnAccountsUpdatedListener()   イベントリスナーの登録
-
-                                                           hasFeatures()                    指定した機能の有無
-
-  MANAGE\_ACCOUNTS                                         getAuthTokenByFeatures()         指定した機能を持つアカウントの認証トークンの取得
-
-                                                           addAccount()                     ユーザーへのアカウント追加要請
-
-                                                           removeAccount()                  アカウントの削除
-
-                                                           clearPassword()                  パスワードの初期化
-
-                                                           updateCredentials()              ユーザーへのパスワード変更要請
-
-                                                           editProperties()                 Authenticatorの設定変更
-
-                                                           confirmCredentials()             ユーザーへのパスワード再入力要請
-
-  USE\_CREDENTIALS                                         getAuthToken()                   認証トークンの取得
-
-                                                           blockingGetAuthToken()           認証トークンの取得
-
-  MANAGE\_ACCOUNTS                                         invalidateAuthToken()            キャッシュされたトークンの削除
-                                                                                            
-  または                                                                                    
-                                                                                            
-  USE\_CREDENTIALS                                                                          
-  --------------------------------------------------------------------------------------------------------------------------------------------
++----------------------+----------------------+----------------------+
+|                      | Account              |
+|                      | Managerが提供する機能 |
++======================+======================+======================+
+| Permission           | メソッド             | 説明                 |
++----------------------+----------------------+----------------------+
+| AUTHENTICATE\_ACCOUN | getPassword()        | パスワードの取得     |
+| TS                   |                      |                      |
+|                      |                      |                      |
+| (Authenticatorと同じ鍵で署 |                |                      |
+| 名されたPackageのみ利用可能) |              |                      |
++----------------------+----------------------+----------------------+
+|                      | getUserData()        | 利用者情報の取得     |
++----------------------+----------------------+----------------------+
+|                      | addAccountExplicitly | アカウントのDBへの追加 |
+|                      | ()                   |                      |
++----------------------+----------------------+----------------------+
+|                      | peekAuthToken()      | キャッシュされたトークンの取得 |
++----------------------+----------------------+----------------------+
+|                      | setAuthToken()       | 認証トークンの登録   |
++----------------------+----------------------+----------------------+
+|                      | setPassword()        | パスワードの変更     |
++----------------------+----------------------+----------------------+
+|                      | setUserData()        | 利用者情報の設定     |
++----------------------+----------------------+----------------------+
+|                      | renameAccount()      | アカウント名の変更   |
++----------------------+----------------------+----------------------+
+| GET\_ACCOUNTS        | getAccounts()        | すべてのアカウントの一覧取得 |
++----------------------+----------------------+----------------------+
+|                      | getAccountsByType()  | アカウントタイプが同じアカウントの一覧取 |
+|                      |                      | 得                   |
++----------------------+----------------------+----------------------+
+|                      | getAccountsByTypeAnd | 指定した機能を持ったアカウントの一覧取得 |
+|                      | Features()           |                      |
++----------------------+----------------------+----------------------+
+|                      | addOnAccountsUpdated | イベントリスナーの登録 |
+|                      | Listener()           |                      |
++----------------------+----------------------+----------------------+
+|                      | hasFeatures()        | 指定した機能の有無   |
++----------------------+----------------------+----------------------+
+| MANAGE\_ACCOUNTS     | getAuthTokenByFeatur | 指定した機能を持つアカウントの認証トーク |
+|                      | es()                 | ンの取得             |
++----------------------+----------------------+----------------------+
+|                      | addAccount()         | ユーザーへのアカウント追加要請 |
++----------------------+----------------------+----------------------+
+|                      | removeAccount()      | アカウントの削除     |
++----------------------+----------------------+----------------------+
+|                      | clearPassword()      | パスワードの初期化   |
++----------------------+----------------------+----------------------+
+|                      | updateCredentials()  | ユーザーへのパスワード変更要請 |
++----------------------+----------------------+----------------------+
+|                      | editProperties()     | Authenticatorの設定変更 |
++----------------------+----------------------+----------------------+
+|                      | confirmCredentials() | ユーザーへのパスワード再入力要請 |
++----------------------+----------------------+----------------------+
+| USE\_CREDENTIALS     | getAuthToken()       | 認証トークンの取得   |
++----------------------+----------------------+----------------------+
+|                      | blockingGetAuthToken | 認証トークンの取得   |
+|                      | ()                   |                      |
++----------------------+----------------------+----------------------+
+| MANAGE\_ACCOUNTS     | invalidateAuthToken( | キャッシュされたトークンの削除 |
+|                      | )                    |                      |
+| または               |                      |                      |
+|                      |                      |                      |
+| USE\_CREDENTIALS     |                      |                      |
++----------------------+----------------------+----------------------+
 
 ここで、AUTHENTICATE\_ACCOUNTS
 Permissionが必要なメソッド群を使う場合にはPermissionに加えてパッケージの署名鍵に関する制限が設けられている。具体的には、Authenticatorを提供するパッケージの署名に使う鍵とメソッドを使うアプリのパッケージの署名に使う鍵が同じでなければならない。そのため、Authenticator以外にAUTHENTICATE\_ACCOUNTS
 Permissionが必要なメソッド群を使うアプリを配布する際には、Authenticatorと同じ鍵で署名を施すことになる。
+
+Android 6.0(API Level
+23)以降のバージョンではGET\_ACCOUNTS以外のPermissionは使用されておらず、宣言してもしなくてもできることに差はない。Android
+5.1(API Level
+22)以前のバージョンにおいてAUTHENTICATE\_ACCOUNTSを要求していたメソッドについては、Permissionを要求しないものの、同様に署名が一致する場合のみしか呼び出せない
+(署名が一致しない場合にはSecurityExceptionが発生する) ことに注意する。
+
+さらに、Android 8.0（API Level
+26）でGET\_ACCOUNTSを必要としていたAPIのアクセス制御も変更された。Android
+8.0（API Level
+26）以降のバージョンで、アカウント情報の利用側のアプリのtargetSdkVersionが26以上の場合には、GET\_ACCOUNTSが付与されていたとしても原則としてAuthenticatorアプリと署名が一致する場合にしかアカウントの情報は取得できない。ただし、AuthenticatorアプリはsetAccountVisibilityメソッドを呼び出してパッケージ名を指定することで、署名の一致しないアプリに対してもアカウント情報を提供することができる。
 
 Android
 Studioでの開発の際には設定した署名鍵が固定で使われるため、鍵のことを意識せずにPermissionだけで実装や動作確認が出来てしまう。特にアプリによって署名鍵を使い分けている開発者は、この制限を考慮してアプリに使う鍵を選定する必要があるので注意をすること。また、Account
@@ -3944,18 +3998,48 @@ Managerは認証トークン使用許諾画面（GrantCredentialsPermissionActiv
 4.0.xのAndroid Frameworkには不具合があり、Account
 Managerによってこの画面が開かれた途端、例外が発生し、アプリが強制終了してしまう（図
 5.3‑3）。不具合の詳細は
-[*https://code.google.com/p/android/issues/detail?id=23421*](https://code.google.com/p/android/issues/detail?id=23421)
+[[https://code.google.com/p/android/issues/detail?id=23421]{.underline}](https://code.google.com/p/android/issues/detail?id=23421)
 に記載されている。Android 4.1.x以降ではこの不具合はない。
 
-![](media/image75.png){width="6.3597222222222225in" height="4.5in"}
+![](media/image77.png){width="6.3597222222222225in" height="4.5in"}
 
 []{#_Ref351721722 .anchor}図
 5.3‑3Android標準の認証トークン使用許諾画面を表示した場合
 
+#### Android 8.0（API Level 26）以降で署名の一致しないAuthenticatorのアカウントを読めるケース
+
+Android 8.0（API Level 26）から、アカウント情報の取得などAndroid
+7.1（API Level 25）以前ではGET\_ACCOUNTS
+Permissionが必要であったメソッドの呼び出しに対してGET\_ACCOUNTS
+Permissionが不要になり、代わりに署名が一致する場合やAuthenticatorアプリ側でsetAccountVisibilityメソッドによってアカウント情報の提供先アプリとして指定された場合にのみアカウントの情報が取得できるようになった。ただし、フレームワークの課すこのルールにはいくつかの例外があり、注意が必要である。その例外について以下に述べる。
+
+まず、アカウント情報利用側アプリのtargetSdkVersionが25 (Android 7.1)
+以下の場合には、上記のルールが適用されず、GET\_ACCOUNTS
+Permissionを持っているアプリは署名に関係なく端末内のアカウント情報を取得できる。ただし、この挙動はAuthenticator側の実装によって変更することができることを後に述べる。
+
+次に、WRITE\_CONTACTS
+Permissionを利用宣言しているAuthenticatorのアカウント情報は、READ\_CONTACTS
+Permissionを持っている他アプリから、署名に関係なく読めてしまう。これは、バグではなくフレームワークの仕様である[^30]。ただし、この挙動もまた、Authenticator側の実装によって変更することができる。
+
+以上のように署名が一致しておらず、かつsetAccountVisibilityメソッドの呼び出しによってアカウント情報の提供先に指定していないアプリにもアカウント情報を読まれてしまう例外的なケースはあるのだが、これらの挙動はAuthenticator側で予め次のスニペットのようにsetAccountVisibilityメソッドを呼び出しておくことで変更できる。
+
+> 第三者アプリにアカウント情報を提供しない
+
+accountManager.setAccountVisibility(account, //
+visibilityを変更するアカウント
+
+AccountManager.PACKAGE\_NAME\_KEY\_LEGACY\_VISIBLE,
+
+AccountManager.VISIBILITY\_USER\_MANAGED\_NOT\_VISIBLE);
+
+この通りにsetAccountVisibilityメソッドを呼び出したAuthenticatorのアカウント情報については、フレームワークはデフォルトの挙動ではなく、targetSdkVersion
+\<=
+25のケースやREAD\_CONTACTSを持っている場合であってもアカウント情報を提供しないように挙動を変更する。
+
 HTTPSで通信する
 ---------------
 
-スマートフォンアプリはインターネット上のWebサーバーと通信するものが多い。その通信方式として当ガイドではHTTPとHTTPSの2方式に着目する。この2方式のうち、セキュリティの観点ではHTTPSによる通信が望ましい。近年GoogleやFacebookなど大手のWebサービスはHTTPSによる接続を基本とするように変わってきた。
+スマートフォンアプリはインターネット上のWebサーバーと通信するものが多い。その通信方式として当ガイドではHTTPとHTTPSの2方式に着目する。この2方式のうち、セキュリティの観点ではHTTPSによる通信が望ましい。近年GoogleやFacebookなど大手のWebサービスはHTTPSによる接続を基本とするように変わってきた。ただし、HTTPSによる接続の中でもSSLv3を用いた接続に関しては脆弱性の存在(通称POODLE)が知られており、極力使用しないことを推奨する[^31]。
 
 2012年以降AndroidアプリのHTTPS通信の実装方法における欠陥が多く指摘されている。これは信頼できる第三者認証局から発行されたサーバー証明書ではなく、私的に発行されたサーバー証明書（以降、プライベート証明書と呼ぶ）により運用されているテスト用Webサーバーに接続するために実装された欠陥であると推察される。
 
@@ -3966,7 +4050,7 @@ HTTPSで通信する
 開発しているアプリの通信処理の特性を踏まえ、図
 5.4‑1に従いサンプルコードを選択すること。
 
-![](media/image76.png){width="6.900393700787402in"
+![](media/image78.png){width="6.900393700787402in"
 height="4.751968503937008in"}
 
 []{#_Ref348001019 .anchor}図 5.4‑1
@@ -3986,39 +4070,41 @@ HTTP/HTTPSのサンプルコードを選択するフローチャート
 
 []{#_Ref347254555 .anchor}表 5.4‑1 HTTP通信方式、HTTPS通信方式の比較
 
-+-----------------------+-----------------------+-----------------------+
-|                       | HTTP                  | HTTPS                 |
-+=======================+=======================+=======================+
-| 特徴                  | URL                   | http://で始まる       |
-|                       |                       |                       |
-|                       | 通信内容の暗号化      | なし                  |
-|                       |                       |                       |
-|                       | 通信内容の改ざん検知  | 不可                  |
-|                       |                       |                       |
-|                       | 接続先サーバーの認証  | 不可                  |
-+-----------------------+-----------------------+-----------------------+
-| 被害\                 | 攻撃者による通信内容の読み取り | 高           |
-| リスク                |                       |                       |
-|                       |                       | 高                    |
-|                       | 攻撃者による通信内容の書き換え |              |
-|                       |                       | 高                    |
-|                       |                       |                       |
-|                       | アプリの偽サーバーへの接続 |                  |
-+-----------------------+-----------------------+-----------------------+
++--------+--------------------------------+-----------------+------------------+
+|        | HTTP                           | HTTPS           |
++========+================================+=================+==================+
+| 特徴   | URL                            | http://で始まる | https://で始まる |
+|        |                                |                 |                  |
+|        | 通信内容の暗号化               | なし            | あり             |
+|        |                                |                 |                  |
+|        | 通信内容の改ざん検知           | 不可            | 可               |
+|        |                                |                 |                  |
+|        | 接続先サーバーの認証           | 不可            | 可               |
++--------+--------------------------------+-----------------+------------------+
+| 被害\  | 攻撃者による通信内容の読み取り | 高              | 低               |
+| リスク |                                |                 |                  |
+|        | 攻撃者による通信内容の書き換え | 高              | 低               |
+|        |                                |                 |                  |
+|        | アプリの偽サーバーへの接続     | 高              | 低               |
++--------+--------------------------------+-----------------+------------------+
 
 []{#_Ref347259253 .anchor}表 5.4‑2 HTTP/HTTPS通信のサンプルコードの説明
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------
-  サンプルコード                      通信    センシティブな情報の送受信   サーバー証明書
-  ----------------------------------- ------- ---------------------------- --------------------------------------------------------------------
-  HTTP通信する                        HTTP    ×                            -
-
-  HTTPS通信する                       HTTPS   ○                            CybertrustやVeriSign等の第三者認証局により発行されたサーバー証明書
-
-  プライベート証明書でHTTPS通信する   HTTPS   ○                            プライベート証明書
-                                                                           
-                                                                           ※イントラサーバーやテストサーバーで良くみられる運用形態
-  ---------------------------------------------------------------------------------------------------------------------------------------------
++-----------------+-----------------+-----------------+-----------------+
+| サンプルコード  | 通信            | センシティブな情報の送受信 | サーバー証明書 |
++=================+=================+=================+=================+
+| HTTP通信する    | HTTP            | ×               | \-              |
++-----------------+-----------------+-----------------+-----------------+
+| HTTPS通信する   | HTTPS           | ○               | CybertrustやVeri |
+|                 |                 |                 | Sign等の第三者認証局により |
+|                 |                 |                 | 発行されたサーバー証明書 |
++-----------------+-----------------+-----------------+-----------------+
+| プライベート証明書でHTTPS | HTTPS | ○               | プライベート証明書 |
+| 通信する        |                 |                 |                 |
+|                 |                 |                 |                 |
+|                 |                 |                 | ※イントラサーバーやテストサー |
+|                 |                 |                 | バーで良くみられる運用形態 |
++-----------------+-----------------+-----------------+-----------------+
 
 []{#_Ref348015340
 .anchor}なおAndroidがサポートし現在広く使われているHTTP/HTTPS通信用APIは、Java
@@ -4032,7 +4118,7 @@ HTTP通信で送受信する情報はすべて攻撃者に盗聴・改ざんさ�
 HTTPS通信する」や「5.4.1.3
 プライベート証明書でHTTPS通信する」を参照すること。
 
-以下のサンプルコードは、Webサーバー上で画像検索を行い、検索画像を取得して表示するアプリである。1回の検索でサーバーとHTTP通信を2回行う。1回目の通信で画像検索を実施し、2回目の通信で画像を取得する。UIスレッドでの通信を避けるために、AsyncTaskを利用して通信処理用のワーカースレッドを作成している。Webサーバーとの通信で送受信する情報は、画像の検索文字列、画像のURL、画像データだが、どれもセンシティブな情報はないとみなしている。そのため、受信データである画像のURLと画像データは、攻撃者が用意した攻撃用のデータである可能性がある。簡単のため、サンプルコードでは受信データが攻撃データであっても許容されるとして対策を施していない。また、同様の理由により、JSONパース時や画像データを表示する時に発生する可能性のある例外に対する例外処理を省略している。アプリの仕様に応じて適切に処理を実装する必要があることに注意すること。
+以下のサンプルコードは、Webサーバー上で画像検索を行い、検索画像を取得して表示するアプリである。1回の検索でサーバーとHTTP通信を2回行う。1回目の通信で画像検索を実施し、2回目の通信で画像を取得する。UIスレッドでの通信を避けるために、AsyncTaskを利用して通信処理用のワーカースレッドを作成している。Webサーバーとの通信で送受信する情報は、画像の検索文字列、画像のURL、画像データだが、どれもセンシティブな情報はないとみなしている。そのため、受信データである画像のURLと画像データは、攻撃者が用意した攻撃用のデータである可能性がある。簡単のため、サンプルコードでは受信データが攻撃データであっても許容されるとして対策を施していない。同様の理由により、JSONパース時や画像データを表示する時に発生する可能性のある例外に対する例外処理を省略している。アプリの仕様に応じて適切に処理を実装する必要があることに注意すること[^32]。
 
 > ポイント：
 
@@ -4060,20 +4146,22 @@ import java.net.HttpURLConnection;
 
 import java.net.URL;
 
-public abstract class HttpImageSearch extends AsyncTask&lt;String, Void,
-Object&gt; {
+public abstract class HttpImageSearch extends AsyncTask\<String, Void,
+Object\> {
 
 @Override
 
-protected Object doInBackground(String... params) {
+protected Object doInBackground(String\... params) {
 
 byte\[\] responseArray;
 
-// --------------------------------------------------------
+//
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 // 通信1回目：画像検索する
 
-// --------------------------------------------------------
+//
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 // ★ポイント1★ 送信データにセンシティブな情報を含めない
 
@@ -4085,14 +4173,14 @@ for (String param : params){
 
 s.append(param);
 
-s.append('+');
+s.append(\'+\');
 
 }
 
 s.deleteCharAt(s.length() - 1);
 
 String search\_url =
-"http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" +
+\"http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=\" +
 
 s.toString();
 
@@ -4116,9 +4204,9 @@ try {
 
 String json = new String(responseArray);
 
-image\_url = new JSONObject(json).getJSONObject("responseData")
+image\_url = new JSONObject(json).getJSONObject(\"responseData\")
 
-.getJSONArray("results").getJSONObject(0).getString("url");
+.getJSONArray(\"results\").getJSONObject(0).getString(\"url\");
 
 } catch(JSONException e) {
 
@@ -4126,11 +4214,13 @@ return e;
 
 }
 
-// --------------------------------------------------------
+//
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 // 通信2回目：画像を取得する
 
-// --------------------------------------------------------
+//
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 // ★ポイント1★ 送信データにセンシティブな情報を含めない
 
@@ -4172,7 +4262,7 @@ URL url = new URL(strUrl);
 
 response = (HttpURLConnection) url.openConnection();
 
-response.setRequestMethod("GET");
+response.setRequestMethod(\"GET\");
 
 response.connect();
 
@@ -4184,7 +4274,7 @@ responseArray = new ByteArrayOutputStream();
 
 while ((length = inputStream.read(buff)) != -1) {
 
-if (length &gt; 0) {
+if (length \> 0) {
 
 responseArray.write(buff, 0, length);
 
@@ -4241,7 +4331,7 @@ int statusCode = response.getResponseCode();
 
 if (HttpURLConnection.HTTP\_OK != statusCode) {
 
-throw new IOException("HttpStatus: " + statusCode);
+throw new IOException(\"HttpStatus: \" + statusCode);
 
 }
 
@@ -4279,7 +4369,7 @@ private TextView mMsgBox;
 
 private ImageView mImgBox;
 
-private AsyncTask&lt;String, Void, Object&gt; mAsyncTask ;
+private AsyncTask\<String, Void, Object\> mAsyncTask ;
 
 @Override
 
@@ -4314,7 +4404,7 @@ public void onHttpSearchClick(View view) {
 
 String query = mQueryBox.getText().toString();
 
-mMsgBox.setText("HTTP:" + query);
+mMsgBox.setText(\"HTTP:\" + query);
 
 mImgBox.setImageBitmap(null);
 
@@ -4335,13 +4425,13 @@ protected void onPostExecute(Object result) {
 
 if (result == null) {
 
-mMsgBox.append("\\n例外発生\\n");
+mMsgBox.append(\"\\n例外発生\\n\");
 
 } else if (result instanceof Exception) {
 
 Exception e = (Exception)result;
 
-mMsgBox.append("\\n例外発生\\n" + e.toString());
+mMsgBox.append(\"\\n例外発生\\n\" + e.toString());
 
 } else {
 
@@ -4365,7 +4455,7 @@ public void onHttpsSearchClick(View view) {
 
 String query = mQueryBox.getText().toString();
 
-mMsgBox.setText("HTTPS:" + query);
+mMsgBox.setText(\"HTTPS:\" + query);
 
 mImgBox.setImageBitmap(null);
 
@@ -4388,7 +4478,7 @@ if (result instanceof Exception) {
 
 Exception e = (Exception)result;
 
-mMsgBox.append("\\n例外発生\\n" + e.toString());
+mMsgBox.append(\"\\n例外発生\\n\" + e.toString());
 
 } else {
 
@@ -4410,47 +4500,47 @@ mImgBox.setImageBitmap(bmp);
 
 > AndroidManifest.xml
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="org.jssec.android.https.imagesearch"
+package=\"org.jssec.android.https.imagesearch\"
 
-android:versionCode="1"
+android:versionCode=\"1\"
 
-android:versionName="1.0"&gt;
+android:versionName=\"1.0\"\>
 
-&lt;uses-permission android:name="android.permission.INTERNET"/&gt;
+\<uses-permission android:name=\"android.permission.INTERNET\"/\>
 
-&lt;application
+\<application
 
-android:icon="@drawable/ic\_launcher"
+android:icon=\"@drawable/ic\_launcher\"
 
-android:allowBackup="false"
+android:allowBackup=\"false\"
 
-android:label="@string/app\_name" &gt;
+android:label=\"@string/app\_name\" \>
 
-&lt;activity
+\<activity
 
-android:name=".ImageSearchActivity"
+android:name=\".ImageSearchActivity\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:theme="@android:style/Theme.Light"
+android:theme=\"@android:style/Theme.Light\"
 
-android:exported="true" &gt;
+android:exported=\"true\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 #### HTTPS通信する
 
@@ -4464,12 +4554,12 @@ HTTPS通信では送受信するデータが暗号化されるだけでなく、
     Altername
     Names）のDNS名が接続先サーバーのホスト名と一致していること
 
-これらの検証に失敗するとサーバー証明書検証エラー（SSLException）が発生する。サーバー証明書に不備がある場合、もしくは攻撃者が中間者攻撃[^29]をしている場合にこのエラーが発生する。エラーが発生した場合には、アプリの仕様に応じて適切な処理を実行する必要がある点に注意すること。
+これらの検証に失敗するとサーバー証明書検証エラー（SSLException）が発生する。サーバー証明書に不備がある場合、もしくは攻撃者が中間者攻撃[^33]をしている場合にこのエラーが発生する。エラーが発生した場合には、アプリの仕様に応じて適切な処理を実行する必要がある点に注意すること。
 
 ここでは第三者認証局から発行されたサーバー証明書で運用されているWebサーバーに接続するHTTPS通信のサンプルコードを示す。第三者認証局から発行されたサーバー証明書ではなく、私的に発行したサーバー証明書でHTTPS通信を実現したい場合には「5.4.1.3
 プライベート証明書でHTTPS通信する」を参照すること。
 
-以下のサンプルコードは、Webサーバー上で画像検索を行い、検索画像を取得して表示するアプリである。1回の検索でサーバーとHTTPS通信を2回行う。1回目の通信で画像検索を実施し、2回目の通信で画像を取得する。UIスレッドでの通信を避けるために、AsyncTaskを利用して通信処理用のワーカースレッドを作成している。Webサーバーとの通信で送受信する情報は、画像の検索文字列、画像のURL、画像データで、全てセンシティブな情報とみなしている。なお、簡単のため、SSLExceptionに対してはユーザーへの通知などの例外処理を行っていないが、アプリの仕様に応じて適切な処理を実装する必要がある。また、以下のサンプルコードではSSLv3を用いた通信が許容されている。SSLv3の脆弱性（通称
+以下のサンプルコードは、Webサーバー上で画像検索を行い、検索画像を取得して表示するアプリである。1回の検索でサーバーとHTTPS通信を2回行う。1回目の通信で画像検索を実施し、2回目の通信で画像を取得する。UIスレッドでの通信を避けるために、AsyncTaskを利用して通信処理用のワーカースレッドを作成している。Webサーバーとの通信で送受信する情報は、画像の検索文字列、画像のURL、画像データで、全てセンシティブな情報とみなしている。なお、簡単のため、SSLExceptionに対してはユーザーへの通知などの例外処理を行っていないが、アプリの仕様に応じて適切な処理を実装する必要がある[^34]。また、以下のサンプルコードではSSLv3を用いた通信が許容されている[^35]。SSLv3の脆弱性（通称
 POODLE）に対する攻撃を回避するためには、接続先サーバーにおいてSSLv3を無効化する設定を施すことをお勧めする。
 
 > ポイント：
@@ -4502,20 +4592,22 @@ import java.net.HttpURLConnection;
 
 import java.net.URL;
 
-public abstract class HttpsImageSearch extends AsyncTask&lt;String,
-Void, Object&gt; {
+public abstract class HttpsImageSearch extends AsyncTask\<String, Void,
+Object\> {
 
 @Override
 
-protected Object doInBackground(String... params) {
+protected Object doInBackground(String\... params) {
 
 byte\[\] responseArray;
 
-// --------------------------------------------------------
+//
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 // 通信1回目：画像検索する
 
-// --------------------------------------------------------
+//
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 // ★ポイント1★ URIはhttps://で始める
 
@@ -4527,14 +4619,14 @@ for (String param : params){
 
 s.append(param);
 
-s.append('+');
+s.append(\'+\');
 
 }
 
 s.deleteCharAt(s.length() - 1);
 
 String search\_url =
-"https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" +
+\"https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=\" +
 
 s.toString();
 
@@ -4557,9 +4649,9 @@ try {
 
 String json = new String(responseArray);
 
-image\_url = new JSONObject(json).getJSONObject("responseData")
+image\_url = new JSONObject(json).getJSONObject(\"responseData\")
 
-.getJSONArray("results").getJSONObject(0).getString("url");
+.getJSONArray(\"results\").getJSONObject(0).getString(\"url\");
 
 } catch(JSONException e) {
 
@@ -4567,11 +4659,13 @@ return e;
 
 }
 
-// --------------------------------------------------------
+//
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 // 通信2回目：画像を取得する
 
-// --------------------------------------------------------
+//
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 // ★ポイント1★ URIはhttps://で始める
 
@@ -4613,7 +4707,7 @@ URL url = new URL(strUrl);
 
 response = (HttpURLConnection) url.openConnection();
 
-response.setRequestMethod("GET");
+response.setRequestMethod(\"GET\");
 
 response.connect();
 
@@ -4625,7 +4719,7 @@ responseArray = new ByteArrayOutputStream();
 
 while ((length = inputStream.read(buff)) != -1) {
 
-if (length &gt; 0) {
+if (length \> 0) {
 
 responseArray.write(buff, 0, length);
 
@@ -4682,7 +4776,7 @@ int statusCode = response.getResponseCode();
 
 if (HttpURLConnection.HTTP\_OK != statusCode) {
 
-throw new IOException("HttpStatus: " + statusCode);
+throw new IOException(\"HttpStatus: \" + statusCode);
 
 }
 
@@ -4746,7 +4840,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 public abstract class PrivateCertificateHttpsGet extends
-AsyncTask&lt;String, Void, Object&gt; {
+AsyncTask\<String, Void, Object\> {
 
 private Context mContext;
 
@@ -4758,7 +4852,7 @@ mContext = context;
 
 @Override
 
-protected Object doInBackground(String... params) {
+protected Object doInBackground(String\... params) {
 
 TrustManagerFactory trustManager;
 
@@ -4782,7 +4876,7 @@ KeyStore ks = KeyStoreUtil.getEmptyKeyStore();
 
 KeyStoreUtil.loadX509Certificate(ks,
 
-mContext.getResources().getAssets().open("cacert.crt"));
+mContext.getResources().getAssets().open(\"cacert.crt\"));
 
 // ホスト名の検証を行う
 
@@ -4813,7 +4907,7 @@ TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
 
 trustManager.init(ks);
 
-SSLContext sslCon = SSLContext.getInstance("TLS");
+SSLContext sslCon = SSLContext.getInstance(\"TLS\");
 
 sslCon.init(null, trustManager.getTrustManagers(), new SecureRandom());
 
@@ -4835,7 +4929,7 @@ responseArray = new ByteArrayOutputStream();
 
 while ((length = inputStream.read(buff)) != -1) {
 
-if (length &gt; 0) {
+if (length \> 0) {
 
 responseArray.write(buff, 0, length);
 
@@ -4899,7 +4993,7 @@ int statusCode = response.getResponseCode();
 
 if (HttpURLConnection.HTTP\_OK != statusCode) {
 
-throw new IOException("HttpStatus: " + statusCode);
+throw new IOException(\"HttpStatus: \" + statusCode);
 
 }
 
@@ -4937,7 +5031,7 @@ public static KeyStore getEmptyKeyStore() throws KeyStoreException,
 
 NoSuchAlgorithmException, CertificateException, IOException {
 
-KeyStore ks = KeyStore.getInstance("BKS");
+KeyStore ks = KeyStore.getInstance(\"BKS\");
 
 ks.load(null);
 
@@ -4951,11 +5045,11 @@ throws KeyStoreException, NoSuchAlgorithmException,
 
 CertificateException, IOException {
 
-KeyStore aks = KeyStore.getInstance("AndroidCAStore");
+KeyStore aks = KeyStore.getInstance(\"AndroidCAStore\");
 
 aks.load(null);
 
-Enumeration&lt;String&gt; aliases = aks.aliases();
+Enumeration\<String\> aliases = aks.aliases();
 
 while (aliases.hasMoreElements()) {
 
@@ -4975,7 +5069,7 @@ throws CertificateException, KeyStoreException {
 
 try {
 
-CertificateFactory factory = CertificateFactory.getInstance("X509");
+CertificateFactory factory = CertificateFactory.getInstance(\"X509\");
 
 X509Certificate x509 = (X509Certificate)factory.generateCertificate(is);
 
@@ -5023,7 +5117,7 @@ private TextView mMsgBox;
 
 private ImageView mImgBox;
 
-private AsyncTask&lt;String, Void, Object&gt; mAsyncTask ;
+private AsyncTask\<String, Void, Object\> mAsyncTask ;
 
 @Override
 
@@ -5081,7 +5175,7 @@ if (result instanceof Exception) {
 
 Exception e = (Exception)result;
 
-mMsgBox.append("\\n例外発生\\n" + e.toString());
+mMsgBox.append(\"\\n例外発生\\n\" + e.toString());
 
 } else {
 
@@ -5161,7 +5255,7 @@ HTTPS通信ではサーバー証明書の検証時にSSLExceptionが発生する
 
 プライベート認証局を作成するには、下記のシェルスクリプトnewca.shおよび設定ファイルopenssl.cnfを作成し実行する。シェルスクリプト中のCASTARTおよびCAENDは認証局の有効期間、CASUBJは認証局の名称であるので、作成する認証局に合わせて変更すること。シェルスクリプト実行の際には認証局アクセスのためのパスワードが合計3回聞かれるので、同じパスワードを入力すること。
 
-> newca.sh – プライベート認証局を作成するシェルスクリプト
+> newca.sh -- プライベート認証局を作成するシェルスクリプト
 
 \#!/bin/bash
 
@@ -5183,7 +5277,7 @@ CASTART=130101000000Z \# 2013/01/01 00:00:00 GMT
 
 CAEND=230101000000Z \# 2023/01/01 00:00:00 GMT
 
-CASUBJ="/CN=JSSEC Private CA/O=JSSEC/ST=Tokyo/C=JP"
+CASUBJ=\"/CN=JSSEC Private CA/O=JSSEC/ST=Tokyo/C=JP\"
 
 mkdir -p \${CATOP}
 
@@ -5197,7 +5291,7 @@ mkdir -p \${CATOP}/private
 
 touch \${CATOP}/index.txt
 
-openssl req -new -newkey rsa:2048 -sha256 -subj "\${CASUBJ}" \\
+openssl req -new -newkey rsa:2048 -sha256 -subj \"\${CASUBJ}\" \\
 
 -keyout \${CATOP}/private/\${CAKEY} -out \${CATOP}/\${CAREQ}
 
@@ -5231,7 +5325,7 @@ crl\_dir = \$dir/crl \# Where the issued crl are kept
 
 database = \$dir/index.txt \# database index file.
 
-\#unique\_subject = no \# Set to 'no' to allow creation of
+\#unique\_subject = no \# Set to \'no\' to allow creation of
 
 \# several ctificates with same subject.
 
@@ -5277,11 +5371,13 @@ emailAddress = optional
 
 basicConstraints=CA:FALSE
 
-nsComment = "OpenSSL Generated Certificate"
+nsComment = \"OpenSSL Generated Certificate\"
 
 subjectKeyIdentifier=hash
 
 authorityKeyIdentifier=keyid,issuer
+
+subjectAltName=@alt\_names
 
 \[ v3\_ca \]
 
@@ -5290,6 +5386,12 @@ subjectKeyIdentifier=hash
 authorityKeyIdentifier=keyid:always,issuer
 
 basicConstraints = CA:true
+
+\[ alt\_names \]
+
+DNS.1=\${ENV::HOSTNAME}
+
+DNS.2=\*.\${ENV::HOSTNAME}
 
 上記シェルスクリプトを実行すると、作業ディレクトリ直下にCAというディレクトリが作成される。このCAディレクトリがプライベート認証局である。CA/cacert.crtファイルがプライベート認証局のルート証明書であり、「5.4.1.3
 プライベート証明書でHTTPS通信する」のassetsに使用されたり、「5.4.3.2　Android
@@ -5325,12 +5427,14 @@ SVSTART=130101000000Z \# 2013/01/01 00:00:00 GMT
 
 SVEND=230101000000Z \# 2023/01/01 00:00:00 GMT
 
-SVSUBJ="/CN=selfsigned.jssec.org/O=JSSEC Secure Coding
-Group/ST=Tokyo/C=JP"
+HOSTNAME=selfsigned.jssec.org
+
+SVSUBJ=\"/CN=\"\${HOSTNAME}\"/O=JSSEC Secure Coding
+Group/ST=Tokyo/C=JP\"
 
 openssl genrsa -out \${SVKEY} 2048
 
-openssl req -new -key \${SVKEY} -subj "\${SVSUBJ}" -out \${SVREQ}
+openssl req -new -key \${SVKEY} -subj \"\${SVSUBJ}\" -out \${SVREQ}
 
 openssl ca -md sha256 \\
 
@@ -5346,9 +5450,9 @@ openssl x509 -in \${SVCERT} -outform DER -out \${SVX509}
 
 WebサーバーがApacheである場合には、設定ファイル中に上で作成したprikey.pemとcert.pemを次のように指定するとよい。
 
-SSLCertificateFile “/path/to/svcert.pem”
+SSLCertificateFile "/path/to/svcert.pem"
 
-SSLCertificateKeyFile “/path/to/svkey.pem”
+SSLCertificateKeyFile "/path/to/svkey.pem"
 
 #### Android OSの証明書ストアにプライベート認証局のルート証明書をインストールする
 
@@ -5356,25 +5460,25 @@ SSLCertificateKeyFile “/path/to/svkey.pem”
 プライベート証明書でHTTPS通信する」のサンプルコードは、1つのアプリにプライベート認証局のルート証明書を持たせることで、プライベート証明書で運用するWebサーバーにHTTPS接続する方法を紹介した。ここではAndroid
 OSにプライベート認証局のルート証明書をインストールすることで、すべてのアプリがプライベート証明書で運用するWebサーバーにHTTPS接続する方法を紹介する。インストールしてよいのは、信頼できる認証局の発行した証明書に限ることに注意すること。
 
-まずプライベート認証局のルート証明書ファイルcacert.crtをAndroid端末の内部ストレージにコピーする。なおサンプルコードで使用しているルート証明書ファイルは[*https://selfsigned.jssec.org/cacert.crt*](https://selfsigned.jssec.org/cacert.crt)からも取得できる。
+まずプライベート認証局のルート証明書ファイルcacert.crtをAndroid端末の内部ストレージにコピーする。なおサンプルコードで使用しているルート証明書ファイルは[[https://selfsigned.jssec.org/cacert.crt]{.underline}](https://selfsigned.jssec.org/cacert.crt)からも取得できる。
 
 次にAndroidの設定メニューのセキュリティを開き、下図のような手順を進めることでAndroid
 OSにルート証明書をインストールすることができる。
 
-![](media/image77.png){width="6.624409448818898in"
+![](media/image79.png){width="6.624409448818898in"
 height="3.771259842519685in"}
 
 図 5.4‑2　プライベート認証局のルート証明書のインストール手順
 
-![](media/image78.png){width="6.448031496062992in"
+![](media/image80.png){width="6.448031496062992in"
 height="3.665748031496063in"}
 
 図 5.4‑3 ルート証明書がインストールされていることの確認
 
 Android
-OSにプライベート認証局のルート証明書をインストールすると、その認証局から発行されたプライベート証明書をすべてのアプリで正しく証明書検証できるようになる。下図はChromeブラウザで[*https://selfsigned.jssec.org/droid\_knight.png*](https://selfsigned.jssec.org/droid_knight.png)を表示した場合の例である。
+OSにプライベート認証局のルート証明書をインストールすると、その認証局から発行されたプライベート証明書をすべてのアプリで正しく証明書検証できるようになる。下図はChromeブラウザで[[https://selfsigned.jssec.org/droid\_knight.png]{.underline}](https://selfsigned.jssec.org/droid_knight.png)を表示した場合の例である。
 
-![](media/image79.png){width="6.3082677165354335in"
+![](media/image81.png){width="6.3082677165354335in"
 height="4.186220472440945in"}
 
 図
@@ -5445,7 +5549,7 @@ return true;
 
 SSLSocketFactory sf;
 
-…
+...
 
 sf.setHostnameVerifier(SSLSocketFactory.ALLOW\_ALL\_HOSTNAME\_VERIFIER);
 
@@ -5468,28 +5572,29 @@ URL url = new URL(strUrl);
 
 connection = (HttpURLConnection) url.openConnection();
 
-connection.setRequestMethod("GET");
+connection.setRequestMethod(\"GET\");
 
 // ★ポイント★
 HTTPリクエストヘッダに入力値を使用する場合は、アプリケーション要件に従って
 
 // 入力データをチェックする(「3.2 入力データの安全性を確認する」を参照)
 
-if (strLanguage.matches("\^\[a-zA-Z ,-\]+\$")) {
+if (strLanguage.matches(\"\^\[a-zA-Z ,-\]+\$\")) {
 
-connection.addRequestProperty("Accept-Language", strLanguage);
+connection.addRequestProperty(\"Accept-Language\", strLanguage);
 
 } else {
 
-throw new IllegalArgumentException("Invalid Language : " + strLanguage);
+throw new IllegalArgumentException(\"Invalid Language : \" +
+strLanguage);
 
 }
 
 // ★ポイント★
 もしくは入力データをURLエンコードする(というアプリケーション要件にする)
 
-connection.setRequestProperty("Cookie", URLEncoder.encode(strCookie,
-"UTF-8"));
+connection.setRequestProperty(\"Cookie\", URLEncoder.encode(strCookie,
+\"UTF-8\"));
 
 connection.connect();
 
@@ -5512,7 +5617,7 @@ connection.connect();
 
 ハンドシェイク処理が行われた後に接続先を再検証するためには、まずハンドシェイク処理で検証されシステムに信頼された証明書チェーンを取得し、その証明書チェーンを、あらかじめアプリ内に保持しておいた情報と照合する。照合の結果、保持しておいた情報と一致するものが含まれていれば通信を許可し、含まれていなければ通信処理を中断させればよい。
 
-ただし、ハンドシェイク処理でシステムに信頼された証明書チェーンを取得する際に以下のメソッドを使用すると、期待通りの証明書チェーンが得られず、結果としてピンニングによる検証が正常に機能しなくなってしまう危険がある[^30]。
+ただし、ハンドシェイク処理でシステムに信頼された証明書チェーンを取得する際に以下のメソッドを使用すると、期待通りの証明書チェーンが得られず、結果としてピンニングによる検証が正常に機能しなくなってしまう危険がある[^36]。
 
 -   javax.net.ssl.SSLSession.getPeerCertificates()
 
@@ -5528,14 +5633,13 @@ Android 4.2（API Level
 //
 正しい通信先サーバーの証明書に含まれる公開鍵のSHA-256ハッシュ値を保持（ピンニング）
 
-private static final Set&lt;String&gt; PINS = new
-HashSet&lt;&gt;(Arrays.asList(
+private static final Set\<String\> PINS = new HashSet\<\>(Arrays.asList(
 
 new String\[\] {
 
-"d9b1a68fceaa460ac492fb8452ce13bd8c78c6013f989b76f186b1cbba1315c1",
+\"d9b1a68fceaa460ac492fb8452ce13bd8c78c6013f989b76f186b1cbba1315c1\",
 
-"cd13bb83c426551c67fabcff38d4496e094d50a20c7c15e886c151deb8531cdc"
+\"cd13bb83c426551c67fabcff38d4496e094d50a20c7c15e886c151deb8531cdc\"
 
 }
 
@@ -5543,7 +5647,7 @@ new String\[\] {
 
 // AsyncTaskのワーカースレッドで通信する
 
-protected Object doInBackground(String... strings) {
+protected Object doInBackground(String\... strings) {
 
 ～省略～
 
@@ -5557,8 +5661,8 @@ X509TrustManagerExtensions trustManagerExt = new
 X509TrustManagerExtensions((X509TrustManager)
 (trustManagerFactory.getTrustManagers()\[0\]));
 
-List&lt;X509Certificate&gt; trustedChain =
-trustManagerExt.checkServerTrusted(chain, "RSA", url.getHost());
+List\<X509Certificate\> trustedChain =
+trustManagerExt.checkServerTrusted(chain, \"RSA\", url.getHost());
 
 // 公開鍵ピンニングを用いて検証する
 
@@ -5568,7 +5672,7 @@ for (X509Certificate cert : trustedChain) {
 
 PublicKey key = cert.getPublicKey();
 
-MessageDigest md = MessageDigest.getInstance("SHA-256");
+MessageDigest md = MessageDigest.getInstance(\"SHA-256\");
 
 String keyHash = bytesToHex(md.digest(key.getEncoded()));
 
@@ -5598,7 +5702,7 @@ StringBuilder sb = new StringBuilder();
 
 for (byte b : bytes) {
 
-String s = String.format("%02x", b);
+String s = String.format(\"%02x\", b);
 
 sb.append(s);
 
@@ -5620,7 +5724,7 @@ Play開発者サービスによるSecurity Providerの脆弱性対策」を参�
 Android 7.0（API Level
 24）において、ネットワーク通信時のセキュリティ設定をアプリ毎に行うことができるNetwork
 Security
-Configurationが導入された。この仕組みを利用することにより、プライベート証明書でのHTTPS通信やピンニングによる証明書検証のほか、非暗号化（HTTP）通信の抑制、デバッグ時のみ有効なプライベート証明書の導入など、アプリのセキュリティを向上させる種々の施策をアプリに簡単に取り入れることができる[^31]。
+Configurationが導入された。この仕組みを利用することにより、プライベート証明書でのHTTPS通信やピンニングによる証明書検証のほか、非暗号化（HTTP）通信の抑制、デバッグ時のみ有効なプライベート証明書の導入など、アプリのセキュリティを向上させる種々の施策をアプリに簡単に取り入れることができる[^37]。
 
 Network Security
 Configurationの各種機能はxmlファイルの設定を行うだけで使用でき、アプリが行うHTTPおよびHTTPS通信全てに適用することができる。その結果、アプリのコードに修正や追加処理を行う必要がなくなるため、実装がシンプルになりバグや脆弱性の作り込み防止に効果があると考えられる。
@@ -5634,43 +5738,43 @@ HTTPS通信する」のサンプルコードで示した通常のHTTPS�
 
 > 特定ドメインへの通信時にプライベート証明書を用いる
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;network-security-config&gt;
+\<network-security-config\>
 
-&lt;domain-config&gt;
+\<domain-config\>
 
-&lt;domain includeSubdomains="true"&gt;jssec.org&lt;/domain&gt;
+\<domain includeSubdomains=\"true\"\>jssec.org\</domain\>
 
-&lt;trust-anchors&gt;
+\<trust-anchors\>
 
-&lt;certificates src="@raw/private\_ca" /&gt;
+\<certificates src=\"@raw/private\_ca\" /\>
 
-&lt;/trust-anchors&gt;
+\</trust-anchors\>
 
-&lt;/domain-config&gt;
+\</domain-config\>
 
-&lt;/network-security-config&gt;
+\</network-security-config\>
 
-上記の例では、通信で使用するプライベート証明書（private\_ca）をアプリ内にリソースとして保持しておき、それらを利用する条件や適用範囲をxmlファイルに記述している。&lt;domain-config&gt;タグを使用することで特定のドメインに対してのみプライベート証明書が適用される。アプリが行う全てのHTTPS通信に対してプライベート証明書を用いるためには、以下のように&lt;base-config&gt;タグを用いればよい。
+上記の例では、通信で使用するプライベート証明書（private\_ca）をアプリ内にリソースとして保持しておき、それらを利用する条件や適用範囲をxmlファイルに記述している。\<domain-config\>タグを使用することで特定のドメインに対してのみプライベート証明書が適用される。アプリが行う全てのHTTPS通信に対してプライベート証明書を用いるためには、以下のように\<base-config\>タグを用いればよい。
 
 > アプリが行う全てのHTTPS通信時にプライベート証明書を用いる
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;network-security-config&gt;
+\<network-security-config\>
 
-&lt;base-config&gt;
+\<base-config\>
 
-&lt;trust-anchors&gt;
+\<trust-anchors\>
 
-&lt;certificates src="@raw/private\_ca" /&gt;
+\<certificates src=\"@raw/private\_ca\" /\>
 
-&lt;/trust-anchors&gt;
+\</trust-anchors\>
 
-&lt;/base-config&gt;
+\</base-config\>
 
-&lt;/network-security-config&gt;
+\</network-security-config\>
 
 ##### ピンニングによる検証
 
@@ -5681,31 +5785,31 @@ Configurationを用い以下のように設定すれば、コード上の�
 
 > HTTPS通信時にピンニングによる検証を行う
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;network-security-config&gt;
+\<network-security-config\>
 
-&lt;domain-config&gt;
+\<domain-config\>
 
-&lt;domain includeSubdomains="true"&gt;jssec.org&lt;/domain&gt;
+\<domain includeSubdomains=\"true\"\>jssec.org\</domain\>
 
-&lt;pin-set expiration="2018-12-31"&gt;
+\<pin-set expiration=\"2018-12-31\"\>
 
-&lt;pin
-digest="SHA-256"&gt;e30Lky+iWK21yHSls5DJoRzNikOdvQUOGXvurPidc2E=&lt;/pin&gt;
+\<pin
+digest=\"SHA-256\"\>e30Lky+iWK21yHSls5DJoRzNikOdvQUOGXvurPidc2E=\</pin\>
 
-&lt;!-- バックアップ用 --&gt;
+\<!\-- バックアップ用 \--\>
 
-&lt;pin
-digest="SHA-256"&gt;fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=&lt;/pin&gt;
+\<pin
+digest=\"SHA-256\"\>fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=\</pin\>
 
-&lt;/pin-set&gt;
+\</pin-set\>
 
-&lt;/domain-config&gt;
+\</domain-config\>
 
-&lt;/network-security-config&gt;
+\</network-security-config\>
 
-上記の&lt;pin&gt;タグに記述するのは、ピンニング検証の対象となる公開鍵のハッシュ値をbase64でエンコードしたものである。また、ハッシュ関数はSHA-256のみサポートされている。
+上記の\<pin\>タグに記述するのは、ピンニング検証の対象となる公開鍵のハッシュ値をbase64でエンコードしたものである。また、ハッシュ関数はSHA-256のみサポートされている。
 
 ##### 非暗号化（HTTP）通信の抑制
 
@@ -5714,46 +5818,48 @@ Configurationを用いて、アプリのHTTP通信（非暗号化通信）を
 
 > 非暗号化通信を抑制する
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;network-security-config&gt;
+\<network-security-config\>
 
-&lt;domain-config cleartextTrafficPermitted="false"&gt;
+\<domain-config cleartextTrafficPermitted=\"false\"\>
 
-&lt;domain includeSubdomains="true"&gt;jssec.org&lt;/domain&gt;
+\<domain includeSubdomains=\"true\"\>jssec.org\</domain\>
 
-&lt;/domain-config&gt;
+\</domain-config\>
 
-&lt;/network-security-config&gt;
+\</network-security-config\>
 
-上記のように、&lt;domain-config&gt;タグに
-cleartextTrafficPermitted="false"
-を属性値として設定することにより、特定ドメインとのHTTP通信が抑制され、HTTPS通信を用いることが強制される。同様の属性値を&lt;base-config&gt;タグに設定すると、全てのドメインに対するHTTP通信が抑制される[^32]。ただし、この設定はWebViewには適用されないことに注意する必要がある
+上記のように、\<domain-config\>タグに
+cleartextTrafficPermitted=\"false\"
+を属性値として設定することにより、特定ドメインとのHTTP通信が抑制され、HTTPS通信を用いることが強制される。同様の属性値を\<base-config\>タグに設定すると、全てのドメインに対するHTTP通信が抑制される[^38]。また、この設定はAndroid
+8.0（API Level 26）以降ではWebViewにも適用されるが、Android 7.0(API
+Level 25)以前ではWebViewには適用されないことに注意する必要がある
 
 ##### デバッグ専用のプライベート証明書
 
 アプリ開発時にデバッグ目的でプライベート証明書を用いた開発用サーバーとのHTTPS通信を行う場合、開発者は「5.4.3.3
 証明書検証を無効化する危険なコード」で述べたような、証明書検証を無効化させる危険な実装をアプリに組み込んでしまわないよう注意する必要がある。Network
 Security
-Configurationで以下のような設定を行えば、デバッグ時にのみ（AndroidManifest.xml内のandroid:debuggableが"true"である場合のみ）使用する証明書を指定することができるため、前述のような危険なコードを製品版に残してしまう危険性がなくなり、脆弱性の作り込み防止に役立てることができる。
+Configurationで以下のような設定を行えば、デバッグ時にのみ（AndroidManifest.xml内のandroid:debuggableが\"true\"である場合のみ）使用する証明書を指定することができるため、前述のような危険なコードを製品版に残してしまう危険性がなくなり、脆弱性の作り込み防止に役立てることができる。
 
 > デバッグ時にのみプライベート証明書を用いる
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;network-security-config&gt;
+\<network-security-config\>
 
-&lt;debug-overrides&gt;
+\<debug-overrides\>
 
-&lt;trust-anchors&gt;
+\<trust-anchors\>
 
-&lt;certificates src="@raw/private\_cas" /&gt;
+\<certificates src=\"@raw/private\_cas\" /\>
 
-&lt;/trust-anchors&gt;
+\</trust-anchors\>
 
-&lt;/debug-overrides&gt;
+\</debug-overrides\>
 
-&lt;/network-security-config&gt;
+\</network-security-config\>
 
 プライバシー情報を扱う
 ----------------------
@@ -5770,15 +5876,15 @@ Configurationで以下のような設定を行えば、デバック�
 
 ### サンプルコード
 
-アプリ・プライバシーポリシーの作成には、一般に公開されている「アプリケーション・プライバシーポリシー作成支援ツール[^33]」を利用することもできる。このツールの出力はHTML形式およびXML形式となっており、概要版アプリケーション・プライバシーポリシーと詳細版アプリケーション・プライバシーポリシーのそれぞれのファイルが作成される。作成されたXMLファイルには検査用のタグがつくなど、総務省SPIに準拠した形となっている。以下のサンプルコードでは、上記ツールを使って作成したHTMLファイルを利用してアプリ・プライバシーポリシーを提示する例を示す。
+アプリ・プライバシーポリシーの作成には、一般に公開されている「アプリケーション・プライバシーポリシー作成支援ツール[^39]」を利用することもできる。このツールの出力はHTML形式およびXML形式となっており、概要版アプリケーション・プライバシーポリシーと詳細版アプリケーション・プライバシーポリシーのそれぞれのファイルが作成される。作成されたXMLファイルには検査用のタグがつくなど、総務省SPIに準拠した形となっている。以下のサンプルコードでは、上記ツールを使って作成したHTMLファイルを利用してアプリ・プライバシーポリシーを提示する例を示す。
 
-![](media/image80.png){width="2.46875in" height="4.395833333333333in"}
+![](media/image82.png){width="2.46875in" height="4.395833333333333in"}
 
 図 5.5‑1概要版アプリケーション・プライバシーポリシーの例
 
 具体的には、次の判定フローに従うことで利用するサンプルコードを判断できる。
 
-![](media/image81.png){width="7.26875in" height="3.0257053805774277in"}
+![](media/image83.png){width="7.26875in" height="3.0257053805774277in"}
 
 図 5.5‑2　 プライバシー情報を扱うサンプルコードを選択するフローチャート
 
@@ -5794,6 +5900,7 @@ Configurationで以下のような設定を行えば、デバック�
 1.  初回起動時(アップデート時)に、アプリが扱う利用者情報の送信について包括同意を得る
 
 &nbsp;
+
 1.  ユーザーの包括同意が得られていない場合は、利用者情報の送信はしない
 
 2.  慎重な取り扱いが求められる利用者情報を送信する場合は、個別にユーザーの同意を得る
@@ -5870,34 +5977,34 @@ public class MainActivity extends FragmentActivity implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener, DialogListener {
 
-private static final String BASE\_URL = "https://www.example.com/pp";
+private static final String BASE\_URL = \"https://www.example.com/pp\";
 
-private static final String GET\_ID\_URI = BASE\_URL + "/get\_id.php";
+private static final String GET\_ID\_URI = BASE\_URL + \"/get\_id.php\";
 
 private static final String SEND\_DATA\_URI = BASE\_URL +
-"/send\_data.php";
+\"/send\_data.php\";
 
-private static final String DEL\_ID\_URI = BASE\_URL + "/del\_id.php";
+private static final String DEL\_ID\_URI = BASE\_URL + \"/del\_id.php\";
 
-private static final String ID\_KEY = "id";
+private static final String ID\_KEY = \"id\";
 
-private static final String LOCATION\_KEY = "location";
+private static final String LOCATION\_KEY = \"location\";
 
-private static final String NICK\_NAME\_KEY = "nickname";
+private static final String NICK\_NAME\_KEY = \"nickname\";
 
 private static final String PRIVACY\_POLICY\_COMPREHENSIVE\_AGREED\_KEY
-= "privacyPolicyComprehensiveAgreed";
+= \"privacyPolicyComprehensiveAgreed\";
 
 private static final String
 PRIVACY\_POLICY\_DISCRETE\_TYPE1\_AGREED\_KEY =
-"privacyPolicyDiscreteType1Agreed";
+\"privacyPolicyDiscreteType1Agreed\";
 
 private static final String PRIVACY\_POLICY\_PREF\_NAME =
-"privacypolicy\_preference";
+\"privacypolicy\_preference\";
 
 private static final int CONNECTION\_FAILURE\_RESOLUTION\_REQUEST = 257;
 
-private String UserId = "";
+private String UserId = \"\";
 
 private LocationClient mLocationClient = null;
 
@@ -5922,7 +6029,7 @@ after) {
 public void onTextChanged(CharSequence s, int start, int before, int
 count) {
 
-boolean buttonEnable = (s.length() &gt; 0);
+boolean buttonEnable = (s.length() \> 0);
 
 MainActivity.this.findViewById(R.id.buttonStart).setEnabled(buttonEnable);
 
@@ -5976,7 +6083,7 @@ getSharedPreferences(PRIVACY\_POLICY\_PREF\_NAME, MODE\_PRIVATE);
 int privacyPolicyAgreed =
 pref.getInt(PRIVACY\_POLICY\_COMPREHENSIVE\_AGREED\_KEY, -1);
 
-if (privacyPolicyAgreed &lt;=
+if (privacyPolicyAgreed \<=
 VERSION\_TO\_SHOW\_COMPREHENSIVE\_AGREEMENT\_ANEW) {
 
 // ★ポイント1★
@@ -5993,7 +6100,7 @@ dialog.setDialogListener(this);
 
 FragmentManager fragmentManager = getSupportFragmentManager();
 
-dialog.show(fragmentManager, "dialog");
+dialog.show(fragmentManager, \"dialog\");
 
 }
 
@@ -6034,7 +6141,7 @@ getSharedPreferences(PRIVACY\_POLICY\_PREF\_NAME, MODE\_PRIVATE);
 int privacyPolicyAgreed =
 pref.getInt(PRIVACY\_POLICY\_DISCRETE\_TYPE1\_AGREED\_KEY, -1);
 
-if (privacyPolicyAgreed &lt;=
+if (privacyPolicyAgreed \<=
 VERSION\_TO\_SHOW\_COMPREHENSIVE\_AGREEMENT\_ANEW) {
 
 // ★ポイント3★
@@ -6048,7 +6155,7 @@ dialog.setDialogListener(this);
 
 FragmentManager fragmentManager = getSupportFragmentManager();
 
-dialog.show(fragmentManager, "dialog");
+dialog.show(fragmentManager, \"dialog\");
 
 } else {
 
@@ -6086,14 +6193,14 @@ Location currentLocation = mLocationClient.getLastLocation();
 
 if (currentLocation != null) {
 
-String locationData = "Latitude:" + currentLocation.getLatitude() + ",
-Longitude:" + currentLocation.getLongitude();
+String locationData = \"Latitude:\" + currentLocation.getLatitude() +
+\", Longitude:\" + currentLocation.getLongitude();
 
 String nickname = ((TextView)
 findViewById(R.id.editTextNickname)).getText().toString();
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + "\\n
-- nickname : " + nickname + "\\n - location : " + locationData,
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() +
+\"\\n - nickname : \" + nickname + \"\\n - location : \" + locationData,
 Toast.LENGTH\_SHORT).show();
 
 new SendDataAsyncTack().execute(SEND\_DATA\_URI, UserId, locationData,
@@ -6225,8 +6332,8 @@ pref.apply();
 
 String message = getString(R.string.stopSendUserData);
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + " -
-" + message, Toast.LENGTH\_SHORT).show();
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
+\" + message, Toast.LENGTH\_SHORT).show();
 
 finish();
 
@@ -6248,11 +6355,11 @@ Location currentLocation = mLocationClient.getLastLocation();
 
 if (currentLocation != null) {
 
-String locationData = "Latitude \\t: " + currentLocation.getLatitude() +
-"\\n\\tLongitude \\t: " + currentLocation.getLongitude();
+String locationData = \"Latitude \\t: \" + currentLocation.getLatitude()
++ \"\\n\\tLongitude \\t: \" + currentLocation.getLongitude();
 
-String text = "\\n" + getString(R.string.your\_location\_title) +
-"\\n\\t" + locationData;
+String text = \"\\n\" + getString(R.string.your\_location\_title) +
+\"\\n\\t\" + locationData;
 
 TextView appText = (TextView) findViewById(R.id.appText);
 
@@ -6293,14 +6400,14 @@ mLocationClient = null;
 
 }
 
-private class GetDataAsyncTask extends AsyncTask&lt;String, Void,
-String&gt; {
+private class GetDataAsyncTask extends AsyncTask\<String, Void, String\>
+{
 
-private String extMessage = "";
+private String extMessage = \"\";
 
 @Override
 
-protected String doInBackground(String... params) {
+protected String doInBackground(String\... params) {
 
 // ★ポイント8★ 利用者情報の紐づけにはUUID/cookieを利用する
 
@@ -6318,7 +6425,7 @@ SharedPreferences内にトークンが存在しなため、サーバーからID�
 
 try {
 
-UserId = NetworkUtil.getCookie(GET\_ID\_URI, "", "id");
+UserId = NetworkUtil.getCookie(GET\_ID\_URI, \"\", \"id\");
 
 } catch (IOException e) {
 
@@ -6342,31 +6449,31 @@ return UserId;
 
 protected void onPostExecute(final String data) {
 
-String status = (data != null) ? "success" : "error";
+String status = (data != null) ? \"success\" : \"error\";
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + " -
-" + status + " : " + extMessage, Toast.LENGTH\_SHORT).show();
-
-}
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
+\" + status + \" : \" + extMessage, Toast.LENGTH\_SHORT).show();
 
 }
 
-private class SendDataAsyncTack extends AsyncTask&lt;String, Void,
-Boolean&gt; {
+}
 
-private String extMessage = "";
+private class SendDataAsyncTack extends AsyncTask\<String, Void,
+Boolean\> {
+
+private String extMessage = \"\";
 
 @Override
 
-protected Boolean doInBackground(String... params) {
+protected Boolean doInBackground(String\... params) {
 
 String url = params\[0\];
 
 String id = params\[1\];
 
-String location = params.length &gt; 2 ? params\[2\] : null;
+String location = params.length \> 2 ? params\[2\] : null;
 
-String nickname = params.length &gt; 3 ? params\[3\] : null;
+String nickname = params.length \> 3 ? params\[3\] : null;
 
 Boolean result = false;
 
@@ -6384,7 +6491,7 @@ if (nickname != null)
 
 jsonData.put(NICK\_NAME\_KEY, nickname);
 
-NetworkUtil.sendJSON(url, "", jsonData.toString());
+NetworkUtil.sendJSON(url, \"\", jsonData.toString());
 
 result = true;
 
@@ -6408,10 +6515,10 @@ return result;
 
 protected void onPostExecute(Boolean result) {
 
-String status = result ? "Success" : "Error";
+String status = result ? \"Success\" : \"Error\";
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + " -
-" + status + " : " + extMessage, Toast.LENGTH\_SHORT).show();
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
+\" + status + \" : \" + extMessage, Toast.LENGTH\_SHORT).show();
 
 }
 
@@ -6466,11 +6573,11 @@ ConfirmFragment fragment = new ConfirmFragment();
 
 Bundle args = new Bundle();
 
-args.putInt("title", title);
+args.putInt(\"title\", title);
 
-args.putInt("sentence", sentence);
+args.putInt(\"sentence\", sentence);
 
-args.putInt("type", type);
+args.putInt(\"type\", type);
 
 fragment.setArguments(args);
 
@@ -6488,11 +6595,11 @@ public Dialog onCreateDialog(Bundle args) {
 // ★ポイント3★
 慎重な取り扱いが求められる利用者情報を送信する場合は、個別にユーザーの同意を得る
 
-final int title = getArguments().getInt("title");
+final int title = getArguments().getInt(\"title\");
 
-final int sentence = getArguments().getInt("sentence");
+final int sentence = getArguments().getInt(\"sentence\");
 
-final int type = getArguments().getInt("type");
+final int type = getArguments().getInt(\"type\");
 
 LayoutInflater inflater = (LayoutInflater)
 getActivity().getSystemService(Context.LAYOUT\_INFLATER\_SERVICE);
@@ -6576,8 +6683,8 @@ super.onAttach(activity);
 
 if (!(activity instanceof DialogListener)) {
 
-throw new ClassCastException(activity.toString() + " must implement
-DialogListener.");
+throw new ClassCastException(activity.toString() + \" must implement
+DialogListener.\");
 
 }
 
@@ -6611,7 +6718,7 @@ public class WebViewAssetsActivity extends Activity {
 アプリ・プライバシーポリシー概要版をassetsフォルダ内に配置しておく
 
 private static final String ABST\_PP\_URL =
-"file:///android\_asset/PrivacyPolicy/app-policy-abst-privacypolicy-1.0.html";
+\"file:///android\_asset/PrivacyPolicy/app-policy-abst-privacypolicy-1.0.html\";
 
 @Override
 
@@ -6641,6 +6748,7 @@ webView.loadUrl(ABST\_PP\_URL);
 1.  初回起動時(アップデート時)に、アプリが扱う利用者情報の送信について包括同意を得る
 
 &nbsp;
+
 1.  ユーザーの包括同意が得られていない場合は、利用者情報の送信はしない
 
 2.  ユーザーがアプリ・プライバシーポリシーを確認できる手段を用意する
@@ -6707,27 +6815,27 @@ import android.widget.Toast;
 public class MainActivity extends FragmentActivity implements
 DialogListener {
 
-private final String BASE\_URL = "https://www.example.com/pp";
+private final String BASE\_URL = \"https://www.example.com/pp\";
 
-private final String GET\_ID\_URI = BASE\_URL + "/get\_id.php";
+private final String GET\_ID\_URI = BASE\_URL + \"/get\_id.php\";
 
-private final String SEND\_DATA\_URI = BASE\_URL + "/send\_data.php";
+private final String SEND\_DATA\_URI = BASE\_URL + \"/send\_data.php\";
 
-private final String DEL\_ID\_URI = BASE\_URL + "/del\_id.php";
+private final String DEL\_ID\_URI = BASE\_URL + \"/del\_id.php\";
 
-private final String ID\_KEY = "id";
+private final String ID\_KEY = \"id\";
 
-private final String NICK\_NAME\_KEY = "nickname";
+private final String NICK\_NAME\_KEY = \"nickname\";
 
-private final String IMEI\_KEY = "imei";
+private final String IMEI\_KEY = \"imei\";
 
 private final String PRIVACY\_POLICY\_AGREED\_KEY =
-"privacyPolicyAgreed";
+\"privacyPolicyAgreed\";
 
 private final String PRIVACY\_POLICY\_PREF\_NAME =
-"privacypolicy\_preference";
+\"privacypolicy\_preference\";
 
-private String UserId = "";
+private String UserId = \"\";
 
 private final int DIALOG\_TYPE\_COMPREHENSIVE\_AGREEMENT = 1;
 
@@ -6747,7 +6855,7 @@ after) {
 public void onTextChanged(CharSequence s, int start, int before, int
 count) {
 
-boolean buttonEnable = (s.length() &gt; 0);
+boolean buttonEnable = (s.length() \> 0);
 
 MainActivity.this.findViewById(R.id.buttonStart).setEnabled(buttonEnable);
 
@@ -6791,7 +6899,7 @@ getSharedPreferences(PRIVACY\_POLICY\_PREF\_NAME, MODE\_PRIVATE);
 
 int privacyPolicyAgreed = pref.getInt(PRIVACY\_POLICY\_AGREED\_KEY, -1);
 
-if (privacyPolicyAgreed &lt;=
+if (privacyPolicyAgreed \<=
 VERSION\_TO\_SHOW\_COMPREHENSIVE\_AGREEMENT\_ANEW) {
 
 // ★ポイント1★
@@ -6808,7 +6916,7 @@ dialog.setDialogListener(this);
 
 FragmentManager fragmentManager = getSupportFragmentManager();
 
-dialog.show(fragmentManager, "dialog");
+dialog.show(fragmentManager, \"dialog\");
 
 }
 
@@ -6824,8 +6932,8 @@ getSystemService(TELEPHONY\_SERVICE);
 
 String imei = tm.getDeviceId();
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + "\\n
-- nickname : " + nickname + ", imei = " + imei,
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() +
+\"\\n - nickname : \" + nickname + \", imei = \" + imei,
 Toast.LENGTH\_SHORT).show();
 
 new SendDataAsyncTack().execute(SEND\_DATA\_URI, UserId, nickname,
@@ -6950,8 +7058,8 @@ pref.apply();
 
 String message = getString(R.string.stopSendUserData);
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + " -
-" + message, Toast.LENGTH\_SHORT).show();
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
+\" + message, Toast.LENGTH\_SHORT).show();
 
 finish();
 
@@ -6961,14 +7069,14 @@ return false;
 
 }
 
-private class GetDataAsyncTask extends AsyncTask&lt;String, Void,
-String&gt; {
+private class GetDataAsyncTask extends AsyncTask\<String, Void, String\>
+{
 
-private String extMessage = "";
+private String extMessage = \"\";
 
 @Override
 
-protected String doInBackground(String... params) {
+protected String doInBackground(String\... params) {
 
 // ★ポイント6★ 利用者情報の紐づけにはUUID/cookieを利用する
 
@@ -6986,7 +7094,7 @@ SharedPreferences内にトークンが存在しなため、サーバーからID�
 
 try {
 
-UserId = NetworkUtil.getCookie(GET\_ID\_URI, "", "id");
+UserId = NetworkUtil.getCookie(GET\_ID\_URI, \"\", \"id\");
 
 } catch (IOException e) {
 
@@ -7010,31 +7118,31 @@ return UserId;
 
 protected void onPostExecute(final String data) {
 
-String status = (data != null) ? "success" : "error";
+String status = (data != null) ? \"success\" : \"error\";
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + " -
-" + status + " : " + extMessage, Toast.LENGTH\_SHORT).show();
-
-}
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
+\" + status + \" : \" + extMessage, Toast.LENGTH\_SHORT).show();
 
 }
 
-private class SendDataAsyncTack extends AsyncTask&lt;String, Void,
-Boolean&gt; {
+}
 
-private String extMessage = "";
+private class SendDataAsyncTack extends AsyncTask\<String, Void,
+Boolean\> {
+
+private String extMessage = \"\";
 
 @Override
 
-protected Boolean doInBackground(String... params) {
+protected Boolean doInBackground(String\... params) {
 
 String url = params\[0\];
 
 String id = params\[1\];
 
-String nickname = params.length &gt; 2 ? params\[2\] : null;
+String nickname = params.length \> 2 ? params\[2\] : null;
 
-String imei = params.length &gt; 3 ? params\[3\] : null;
+String imei = params.length \> 3 ? params\[3\] : null;
 
 Boolean result = false;
 
@@ -7052,7 +7160,7 @@ if (imei != null)
 
 jsonData.put(IMEI\_KEY, imei);
 
-NetworkUtil.sendJSON(url, "", jsonData.toString());
+NetworkUtil.sendJSON(url, \"\", jsonData.toString());
 
 result = true;
 
@@ -7076,10 +7184,10 @@ return result;
 
 protected void onPostExecute(Boolean result) {
 
-String status = result ? "Success" : "Error";
+String status = result ? \"Success\" : \"Error\";
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + " -
-" + status + " : " + extMessage, Toast.LENGTH\_SHORT).show();
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
+\" + status + \" : \" + extMessage, Toast.LENGTH\_SHORT).show();
 
 }
 
@@ -7134,11 +7242,11 @@ ConfirmFragment fragment = new ConfirmFragment();
 
 Bundle args = new Bundle();
 
-args.putInt("title", title);
+args.putInt(\"title\", title);
 
-args.putInt("sentence", sentence);
+args.putInt(\"sentence\", sentence);
 
-args.putInt("type", type);
+args.putInt(\"type\", type);
 
 fragment.setArguments(args);
 
@@ -7153,11 +7261,11 @@ public Dialog onCreateDialog(Bundle args) {
 // ★ポイント1★
 初回起動時に、アプリが扱う利用者情報の送信について包括同意を得る
 
-final int title = getArguments().getInt("title");
+final int title = getArguments().getInt(\"title\");
 
-final int sentence = getArguments().getInt("sentence");
+final int sentence = getArguments().getInt(\"sentence\");
 
-final int type = getArguments().getInt("type");
+final int type = getArguments().getInt(\"type\");
 
 LayoutInflater inflater = (LayoutInflater)
 getActivity().getSystemService(Context.LAYOUT\_INFLATER\_SERVICE);
@@ -7241,8 +7349,8 @@ super.onAttach(activity);
 
 if (!(activity instanceof DialogListener)) {
 
-throw new ClassCastException(activity.toString() + " must implement
-DialogListener.");
+throw new ClassCastException(activity.toString() + \" must implement
+DialogListener.\");
 
 }
 
@@ -7278,7 +7386,7 @@ public class WebViewAssetsActivity extends Activity {
 アプリ・プライバシーポリシー概要版をassetsフォルダ内に配置しておく
 
 private final String ABST\_PP\_URL =
-"file:///android\_asset/PrivacyPolicy/app-policy-abst-privacypolicy-1.0.html";
+\"file:///android\_asset/PrivacyPolicy/app-policy-abst-privacypolicy-1.0.html\";
 
 @Override
 
@@ -7308,6 +7416,7 @@ webView.loadUrl(ABST\_PP\_URL);
 1.  ユーザーがアプリ・プライバシーポリシーを確認できる手段を用意する
 
 &nbsp;
+
 1.  送信した情報をユーザー操作により削除する手段を用意する
 
 2.  ユーザー操作により利用者情報の送信を停止する手段を用意する
@@ -7352,23 +7461,23 @@ import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
-private static final String BASE\_URL = "https://www.example.com/pp";
+private static final String BASE\_URL = \"https://www.example.com/pp\";
 
-private static final String GET\_ID\_URI = BASE\_URL + "/get\_id.php";
+private static final String GET\_ID\_URI = BASE\_URL + \"/get\_id.php\";
 
 private static final String SEND\_DATA\_URI = BASE\_URL +
-"/send\_data.php";
+\"/send\_data.php\";
 
-private static final String DEL\_ID\_URI = BASE\_URL + "/del\_id.php";
+private static final String DEL\_ID\_URI = BASE\_URL + \"/del\_id.php\";
 
-private static final String ID\_KEY = "id";
+private static final String ID\_KEY = \"id\";
 
-private static final String NICK\_NAME\_KEY = "nickname";
+private static final String NICK\_NAME\_KEY = \"nickname\";
 
 private static final String PRIVACY\_POLICY\_PREF\_NAME =
-"privacypolicy\_preference";
+\"privacypolicy\_preference\";
 
-private String UserId = "";
+private String UserId = \"\";
 
 private TextWatcher watchHandler = new TextWatcher() {
 
@@ -7384,7 +7493,7 @@ after) {
 public void onTextChanged(CharSequence s, int start, int before, int
 count) {
 
-boolean buttonEnable = (s.length() &gt; 0);
+boolean buttonEnable = (s.length() \> 0);
 
 MainActivity.this.findViewById(R.id.buttonStart).setEnabled(buttonEnable);
 
@@ -7422,8 +7531,8 @@ public void onSendToServer(View view) {
 String nickname = ((TextView)
 findViewById(R.id.editTextNickname)).getText().toString();
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + "\\n
-- nickname : " + nickname, Toast.LENGTH\_SHORT).show();
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() +
+\"\\n - nickname : \" + nickname, Toast.LENGTH\_SHORT).show();
 
 new sendDataAsyncTack().execute(SEND\_DATA\_URI, UserId, nickname);
 
@@ -7479,8 +7588,8 @@ case R.id.action\_donot\_send\_id:
 
 String message = getString(R.string.stopSendUserData);
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + " -
-" + message, Toast.LENGTH\_SHORT).show();
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
+\" + message, Toast.LENGTH\_SHORT).show();
 
 finish();
 
@@ -7492,14 +7601,14 @@ return false;
 
 }
 
-private class GetDataAsyncTask extends AsyncTask&lt;String, Void,
-String&gt; {
+private class GetDataAsyncTask extends AsyncTask\<String, Void, String\>
+{
 
-private String extMessage = "";
+private String extMessage = \"\";
 
 @Override
 
-protected String doInBackground(String... params) {
+protected String doInBackground(String\... params) {
 
 // ★ポイント4★ 利用者情報の紐づけにはUUID/cookieを利用する
 
@@ -7517,7 +7626,7 @@ SharedPreferences内にトークンが存在しなため、サーバーからID�
 
 try {
 
-UserId = NetworkUtil.getCookie(GET\_ID\_URI, "", "id");
+UserId = NetworkUtil.getCookie(GET\_ID\_URI, \"\", \"id\");
 
 } catch (IOException e) {
 
@@ -7541,29 +7650,29 @@ return UserId;
 
 protected void onPostExecute(final String data) {
 
-String status = (data != null) ? "success" : "error";
+String status = (data != null) ? \"success\" : \"error\";
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + " -
-" + status + " : " + extMessage, Toast.LENGTH\_SHORT).show();
-
-}
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
+\" + status + \" : \" + extMessage, Toast.LENGTH\_SHORT).show();
 
 }
 
-private class sendDataAsyncTack extends AsyncTask&lt;String, Void,
-Boolean&gt; {
+}
 
-private String extMessage = "";
+private class sendDataAsyncTack extends AsyncTask\<String, Void,
+Boolean\> {
+
+private String extMessage = \"\";
 
 @Override
 
-protected Boolean doInBackground(String... params) {
+protected Boolean doInBackground(String\... params) {
 
 String url = params\[0\];
 
 String id = params\[1\];
 
-String nickname = params.length &gt; 2 ? params\[2\] : null;
+String nickname = params.length \> 2 ? params\[2\] : null;
 
 Boolean result = false;
 
@@ -7577,7 +7686,7 @@ if (nickname != null)
 
 jsonData.put(NICK\_NAME\_KEY, nickname);
 
-NetworkUtil.sendJSON(url, "", jsonData.toString());
+NetworkUtil.sendJSON(url, \"\", jsonData.toString());
 
 result = true;
 
@@ -7601,10 +7710,10 @@ return result;
 
 protected void onPostExecute(Boolean result) {
 
-String status = result ? "Success" : "Error";
+String status = result ? \"Success\" : \"Error\";
 
-Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + " -
-" + status + " : " + extMessage, Toast.LENGTH\_SHORT).show();
+Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
+\" + status + \" : \" + extMessage, Toast.LENGTH\_SHORT).show();
 
 }
 
@@ -7632,7 +7741,7 @@ public class WebViewAssetsActivity extends Activity {
 アプリ・プライバシーポリシー概要版をassetsフォルダ内に配置しておく
 
 private static final String ABST\_PP\_URL =
-"file:///android\_asset/PrivacyPolicy/app-policy-abst-privacypolicy-1.0.html";
+\"file:///android\_asset/PrivacyPolicy/app-policy-abst-privacypolicy-1.0.html\";
 
 @Override
 
@@ -7661,6 +7770,7 @@ webView.loadUrl(ABST\_PP\_URL);
 1.  取得した情報を端末内部でのみ利用する場合、アプリ・プライバシーポリシーを表示しなくても良い
 
 &nbsp;
+
 1.  マーケットプレイス等のアプリ説明欄に、取得した情報を外部送信しない旨を記載する
 
 > MainActivity.java
@@ -7764,8 +7874,9 @@ Location currentLocation = mLocationClient.getLastLocation();
 
 if (currentLocation != null) {
 
-Intent intent = new Intent(Intent.ACTION\_VIEW, Uri.parse("geo:" +
-currentLocation.getLatitude() + "," + currentLocation.getLongitude()));
+Intent intent = new Intent(Intent.ACTION\_VIEW, Uri.parse(\"geo:\" +
+currentLocation.getLatitude() + \",\" +
+currentLocation.getLongitude()));
 
 startActivity(intent);
 
@@ -7785,11 +7896,11 @@ Location currentLocation = mLocationClient.getLastLocation();
 
 if (currentLocation != null) {
 
-String locationData = "Latitude \\t: " + currentLocation.getLatitude() +
-"\\n\\tLongitude \\t: " + currentLocation.getLongitude();
+String locationData = \"Latitude \\t: \" + currentLocation.getLatitude()
++ \"\\n\\tLongitude \\t: \" + currentLocation.getLongitude();
 
-String text = "\\n" + getString(R.string.your\_location\_title) +
-"\\n\\t" + locationData;
+String text = \"\\n\" + getString(R.string.your\_location\_title) +
+\"\\n\\t\" + locationData;
 
 Toast.makeText(MainActivity.this, this.getClass().getSimpleName() +
 text, Toast.LENGTH\_SHORT).show();
@@ -7831,7 +7942,7 @@ public void onDisconnected() {
 
 mLocationClient = null;
 
-Toast.makeText(this, "Disconnected. Please re-connect.",
+Toast.makeText(this, \"Disconnected. Please re-connect.\",
 Toast.LENGTH\_SHORT).show();
 
 }
@@ -7840,7 +7951,7 @@ Toast.LENGTH\_SHORT).show();
 
 ★ポイント2★マーケットプレイス等のアプリ説明欄に、取得した情報を外部送信しない旨を記載する
 
-![](media/image82.png){width="2.46875in" height="4.229166666666667in"}
+![](media/image84.png){width="2.46875in" height="4.229166666666667in"}
 
 図 5.5‑3　マーケットプレイス上での説明例
 
@@ -7890,7 +8001,7 @@ super.onStart();
 
 ～省略～
 
-if (privacyPolicyAgreed &lt;=
+if (privacyPolicyAgreed \<=
 VERSION\_TO\_SHOW\_COMPREHENSIVE\_AGREEMENT\_ANEW) {
 
 // ★ポイント★
@@ -7909,11 +8020,11 @@ dialog.setDialogListener(this);
 
 FragmentManager fragmentManager = getSupportFragmentManager();
 
-dialog.show(fragmentManager, "dialog");
+dialog.show(fragmentManager, \"dialog\");
 
 }
 
-![](media/image83.png){width="2.2083333333333335in"
+![](media/image85.png){width="2.2083333333333335in"
 height="3.7708333333333335in"}
 
 図 5.5‑4　包括同意の例
@@ -7939,11 +8050,11 @@ dialog.setDialogListener(this);
 
 FragmentManager fragmentManager = getSupportFragmentManager();
 
-dialog.show(fragmentManager, "dialog");
+dialog.show(fragmentManager, \"dialog\");
 
 }
 
-![](media/image84.png){width="2.2083333333333335in"
+![](media/image86.png){width="2.2083333333333335in"
 height="3.7708333333333335in"}
 
 図 5.5‑5 個別同意の例
@@ -7973,7 +8084,7 @@ startActivity(intent);
 
 return true;
 
-![](media/image85.png){width="2.1979166666666665in"
+![](media/image87.png){width="2.1979166666666665in"
 height="3.7708333333333335in"}
 
 図 5.5‑6　プライバシーポリシー表示用メニュー
@@ -8012,13 +8123,13 @@ return true;
 
 #### 端末固有IDとUUID/cookieを使い分ける （推奨）
 
-IMEIなどの端末固有IDは、利用者情報と紐付けて送信すべきでない。端末固有IDと利用者情報が紐付いた形で一度でも公開や漏えいしてしまうと、後から端末固有IDの変更が不可能なため、IDと利用者情報の紐づけを切ることができない（難しい）ことが、その理由である。この場合、端末固有IDに変わって、UUID/cookieなどの乱数をベースにした都度作成する変更可能なIDを使って、利用者情報との紐づけおよび送信をすると良い。これにより、上記で説明した『忘れられる権利』を考慮した実装とすることができる。
+IMEIなどの端末固有IDは、利用者情報と紐付けて送信すべきでない。端末固有IDと利用者情報が紐付いた形で一度でも公開や漏洩してしまうと、後から端末固有IDの変更が不可能なため、IDと利用者情報の紐づけを切ることができない（難しい）ことが、その理由である。この場合、端末固有IDに変わって、UUID/cookieなどの乱数をベースにした都度作成する変更可能なIDを使って、利用者情報との紐づけおよび送信をすると良い。これにより、上記で説明した『忘れられる権利』を考慮した実装とすることができる。
 
 > MainActivity.java
 
 @Override
 
-protected String doInBackground(String... params) {
+protected String doInBackground(String\... params) {
 
 // ★ポイント★ 利用者情報の紐づけにはUUID/cookieを利用する
 
@@ -8036,7 +8147,7 @@ SharedPreferences内にトークンが存在しなため、サーバーからID�
 
 try {
 
-UserId = NetworkUtil.getCookie(GET\_ID\_URI, "", "id");
+UserId = NetworkUtil.getCookie(GET\_ID\_URI, \"\", \"id\");
 
 } catch (IOException e) {
 
@@ -8060,7 +8171,7 @@ return UserId;
 
 利用者の端末内部で一時的に利用者情報にアクセスするのみの場合であっても、利用者の理解を助け透明性を高めるために、その旨を伝えることが望ましい。具体的には、アクセスした利用者情報は、ある決まった目的のために端末内部で一時的に使用するのみであり、端末内に保存したり、外部サーバに送信したりしない旨をを利用者に通知すると良い。通知方法としては、マーケットプレイス上でのアプリ説明欄に記載するなどの方法が考えられる。なお、端末内での一時利用のみの場合は、アプリ・プライバシーポリシーへの記載は必須ではない。
 
-![](media/image86.png){width="3.1145833333333335in" height="4.875in"}
+![](media/image88.png){width="3.1145833333333335in" height="4.875in"}
 
 図 5.5‑7　マーケットプレイス上での説明例
 
@@ -8072,13 +8183,13 @@ return UserId;
 
 アプリ・プライバシーポリシーは個々のアプリが扱うすべての利用者情報と、その用途や情報の保存先、送信先等を明らかにすることに主眼が置かれている。それとは別に事業者が個々のアプリから収集したすべての利用者情報をどのように保管・管理・廃棄をするかを示す事業者プライバシーポリシーも必要となる。従来、個人情報保護法をもとに作成されているプライバシーポリシーとはこの事業者プライバシーポリシーが相当する。
 
-プライバシーポリシーの作成・提示方法やそれぞれのプラバシーポリシーの役割分担などは、『JSSEC　スマホ・アプリのプライバシーポリシー作成・開示についての考察』([*http://www.jssec.org/event/20140206/03-1\_app\_policy.pdf*](http://www.jssec.org/event/20140206/03-1_app_policy.pdf)）
+プライバシーポリシーの作成・提示方法やそれぞれのプラバシーポリシーの役割分担などは、『JSSEC　スマホ・アプリのプライバシーポリシー作成・開示についての考察』([[http://www.jssec.org/event/20140206/03-1\_app\_policy.pdf]{.underline}](http://www.jssec.org/event/20140206/03-1_app_policy.pdf)）
 に詳細説明が記載されているので参照のこと。
 
 #### 用語解説
 
 以下に、本ガイドで使用している用語について、『JSSEC　スマホ・アプリのプライバシーポリシー作成・開示についての考察』
-([*http://www.jssec.org/event/20140206/03-1\_app\_policy.pdf*](http://www.jssec.org/event/20140206/03-1_app_policy.pdf))
+([[http://www.jssec.org/event/20140206/03-1\_app\_policy.pdf]{.underline}](http://www.jssec.org/event/20140206/03-1_app_policy.pdf))
 に記載されている用語解説を引用しておく。
 
 表 5.5‑1
@@ -8092,6 +8203,44 @@ return UserId;
   利用者による取り換えが容易な利用者情報   cookie、UUIDなど
   利用者による取り換えが困難な利用者情報   IMEI、IMSI、ICCID、MACアドレス、OSが生成するIDなど
   慎重な取り扱いが求められる利用者情報     位置情報、アドレス帳、電話番号、メールアドレスなど
+
+#### Android IDのバージョンによる違いについて
+
+> Android
+> ID(Settings.Secure.ANDROID\_ID)は、ランダムに生成される64ビットの数値を16進数文字列で表現したものである。Android
+> 7.1(API Level 25)以前とAndroid 8.0(API
+> Level26)以降の端末では、生成規則などが異なるため以下ではその違いについて説明する。
+>
+> **Android 7.1(API Level 25)以前の端末**
+>
+> Android 7.1(API Level
+> 25)以前の端末では端末内に1つの値を持ちすべてのアプリ間で共通の値となる。ただし、マルチユーザーをサポートする端末ではユーザー毎に別の値が生成される。生成のタイミングとしては、最初は端末の工場出荷後の初回起動時であり、その後は、ファクトリーリセットの度に新しく生成される。
+>
+> **Android 8.0(API Level 26)以降の端末**
+>
+> Android 8.0(API Level
+> 26)以降の端末ではアプリ(開発者)毎に異なる値を持つように変更されている。具体的には、Android
+> 7.1(API Level
+> 25)以前のユーザーおよび端末に加えて、アプリの署名を要素として値が一意に決定される仕組みとなっており、署名の異なるアプリは別の(署名が同じ場合は同じ)Android
+> IDの値を持つことになる。
+>
+> 値が変更されるタイミングに関しては以前とほぼ変わらないが、いくつか注意する点があるので以下に示す。
+
+-   パッケージのアンインストール・再インストール時
+
+> Android
+> IDの値は、署名が同じである限り、アプリをアンインストール・再インストールされても変わらない。逆に、署名する鍵が変わった場合は、パッケージ名が同じでも再インストール時にAndroid
+> IDの値が異なることに注意する。
+
+-   Android 8.0(API Level 26)以降の端末へのアップデート時
+
+> Android 7.1(API Level
+> 25)以前の端末で既にアプリがインストールされていた場合、端末をAndroid
+> 8.0(API Level 26)以降にアップデートしてもアプリで取得できるAndroid
+> IDの値は変わらない。ただし、アップデート後にアプリがアンインストール・再インストールする場合は除く。
+
+なお、いずれのAndroid
+IDでも「5.5.3.2用語解説」における「利用者による取り換えが困難な利用者情報」に分類されるため、使用の際は同様の注意を払うことを推奨する。
 
 暗号技術を利用する
 ------------------
@@ -8111,7 +8260,7 @@ return UserId;
 
 -   第三者の盗聴からデータを守る
 
-![](media/image87.png){width="5.606944444444444in"
+![](media/image89.png){width="5.606944444444444in"
 height="2.933333333333333in"}
 
 []{#_Ref389479993 .anchor}図 5.6‑1
@@ -8119,7 +8268,7 @@ height="2.933333333333333in"}
 
 -   第三者によるデータの改ざんを検知する
 
-![](media/image88.png){width="5.720833333333333in"
+![](media/image90.png){width="5.720833333333333in"
 height="2.933333333333333in"}
 
 []{#_Ref389479998 .anchor}図
@@ -8134,6 +8283,7 @@ height="2.933333333333333in"}
 1.  明示的に暗号モードとパディングを設定する
 
 &nbsp;
+
 1.  脆弱でない(基準を満たす)暗号技術（アルゴリズム・モード・パディング等）を使用する
 
 2.  パスワードから鍵を生成する場合は、Saltを使用する
@@ -8187,12 +8337,12 @@ public final class AesCryptoPBEKey {
 //
 サンプルでは、暗号アルゴリズム=AES、ブロック暗号モード=CBC、パディングルール=PKCS7Padding
 
-private static final String TRANSFORMATION = "AES/CBC/PKCS7Padding";
+private static final String TRANSFORMATION = \"AES/CBC/PKCS7Padding\";
 
 // 鍵を生成するクラスのインスタンスを取得するための文字列
 
 private static final String KEY\_GENERATOR\_MODE =
-"PBEWITHSHA256AND128BITAES-CBC-BC";
+\"PBEWITHSHA256AND128BITAES-CBC-BC\";
 
 // ★ポイント3★ パスワードから鍵を生成する場合は、Saltを使用する
 
@@ -8373,7 +8523,7 @@ KEY\_LENGTH\_BITS);
 
 // passwordのクリア
 
-Arrays.fill(password, '?');
+Arrays.fill(password, \'?\');
 
 // 鍵を生成する
 
@@ -8404,6 +8554,7 @@ return secretKey;
 1.  明示的に暗号モードとパディングを設定する
 
 &nbsp;
+
 1.  脆弱でない(基準を満たす)暗号技術（アルゴリズム・モード・パディング等）を使用する
 
 2.  十分安全な長さを持つ鍵を利用する
@@ -8451,11 +8602,11 @@ public final class RsaCryptoAsymmetricKey {
 //
 サンプルでは、暗号アルゴリズム=RSA、ブロック暗号モード=NONE、パディングルール=OAEPPADDING
 
-private static final String TRANSFORMATION = "RSA/NONE/OAEPPADDING";
+private static final String TRANSFORMATION = \"RSA/NONE/OAEPPADDING\";
 
 // 暗号アルゴリズム
 
-private static final String KEY\_ALGORITHM = "RSA";
+private static final String KEY\_ALGORITHM = \"RSA\";
 
 // ★ポイント3★ 十分安全な長さを持つ鍵を利用する
 
@@ -8584,7 +8735,7 @@ if (publicKey instanceof RSAPublicKey) {
 
 int len = ((RSAPublicKey) publicKey).getModulus().bitLength();
 
-if (len &lt; MIN\_KEY\_LENGTH) {
+if (len \< MIN\_KEY\_LENGTH) {
 
 publicKey = null;
 
@@ -8634,6 +8785,7 @@ return privateKey;
 1.  明示的に暗号モードとパディングを設定する
 
 &nbsp;
+
 1.  脆弱でない(基準を満たす)暗号技術（アルゴリズム・モード・パディング等）を使用する
 
 2.  十分安全な長さを持つ鍵を利用する
@@ -8675,11 +8827,11 @@ public final class AesCryptoPreSharedKey {
 //
 サンプルでは、暗号アルゴリズム=AES、ブロック暗号モード=CBC、パディングルール=PKCS7Padding
 
-private static final String TRANSFORMATION = "AES/CBC/PKCS7Padding";
+private static final String TRANSFORMATION = \"AES/CBC/PKCS7Padding\";
 
 // 暗号アルゴリズム
 
-private static final String KEY\_ALGORITHM = "AES";
+private static final String KEY\_ALGORITHM = \"AES\";
 
 // IVのバイト長
 
@@ -8807,7 +8959,7 @@ try {
 
 // ★ポイント3★ 十分安全な長さを持つ鍵を利用する
 
-if (keyData.length &gt;= MIN\_KEY\_LENGTH\_BYTES) {
+if (keyData.length \>= MIN\_KEY\_LENGTH\_BYTES) {
 
 // ★ポイント2★
 脆弱でない(基準を満たす)暗号技術（アルゴリズム・モード・パディング等）を使用する
@@ -8837,6 +8989,7 @@ return secretKey;
 1.  明示的に暗号モードとパディングを設定する
 
 &nbsp;
+
 1.  脆弱でない(基準を満たす)暗号技術（アルゴリズム・モード・パディング等）を使用する
 
 2.  パスワードから鍵を生成する場合は、Saltを使用する
@@ -8876,11 +9029,11 @@ public final class HmacPBEKey {
 
 // Mac クラスの getInstance に渡すパラメータ （認証モード)
 
-private static final String TRANSFORMATION = "PBEWITHHMACSHA1";
+private static final String TRANSFORMATION = \"PBEWITHHMACSHA1\";
 
 // 鍵を生成するクラスのインスタンスを取得するための文字列
 
-private static final String KEY\_GENERATOR\_MODE = "PBEWITHHMACSHA1";
+private static final String KEY\_GENERATOR\_MODE = \"PBEWITHHMACSHA1\";
 
 // ★ポイント3★ パスワードから鍵を生成する場合は、Saltを使用する
 
@@ -9019,7 +9172,7 @@ KEY\_LENGTH\_BITS);
 
 // passwordのクリア
 
-Arrays.fill(password, '?');
+Arrays.fill(password, \'?\');
 
 // 鍵を生成する
 
@@ -9050,6 +9203,7 @@ return secretKey;
 1.  明示的に暗号モードとパディングを設定する
 
 &nbsp;
+
 1.  脆弱でない(基準を満たす)暗号技術（アルゴリズム・モード・パディング等）を使用する
 
 2.  十分安全な長さを持つ鍵を利用する
@@ -9093,11 +9247,11 @@ public final class RsaSignAsymmetricKey {
 //
 サンプルでは、暗号アルゴリズム=RSA、ブロック暗号モード=NONE、パディングルール=OAEPPADDING
 
-private static final String TRANSFORMATION = "SHA256withRSA";
+private static final String TRANSFORMATION = \"SHA256withRSA\";
 
 // 暗号アルゴリズム
 
-private static final String KEY\_ALGORITHM = "RSA";
+private static final String KEY\_ALGORITHM = \"RSA\";
 
 // ★ポイント3★ 十分安全な長さを持つ鍵を利用する
 
@@ -9218,7 +9372,7 @@ if (publicKey instanceof RSAPublicKey) {
 
 int len = ((RSAPublicKey) publicKey).getModulus().bitLength();
 
-if (len &lt; MIN\_KEY\_LENGTH) {
+if (len \< MIN\_KEY\_LENGTH) {
 
 publicKey = null;
 
@@ -9268,6 +9422,7 @@ return privateKey;
 1.  明示的に暗号モードとパディングを設定する
 
 &nbsp;
+
 1.  脆弱でない(基準を満たす)暗号技術（アルゴリズム・モード・パディング等）を使用する
 
 2.  十分安全な長さを持つ鍵を利用する
@@ -9297,11 +9452,11 @@ public final class HmacPreSharedKey {
 
 // Mac クラスの getInstance に渡すパラメータ （認証モード)
 
-private static final String TRANSFORMATION = "HmacSHA256";
+private static final String TRANSFORMATION = \"HmacSHA256\";
 
 // 暗号アルゴリズム
 
-private static final String KEY\_ALGORITHM = "HmacSHA256";
+private static final String KEY\_ALGORITHM = \"HmacSHA256\";
 
 // ★ポイント3★ 十分安全な長さを持つ鍵を利用する
 
@@ -9346,7 +9501,7 @@ hmac = mac.doFinal(plain);
 
 StringBuilder sb = new StringBuilder();
 
-for (int i = 0; i &lt; hmac.length; i++) {
+for (int i = 0; i \< hmac.length; i++) {
 
 //System.out.println(Integer.toHexString(hmac\[i\] & 0xff));
 
@@ -9395,7 +9550,7 @@ try {
 
 // ★ポイント3★ 十分安全な長さを持つ鍵を利用する
 
-if (keyData.length &gt;= MIN\_KEY\_LENGTH\_BYTES) {
+if (keyData.length \>= MIN\_KEY\_LENGTH\_BYTES) {
 
 // ★ポイント2★
 脆弱でない(基準を満たす)暗号技術（アルゴリズム・モード・パディング等）を使用する
@@ -9433,6 +9588,7 @@ return secretKey;
     > （必須）
 
 &nbsp;
+
 1.  パスワードの強度を高める工夫をする （推奨）
 
 #### 暗号を指定する場合は、明示的に暗号モードとパディングを設定する （必須）
@@ -9441,9 +9597,9 @@ return secretKey;
 java.crypto のクラスである Cipher
 クラスを利用する。Cipherクラスを利用する際、初めにどのような暗号を利用するかを指定してCipherクラスのオブジェクトを生成する。この指定をTransformationと呼ぶが、Transformationの指定の書式には以下の2種類が存在する
 
--   “algorithm/mode/padding”
+-   "algorithm/mode/padding"
 
--   “algorithm”
+-   "algorithm"
 
 後者の場合、暗号モードとパディングは、Androidで利用可能な暗号化サービスプロバイダ固有のデフォルト値が使用される。このデフォルト値は、利便性や互換性などを優先し、あまり安全でないものが設定されていることがあり、セキュリティを確保するためには必ず、前者の暗号モードとパディングを指定する書式を利用する必要がある。
 
@@ -9457,19 +9613,20 @@ java.crypto のクラスである Cipher
 
 表 5.6‑1　 NIST（米国） NIST SP800-57
 
-  ----------------------------------------------------------------------------------------------
-  アルゴリズムのライフタイム   対称鍵暗号   非対称暗号   楕円暗号   HASH             HASH
-                                                                                     
-                                                                    (デジタル署名,   (HMA,KD,
-                                                                                     
-                                                                    HASH)            乱数生成)
-  ---------------------------- ------------ ------------ ---------- ---------------- -----------
-  ～2010                       80           1024         160        160              160
-
-  ～2030                       112          2048         224        224              160
-
-  2030～                       128          3072         256        256              160
-  ----------------------------------------------------------------------------------------------
++----------+----------+----------+----------+----------+----------+
+| アルゴリズムのラ | 対称鍵暗号 | 非対称暗号 | 楕円暗号 | HASH | HASH |
+| イフタイム |        |          |          |          |          |
+|          |          |          |          | (デジタル署名, | (HMA,KD, |
+|          |          |          |          |          |          |
+|          |          |          |          |          | 乱数生成) |
+|          |          |          |          | HASH)    |          |
++==========+==========+==========+==========+==========+==========+
+| ～2010   | 80       | 1024     | 160      | 160      | 160      |
++----------+----------+----------+----------+----------+----------+
+| ～2030   | 112      | 2048     | 224      | 224      | 160      |
++----------+----------+----------+----------+----------+----------+
+| 2030～   | 128      | 3072     | 256      | 256      | 160      |
++----------+----------+----------+----------+----------+----------+
 
 単位：bit
 
@@ -9487,7 +9644,7 @@ java.crypto のクラスである Cipher
 
 表 5.6‑3　 CRYPTREC(日本) 電子政府推奨暗号リスト
 
-  技術分類               名称
+  技術分類               名称                            
   ---------------------- ------------------------------- --------------------------------------
   公開鍵暗号             署名                            DSA,ECDSA,RSA-PSS,RSASSA-PKCS1-V1\_5
                          守秘                            RSA-OAEP
@@ -9495,11 +9652,11 @@ java.crypto のクラスである Cipher
   共通鍵暗号             64ビットブロック暗号            3-key Triple DES
                          128ビットブロック暗号           AES,Camellia
                          ストリーム暗号                  KCipher-2
-  ハッシュ関数           SHA-256,SHA-384,SHA-512
+  ハッシュ関数           SHA-256,SHA-384,SHA-512         
   暗号利用モード         秘匿モード                      CBC,CFB,CTR,OFB
                          認証付き秘匿モード              CCM,GCM
-  メッセージ認証コード   CMAC,HMAC
-  エンティティ認証       ISO/IEC 9798-2,ISO/IEC 9798-3
+  メッセージ認証コード   CMAC,HMAC                       
+  エンティティ認証       ISO/IEC 9798-2,ISO/IEC 9798-3   
 
 #### パスワードベース暗号のパスワードを端末内に保存しないこと （必須）
 
@@ -9573,25 +9730,27 @@ KEY\_LENGTH\_BITS);
 
 表 5.6‑4 暗号化・復号における暗号方式の比較
 
-  ---------------------------------------------------------------------------------------------------------------------------
-  暗号方式                     公開鍵                 共通鍵           パスワードベース
-                                                                       
-  項目                                                                 
-  ---------------------------- ---------------------- ---------------- ------------------------------------------------------
-  サイズの大きなデータの処理   NG(処理コストが高い)   OK               OK
-
-  アプリ(サービス)資産の保護   OK                     OK               NG(ユーザーによる盗聴が可能)
-
-  ユーザー資産の保護           OK                     OK               OK
-
-  暗号の強度                   鍵の長さに依存         鍵の長さに依存   パスワードの強度、Salt、ハッシュの繰り返し回数に依存
-
-  鍵の保護                     容易(公開鍵のみ)       困難             容易
-
-  アプリで行う処理             暗号化                 暗号化・復号     暗号化・復号
-                                                                       
-                               (復号はサーバーなど)                    
-  ---------------------------------------------------------------------------------------------------------------------------
++-----------------+-----------------+-----------------+-----------------+
+| 暗号方式        | 公開鍵          | 共通鍵          | パスワードベース |
+|                 |                 |                 |                 |
+| 項目            |                 |                 |                 |
++=================+=================+=================+=================+
+| サイズの大きなデータの処理 | NG(処理コストが高い) | OK | OK           |
++-----------------+-----------------+-----------------+-----------------+
+| アプリ(サービス)資産の保護 | OK   | OK              | NG(ユーザーによる盗聴が可能 |
+|                 |                 |                 | )               |
++-----------------+-----------------+-----------------+-----------------+
+| ユーザー資産の保護 | OK           | OK              | OK              |
++-----------------+-----------------+-----------------+-----------------+
+| 暗号の強度      | 鍵の長さに依存  | 鍵の長さに依存  | パスワードの強度、Salt、ハ |
+|                 |                 |                 | ッシュの繰り返し回数に依存 |
++-----------------+-----------------+-----------------+-----------------+
+| 鍵の保護        | 容易(公開鍵のみ) | 困難           | 容易            |
++-----------------+-----------------+-----------------+-----------------+
+| アプリで行う処理 | 暗号化         | 暗号化・復号    | 暗号化・復号    |
+|                 |                 |                 |                 |
+|                 | (復号はサーバーなど) |            |                 |
++-----------------+-----------------+-----------------+-----------------+
 
 -   改ざん検知における暗号方式の比較
 
@@ -9599,25 +9758,27 @@ KEY\_LENGTH\_BITS);
 
 表 5.6‑5　改ざん検知における暗号方式の比較
 
-  ------------------------------------------------------------------------------------------------------------------------------------
-  暗号方式                     公開鍵                 共通鍵                    パスワードベース
-                                                                                
-  項目                                                                          
-  ---------------------------- ---------------------- ------------------------- ------------------------------------------------------
-  アプリ(サービス)資産の保護   OK                     OK                        NG(ユーザーによる改ざんが可能)
-
-  ユーザー資産の保護           OK                     OK                        OK
-
-  暗号の強度                   鍵の長さに依存         鍵の長さに依存            パスワードの強度、Salt、ハッシュの繰り返し回数に依存
-
-  鍵の保護                     容易(公開鍵のみ)       困難                      容易
-                                                                                
-                                                      「5.6.3.4鍵の保護」参照   
-
-  アプリで行う処理             署名検証               MAC計算・MAC検証          MAC計算・MAC検証
-                                                                                
-                               (署名はサーバーなど)                             
-  ------------------------------------------------------------------------------------------------------------------------------------
++-----------------+-----------------+-----------------+-----------------+
+| 暗号方式        | 公開鍵          | 共通鍵          | パスワードベース |
+|                 |                 |                 |                 |
+| 項目            |                 |                 |                 |
++=================+=================+=================+=================+
+| アプリ(サービス)資産の保護 | OK   | OK              | NG(ユーザーによる改ざんが可 |
+|                 |                 |                 | 能)             |
++-----------------+-----------------+-----------------+-----------------+
+| ユーザー資産の保護 | OK           | OK              | OK              |
++-----------------+-----------------+-----------------+-----------------+
+| 暗号の強度      | 鍵の長さに依存  | 鍵の長さに依存  | パスワードの強度、Salt、ハ |
+|                 |                 |                 | ッシュの繰り返し回数に依存 |
++-----------------+-----------------+-----------------+-----------------+
+| 鍵の保護        | 容易(公開鍵のみ) | 困難           | 容易            |
+|                 |                 |                 |                 |
+|                 |                 | 「5.6.3.4鍵の保護」参照 |         |
++-----------------+-----------------+-----------------+-----------------+
+| アプリで行う処理 | 署名検証       | MAC計算・MAC検証 | MAC計算・MAC検証 |
+|                 |                 |                 |                 |
+|                 | (署名はサーバーなど) |            |                 |
++-----------------+-----------------+-----------------+-----------------+
 
 MAC：メッセージ認証コード
 
@@ -9627,7 +9788,7 @@ OSのセキュリティモデルでは資産の保護を充分にできない場
 
 #### 乱数の生成
 
-暗号技術の利用おいて、強固な暗号アルゴリズムや暗号モードを選択し、十分な長さの鍵を使用することは、アプリやサービスで扱うデータのセキュリティを確保する上で非常に重要である。しかし、これらの選択が適切であっても秘密の起点となる鍵が漏洩したり、予測されたりすると、アルゴリズム等で保証するセキュリティの強度が全く意味をなさなくなってしまう。また、AES等の共通暗号で使用する初期化ベクトル(IV)やパスワードベース暗号で使用するSalt(ソルト)に関しても、偏りが大きいと第三者による攻撃が容易になり、情報の漏えいや改ざんなどの被害に繋がる可能性が高くなる。このような事態を防ぐには、第三者に鍵やIVの値の予測が困難な方法で生成する必要があり、それを実現するために極めて重要な役割を果たすのが乱数である。乱数を生成する装置は乱数生成器と呼ばれ、センサー等を用いて予測・再現が不可能とされる自然状態を観測することで乱数を生成するハードウェアの乱数生成器(RNG)に対して、ソフトウェアで実現する乱数生成器を疑似乱数生成器(PRNG)と呼ぶのが一般的である。
+暗号技術の利用おいて、強固な暗号アルゴリズムや暗号モードを選択し、十分な長さの鍵を使用することは、アプリやサービスで扱うデータのセキュリティを確保する上で非常に重要である。しかし、これらの選択が適切であっても秘密の起点となる鍵が漏洩したり、予測されたりすると、アルゴリズム等で保証するセキュリティの強度が全く意味をなさなくなってしまう。また、AES等の共通暗号で使用する初期化ベクトル(IV)やパスワードベース暗号で使用するSalt(ソルト)に関しても、偏りが大きいと第三者による攻撃が容易になり、情報の漏洩や改ざんなどの被害に繋がる可能性が高くなる。このような事態を防ぐには、第三者に鍵やIVの値の予測が困難な方法で生成する必要があり、それを実現するために極めて重要な役割を果たすのが乱数である。乱数を生成する装置は乱数生成器と呼ばれ、センサー等を用いて予測・再現が不可能とされる自然状態を観測することで乱数を生成するハードウェアの乱数生成器(RNG)に対して、ソフトウェアで実現する乱数生成器を疑似乱数生成器(PRNG)と呼ぶのが一般的である。
 
 Androidアプリでは、暗号用途での利用に対して十分セキュアな乱数をSecureRandomクラス経由で取得することができる。SecureRandomクラスの機能は、Providerと呼ばれる実装によって提供される。また、内部に複数のProvider(実装)を持つことが可能であり、Providerを明示的に指定しない場合はデフォルトのProviderが選ばれる。そのため、実装時にProviderの存在を意識しないでSecureRandomを使うことも可能である。以下に、SecureRandomの使い方の例を示す。
 
@@ -9653,7 +9814,7 @@ import java.security.SecureRandom;
 
 ～省略～
 
-SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+SecureRandom random = SecureRandom.getInstance(\"SHA1PRNG\");
 
 byte\[\] randomBuf = new byte \[128\];
 
@@ -9667,7 +9828,7 @@ import java.security.SecureRandom;
 
 ～省略～
 
-SecureRandom random = SecureRandom.getInstance("SHA1PRNG", “Crypto”);
+SecureRandom random = SecureRandom.getInstance(\"SHA1PRNG\", "Crypto");
 
 byte\[\] randomBuf = new byte \[128\];
 
@@ -9678,7 +9839,7 @@ random.nextBytes(randomBuf);
 SecureRandomのようなプログラムで実現されている疑似乱数生成器は一般に「図
 5.6‑3　疑似乱数生成器の内部プロセス」のように動作しており、乱数の種を入力して内部状態を初期化すると、乱数を生成する度に内部状態を一定のアルゴリズムで更新することで、次々と乱数列の生成が可能になる。
 
-![](media/image89.png){width="5.697916666666667in"
+![](media/image91.png){width="5.697916666666667in"
 height="1.9430555555555555in"}
 
 []{#_Ref389469644 .anchor}図 5.6‑3　疑似乱数生成器の内部プロセス
@@ -9699,48 +9860,57 @@ IDなど)を乱数の種として使うべきではない。多くのAndroid端�
 
 #### 乱数生成における脆弱性と対策
 
-Android 4.3.x以前の”Crypto"
+Android 4.3.x以前の"Crypto\"
 ProviderのSecureRandom実装には、内部状態のエントロピー(Randomness)が充分に確保されないという不具合がある。特にAndroid
-4.1.x以前は、SecureRandomの実装が”Crypto"
+4.1.x以前は、SecureRandomの実装が"Crypto\"
 Providerしかなく、SecureRandomを直接・間接的に使用するほとんどのアプリはこの脆弱性の影響を受ける。また、Android
-4.2以降にSecureRandomのデフォルト実装となる”AndroidOpenSSL"
+4.2以降にSecureRandomのデフォルト実装となる"AndroidOpenSSL\"
 Providerでは、OpenSSLが「乱数の種」として使うデータの大部分がアプリ間で共有されるという不具合(対象はAnroid
 4.2.x-4.3.x)により、あるアプリが別のアプリの生成する乱数を推測しやすくなるという脆弱性を抱えている。以下にAndroid
 OSバージョンと各脆弱性の影響を受ける機能の整理しておく。
 
 表 5.6‑6　 Android OSバージョンと各脆弱性の影響を受ける機能
 
-  ------------------------------------------------------------------------------------------------------------------------------
-  脆弱性                ”Crypto” Provider SecureRandomの実装におけるエントロピー不足   別アプリのOpenSSLの乱数の種が推測可能
-                                                                                       
-  Android OS                                                                           
-  --------------------- -------------------------------------------------------------- -----------------------------------------
-  Android 4.1.x以前     ・SecureRandomのデフォルト実装                                 影響なし
-                                                                                       
-                        ・Crypto Providerの明示的な使用                                
-                                                                                       
-                        ・Cipherクラスの提供する暗号機能                               
-                                                                                       
-                        ・HTTPS通信機能 etc.                                           
-
-  Android 4.2 - 4.3.x   ・Crypto Providerの明示的な使用                                ・SecureRandomのデフォルト実装
-                                                                                       
-                                                                                       ・AndroidOpenSSL Providerの明示的な使用
-                                                                                       
-                                                                                       ・OpenSSLの乱数機能の直接使用
-                                                                                       
-                                                                                       ・Cipherクラスの提供する暗号機能
-                                                                                       
-                                                                                       ・HTTPS通信機能etc.
-
-  Android 4.4以降       影響なし                                                       影響なし
-  ------------------------------------------------------------------------------------------------------------------------------
++----------------------+----------------------+----------------------+
+| 脆弱性               | "Crypto" Provider    | 別アプリのOpenSSLの乱数の種が推測 |
+|                      | SecureRandomの実装におけるエ | 可能         |
+| Android OS           | ントロピー不足       |                      |
++======================+======================+======================+
+| Android 4.1.x以前    | ・SecureRandomのデフォルト実 | 影響なし     |
+|                      | 装                   |                      |
+|                      |                      |                      |
+|                      | ・Crypto             |                      |
+|                      | Providerの明示的な使用 |                    |
+|                      |                      |                      |
+|                      |                      |                      |
+|                      | ・Cipherクラスの提供する暗号機能 |          |
+|                      |                      |                      |
+|                      |                      |                      |
+|                      | ・HTTPS通信機能 etc. |                      |
++----------------------+----------------------+----------------------+
+| Android 4.2 - 4.3.x  | ・Crypto             | ・SecureRandomのデフォルト実 |
+|                      | Providerの明示的な使用 | 装                 |
+|                      |                      |                      |
+|                      |                      | ・AndroidOpenSSL     |
+|                      |                      | Providerの明示的な使用 |
+|                      |                      |                      |
+|                      |                      |                      |
+|                      |                      | ・OpenSSLの乱数機能の直接使用 |
+|                      |                      |                      |
+|                      |                      |                      |
+|                      |                      | ・Cipherクラスの提供する暗号機能 |
+|                      |                      |                      |
+|                      |                      |                      |
+|                      |                      | ・HTTPS通信機能etc.  |
++----------------------+----------------------+----------------------+
+| Android 4.4以降      | 影響なし             | 影響なし             |
++----------------------+----------------------+----------------------+
 
 2013年8月以降、これらAndroid
 OSの脆弱性を修正するパッチがGoogleからパートナー(端末メーカーなど)に配布されている。しかし、これらSecureRandomに関する脆弱性は暗号機能、HTTPS通信機能を含めて広い範囲に影響する上に、パッチが適用されていない端末が多数存在することも考えられるため、Android
 4.3.x以前のOSを対象とするアプリでは、以下のサイトで紹介されている対策(実装)を組み込んでおくことをお薦めする。
 
-[*http://android-developers.blogspot.jp/2013/08/some-securerandom-thoughts.html*](http://android-developers.blogspot.jp/2013/08/some-securerandom-thoughts.html)
+[[http://android-developers.blogspot.jp/2013/08/some-securerandom-thoughts.html]{.underline}](http://android-developers.blogspot.jp/2013/08/some-securerandom-thoughts.html)
 
 #### 鍵の保護
 
@@ -9751,7 +9921,7 @@ OSの脆弱性を修正するパッチがGoogleからパートナー(端末メ�
 まずは、Androidスマートフォン/タブレットにおいて暗号化等に使う鍵が存在する可能性のある場所とその保護方針の概観を「図
 5.6‑4　暗号鍵が存在する場所と保護方針」に示す。
 
-![](media/image90.png){width="5.642125984251969in"
+![](media/image92.png){width="5.642125984251969in"
 height="3.719685039370079in"}
 
 [[]{#_Ref389469773 .anchor}]{#_Ref389469717 .anchor}図
@@ -9761,27 +9931,39 @@ height="3.719685039370079in"}
 
 表 5.6‑7　資産分類と保護方針
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  **資産のオーナー**         > **端末のユーザー**                                                                **アプリ・サービス提供者**
-  -------------------------- ----------------------------------------------------------------------------------- -------------------------------- -------------------------- ------------------------------
-  **資産レベル**             > **高位**                                                                          > **中低位**                     **高位**                   **中低位**
-
-  > **鍵の保存場所**         **保護方針**
-
-  > **ユーザーの記憶**       > パスワードの強度の向上                                                            ユーザーパスワードの利用不可
-
-  > **アプリディレクトリ**   > 鍵データの暗号化・難読化                                                          > アプリ以外からの読み書き禁止   鍵データの暗号化・難読化   アプリ以外からの読み書き禁止
-  >                                                                                                                                                                          
-  > **(非公開ストレージ)**                                                                                                                                                   
-
-  > **APKファイル**          > 鍵データの難読化
-                             >
-                             > ※ProguardなどJavaの難読化ツールの多くは、データ(文字)列を難読化しないことに注意
-
-  > **SDカードなど**         > 鍵データの暗号化・難読化
-  >                          
-  > **(公開ストレージ)**     
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
++-------------+-------------+-------------+-------------+-------------+
+| **資産のオーナー** | > **端末のユーザー | **アプリ・サービス提 |
+|             | **          | 供者**      |
++=============+=============+=============+=============+=============+
+| **資産レベル** | > **高位** | > **中低位** | **高位** | **中低位**  |
++-------------+-------------+-------------+-------------+-------------+
+| > **鍵の保存場所* | **保護方針** |
+| *           |             |
++-------------+-------------+-------------+-------------+-------------+
+| > **ユーザーの記憶 | > パスワードの強度の | ユーザーパスワードの利 |
+| **          | 向上        | 用不可      |
++-------------+-------------+-------------+-------------+-------------+
+| > **アプリディレク | > 鍵データの暗号化・ | > アプリ以外からの読 | 鍵データの暗号化・難読 | アプリ以外からの読み書 |
+| トリ**      | 難読化      | み書き禁止  | 化          | き禁止      |
+| >           |             |             |             |             |
+| > **(非公開ストレ |       |             |             |             |
+| ージ)**     |             |             |             |             |
++-------------+-------------+-------------+-------------+-------------+
+| > **APKファイル | > 鍵データの難読化 |
+| **          |             |
+|             | >           |
+|             | > ※Proguard |
+|             | などJavaの難読化ツ |
+|             | ールの多くは、データ( |
+|             | 文字)列を難読化しない |
+|             | ことに注意  |
++-------------+-------------+-------------+-------------+-------------+
+| > **SDカードなど | > 鍵データの暗号化・ |
+| **          | 難読化      |
+| >           |             |
+| > **(公開ストレー |       |
+| ジ)**       |             |
++-------------+-------------+-------------+-------------+-------------+
 
 以下、鍵の存在場所ごとに保護方針の補足を示す。
 
@@ -9894,7 +10076,8 @@ errorCode);
 1.  USE\_FINGERPRINTパーミッションを利用宣言する
 
 &nbsp;
-1.  "AndroidKeyStore" Providerからインスタンスを取得する
+
+1.  \"AndroidKeyStore\" Providerからインスタンスを取得する
 
 2.  鍵を生成するためには指紋の登録が必要である旨をユーザーに伝える
 
@@ -9941,7 +10124,7 @@ public class MainActivity extends AppCompatActivity {
 
 private FingerprintAuthentication mFingerprintAuthentication;
 
-private static final String SENSITIVE\_DATA = "sensitive data";
+private static final String SENSITIVE\_DATA = \"sensitive data\";
 
 @Override
 
@@ -10004,13 +10187,13 @@ new AlertDialog.Builder(this)
 
 .setTitle(R.string.app\_name)
 
-.setMessage("指紋情報が登録されていません。\\n" +
+.setMessage(\"指紋情報が登録されていません。\\n\" +
 
-"設定メニューの「セキュリティ」で指紋を登録してください。\\n" +
+\"設定メニューの「セキュリティ」で指紋を登録してください。\\n\" +
 
-"指紋を登録することにより、簡単に認証することができます。")
+\"指紋を登録することにより、簡単に認証することができます。\")
 
-.setPositiveButton("OK", null)
+.setPositiveButton(\"OK\", null)
 
 .show();
 
@@ -10060,7 +10243,7 @@ byte\[\] encrypted = cipher.doFinal(SENSITIVE\_DATA.getBytes());
 
 showEncryptedData(encrypted);
 
-} catch (IllegalBlockSizeException | BadPaddingException e) {
+} catch (IllegalBlockSizeException \| BadPaddingException e) {
 
 }
 
@@ -10114,7 +10297,7 @@ textView.setText(Base64.encodeToString(encrypted, 0));
 
 } else {
 
-textView.setText("");
+textView.setText(\"\");
 
 }
 
@@ -10127,7 +10310,7 @@ long currentTimeMillis = System.currentTimeMillis();
 Date date = new Date(currentTimeMillis);
 
 SimpleDateFormat simpleDateFormat = new
-SimpleDateFormat("HH:mm:ss.SSS");
+SimpleDateFormat(\"HH:mm:ss.SSS\");
 
 return simpleDateFormat.format(date);
 
@@ -10137,7 +10320,7 @@ private void showMessage(CharSequence msg, int colorId) {
 
 TextView textView = (TextView) findViewById(R.id.textView);
 
-textView.setText(getCurrentTimeString() + " :\\n" + msg);
+textView.setText(getCurrentTimeString() + \" :\\n\" + msg);
 
 textView.setTextColor(getResources().getColor(colorId, null));
 
@@ -10205,9 +10388,9 @@ import javax.crypto.SecretKeyFactory;
 public class FingerprintAuthentication {
 
 private static final String KEY\_NAME =
-"KeyForFingerprintAuthentication";
+\"KeyForFingerprintAuthentication\";
 
-private static final String PROVIDER\_NAME = "AndroidKeyStore";
+private static final String PROVIDER\_NAME = \"AndroidKeyStore\";
 
 private KeyguardManager mKeyguardManager;
 
@@ -10329,7 +10512,7 @@ private void reset() {
 
 try {
 
-// ★ポイント2★ "AndroidKeyStore" Providerからインスタンスを取得する
+// ★ポイント2★ \"AndroidKeyStore\" Providerからインスタンスを取得する
 
 mKeyStore = KeyStore.getInstance(PROVIDER\_NAME);
 
@@ -10339,15 +10522,15 @@ PROVIDER\_NAME);
 
 mCipher = Cipher.getInstance(KeyProperties.KEY\_ALGORITHM\_AES
 
-+ "/" + KeyProperties.BLOCK\_MODE\_CBC
+\+ \"/\" + KeyProperties.BLOCK\_MODE\_CBC
 
-+ "/" + KeyProperties.ENCRYPTION\_PADDING\_PKCS7);
+\+ \"/\" + KeyProperties.ENCRYPTION\_PADDING\_PKCS7);
 
-} catch (KeyStoreException | NoSuchPaddingException
+} catch (KeyStoreException \| NoSuchPaddingException
 
-| NoSuchAlgorithmException | NoSuchProviderException e) {
+\| NoSuchAlgorithmException \| NoSuchProviderException e) {
 
-throw new RuntimeException("failed to get cipher instances", e);
+throw new RuntimeException(\"failed to get cipher instances\", e);
 
 }
 
@@ -10408,11 +10591,11 @@ return true;
 
 return false;
 
-} catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
+} catch (NoSuchAlgorithmException \| InvalidAlgorithmParameterException
 
-| CertificateException | KeyStoreException | IOException e) {
+\| CertificateException \| KeyStoreException \| IOException e) {
 
-throw new RuntimeException("failed to generate a key", e);
+throw new RuntimeException(\"failed to generate a key\", e);
 
 }
 
@@ -10443,13 +10626,13 @@ return true;
 
 return false;
 
-} catch (KeyStoreException | CertificateException |
-UnrecoverableKeyException | IOException
+} catch (KeyStoreException \| CertificateException \|
+UnrecoverableKeyException \| IOException
 
-| NoSuchAlgorithmException | InvalidKeySpecException |
-NoSuchProviderException | InvalidKeyException e) {
+\| NoSuchAlgorithmException \| InvalidKeySpecException \|
+NoSuchProviderException \| InvalidKeyException e) {
 
-throw new RuntimeException("failed to init Cipher", e);
+throw new RuntimeException(\"failed to init Cipher\", e);
 
 }
 
@@ -10459,51 +10642,51 @@ throw new RuntimeException("failed to init Cipher", e);
 
 > AndroidManifest.xml
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
+\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
-package="authentication.fingerprint.android.jssec.org.fingerprintauthentication"
-&gt;
+package=\"authentication.fingerprint.android.jssec.org.fingerprintauthentication\"
+\>
 
-&lt;!-- ★ポイント1★
+\<!\-- ★ポイント1★
 指紋認証機能を使用するためには、USE\_FINGERPRINTパーミッションを利用宣言する
---&gt;
+\--\>
 
-&lt;uses-permission android:name="android.permission.USE\_FINGERPRINT"
-/&gt;
+\<uses-permission android:name=\"android.permission.USE\_FINGERPRINT\"
+/\>
 
-&lt;application
+\<application
 
-android:allowBackup="true"
+android:allowBackup=\"true\"
 
-android:icon="@mipmap/ic\_launcher"
+android:icon=\"@mipmap/ic\_launcher\"
 
-android:label="@string/app\_name"
+android:label=\"@string/app\_name\"
 
-android:supportsRtl="true"
+android:supportsRtl=\"true\"
 
-android:theme="@style/AppTheme" &gt;
+android:theme=\"@style/AppTheme\" \>
 
-&lt;activity
+\<activity
 
-android:name=".MainActivity"
+android:name=\".MainActivity\"
 
-android:screenOrientation="portrait" &gt;
+android:screenOrientation=\"portrait\" \>
 
-&lt;intent-filter&gt;
+\<intent-filter\>
 
-&lt;action android:name="android.intent.action.MAIN" /&gt;
+\<action android:name=\"android.intent.action.MAIN\" /\>
 
-&lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+\<category android:name=\"android.intent.category.LAUNCHER\" /\>
 
-&lt;/intent-filter&gt;
+\</intent-filter\>
 
-&lt;/activity&gt;
+\</activity\>
 
-&lt;/application&gt;
+\</application\>
 
-&lt;/manifest&gt;
+\</manifest\>
 
 ### ルールブック
 
@@ -10513,6 +10696,7 @@ android:screenOrientation="portrait" &gt;
     > （必須）
 
 &nbsp;
+
 1.  暗号化するデータは、指紋認証以外の手段で復元（代替）可能なものに限る
     > （必須）
 
@@ -10532,7 +10716,7 @@ android:screenOrientation="portrait" &gt;
 
 例えば、指紋認証機能を利用して生成した鍵を用いてアプリ内のデータを暗号化した後、端末に登録されていた指紋情報がユーザーによって削除されると、データの暗号化に用いていた鍵が使用できなくなり、データを復号することもできなくなる。データの復元が指紋認証機能以外の手段でも行えなければ、可用性が損なわれる可能性が生じるのである。
 
-また、指紋認証機能を利用して生成した鍵が使用できなくなる状況は指紋情報の削除以外でも生じうる。Nexus5Xにおいては、指紋認証機能を利用して鍵を生成した後に新たに指紋情報を追加登録すると、それ以前に生成した鍵が使用できなくなることが確認されている[^34]。また、本来正しく使用できるべき鍵が指紋センサーの誤認識により使用できなくなる可能性も否定できない。
+また、指紋認証機能を利用して生成した鍵が使用できなくなる状況は指紋情報の削除以外でも生じうる。Nexus5Xにおいては、指紋認証機能を利用して鍵を生成した後に新たに指紋情報を追加登録すると、それ以前に生成した鍵が使用できなくなることが確認されている[^40]。また、本来正しく使用できるべき鍵が指紋センサーの誤認識により使用できなくなる可能性も否定できない。
 
 #### 鍵を生成するためには指紋の登録が必要であり、ユーザーにその旨を伝える （推奨）
 
@@ -10549,13 +10733,13 @@ new AlertDialog.Builder(this)
 
 .setTitle(R.string.app\_name)
 
-.setMessage("指紋情報が登録されていません。\\n" +
+.setMessage(\"指紋情報が登録されていません。\\n\" +
 
-"設定メニューの「セキュリティ」で指紋を登録してください。\\n" +
+\"設定メニューの「セキュリティ」で指紋を登録してください。\\n\" +
 
-"指紋を登録することにより、簡単に認証することができます。")
+\"指紋を登録することにより、簡単に認証することができます。\")
 
-.setPositiveButton("OK", null)
+.setPositiveButton(\"OK\", null)
 
 .show();
 
@@ -10581,7 +10765,7 @@ return false;
 
 ##### 鍵の生成・登録
 
-端末に登録された指紋と鍵を紐付けるためには、"AndroidKeyStore"
+端末に登録された指紋と鍵を紐付けるためには、\"AndroidKeyStore\"
 Providerが提供するKeyGeneratorやKeyStoreインスタンス等を使用する際に、ユーザー（指紋）認証の要求を有効にして、新しい鍵の生成と登録、あるいは既存の鍵の登録を行う。
 
 指紋情報と紐づいた鍵を生成する場合は、KeyGeneratorを生成する際のパラメータとして、ユーザー認証の要求を有効にするよう設定する。
@@ -10590,11 +10774,11 @@ Providerが提供するKeyGeneratorやKeyStoreインスタンス等を使用す�
 
 try {
 
-// "AndroidKeyStore" ProviderからKeyGeneratorインスタンスを取得する
+// \"AndroidKeyStore\" ProviderからKeyGeneratorインスタンスを取得する
 
 KeyGenerator keyGenerator =
 KeyGenerator.getInstance(KeyProperties.KEY\_ALGORITHM\_AES,
-"AndroidKeyStore");
+\"AndroidKeyStore\");
 
 keyGenerator.init(
 
@@ -10616,15 +10800,15 @@ keyGenerator.generateKey();
 
 // 端末に指紋が登録されていない
 
-throw new RuntimeException(“No fingerprint registered”, e);
+throw new RuntimeException("No fingerprint registered", e);
 
-} catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
+} catch (NoSuchAlgorithmException \| InvalidAlgorithmParameterException
 
-| CertificateException | KeyStoreException | IOException e) {
+\| CertificateException \| KeyStoreException \| IOException e) {
 
 // 鍵の生成に失敗
 
-throw new RuntimeException("Failed to generate a key", e);
+throw new RuntimeException(\"Failed to generate a key\", e);
 
 }
 
@@ -10632,15 +10816,15 @@ throw new RuntimeException("Failed to generate a key", e);
 
 > 既存の鍵に指紋情報を紐付ける
 
-SecretKey key = …; // 既存の鍵
+SecretKey key = ...; // 既存の鍵
 
-KeyStore keyStore = KeyStore.getInstance(“AndroidKeyStore”);
+KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
 
 keyStore.load(null);
 
 keyStore.setEntry(
 
-"alias\_for\_the\_key",
+\"alias\_for\_the\_key\",
 
 new KeyStore.SecretKeyEntry(key),
 

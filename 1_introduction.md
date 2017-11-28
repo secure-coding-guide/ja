@@ -25,10 +25,10 @@ Market）は無審査でアプリケーション公開ができるなど、ア�
 
 このガイド文書とサンプルコードの最新版はいつでも下記URLから入手できます。
 
--   [*http://www.jssec.org/dl/android\_securecoding.pdf*](http://www.jssec.org/dl/android_securecoding.pdf)
+-   [[http://www.jssec.org/dl/android\_securecoding.pdf]{.underline}](http://www.jssec.org/dl/android_securecoding.pdf)
     ガイド文書
 
--   [*http://www.jssec.org/dl/android\_securecoding.zip*](http://www.jssec.org/dl/android_securecoding.zip)
+-   [[http://www.jssec.org/dl/android\_securecoding.zip]{.underline}](http://www.jssec.org/dl/android_securecoding.zip)
     サンプルコード一式
 
 本文書の利用許諾
@@ -45,9 +45,35 @@ Market）は無審査でアプリケーション公開ができるなど、ア�
 セキュアコーディングWG問い合わせ
 
 メール宛先：
-[*jssec-securecoding-qa@googlegroups.com*](mailto:jssec-securecoding-qa@googlegroups.com)
+[[jssec-securecoding-qa@googlegroups.com]{.underline}](mailto:jssec-securecoding-qa@googlegroups.com)
 
 件名：【コメント応募】Androidアプリのセキュア設計・セキュアコーディングガイド
 2016年9月1日版
 
 内容：氏名(任意)/所属(任意)/連絡先E-mail(任意)/ご意見(必須)/その他ご希望(任意)
+
+[[]{#_Toc321181222 .anchor}]{#_Toc321159819 .anchor}
+
+2017年2月1日版からの訂正記事について
+------------------------------------
+
+本節では、前版の記事について事実関係と照らし合わせることで判明した訂正事項を一覧にして掲載しています。各訂正記事は、執筆者による継続的な調査結果だけでなく読者の方々の貴重なご指摘を広く取り入れたものです。特に、いただいたご指摘は、本改訂版をより実践に即したガイドとして高い完成度を得るための最も重要な糧となっています。
+
+前版を元にアプリケーション開発を進めていた読者は、以下の訂正記事一覧に特に目を通していただきますようお願いいたします。なお、ここで掲げる項目には、誤植の修正、記事の追加、構成の変更、単なる表現上の改善は含みません。
+
+本ガイドに対するコメントは、今後もお気軽にお寄せくださいますようよろしくお願いいたします。
+
+**訂正記事一覧**
+
+  2017年2月1日版の修正個所                                                                         本改訂版の訂正記事                                                                                 訂正の要旨
+  ------------------------------------------------------------------------------------------------ -------------------------------------------------------------------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------
+  (該当なし)                                                                                       4.1.3.7 Autofillフレームワークについて                                                             Autofillフレームワークについての解説を記載しました。
+  5.2.3.6 Android 6.0以降のPermissionモデルの仕様変更について                                      5.2.3.6 Android 6.0以降のPermissionモデルの仕様変更について                                        Android 8.0(API Level 26)以降のPermission付与に関する挙動の変更について追記しました。
+  5.3.2.4 KEY\_INTENTには、ログイン画面Activityのクラス名を指定した明示的Intentを与える （必須）   5.3.2.4 KEY\_INTENTには、ログイン画面Activityのクラス名を指定した明示的Intentを与える （必須）     Android 4.4（API Level 19）前後でのKey Intentの挙動の違いについて追記しました。
+  5.3.2.6 Account Managerにパスワードを保存しない （推奨）                                         5.3.2.6 Account Managerにパスワードを保存しない （推奨）                                           Android 7.0(API Level 24)以降のパスワード保存場所に関する記述を追記しました。
+  5.3.3.1 Account Managerの利用とPermission                                                        5.3.3.1 Account Managerの利用とPermission                                                          Android 6.0(API Level 23)以降およびAndorid 8.0(API Level 26)以降のAccountManagerに関するPermissionとメソッドの対応を追記しました。
+  （該当なし）                                                                                     5.3.3.3 Android 8.0（API Level 26）以降で署名の一致しないAuthenticatorのアカウントを読めるケース   Android 8.0（API Level 26）以降で署名の一致しないAuthenticatorのアカウント情報を取得できるケースとその対策に関する記述を追記しました。
+  5.4 HTTPSで通信する                                                                              5.4 HTTPSで通信する                                                                                Android 8.0以降のSSLv3のサポート打ち切りに関して追記しました。
+  5.4.3.1 プライベート証明書の作成方法とサーバー設定                                               5.4.3.1 プライベート証明書の作成方法とサーバー設定                                                 プライベート証明書にSubjectAltNameを含むように作成スクリプトを修正しました。
+  (該当なし)                                                                                       5.5.3.3 Android IDのバージョンによる違いについて                                                   Android IDのバージョンによる値や生成規則の違いについて記載しました。
+

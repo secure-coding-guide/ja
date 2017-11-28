@@ -19,7 +19,13 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import recommonmark
+from recommonmark.parser import CommonMarkParser
+from recommonmark.transform import AutoStructify
 
+source_parsers = {
+    '.md': CommonMarkParser
+}
 
 # -- General configuration ------------------------------------------------
 
@@ -169,8 +175,12 @@ texinfo_documents = [
 ]
 
 
-
-# -- Options for Markdown Parser -------------------------------------------
-source_parsers = {
-   '.md': 'recommonmark.parser.CommonMarkParser',
-}
+# app setup hook
+def setup(app):
+    app.add_config_value('recommonmark_config', {
+#        'url_resolver': lambda url: github_doc_root + url,
+#        'auto_toc_tree_section': 'Contents',
+        'enable_eval_rst': True,
+#        'enable_auto_doc_ref': True,
+    }, True)
+    app.add_transform(AutoStructify)
