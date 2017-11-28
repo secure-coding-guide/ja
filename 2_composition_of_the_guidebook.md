@@ -249,7 +249,7 @@ height="3.3672222222222223in"}
 
 []{#_Ref339636397 .anchor}
 
-### サンプルコード動作確認用debug.keystoreを設定する <!--  Setup the debug.keystore to run and test the Sample Code -->
+### サンプルコード動作確認用debug.keystoreを設定する <!-- Setup the debug.keystore to run and test the Sample Code -->
 
 サンプルコードから作成したアプリをAndroid端末やエミュレーターで動作させるためには署名が必要です。この署名に使うデバッグ用の鍵ファイル"debug.keystore"をAndroid
 Studioのプロジェクトに設定します。
