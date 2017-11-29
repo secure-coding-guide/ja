@@ -2639,12 +2639,16 @@ Android 6.0（API Level
 23）以降のPermissionモデルにおいて、権限の付与や取り消しはこのPermission
 Groupを単位として行われる。ただし、OSとSDKのバージョンの組み合わせによってこの単位が変わるので注意が必要となる（下記参照）。
 
-まず、端末がAndroid 6.0(API Level
-23)でアプリのtargetSdkVersionが23以上26未満に設定されている場合、Manifestにandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARが記載されている状態で、アプリの実行時にandroid.permission.READ\_CALENDARの要求が行われ、ユーザーがこれを許可すると、Android
-OSはandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARの利用が両方とも許可されたとみなし権限が付与される。
+-   端末：Android 6.0(API Level
+    23)以降、アプリのtargetSdkVersion：23\~25の場合
 
-一方、Android 8.0（API Level
-26）以降の端末でtargetSdkVersionが26以上に設定されている場合は要求したPermissionの権限のみが付与されるように修正された。つまりManifestにandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARが記載されていても、android.permission.READ\_CALENDARのみを要求しユーザーに許可されたのならandroid.permission.READ\_CALENDARの権限のみが付与される。ただし、その後android.permission.WRITE\_CALENDARが要求された場合は、ユーザーに確認ダイアログが表示されることなく即時に権限が付与される[^28]。
+> Manifestにandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARが記載されている状態で、アプリの実行時にandroid.permission.READ\_CALENDARの要求が行われ、ユーザーがこれを許可すると、Android
+> OSはandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARの利用が両方とも許可されたとみなし権限が付与される。
+
+-   端末：Android 8.0（API Level
+    26）以降、アプリのtargetSdkVersion：26以上の場合
+
+> 要求したPermissionの権限のみが付与される。つまりManifestにandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARが記載されていても、android.permission.READ\_CALENDARのみを要求しユーザーに許可されたのならandroid.permission.READ\_CALENDARの権限のみが付与される。ただし、その後android.permission.WRITE\_CALENDARが要求された場合は、ユーザーに確認ダイアログが表示されることなく即時に権限が付与される[^28]。
 
 また、権限の付与とは異なり、設定メニューからの権限の取り消しはAndroid
 8.0以降でもPermission Group単位で行われる。
@@ -8207,19 +8211,19 @@ return UserId;
 #### Android IDのバージョンによる違いについて
 
 > Android
-> ID(Settings.Secure.ANDROID\_ID)は、ランダムに生成される64ビットの数値を16進数文字列で表現したものである。Android
+> ID(Settings.Secure.ANDROID\_ID)は、ランダムに生成される64ビットの数値を16進数文字列で表現したものであり、(ごく稀に重複する可能性はあるが)端末を個別に識別することができる識別子である。そのため、使用法を間違えるとユーザーのトラッキングに繋がるリスクが大きくなり、使用の際には注意を必要とするが、Android
 > 7.1(API Level 25)以前とAndroid 8.0(API
-> Level26)以降の端末では、生成規則などが異なるため以下ではその違いについて説明する。
+> Level26)以降の端末では、生成規則やアクセス可能範囲などが異なるため以下ではその違いについて説明する。
 >
 > **Android 7.1(API Level 25)以前の端末**
 >
 > Android 7.1(API Level
-> 25)以前の端末では端末内に1つの値を持ちすべてのアプリ間で共通の値となる。ただし、マルチユーザーをサポートする端末ではユーザー毎に別の値が生成される。生成のタイミングとしては、最初は端末の工場出荷後の初回起動時であり、その後は、ファクトリーリセットの度に新しく生成される。
+> 25)以前の端末では端末内に1つの値を持ちすべてのアプリからアクセス可能となる。ただし、マルチユーザーをサポートする端末ではユーザー毎に別の値が生成される。生成のタイミングとしては、最初は端末の工場出荷後の初回起動時であり、その後は、ファクトリーリセットの度に新しく生成される。
 >
 > **Android 8.0(API Level 26)以降の端末**
 >
 > Android 8.0(API Level
-> 26)以降の端末ではアプリ(開発者)毎に異なる値を持つように変更されている。具体的には、Android
+> 26)以降の端末ではアプリ(開発者)毎に異なる値を持ち、対象のアプリだけがアクセスできるように変更されている。具体的には、Android
 > 7.1(API Level
 > 25)以前のユーザーおよび端末に加えて、アプリの署名を要素として値が一意に決定される仕組みとなっており、署名の異なるアプリは別の(署名が同じ場合は同じ)Android
 > IDの値を持つことになる。
@@ -8240,7 +8244,7 @@ return UserId;
 > IDの値は変わらない。ただし、アップデート後にアプリがアンインストール・再インストールする場合は除く。
 
 なお、いずれのAndroid
-IDでも「5.5.3.2用語解説」における「利用者による取り換えが困難な利用者情報」に分類されるため、使用の際は同様の注意を払うことを推奨する。
+IDでも「5.5.3.2用語解説」における「利用者による取り換えが困難な利用者情報」に分類されるため、冒頭に言及したように使用の際は同様の注意を払うことを推奨する。
 
 暗号技術を利用する
 ------------------

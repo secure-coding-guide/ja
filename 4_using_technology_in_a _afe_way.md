@@ -2946,6 +2946,8 @@ return PreferenceFragmentA.class.getName().equals(fragmentName)
 
     -   利用アプリが持つすべてのViewがAutofillの対象になる可能性がある。View単位で明示的にAutofillの対象外とすることも可能。
 
+    -   Autofill機能の利用を同一パッケージ内のAutofill serviceに限定することも可能。
+
 -   Autofill serviceを提供するサービス（Autofill service）：
 
     -   アプリから渡されたViewの情報を保存したり（ユーザーの許可が必要）、ViewにAutofillするための情報（候補リスト）をアプリに提供したりする。
@@ -2963,7 +2965,7 @@ return PreferenceFragmentA.class.getName().equals(fragmentName)
 > [Autofillフレームワークの処理フロー]{.underline}
 >
 > **図
-> 4‑6**はAutofill時の処理を示している。利用アプリのViewのフォーカス移動等を契機にAutoillフレームワークを介してViewの情報（主にViewの親子関係や個々の属性）が「設定」で選択されたAutofill
+> 4‑6**はAutofill時のAutofill関連コンポーネント間の処理フローを示している。利用アプリのViewのフォーカス移動等を契機にAutoillフレームワークを介してViewの情報（主にViewの親子関係や個々の属性）が「設定」で選択されたAutofill
 > serviceに渡る。Autofill
 > serviceは渡された情報を元にAutofillに必要な情報（候補リスト）をDBから取り出し、フレームワークに返信する。フレームワークは候補リストをユーザーに提示し、ユーザーが選択したデータによりアプリでAutofillが行われる。
 >
@@ -2971,17 +2973,17 @@ return PreferenceFragmentA.class.getName().equals(fragmentName)
 > height="3.325in"}
 
 [[]{#_Ref497835622 .anchor}]{#_Ref497835648 .anchor}**図** **4‑6
-Autofillの処理**
+Autofill時のコンポーネント間の処理フロー**
 
 > 一方、**図
-> 4‑7**は保存時の処理を示している。AutofillManager\#commit()の呼び出しやActivityの終了を契機に、AutofillしたViewの値に変更があり、かつ、Autofillフレームワークが表示する保存許可ダイアログに対してユーザーが許可した場合、Viewの情報（テキスト含む）がAutofillフレームワークを介して「設定」で選択されたAutofill
+> 4‑7**はAutofillによるユーザーデータ保存時の処理フローを示している。AutofillManager\#commit()の呼び出しやActivityの終了を契機に、AutofillしたViewの値に変更があり、かつ、Autofillフレームワークが表示する保存許可ダイアログに対してユーザーが許可した場合、Viewの情報（テキスト含む）がAutofillフレームワークを介して「設定」で選択されたAutofill
 > serviceに渡され、Autofill
 > serviceがViewの情報をDBに保存して一連の処理が完了となる。
 >
 > ![Autofillの仕組み\_Save](media/image38.png){width="7.258333333333334in"
 > height="3.3333333333333335in"}
 
-[]{#_Ref497835656 .anchor}**図** **4‑7 保存時の処理**
+[]{#_Ref497835656 .anchor}**図** **4‑7 ユーザーデータ保存時のコンポーネント間の処理フロー**
 
 > **Autofill利用アプリにおけるセキュリティ上の懸案**
 >
