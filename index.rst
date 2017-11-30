@@ -51,7 +51,7 @@ Androidアプリのセキュア設計・セキュアコーディングガイド
    1_introduction
    2_composition_of_the_guidebook
    3_basic_knowledge_of_secure_design_and_secure_coding
-   4_using_technology_in_a _afe_way
+   4_using_technology_in_a_safe_way
    5_how_to_use_security_functions
    6_difficult_problems
 
