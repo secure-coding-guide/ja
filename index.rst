@@ -26,11 +26,11 @@ Androidアプリのセキュア設計・セキュアコーディングガイド
 Androidアプリのセキュア設計・セキュアコーディングガイド
 -------------------------------------------------------
 
-.. image:: media/image3.png
+.. image:: media/image3.svg
    :width: 0.8131944444444444in
    :height: 0.9840277777777777in
    :align: left
-.. image:: media/image4.png
+.. image:: media/image4.svg
    :width: 0.8131944444444444in
    :height: 0.9840277777777777in
    :align: right

@@ -43,7 +43,7 @@ Type)がアプリの実行時に常に下記のいずれかであることを指
 -   InputType.TYPE\_CLASS\_NUMBER \|
     InputType.TYPE\_NUMBER\_VARIATION\_PASSWORD
 
-![](media/image93.png){width="3.9358267716535433in"
+![](media/image93.svg){width="3.9358267716535433in"
 height="3.6429133858267715in"}
 
 [[]{#_Ref350183803 .anchor}]{#_Ref350183809 .anchor}図
