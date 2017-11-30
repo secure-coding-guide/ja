@@ -986,7 +986,7 @@ Permission（UserApp）」はサンプルプログラム「独自定義Signature
 Permission（ProtectedApp）」にstartActivity()する。両アプリは同じ開発者鍵で署名されている必要がある。もし署名した開発者鍵が異なる場合は、UserAppはIntentを送信せず、ProtectedAppは受信したIntentを処理しない。またアドバンストセクションで説明しているインストール順序によるSignature
 Permission回避の問題にも対処している。
 
-![](media/image67.svg){width="6.889763779527559in"
+![](media/image67.png){width="6.889763779527559in"
 height="2.0933070866141734in"}
 
 図 5.2‑2
@@ -2159,7 +2159,7 @@ Permission回避の抜け道とは、AttackerAppは署名が一致していな�
 
 1.  AttackerAppをProtectedAppより先に端末にインストールする
 
-![](media/image72.svg){width="6.5in" height="4.270833333333333in"}
+![](media/image72.png){width="6.5in" height="4.270833333333333in"}
 
 図 5.2‑8
 
@@ -2480,7 +2480,7 @@ OSに保護されている電話帳やGPSといった情報や機能にアクセ
 5.2‑9に示す。中央のアプリはandroid.permission.READ\_CONTACTSを利用宣言したアプリが連絡先情報を読み取って自分のDBに蓄積している。何の制限もなくContent
 Provider経由で蓄積した情報を他のアプリに提供した場合に、Permissionの再委譲問題が生じる。
 
-![](media/image73.svg){width="5.375in" height="3.8020833333333335in"}
+![](media/image73.png){width="5.375in" height="3.8020833333333335in"}
 
 []{#_Ref337212915 .anchor}図
 5.2‑9　Permissionを持たないアプリが連絡先情報を取得する
@@ -2724,7 +2724,7 @@ Managerの利点である。
 > Managerに提供することにより、Account
 > Managerがそのオンラインサービスのアカウント情報および認証トークンを一元管理できるようになる。利用アプリとAuthenticatorアプリは別のアプリである必要はなく、一つのアプリとして実装することもできる。
 >
-> ![](media/image75.svg){width="6.889763779527559in"
+> ![](media/image75.png){width="6.889763779527559in"
 > height="1.9748031496062992in"}
 
 []{#_Ref351642081 .anchor}図 5.3‑1Account
@@ -3344,7 +3344,7 @@ return \"c2f981bda5f34f90c0419e171f60f45c\";
 独自アカウントの追加と認証トークンの取得を行うアプリのサンプルコードを以下に示す。もう一つのサンプルアプリ「5.3.1.1
 独自アカウントを作る」が端末にインストールされているときに、独自アカウントの追加や認証トークンの取得ができる。「アクセスリクエスト」　画面は両アプリの署名鍵が異なる場合にだけ表示される。
 
-![](media/image76.svg){width="6.889763779527559in"
+![](media/image76.png){width="6.889763779527559in"
 height="2.296456692913386in"}
 
 図 5.3‑2 サンプルアプリAccountManager Userの動作画面
@@ -4005,7 +4005,7 @@ Managerによってこの画面が開かれた途端、例外が発生し、ア�
 [[https://code.google.com/p/android/issues/detail?id=23421]{.underline}](https://code.google.com/p/android/issues/detail?id=23421)
 に記載されている。Android 4.1.x以降ではこの不具合はない。
 
-![](media/image77.svg){width="6.3597222222222225in" height="4.5in"}
+![](media/image77.png){width="6.3597222222222225in" height="4.5in"}
 
 []{#_Ref351721722 .anchor}図
 5.3‑3Android標準の認証トークン使用許諾画面を表示した場合
@@ -4054,7 +4054,7 @@ HTTPSで通信する<!-- x9c594b8c -->
 開発しているアプリの通信処理の特性を踏まえ、図
 5.4‑1に従いサンプルコードを選択すること。
 
-![](media/image78.svg){width="6.900393700787402in"
+![](media/image78.png){width="6.900393700787402in"
 height="4.751968503937008in"}
 
 []{#_Ref348001019 .anchor}図 5.4‑1
@@ -5469,12 +5469,12 @@ OSにプライベート認証局のルート証明書をインストールする
 次にAndroidの設定メニューのセキュリティを開き、下図のような手順を進めることでAndroid
 OSにルート証明書をインストールすることができる。
 
-![](media/image79.svg){width="6.624409448818898in"
+![](media/image79.png){width="6.624409448818898in"
 height="3.771259842519685in"}
 
 図 5.4‑2　プライベート認証局のルート証明書のインストール手順
 
-![](media/image80.svg){width="6.448031496062992in"
+![](media/image80.png){width="6.448031496062992in"
 height="3.665748031496063in"}
 
 図 5.4‑3 ルート証明書がインストールされていることの確認
@@ -5482,7 +5482,7 @@ height="3.665748031496063in"}
 Android
 OSにプライベート認証局のルート証明書をインストールすると、その認証局から発行されたプライベート証明書をすべてのアプリで正しく証明書検証できるようになる。下図はChromeブラウザで[[https://selfsigned.jssec.org/droid\_knight.png]{.underline}](https://selfsigned.jssec.org/droid_knight.png)を表示した場合の例である。
 
-![](media/image81.svg){width="6.3082677165354335in"
+![](media/image81.png){width="6.3082677165354335in"
 height="4.186220472440945in"}
 
 図
@@ -5882,13 +5882,13 @@ Configurationで以下のような設定を行えば、デバック�
 
 アプリ・プライバシーポリシーの作成には、一般に公開されている「アプリケーション・プライバシーポリシー作成支援ツール[^39]」を利用することもできる。このツールの出力はHTML形式およびXML形式となっており、概要版アプリケーション・プライバシーポリシーと詳細版アプリケーション・プライバシーポリシーのそれぞれのファイルが作成される。作成されたXMLファイルには検査用のタグがつくなど、総務省SPIに準拠した形となっている。以下のサンプルコードでは、上記ツールを使って作成したHTMLファイルを利用してアプリ・プライバシーポリシーを提示する例を示す。
 
-![](media/image82.svg){width="2.46875in" height="4.395833333333333in"}
+![](media/image82.png){width="2.46875in" height="4.395833333333333in"}
 
 図 5.5‑1概要版アプリケーション・プライバシーポリシーの例
 
 具体的には、次の判定フローに従うことで利用するサンプルコードを判断できる。
 
-![](media/image83.svg){width="7.26875in" height="3.0257053805774277in"}
+![](media/image83.png){width="7.26875in" height="3.0257053805774277in"}
 
 図 5.5‑2　 プライバシー情報を扱うサンプルコードを選択するフローチャート
 
@@ -7955,7 +7955,7 @@ Toast.LENGTH\_SHORT).show();
 
 ★ポイント2★マーケットプレイス等のアプリ説明欄に、取得した情報を外部送信しない旨を記載する
 
-![](media/image84.svg){width="2.46875in" height="4.229166666666667in"}
+![](media/image84.png){width="2.46875in" height="4.229166666666667in"}
 
 図 5.5‑3　マーケットプレイス上での説明例
 
@@ -8028,7 +8028,7 @@ dialog.show(fragmentManager, \"dialog\");
 
 }
 
-![](media/image85.svg){width="2.2083333333333335in"
+![](media/image85.png){width="2.2083333333333335in"
 height="3.7708333333333335in"}
 
 図 5.5‑4　包括同意の例
@@ -8058,7 +8058,7 @@ dialog.show(fragmentManager, \"dialog\");
 
 }
 
-![](media/image86.svg){width="2.2083333333333335in"
+![](media/image86.png){width="2.2083333333333335in"
 height="3.7708333333333335in"}
 
 図 5.5‑5 個別同意の例
@@ -8088,7 +8088,7 @@ startActivity(intent);
 
 return true;
 
-![](media/image87.svg){width="2.1979166666666665in"
+![](media/image87.png){width="2.1979166666666665in"
 height="3.7708333333333335in"}
 
 図 5.5‑6　プライバシーポリシー表示用メニュー
@@ -8175,7 +8175,7 @@ return UserId;
 
 利用者の端末内部で一時的に利用者情報にアクセスするのみの場合であっても、利用者の理解を助け透明性を高めるために、その旨を伝えることが望ましい。具体的には、アクセスした利用者情報は、ある決まった目的のために端末内部で一時的に使用するのみであり、端末内に保存したり、外部サーバに送信したりしない旨をを利用者に通知すると良い。通知方法としては、マーケットプレイス上でのアプリ説明欄に記載するなどの方法が考えられる。なお、端末内での一時利用のみの場合は、アプリ・プライバシーポリシーへの記載は必須ではない。
 
-![](media/image88.svg){width="3.1145833333333335in" height="4.875in"}
+![](media/image88.png){width="3.1145833333333335in" height="4.875in"}
 
 図 5.5‑7　マーケットプレイス上での説明例
 
@@ -9843,7 +9843,7 @@ random.nextBytes(randomBuf);
 SecureRandomのようなプログラムで実現されている疑似乱数生成器は一般に「図
 5.6‑3　疑似乱数生成器の内部プロセス」のように動作しており、乱数の種を入力して内部状態を初期化すると、乱数を生成する度に内部状態を一定のアルゴリズムで更新することで、次々と乱数列の生成が可能になる。
 
-![](media/image91.svg){width="5.697916666666667in"
+![](media/image91.png){width="5.697916666666667in"
 height="1.9430555555555555in"}
 
 []{#_Ref389469644 .anchor}図 5.6‑3　疑似乱数生成器の内部プロセス
