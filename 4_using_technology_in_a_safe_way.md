@@ -43,7 +43,7 @@ AndroidManifest.xml
 ```
 PrivateActivity.java
 ```eval_rst
-.. literalinclude:: C:\jssec\Files\Activity PrivateActivity.PrivateActivity.java
+.. literalinclude:: C:\\jssec\\Files\\Activity PrivateActivity.PrivateActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -8724,18 +8724,14 @@ Providerを攻撃するアクセスを考慮しないことが多い。Content
 Providerはデータ共有するための仕組みであるため、デフォルトでは公開扱いになってしまう。同一アプリ内からのみ利用されるContent
 Providerは明示的に非公開設定し、非公開Content Providerとすべきである。
 
-> AndroidManifest.xml
-
-\<!\-- ★ポイント2★ exported=\"false\"により、明示的に非公開設定する
-\--\>
-
-\<provider
-
-android:name=\".PrivateProvider\"
-
-android:authorities=\"org.jssec.android.provider.privateprovider\"
-
-android:exported=\"false\" /\>
+AndroidManifest.xml
+```xml
+        <!-- ★ポイント2★ exported="false"により、明示的に非公開設定する -->
+        <provider
+            android:name=".PrivateProvider"
+            android:authorities="org.jssec.android.provider.privateprovider"
+            android:exported="false" />
+```
 
 #### リクエストパラメータの安全性を確認する （必須）<!-- x201c70c0 -->
 
@@ -9430,56 +9426,42 @@ android:exported=\"true\" /\>
 
 今回の例ではAIDLファイルを２つ作成する。１つは、ServiceからActivityにデータを渡すためのコールバックインターフェースで、もう１つはActivityからServiceにデータを渡し、情報を取得するインターフェースである。なお、AIDLファイルに記述するパッケージ名は、javaファイルに記述するパッケージ名と同様に、AIDLファイルを作成するディレクトリ階層に一致させる必要がある。
 
-> IPartnerAIDLServiceCallback.aidl
-
+IPartnerAIDLServiceCallback.aidl
+```java
 package org.jssec.android.service.partnerservice.aidl;
 
 interface IPartnerAIDLServiceCallback {
-
-/\*\*
-
-\* 値が変わった時に呼び出される
-
-\*/
-
-void valueChanged(String info);
-
+    /**
+     * 値が変わった時に呼び出される
+     */
+    void valueChanged(String info);
 }
+```
 
-> IPartnerAIDLService.aidl
-
+IPartnerAIDLService.aidl
+```java
 package org.jssec.android.service.partnerservice.aidl;
 
-import
-org.jssec.android.service.partnerservice.aidl.IExclusiveAIDLServiceCallback;
+import org.jssec.android.service.partnerservice.aidl.IExclusiveAIDLServiceCallback;
 
 interface IPartnerAIDLService {
 
-/\*\*
+    /**
+     * コールバックを登録する
+     */
+    void registerCallback(IPartnerAIDLServiceCallback cb);
+    
+    /**
+     * 情報を取得する
+     */     
+    String getInfo(String param);
 
-\* コールバックを登録する
-
-\*/
-
-void registerCallback(IPartnerAIDLServiceCallback cb);
-
-/\*\*
-
-\* 情報を取得する
-
-\*/
-
-String getInfo(String param);
-
-/\*\*
-
-\* コールバックを解除する
-
-\*/
-
-void unregisterCallback(IPartnerAIDLServiceCallback cb);
-
+    /**
+     * コールバックを解除する
+     */
+    void unregisterCallback(IPartnerAIDLServiceCallback cb);
 }
+```
 
 > PartnerAIDLService.java
 
@@ -11503,27 +11485,13 @@ height="3.2743055555555554in"}
 Service実装時には以下のルールを守ること。
 
 1.  アプリ内でのみ使用するServiceは非公開設定する （必須）
-
-&nbsp;
-
 1.  受信データの安全性を確認する （必須）
-
-2.  独自定義Signature
-    > Permissionは、自社アプリが定義したことを確認して利用する （必須）
-
+2.  独自定義Signature Permissionは、自社アプリが定義したことを確認して利用する （必須）
 3.  連携するタイミングでServiceの機能を提供するかを判定する （必須）
-
-4.  結果情報を返す場合には、返送先アプリからの結果情報漏洩に注意する
-    > （必須）
-
-5.  利用先Serviceが固定できる場合は明示的IntentでServiceを利用する
-    > （必須）
-
+4.  結果情報を返す場合には、返送先アプリからの結果情報漏洩に注意する （必須）
+5.  利用先Serviceが固定できる場合は明示的IntentでServiceを利用する （必須）
 6.  他社の特定アプリと連携する場合は利用先Serviceを確認する （必須）
-
-7.  資産を二次的に提供する場合には、その資産の従来の保護水準を維持する
-    > （必須）
-
+7.  資産を二次的に提供する場合には、その資産の従来の保護水準を維持する （必須）
 8.  センシティブな情報はできる限り送らない （推奨）
 
 #### アプリ内でのみ使用するServiceは非公開設定する （必須）<!-- x3a17f3c7 -->
@@ -11532,38 +11500,28 @@ Service実装時には以下のルールを守ること。
 
 実装上はAndroidManifest.xmlでServiceを定義する際に、exported属性をfalseにするだけである。
 
-> AndroidManifest.xml
-
-\<!\-- 非公開Service \--\>
-
-\<!\-- ★ポイント1★ exported=\"false\"により、明示的に非公開設定する
-\--\>
-
-\<service android:name=\".PrivateStartService\"
-android:exported=\"false\"/\>
+AndroidManifest.xml
+```xml
+        <!-- 非公開Service -->
+        <!-- ★ポイント1★ exported="false"により、明示的に非公開設定する -->
+        <service android:name=".PrivateStartService" android:exported="false"/>
+```
 
 また、ケースは少ないと思われるが、同一アプリ内からのみ利用されるServiceであり、かつIntent
 Filterを設置するような設計はしてはならない。Intent
 Filterの性質上、同一アプリ内の非公開Serviceを呼び出すつもりでも、Intent
 Filter経由で呼び出したときに意図せず他アプリの公開Serviceを呼び出してしまう場合が存在するからである。
 
-> AndroidManifest.xml(非推奨)
-
-\<!\-- 非公開Service \--\>
-
-\<!\-- ★ポイント1★ exported=\"false\"により、明示的に非公開設定する
-\--\>
-
-\<service android:name=\".PrivateStartService\"
-android:exported=\"false\"\>
-
-\<intent-filter\>
-
-\<action android:name="org.jssec.android.service.OPEN /\>
-
-\</intent-filter\>
-
-\</service\>
+AndroidManifest.xml(非推奨)
+```xml
+        <!-- 非公開Service -->
+        <!-- ★ポイント1★ exported="false"により、明示的に非公開設定する -->
+        <service android:name=".PrivateStartService" android:exported="false">
+            <intent-filter>
+                <action android:name=”org.jssec.android.service.OPEN />
+            </intent-filter>
+        </service>
+```
 
 「4.4.3.1 exported
 設定とintent-filter設定の組み合わせ(Serviceの場合)」も参照すること。
@@ -12334,38 +12292,25 @@ Context\#openOrCreateDatabaseメソッドを使用してDBの作成を行う場�
 
 ファイルの配置に関しては、DB名（ファイル名に使用される）の指定をSQLiteOpenHelperと同様に行えるので、自動的に前述のセキュリティ要件を満たすファイルパスにファイルが作成される。ただし、フルパスも指定できるのでSDカードなどを指定した場合、MODE\_PRIVATEを指定しても他アプリからアクセス可能になってしまうため注意が必要である。
 
-> DBに対して明示的にアクセス許可設定を行う例：MainActivity.java
-
+DBに対して明示的にアクセス許可設定を行う例：MainActivity.java
+```java
 public void onCreate(Bundle savedInstanceState) {
-
-super.onCreate(savedInstanceState);
-
-setContentView(R.layout.main);
-
-//データベースの構築
-
-try {
-
-//MODE\_PRIVATEを設定してDBを作成
-
-db = Context.openOrCreateDatabase(\"Sample.db\",
-
-MODE\_PRIVATE, null);
-
-} catch (SQLException e) {
-
-//データベース構築に失敗した場合ログ出力
-
-Log.e(this.getClass().toString(),
-getString(R.string.DATABASE\_OPEN\_ERROR\_MESSAGE));
-
-return;
-
-}
-
-//省略 その他の初期化処理
-
-}
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        
+        //データベースの構築
+        try {
+           //MODE_PRIVATEを設定してDBを作成
+           db = Context.openOrCreateDatabase("Sample.db", 
+                                                     MODE_PRIVATE, null);
+        } catch (SQLException e) {
+            //データベース構築に失敗した場合ログ出力
+            Log.e(this.getClass().toString(), getString(R.string.DATABASE_OPEN_ERROR_MESSAGE));
+            return;
+        }
+        //省略 その他の初期化処理
+    }
+```
 
 なお、アクセス権の設定はMODE\_PRIVATE
 と合わせて以下の3種類があり、MODE\_WORLD\_READABLEとMODE\_WORLD\_WRITEABLEはOR演算で同時指定することもできる。ただし、MODE\_PRIVATE以外はAPI
@@ -12417,81 +12362,49 @@ SQLインジェクションを防ぐという意味で、任意の入力値を�
 
 3.  SQLiteStatementオブジェクトのexecute()などのメソッドによってSQLを実行する。
 
-> プレースホルダ使用例：DataInsertTask.java（抜粋）
-
+プレースホルダ使用例：DataInsertTask.java（抜粋）
+```java
 //データ追加タスク
+public class DataInsertTask extends AsyncTask<String, Void, Void> {
+    private MainActivity    mActivity;
+    private SQLiteDatabase  mSampleDB;
 
-public class DataInsertTask extends AsyncTask\<String, Void, Void\> {
+    public DataInsertTask(SQLiteDatabase db, MainActivity activity) {
+        mSampleDB = db;
+        mActivity = activity;
+    }
 
-private MainActivity mActivity;
+    @Override
+    protected Void doInBackground(String... params) {
+        String  idno = params[0];
+        String  name = params[1];
+        String  info = params[2];
 
-private SQLiteDatabase mSampleDB;
+        //★ポイント3★ アプリケーション要件に従って入力値をチェックする
+       if (!DataValidator.validateData(idno, name, info))
+        {
+        	return null;
+        }
+        //データ追加処理
+        //プレースホルダを使用する
+        String commandString = "INSERT INTO " + CommonData.TABLE_NAME + " (idno, name, info) VALUES (?, ?, ?)";
+        SQLiteStatement sqlStmt = mSampleDB.compileStatement(commandString);
+        sqlStmt.bindString(1, idno);
+        sqlStmt.bindString(2, name);
+        sqlStmt.bindString(3, info);
+        try {
+            sqlStmt.executeInsert();
+        } catch (SQLException e) {
+            Log.e(DataInsertTask.class.toString(), mActivity.getString(R.string.UPDATING_ERROR_MESSAGE));
+        } finally {
+        	sqlStmt.close();
+        }
+        return null;
+    }
 
-public DataInsertTask(SQLiteDatabase db, MainActivity activity) {
-
-mSampleDB = db;
-
-mActivity = activity;
-
+    ～省略～
 }
-
-@Override
-
-protected Void doInBackground(String\... params) {
-
-String idno = params\[0\];
-
-String name = params\[1\];
-
-String info = params\[2\];
-
-//★ポイント3★ アプリケーション要件に従って入力値をチェックする
-
-if (!DataValidator.validateData(idno, name, info))
-
-{
-
-return null;
-
-}
-
-//データ追加処理
-
-//プレースホルダを使用する
-
-String commandString = \"INSERT INTO \" + CommonData.TABLE\_NAME + \"
-(idno, name, info) VALUES (?, ?, ?)\";
-
-SQLiteStatement sqlStmt = mSampleDB.compileStatement(commandString);
-
-sqlStmt.bindString(1, idno);
-
-sqlStmt.bindString(2, name);
-
-sqlStmt.bindString(3, info);
-
-try {
-
-sqlStmt.executeInsert();
-
-} catch (SQLException e) {
-
-Log.e(DataInsertTask.class.toString(),
-mActivity.getString(R.string.UPDATING\_ERROR\_MESSAGE));
-
-} finally {
-
-sqlStmt.close();
-
-}
-
-return null;
-
-}
-
-～省略～
-
-}
+```
 
 あらかじめ実行するSQL文をオブジェクトとして作成しておきパラメータを当てはめる形である。実行する処理が確定しているので、SQLインジェクションが発生する余地はない。また、SQLiteStatementオブジェクトを再利用することで処理効率を高めることができるというメリットもある。
 
@@ -12512,51 +12425,33 @@ execSQL()/rawQuery()などがあり、以下の手順で実行する。
 
 2.  ContentValuesを引数として渡して、各処理用メソッド（以下の例ではSQLiteDatabase\#insert()）を実行する。
 
-> 各処理用メソッド（SQLiteDatabase\#insert()）を使用する例
+各処理用メソッド（SQLiteDatabase\#insert()）を使用する例
+```java
+    private SQLiteDatabase  mSampleDB;
+    private void addUserData(String idno, String name, String info) {
 
-private SQLiteDatabase mSampleDB;
+       //値の妥当性（型、範囲）チェック、エスケープ処理
+       if (!validateInsertData(idno, name, info)) {
+           //バリデーションを通過しなかった場合、ログ出力
+           Log.e(this.getClass().toString(), getString(R.string.VALIDATION_ERROR_MESSAGE));
+           return 
+       }
 
-private void addUserData(String idno, String name, String info) {
+        //挿入するデータの準備
+        ContentValues insertValues = new ContentValues();
+        insertValues.put("idno", idno);
+        insertValues.put("name", name);
+        insertValues.put("info", info);
 
-//値の妥当性（型、範囲）チェック、エスケープ処理
-
-if (!validateInsertData(idno, name, info)) {
-
-//バリデーションを通過しなかった場合、ログ出力
-
-Log.e(this.getClass().toString(),
-getString(R.string.VALIDATION\_ERROR\_MESSAGE));
-
-return
-
-}
-
-//挿入するデータの準備
-
-ContentValues insertValues = new ContentValues();
-
-insertValues.put(\"idno\", idno);
-
-insertValues.put(\"name\", name);
-
-insertValues.put(\"info\", info);
-
-//Insert実行
-
-try {
-
-mSampleDb.insert(\"SampleTable\", null, insertValues);
-
-} catch (SQLException e) {
-
-Log.e(this.getClass().toString(),
-getString(R.string.DB\_INSERT\_ERROR\_MESSAGE));
-
-return;
-
-}
-
-}
+        //Insert実行
+        try {
+            mSampleDb.insert("SampleTable", null, insertValues);
+        } catch (SQLException e) {
+            Log.e(this.getClass().toString(), getString(R.string.DB_INSERT_ERROR_MESSAGE));
+            return;
+        }
+    }
+```
 
 この例では、SQLコマンドを直接記述せず、SQLiteDatabaseが提供する挿入用のメソッドを使用している。SQLコマンドを直接使用しないため、この方法もSQLインジェクションの余地はないと言える。
 
@@ -12568,90 +12463,55 @@ LIKE述語のワイルドカード（%、\_）を含む文字列をプレース�
 
 実際のエスケープ処理は、以下のサンプルコードのようにESCAPE句を使用して行うことができる。
 
-> LIKEを利用した場合のエスケープ処理の例
-
+LIKEを利用した場合のエスケープ処理の例
+```java
 //データ検索タスク
+public class DataSearchTask extends AsyncTask<String, Void, Cursor> {
+    private MainActivity        mActivity;
+    private SQLiteDatabase      mSampleDB;
+    private ProgressDialog      mProgressDialog;
 
-public class DataSearchTask extends AsyncTask\<String, Void, Cursor\> {
+    public DataSearchTask(SQLiteDatabase db, MainActivity activity) {
+        mSampleDB = db;
+        mActivity = activity;
+    }
 
-private MainActivity mActivity;
+    @Override
+    protected Cursor doInBackground(String... params) {
+        String  idno = params[0];
+        String  name = params[1];
+        String  info = params[2];
+        String  cols[]  =   {"_id", "idno","name","info"};
 
-private SQLiteDatabase mSampleDB;
+        Cursor cur;
 
-private ProgressDialog mProgressDialog;
+        ～省略～
 
-public DataSearchTask(SQLiteDatabase db, MainActivity activity) {
+        //infoを条件にしてlike検索（部分一致）
+        //ポイント：ワイルドカードに相当する文字はエスケープ処理する
+        String argString = info.replaceAll("@", "@@"); //入力として受け取ったinfo内の$をエスケープ
+        argString = argString.replaceAll("%", "@%"); //入力として受け取ったinfo内の%をエスケープ
+        argString = argString.replaceAll("_", "@_"); //入力として受け取ったinfo内の_をエスケープ
+        String selectionArgs[] = {argString};
 
-mSampleDB = db;
-
-mActivity = activity;
-
+        try {
+            //ポイント：プレースホルダを使用する
+            cur = mSampleDB.query("SampleTable", cols, "info LIKE '%' || ? || '%' ESCAPE '@'", 
+                                   selectionArgs, null, null, null);
+        } catch (SQLException e) {
+            Toast.makeText(mActivity, R.string.SERCHING_ERROR_MESSAGE, Toast.LENGTH_LONG).show();
+            return null;
+        }
+        return cur;
+    }
+    
+    @Override
+    protected void onPostExecute(Cursor resultCur) {
+        mProgressDialog.dismiss();
+        mActivity.updateCursor(resultCur);
+    }
 }
-
-@Override
-
-protected Cursor doInBackground(String\... params) {
-
-String idno = params\[0\];
-
-String name = params\[1\];
-
-String info = params\[2\];
-
-String cols\[\] = {\"\_id\", \"idno\",\"name\",\"info\"};
-
-Cursor cur;
-
-～省略～
-
-//infoを条件にしてlike検索（部分一致）
-
-//ポイント：ワイルドカードに相当する文字はエスケープ処理する
-
-String argString = info.replaceAll(\"@\", \"@@\");
-//入力として受け取ったinfo内の\$をエスケープ
-
-argString = argString.replaceAll(\"%\", \"@%\");
-//入力として受け取ったinfo内の%をエスケープ
-
-argString = argString.replaceAll(\"\_\", \"@\_\");
-//入力として受け取ったinfo内の\_をエスケープ
-
-String selectionArgs\[\] = {argString};
-
-try {
-
-//ポイント：プレースホルダを使用する
-
-cur = mSampleDB.query(\"SampleTable\", cols, \"info LIKE \'%\' \|\| ?
-\|\| \'%\' ESCAPE \'@\'\",
-
-selectionArgs, null, null, null);
-
-} catch (SQLException e) {
-
-Toast.makeText(mActivity, R.string.SERCHING\_ERROR\_MESSAGE,
-Toast.LENGTH\_LONG).show();
-
-return null;
-
-}
-
-return cur;
-
-}
-
-@Override
-
-protected void onPostExecute(Cursor resultCur) {
-
-mProgressDialog.dismiss();
-
-mActivity.updateCursor(resultCur);
-
-}
-
-}
+```
 
 #### プレースホルダを使用できないSQLコマンドに対して外部入力を使う<!-- x3cfecbce -->
 
@@ -12680,17 +12540,13 @@ SQLiteOpenHelper\#getReadableDatabase、getWritableDatabaseを使用してDBの�
 
 具体的には、SQLiteDatabase\#openDatabaseにOPEN\_READONLYを指定してデータベースをオープンする。
 
-> 読み取り専用でデータベースをオープンする
-
-～省略～
-
-// データベースのオープン(データベースは作成済みとする)
-
-SQLiteDatabase db
-
-=
-SQLiteDatabase.openDatabase(SQLiteDatabase.getDatabasePath(\"Sample.db\"),
-null, OPEN\_READONLY);
+読み取り専用でデータベースをオープンする
+```java
+    ～省略～
+    // データベースのオープン(データベースは作成済みとする)
+    SQLiteDatabase db 
+           = SQLiteDatabase.openDatabase(SQLiteDatabase.getDatabasePath("Sample.db"), null, OPEN_READONLY);
+```
 
 > 参照：[[http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html - getReadableDatabase()]{.underline}](http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html#getReadableDatabase())
 
@@ -12708,89 +12564,57 @@ SQLiteは型に寛容なデータベースであり、DB上でIntegerとして�
 
 以下では、例として入力値が1以上の数字であることを検証するコードを示す。
 
-> 例：入力データが1以上の数字であることを確認する（MainActivity.javaより抜粋）
-
+例：入力データが1以上の数字であることを確認する（MainActivity.javaより抜粋）
+```java
 public class MainActivity extends Activity {
 
-～省略～
+    ～省略～
 
-//追加処理
+    //追加処理
+    private void addUserData(String idno, String name, String info) {
+        //Noのチェック
+        if (!validateNo(idno, CommonData.REQUEST_NEW)) {
+            return;
+        }
 
-private void addUserData(String idno, String name, String info) {
+        //データ追加処理
+        DataInsertTask task = new DataInsertTask(mSampleDb, this);
+        task.execute(idno, name, info);        
+    }
 
-//Noのチェック
+    ～省略～
 
-if (!validateNo(idno, CommonData.REQUEST\_NEW)) {
+    private boolean validateNo(String idno, int request) {
+        if (idno == null || idno.length() == 0) {
+            if (request == CommonData.REQUEST_SEARCH) {
+                //検索処理の時は未指定をOKにする
+                return true;
+            } else {   
+                //検索処理以外の時はnull、空文字はエラー
+                Toast.makeText(this, R.string.IDNO_EMPTY_MESSAGE, Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
 
-return;
+        //数字であることを確認する
+        try {
+            // 1以上の値
+            if (!idno.matches("[1-9][0-9]*")) {
+                //数字以外の時はエラー
+                Toast.makeText(this, R.string.IDNO_NOT_NUMERIC_MESSAGE, Toast.LENGTH_LONG).show();
+                return false;
+            }
+        } catch (NullPointerException e) {
+            //今回のケースではあり得ない
+            return false;
+        }
 
+        return true;
+    }
+
+    ～省略～
 }
-
-//データ追加処理
-
-DataInsertTask task = new DataInsertTask(mSampleDb, this);
-
-task.execute(idno, name, info);
-
-}
-
-～省略～
-
-private boolean validateNo(String idno, int request) {
-
-if (idno == null \|\| idno.length() == 0) {
-
-if (request == CommonData.REQUEST\_SEARCH) {
-
-//検索処理の時は未指定をOKにする
-
-return true;
-
-} else {
-
-//検索処理以外の時はnull、空文字はエラー
-
-Toast.makeText(this, R.string.IDNO\_EMPTY\_MESSAGE,
-Toast.LENGTH\_LONG).show();
-
-return false;
-
-}
-
-}
-
-//数字であることを確認する
-
-try {
-
-// 1以上の値
-
-if (!idno.matches(\"\[1-9\]\[0-9\]\*\")) {
-
-//数字以外の時はエラー
-
-Toast.makeText(this, R.string.IDNO\_NOT\_NUMERIC\_MESSAGE,
-Toast.LENGTH\_LONG).show();
-
-return false;
-
-}
-
-} catch (NullPointerException e) {
-
-//今回のケースではあり得ない
-
-return false;
-
-}
-
-return true;
-
-}
-
-～省略～
-
-}
+```
 
 #### DBに格納するデータについての考察<!-- xbb35e8ab -->
 
@@ -12837,7 +12661,11 @@ Androidプロジェクトは、Android環境におけるSQLiteデータベース
 
 3.  onCreate()の中でデータベースを初期化し、データベースをオープンする際にパスワードを設定する。
 
-> 簡単なコード例
+簡単なコード例
+```java
+SQLiteDatabase.loadLibs(this);                   //まず ライブラリをContextを使用して初期化する
+SQLiteOpenHelper.getWritableDatabase(passwoed):  //引数はパスワード（String型 セキュアに取得したものと仮定）
+```
 
 SQLiteDatabase.loadLibs(this); //まず
 ライブラリをContextを使用して初期化する
@@ -14901,30 +14729,23 @@ Shared
 Preferenceの使用例を次に示す。MODE\_PRIVATEにより非公開ファイルとしてShared
 Preferenceを作成している。
 
-> Shared Preferenceファイルにアクセス制限を設定する例
-
+Shared Preferenceファイルにアクセス制限を設定する例
+```java
 import android.content.SharedPreferences;
-
 import android.content.SharedPreferences.Editor;
 
 ～省略～
 
-// Shared Preferenceを取得する（なければ作成される）
+        // Shared Preferenceを取得する（なければ作成される）
+        // ポイント：基本的にMODE_PRIVATEモードを指定する
+        SharedPreferences preference = getSharedPreferences(
+                PREFERENCE_FILE_NAME, MODE_PRIVATE);
 
-// ポイント：基本的にMODE\_PRIVATEモードを指定する
-
-SharedPreferences preference = getSharedPreferences(
-
-PREFERENCE\_FILE\_NAME, MODE\_PRIVATE);
-
-// 値が文字列のプリファレンスを書き込む例
-
-Editor editor = preference.edit();
-
-editor.putString(\"prep\_key\", \"prep\_value\");// key:\"prep\_key\",
-value:\"prep\_value\"
-
-editor.commit();
+        // 値が文字列のプリファレンスを書き込む例
+        Editor editor = preference.edit();
+        editor.putString("prep_key", "prep_value");// key:"prep_key", value:"prep_value"
+        editor.commit();
+```
 
 データベースについては「4.5 SQLiteを使う」を参照すること。
 
@@ -15065,23 +14886,16 @@ Intentという機能である。アプリは、URIスキームをManifestファ
 
 1.  URLのパラメータを利用する前に値の安全性を確認する
 
-> Starter.html
-
-\<html\>
-
-\<body\>
-
-\<!\-- ★ポイント1★ URLにセンシティブな情報を含めない \--\>
-
-\<!\--
-URLパラメータとして渡す文字列は、UTF-8で、かつURIエンコードしておくこと
-\--\>
-
-\<a href=\"secure://jssec?user=user\_id\"\> Login \</a\>
-
-\</body\>
-
-\</html\>
+Starter.html
+```html
+<html>
+    <body>
+<!-- ★ポイント1★ URLにセンシティブな情報を含めない -->
+<!-- URLパラメータとして渡す文字列は、UTF-8で、かつURIエンコードしておくこと -->
+        <a href="secure://jssec?user=user_id"> Login </a>
+    </body>
+</html>
+```
 
 > AndroidManifest.xml
 
@@ -15204,9 +15018,10 @@ Filterが設定されたアプリが複数存在する場合は、通常の暗�
 
 このようにWebページのリンクURLに含めたパラメータはすべてマルウェアに渡る可能性があるので、一般のWebページのリンクを作るときと同様に、URLのパラメータに直接センシティブな情報を含めることは避けなければならない。
 
-> URLにユーザーIDとパスワードが入っている例
-
+URLにユーザーIDとパスワードが入っている例
+```
 insecure://sample/login?userID=12345&password=abcdef
+```
 
 []{#_Ref334021773
 .anchor}また、URLのパラメータがユーザーIDなどセンシティブでない情報のみの場合でも、アプリ起動時のパスワード入力をアプリ側でさせるような仕様では、ユーザーが気付かずにマルウェアを起動してしまい、マルウェアに対してパスワードを入力してしまう危険性もある。そのため、一連のログイン処理自体はアプリ側で完結するような仕様を検討すべきである。Browsable
@@ -15289,22 +15104,17 @@ Log.v(LOG\_TAG, \"センシティブな情報(VERBOSE)\");
 
 }
 
-> proguard-project.txt
-
-\# クラス名、メソッド名等の変更を防ぐ
-
+proguard-project.txt
+```shell
+# クラス名、メソッド名等の変更を防ぐ
 -dontobfuscate
 
-\# ★ポイント4★
-リリースビルドではLog.d()/v()の呼び出しが自動削除される仕組みを導入する
-
+# ★ポイント4★ リリースビルドではLog.d()/v()の呼び出しが自動削除される仕組みを導入する
 -assumenosideeffects class android.util.Log {
-
-public static int d(\...);
-
-public static int v(\...);
-
+    public static int d(...);
+    public static int v(...);
 }
+```
 
 ★ポイント5★ リリース版アプリのAPKファイルはリリースビルドで作成する
 
@@ -15356,26 +15166,23 @@ LogCatに出力したログは他のアプリから読むことができるの�
 
 ProGuardは使用されていないメソッド等、実質的に不要なコードを自動削除する。Log.d()/v()を-assumenosideeffectsオプションの引数に指定することにより、Log.d()、Log.v()の呼び出しが実質的に不要なコードとみなされ、自動削除される。
 
-> Log.d()/v()を-assumenosideeffectsと指定することで、自動削除の対象にする
-
+Log.d()/v()を-assumenosideeffectsと指定することで、自動削除の対象にする
+```java
 -assumenosideeffects class android.util.Log {
-
-public static int d(\...);
-
-public static int v(\...);
-
+    public static int d(...);
+    public static int v(...);
 }
+```
 
 この自動削除の仕組みを利用する場合は、Log.v(),
 Log.d()の戻り値を使用してしまうとLog.v()/d()のコードが削除されない点に注意が必要である。よって、Log.v(),
 Log.d()の戻り値を使用してはならない。たとえば、次の実験コードにおいては、Log.v()が削除されない。
 
-> 削除指定したLog.v()が削除されない実験コード
-
-int i = android.util.Log.v(\"tag\", \"message\");
-
-System.out.println(String.format("Log.v()が%dを返した。", i)); //
-実験のためLog.v()の戻り値を使用。
+削除指定したLog.v()が削除されない実験コード削除指定したLog.v()が削除されない実験コード
+```java
+int i = android.util.Log.v("tag", "message");
+System.out.println(String.format(“Log.v()が%dを返した。”, i));  // 実験のためLog.v()の戻り値を使用。
+```
 
 また、上記ProGuard設定により、Log.d()及びLog.v()が自動削除されることを前提としたソースコードがあったとする。もしそのソースコードをProGuard設定がされていない他のプロジェクトで再利用してしまうと、Log.d()及びLog.v()が削除されないため、センシティブな情報が漏洩してしまう危険性がある。ソースコードを再利用する際は、ProGuard設定を含めたプロジェクト環境の整合性を確保すること。
 
@@ -15459,57 +15266,48 @@ stripped at runtime. Error, warning and info logs are always kept.
 
 下記ソースコードをProGuardでリリースビルドしてLog.d()を削除した場合、Log.d()の呼び出し処理（下記コードの2行目）は削除されるものの、その前段でセンシティブな情報を組み立てる処理（下記コードの1行目）は削除されないことに注意が必要である。
 
-String debug\_info = String.format(\"%s:%s\", \"センシティブな情報1\",
-\"センシティブな情報2\");
-
-if (BuildConfig.DEBUG) android.util.Log.d(TAG, debug\_info);
-
+```java
+    String debug_info = String.format("%s:%s", "センシティブな情報1", "センシティブな情報2");
+    if (BuildConfig.DEBUG) android.util.Log.d(TAG, debug_info);
+```
 上記ソースコードをリリースビルドしたAPKファイルを逆アセンブルすると次のようになる。確かにLog.d()の呼び出し処理は存在しないが、"センシティブな情報1"といった文字列定数定義とString\#format()メソッドの呼び出し処理が削除されず残っていることが分かる。
 
-const-string v1, \"%s:%s\"
-
-const/4 v2, 0x2
-
-new-array v2, v2, \[Ljava/lang/Object;
-
-const/4 v3, 0x0
-
-const-string v4, \"センシティブな情報1\"
-
-aput-object v4, v2, v3
-
-const/4 v3, 0x1
-
-const-string v4, \"センシティブな情報2\"
-
-aput-object v4, v2, v3
-
-invoke-static {v1, v2},
-Ljava/lang/String;-\>format(Ljava/lang/String;\[Ljava/lang/Object;)Ljava/lang/String;
-
-move-result-object v0
+```
+    const-string v1, "%s:%s"
+    const/4 v2, 0x2
+    new-array v2, v2, [Ljava/lang/Object;
+    const/4 v3, 0x0
+    const-string v4, "センシティブな情報1"
+    aput-object v4, v2, v3
+    const/4 v3, 0x1
+    const-string v4, "センシティブな情報2"
+    aput-object v4, v2, v3
+    invoke-static {v1, v2}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+    move-result-object v0
+```
 
 実際にはAPKファイルを逆アセンブルして、上記のようにログ出力情報を組み立てている箇所を発見するのは容易なことではない。しかし非常に機密度の高い情報を扱っているアプリにおいては、このような処理がAPKファイルに残ってしまってはならない場合もあり得る。
 
 もし上記のようなログ出力情報の組み立て処理も削除してしまいたい場合には、次のように記述するとよい[^20]。リリースビルド時にはコンパイラの最適化処理によって、下記サンプルコードの処理は丸ごと削除される。
 
-if (BuildConfig.DEBUG) {
+```java
+    if (BuildConfig.DEBUG) { 
+        String debug_info = String.format("%s:%s", "センシティブな情報1", "センシティブな情報2");
+        if (BuildConfig.DEBUG) android.util.Log.d(TAG, debug_info);
+    }
+```
 
-String debug\_info = String.format(\"%s:%s\", \"センシティブな情報1\",
-\"センシティブな情報2\");
+なお、下記ソースコードにProGuardを適用した場合も、同様にログ情報の組み立て処理（"result:"+ valueの部分）が残ってしまう。
 
-if (BuildConfig.DEBUG) android.util.Log.d(TAG, debug\_info);
-
-}
-
-なお、下記ソースコードにProGuardを適用した場合も、同様にログ情報の組み立て処理（\"result:\"
-+ valueの部分）が残ってしまう。
-
-Log.d(TAG, \"result:\" + value);
+```java
+    Log.d(TAG, "result:" + value);
+```
 
 この場合も下記のように対処すればよい。
 
-if (BuildConfig.DEBUG) Log.d(TAG, \"result:\" + value);
+```java
+    if (BuildConfig.DEBUG) Log.d(TAG, "result:" + value);
+```
 
 #### Intentの内容がLogCatに出力される<!-- x8dbfe75b -->
 
@@ -15633,30 +15431,22 @@ android:exported=\"true\" \>
 
 \</manifest\>
 
-> proguard-project.txt
-
-\# クラス名、メソッド名等の変更を防ぐ
-
+proguard-project.txt
+```shell
+# クラス名、メソッド名等の変更を防ぐ
 -dontobfuscate
 
-\# リリースビルド時にLog.d()/v()の呼び出しを自動的に削除する
-
+# リリースビルド時にLog.d()/v()の呼び出しを自動的に削除する
 -assumenosideeffects class android.util.Log {
-
-public static int d(\...);
-
-public static int v(\...);
-
+    public static int d(...);
+    public static int v(...);
 }
 
-\# リリースビルド時にresetStreams()を自動的に削除する
-
--assumenosideeffects class
-org.jssec.android.log.outputredirection.OutputRedirectApplication {
-
-private void resetStreams(\...);
-
+# リリースビルド時にresetStreams()を自動的に削除する
+-assumenosideeffects class org.jssec.android.log.outputredirection.OutputRedirectApplication {
+    private void resetStreams(...);
 }
+```
 
 開発版アプリ（デバッグビルド）とリリース版アプリ（リリースビルド）のLogCat出力の違いを図
 4.8‑3に示す。
@@ -16296,17 +16086,14 @@ JavaScriptを有効にするのはコンテンツを自社が管理している�
 また、Android 4.1（API Level
 16）以降の場合、setAllowFileAccessFromFileURLs()およびsetAllowUniversalAccessFromFileURLs()を利用することでfileスキームによるアクセスを禁止することができる。
 
-> fileスキームの無効化
-
-webView = (WebView) findViewById(R.id.webview);
-
-webView.setWebViewClient(new WebViewUnlimitedClient());
-
-WebSettings settings = webView.getSettings();
-
-settings.setAllowUniversalAccessFromFileURLs(false);
-
-settings.setAllowFileAccessFromFileURLs(false);
+fileスキームの無効化
+```java
+		webView = (WebView) findViewById(R.id.webview);
+		webView.setWebViewClient(new WebViewUnlimitedClient());
+		WebSettings settings = webView.getSettings();
+		settings.setAllowUniversalAccessFromFileURLs(false);
+		settings.setAllowFileAccessFromFileURLs(false);
+```
 
 #### Web Messaging利用時の送信先オリジン指定について<!-- x2ba586aa -->
 
@@ -16487,17 +16274,10 @@ notificationManager.notify(mNotificationId, privateNotification);
 
 Notificationを利用する際には以下のルールを守ること。
 
-1.  Visibilityの設定に依らず、Notificationにはセンシティブな情報を含めない（プライベート情報は例外）
-    > （必須）
-
-2.  Visibility PublicのNotificationには プライベート情報を含めない
-    > （必須）
-
-3.  （特にVisibility Privateにする場合）Visibility は明示的に設定する
-    > （必須）
-
-4.  VisibilityがPrivateのNotificationを利用する場合、VisibilityをPublicにした公開用のNotificationを併せて設定する
-    > （推奨）
+1.  Visibilityの設定に依らず、Notificationにはセンシティブな情報を含めない（プライベート情報は例外）（必須）
+2.  Visibility PublicのNotificationには プライベート情報を含めない （必須）
+3.  （特にVisibility Privateにする場合）Visibility は明示的に設定する （必須）
+4.  VisibilityがPrivateのNotificationを利用する場合、VisibilityをPublicにした公開用のNotificationを併せて設定する （推奨）
 
 #### Visibilityの設定に依らず、Notificationにはセンシティブな情報を含めない（プライベート情報は例外） （必須）<!-- xfa952271 -->
 
@@ -16513,23 +16293,16 @@ Notificationに含まれた情報は、通常はNotificationを送信したア�
 
 VisibilityがPublicに設定されたNotificationによって通知を行う場合、ユーザーのプライベート情報をNotificationに含めてはならない。VisibilityがPublicに設定されたNotificationは、画面ロック中にもNotificationの情報が表示され、端末に物理的に接近できる第三者がプライベート情報を盗み見るリスクにつながるためである。
 
-> VisibilityPrivateNotificationActivity.java
+VisibilityPrivateNotificationActivity.java
+```java
+    // 公開用（画面ロック時の表示用）の センシティブな情報を持たない Notification を用意する
+    Notification.Builder publicNotificationBuilder = new Notification.Builder(this).setContentTitle("Notification : Public");
 
-// 公開用（画面ロック時の表示用）の センシティブな情報を持たない
-Notification を用意する
-
-Notification.Builder publicNotificationBuilder = new
-Notification.Builder(this).setContentTitle(\"Notification : Public\");
-
-publicNotificationBuilder.setVisibility(Notification.VISIBILITY\_PUBLIC);
-
-// 公開用（画面ロック時の表示用）の
-Notificationにはプライベート情報を含めない
-
-publicNotificationBuilder.setContentText(\"Visibility Public :
-センシティブな情報は含めずに通知\");
-
-publicNotificationBuilder.setSmallIcon(R.drawable.ic\_launcher);
+    publicNotificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+    // 公開用（画面ロック時の表示用）の Notificationにはプライベート情報を含めない
+    publicNotificationBuilder.setContentText("Visibility Public : センシティブな情報は含めずに通知");
+    publicNotificationBuilder.setSmallIcon(R.drawable.ic_launcher);
+```
 
 プライベート情報の典型例としては、ユーザー宛てに送信されたメールやユーザーの位置情報など、「5.5.
 プライバシー情報を扱う」で言及されている情報が挙げられる。
@@ -16542,17 +16315,14 @@ publicNotificationBuilder.setSmallIcon(R.drawable.ic\_launcher);
 
 現状では、NotificationのVisibilityのデフォルト値はPrivateに設定されており、明示的にPublicを指定しない限りプライベート情報が盗み見られるリスクは発生しない。しかし、Visibilityのデフォルト値が将来変更になる可能性もあり、含める情報の取り扱いを常に意識するためにも、たとえVisiblityをPrivateにする場合であっても、NotificationのVisibilityは明示的に設定することを必須としている。
 
-> VisibilityPrivateNotificationActivity.java
+VisibilityPrivateNotificationActivity.java
+```java
+        // プライベート情報を含む Notification を作成する
+        Notification.Builder priavteNotificationBuilder = new Notification.Builder(this).setContentTitle("Notification : Private");
 
-// プライベート情報を含む Notification を作成する
-
-Notification.Builder priavteNotificationBuilder = new
-Notification.Builder(this).setContentTitle(\"Notification : Private\");
-
-// ★ポイント★ 明示的に Visibility を Private に設定して、Notification
-を作成する
-
-priavteNotificationBuilder.setVisibility(Notification.VISIBILITY\_PRIVATE);
+        // ★ポイント★ 明示的に Visibility を Private に設定して、Notification を作成する
+        priavteNotificationBuilder.setVisibility(Notification.VISIBILITY_PRIVATE);
+```
 
 ####  VisibilityがPrivateのNotificationを利用する場合、VisibilityをPublicにした公開用のNotificationを併せて設定する （推奨）<!-- x4a7953b8 -->
 
@@ -16560,34 +16330,21 @@ VisibilityがPrivateに設定されたNotificationを使って通知する場合
 
 VisibilityがPrivateに設定されたNotificationに公開用のNotificationを設定しない場合、画面ロック中にはシステムで用意されたデフォルトの文言が表示されるためセキュリティ上の問題はない。しかし、Notificationに含める情報の取り扱いを常に意識するためにも、公開用のNotificationを明示的に用意し設定することを推奨する。
 
-> VisibilityPrivateNotificationActivity.java
+VisibilityPrivateNotificationActivity.java
+```java
+    // プライベート情報を含む Notification を作成する
+    Notification.Builder privateNotificationBuilder = new Notification.Builder(this).setContentTitle("Notification : Private");
 
-// プライベート情報を含む Notification を作成する
-
-Notification.Builder privateNotificationBuilder = new
-Notification.Builder(this).setContentTitle(\"Notification : Private\");
-
-// ★ポイント★ 明示的に Visibility を Private に設定して、Notification
-を作成する
-
-if (Build.VERSION.SDK\_INT \>= 21)
-
-privateNotificationBuilder.setVisibility(Notification.VISIBILITY\_PRIVATE);
-
-// ★ポイント★ Visibility が Private
-の場合、プライベート情報を含めて通知してもよい
-
-privateNotificationBuilder.setContentText(\"Visibility Private :
-Including user info.\");
-
-privateNotificationBuilder.setSmallIcon(R.drawable.ic\_launcher);
-
-//
-VisibilityがPrivateのNotificationを利用する場合、VisibilityをPublicにした公開用のNotificationを合わせて設定する
-
-if (Build.VERSION.SDK\_INT \>= 21)
-
-privateNotificationBuilder.setPublicVersion(publicNotification);
+    // ★ポイント★ 明示的に Visibility を Private に設定して、Notification を作成する
+    if (Build.VERSION.SDK_INT >= 21)
+        privateNotificationBuilder.setVisibility(Notification.VISIBILITY_PRIVATE);
+    // ★ポイント★ Visibility が Private の場合、プライベート情報を含めて通知してもよい
+    privateNotificationBuilder.setContentText("Visibility Private : Including user info.");
+    privateNotificationBuilder.setSmallIcon(R.drawable.ic_launcher);
+    // VisibilityがPrivateのNotificationを利用する場合、VisibilityをPublicにした公開用のNotificationを合わせて設定する
+    if (Build.VERSION.SDK_INT >= 21)
+        privateNotificationBuilder.setPublicVersion(publicNotification);
+```
 
 ### アドバンスト<!-- xb28a4b20 -->
 
