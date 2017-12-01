@@ -12402,7 +12402,7 @@ public class DataInsertTask extends AsyncTask<String, Void, Void> {
         return null;
     }
 
-    ～省略～
+    // ～省略～
 }
 ```
 
@@ -12485,7 +12485,7 @@ public class DataSearchTask extends AsyncTask<String, Void, Cursor> {
 
         Cursor cur;
 
-        ～省略～
+        // ～省略～
 
         //infoを条件にしてlike検索（部分一致）
         //ポイント：ワイルドカードに相当する文字はエスケープ処理する
@@ -12542,7 +12542,8 @@ SQLiteOpenHelper\#getReadableDatabase、getWritableDatabaseを使用してDBの�
 
 読み取り専用でデータベースをオープンする
 ```java
-    ～省略～
+    // ～省略～
+
     // データベースのオープン(データベースは作成済みとする)
     SQLiteDatabase db 
            = SQLiteDatabase.openDatabase(SQLiteDatabase.getDatabasePath("Sample.db"), null, OPEN_READONLY);
@@ -12568,7 +12569,7 @@ SQLiteは型に寛容なデータベースであり、DB上でIntegerとして�
 ```java
 public class MainActivity extends Activity {
 
-    ～省略～
+    // ～省略～
 
     //追加処理
     private void addUserData(String idno, String name, String info) {
@@ -12582,7 +12583,7 @@ public class MainActivity extends Activity {
         task.execute(idno, name, info);        
     }
 
-    ～省略～
+    // ～省略～
 
     private boolean validateNo(String idno, int request) {
         if (idno == null || idno.length() == 0) {
@@ -12612,7 +12613,7 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    ～省略～
+    // ～省略～
 }
 ```
 
@@ -14734,7 +14735,7 @@ Shared Preferenceファイルにアクセス制限を設定する例
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-～省略～
+// ～省略～
 
         // Shared Preferenceを取得する（なければ作成される）
         // ポイント：基本的にMODE_PRIVATEモードを指定する
@@ -15167,7 +15168,7 @@ LogCatに出力したログは他のアプリから読むことができるの�
 ProGuardは使用されていないメソッド等、実質的に不要なコードを自動削除する。Log.d()/v()を-assumenosideeffectsオプションの引数に指定することにより、Log.d()、Log.v()の呼び出しが実質的に不要なコードとみなされ、自動削除される。
 
 Log.d()/v()を-assumenosideeffectsと指定することで、自動削除の対象にする
-```java
+```shell
 -assumenosideeffects class android.util.Log {
     public static int d(...);
     public static int v(...);
@@ -15181,7 +15182,7 @@ Log.d()の戻り値を使用してはならない。たとえば、次の実験�
 削除指定したLog.v()が削除されない実験コード削除指定したLog.v()が削除されない実験コード
 ```java
 int i = android.util.Log.v("tag", "message");
-System.out.println(String.format(“Log.v()が%dを返した。”, i));  // 実験のためLog.v()の戻り値を使用。
+System.out.println(String.format("Log.v()が%dを返した。", i));  // 実験のためLog.v()の戻り値を使用。
 ```
 
 また、上記ProGuard設定により、Log.d()及びLog.v()が自動削除されることを前提としたソースコードがあったとする。もしそのソースコードをProGuard設定がされていない他のプロジェクトで再利用してしまうと、Log.d()及びLog.v()が削除されないため、センシティブな情報が漏洩してしまう危険性がある。ソースコードを再利用する際は、ProGuard設定を含めたプロジェクト環境の整合性を確保すること。
