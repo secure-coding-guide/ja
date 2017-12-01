@@ -25,220 +25,43 @@ height="3.0074803149606297in"}
 
 以下に非公開Activityを作る側のサンプルコードを示す。
 
-> ポイント(Activityを作る)：
+ポイント(Activityを作る)：
 
-1.  [[]{#_Ref350850659 .anchor}]{#_Ref339532102
-    .anchor}taskAffinityを指定しない
-
+1.  [[]{#_Ref350850659 .anchor}]{#_Ref339532102 .anchor}taskAffinityを指定しない
 2.  []{#_Ref339532105 .anchor}launchModeを指定しない
-
 3.  exported=\"false\"により、明示的に非公開設定する
-
 4.  同一アプリからのIntentであっても、受信Intentの安全性を確認する
-
 5.  利用元アプリは同一アプリであるから、センシティブな情報を返送してよい
 
 Activityを非公開設定するには、AndroidManifest.xmlのactivity要素のexported属性をfalseと指定する。
 
-> AndroidManifest.xml
-
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
-
-\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
-
-package=\"org.jssec.android.activity.privateactivity\" \>
-
-\<application
-
-android:allowBackup=\"false\"
-
-android:icon=\"@drawable/ic\_launcher\"
-
-android:label=\"@string/app\_name\" \>
-
-\<!\-- 非公開Activity \--\>
-
-\<!\-- ★ポイント1★ taskAffinityを指定しない \--\>
-
-\<!\-- ★ポイント2★ launchModeを指定しない \--\>
-
-\<!\-- ★ポイント3★ exported=\"false\"により、明示的に非公開設定する
-\--\>
-
-\<activity
-
-android:name=\".PrivateActivity\"
-
-android:label=\"@string/app\_name\"
-
-android:exported=\"false\" /\>
-
-\<!\-- ランチャーから起動する公開Activity \--\>
-
-\<activity
-
-android:name=\".PrivateUserActivity\"
-
-android:label=\"@string/app\_name\"
-
-android:exported=\"true\" \>
-
-\<intent-filter\>
-
-\<action android:name=\"android.intent.action.MAIN\" /\>
-
-\<category android:name=\"android.intent.category.LAUNCHER\" /\>
-
-\</intent-filter\>
-
-\</activity\>
-
-\</application\>
-
-\</manifest\>
-
-> PrivateActivity.java
-
-package org.jssec.android.activity.privateactivity;
-
-import android.app.Activity;
-
-import android.content.Intent;
-
-import android.os.Bundle;
-
-import android.view.View;
-
-import android.widget.Toast;
-
-public class PrivateActivity extends Activity {
-
-@Override
-
-public void onCreate(Bundle savedInstanceState) {
-
-super.onCreate(savedInstanceState);
-
-setContentView(R.layout.private\_activity);
-
-// ★ポイント4★
-同一アプリからのIntentであっても、受信Intentの安全性を確認する
-
-// サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
-
-String param = getIntent().getStringExtra(\"PARAM\");
-
-Toast.makeText(this, String.format(\"パラメータ「%s」を受け取った。\",
-param), Toast.LENGTH\_LONG).show();
-
-}
-
-public void onReturnResultClick(View view) {
-
-// ★ポイント5★
-利用元アプリは同一アプリであるから、センシティブな情報を返送してよい
-
-Intent intent = new Intent();
-
-intent.putExtra(\"RESULT\", \"センシティブな情報\");
-
-setResult(RESULT\_OK, intent);
-
-finish();
-
-}
-
-}
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity PrivateActivity.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
+PrivateActivity.java
+```eval_rst
+.. literalinclude:: C:\jssec\Files\Activity PrivateActivity.PrivateActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 次に非公開Activityを利用する側のサンプルコードを示す。
 
-> ポイント(Activityを利用する)：
-
-1.  []{#_Ref339532110
-    .anchor}Activityに送信するIntentには、フラグFLAG\_ACTIVITY\_NEW\_TASKを設定しない
-
+ポイント(Activityを利用する)：
+1.  []{#_Ref339532110 .anchor}Activityに送信するIntentには、フラグFLAG\_ACTIVITY\_NEW\_TASKを設定しない
 2.  同一アプリ内Activityはクラス指定の明示的Intentで呼び出す
-
 3.  利用先アプリは同一アプリであるから、センシティブな情報をputExtra()を使う場合に限り送信してもよい[^1]
-
 4.  同一アプリ内Activityからの結果情報であっても、受信データの安全性を確認する
 
-> PrivateUserActivity.java
-
-package org.jssec.android.activity.privateactivity;
-
-import android.app.Activity;
-
-import android.content.Intent;
-
-import android.os.Bundle;
-
-import android.view.View;
-
-import android.widget.Toast;
-
-public class PrivateUserActivity extends Activity {
-
-private static final int REQUEST\_CODE = 1;
-
-@Override
-
-public void onCreate(Bundle savedInstanceState) {
-
-super.onCreate(savedInstanceState);
-
-setContentView(R.layout.user\_activity);
-
-}
-
-public void onUseActivityClick(View view) {
-
-// ★ポイント6★
-Activityに送信するIntentには、フラグFLAG\_ACTIVITY\_NEW\_TASKを設定しない
-
-// ★ポイント7★ 同一アプリ内Activityはクラス指定の明示的Intentで呼び出す
-
-Intent intent = new Intent(this, PrivateActivity.class);
-
-// ★ポイント8★
-利用先アプリは同一アプリであるから、センシティブな情報をputExtra()を使う場合に限り送信してもよい
-
-intent.putExtra(\"PARAM\", \"センシティブな情報\");
-
-startActivityForResult(intent, REQUEST\_CODE);
-
-}
-
-@Override
-
-public void onActivityResult(int requestCode, int resultCode, Intent
-data) {
-
-super.onActivityResult(requestCode, resultCode, data);
-
-if (resultCode != RESULT\_OK) return;
-
-switch (requestCode) {
-
-case REQUEST\_CODE:
-
-String result = data.getStringExtra(\"RESULT\");
-
-// ★ポイント9★
-同一アプリ内Activityからの結果情報であっても、受信データの安全性を確認する
-
-// サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
-
-Toast.makeText(this, String.format(\"結果「%s」を受け取った。\",
-result), Toast.LENGTH\_LONG).show();
-
-break;
-
-}
-
-}
-
-}
+PrivateUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity PrivateActivity.PrivateUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 #### 公開Activityを作る・利用する<!-- x15d3b587 -->
 
@@ -246,207 +69,38 @@ break;
 
 以下に公開Activityを作る側のサンプルコードを示す。
 
-> ポイント(Activityを作る)：
+ポイント(Activityを作る)：
 
 1.  exported=\"true\"により、明示的に公開設定する
-
 2.  受信Intentの安全性を確認する
+3.  結果を返す場合、センシティブな情報を含めない
 
-&nbsp;
-
-1.  結果を返す場合、センシティブな情報を含めない
-
-> AndroidManifest.xml
-
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
-
-\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
-
-package=\"org.jssec.android.activity.publicactivity\" \>
-
-\<application
-
-android:allowBackup=\"false\"
-
-android:icon=\"@drawable/ic\_launcher\"
-
-android:label=\"@string/app\_name\" \>
-
-\<!\-- 公開Activity \--\>
-
-\<!\-- ★ポイント1★ exported=\"true\"により、明示的に公開設定する \--\>
-
-\<activity
-
-android:name=\".PublicActivity\"
-
-android:label=\"@string/app\_name\"
-
-android:exported=\"true\" \>
-
-\<!\-- Action指定による暗黙的Intentを受信するようにIntent Filterを定義
-\--\>
-
-\<intent-filter\>
-
-\<action android:name=\"org.jssec.android.activity.MY\_ACTION\" /\>
-
-\<category android:name=\"android.intent.category.DEFAULT\" /\>
-
-\</intent-filter\>
-
-\</activity\>
-
-\</application\>
-
-\</manifest\>
-
-> PublicActivity.java
-
-package org.jssec.android.activity.publicactivity;
-
-import android.app.Activity;
-
-import android.content.Intent;
-
-import android.os.Bundle;
-
-import android.view.View;
-
-import android.widget.Toast;
-
-public class PublicActivity extends Activity {
-
-@Override
-
-public void onCreate(Bundle savedInstanceState) {
-
-super.onCreate(savedInstanceState);
-
-setContentView(R.layout.main);
-
-// ★ポイント2★ 受信Intentの安全性を確認する
-
-// 公開Activityであるため利用元アプリがマルウェアである可能性がある。
-
-// サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
-
-String param = getIntent().getStringExtra(\"PARAM\");
-
-Toast.makeText(this, String.format(\"パラメータ「%s」を受け取った。\",
-param), Toast.LENGTH\_LONG).show();
-
-}
-
-public void onReturnResultClick(View view) {
-
-// ★ポイント3★ 結果を返す場合、センシティブな情報を含めない
-
-// 公開Activityであるため利用元アプリがマルウェアである可能性がある。
-
-//
-マルウェアに取得されても問題のない情報であれば結果として返してもよい。
-
-Intent intent = new Intent();
-
-intent.putExtra(\"RESULT\", \"センシティブではない情報\");
-
-setResult(RESULT\_OK, intent);
-
-finish();
-
-}
-
-}
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity PublicActivity.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
+PrivateActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity PublicActivity.PublicActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 次に公開Activityを利用する側のサンプルコードを示す。
 
-> ポイント(Activityを利用する)：
+ポイント(Activityを利用する)：
 
 1.  センシティブな情報を送信してはならない
-
 2.  結果を受け取る場合、結果データの安全性を確認する
 
-> PublicUserActivity.java
-
-package org.jssec.android.activity.publicuser;
-
-import android.app.Activity;
-
-import android.content.ActivityNotFoundException;
-
-import android.content.Intent;
-
-import android.os.Bundle;
-
-import android.view.View;
-
-import android.widget.Toast;
-
-public class PublicUserActivity extends Activity {
-
-private static final int REQUEST\_CODE = 1;
-
-@Override
-
-public void onCreate(Bundle savedInstanceState) {
-
-super.onCreate(savedInstanceState);
-
-setContentView(R.layout.main);
-
-}
-
-public void onUseActivityClick(View view) {
-
-try {
-
-// ★ポイント4★ センシティブな情報を送信してはならない
-
-Intent intent = new Intent(\"org.jssec.android.activity.MY\_ACTION\");
-
-intent.putExtra(\"PARAM\", \"センシティブではない情報\");
-
-startActivityForResult(intent, REQUEST\_CODE);
-
-} catch (ActivityNotFoundException e) {
-
-Toast.makeText(this, \"利用先Activityが見つからない。\",
-Toast.LENGTH\_LONG).show();
-
-}
-
-}
-
-@Override
-
-public void onActivityResult(int requestCode, int resultCode, Intent
-data) {
-
-super.onActivityResult(requestCode, resultCode, data);
-
-// ★ポイント5★ 結果を受け取る場合、結果データの安全性を確認する
-
-// サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
-
-if (resultCode != RESULT\_OK) return;
-
-switch (requestCode) {
-
-case REQUEST\_CODE:
-
-String result = data.getStringExtra(\"RESULT\");
-
-Toast.makeText(this, String.format(\"結果「%s」を受け取った。\",
-result), Toast.LENGTH\_LONG).show();
-
-break;
-
-}
-
-}
-
-}
+PublicUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity PublicUser.PublicUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 #### パートナー限定Activityを作る・利用する<!-- xe282dc5c -->
 
@@ -456,25 +110,16 @@ Activityを呼び出す際に使用するIntentは第三者によって読み取
 
 以下にパートナー限定Activityを作る側のサンプルコードを示す。
 
-> ポイント(Activityを作る)：
+ポイント(Activityを作る)：
 
 1.  taskAffinityを指定しない
-
-&nbsp;
-
 1.  launchModeを指定しない
-
 2.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
-
 3.  利用元アプリの証明書がホワイトリストに登録されていることを確認する
-
 4.  パートナーアプリからのIntentであっても、受信Intentの安全性を確認する
-
 5.  パートナーアプリに開示してよい情報に限り返送してよい
 
-ホワイトリストを用いたアプリの確認方法については、「4.1.3.2
-利用元アプリを確認する」を参照すること。また、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「5.2.1.3
-アプリの証明書のハッシュ値を確認する方法」を参照すること。
+ホワイトリストを用いたアプリの確認方法については、「4.1.3.2 利用元アプリを確認する」を参照すること。また、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「5.2.1.3 アプリの証明書のハッシュ値を確認する方法」を参照すること。
 
 > AndroidManifest.xml
 
@@ -763,7 +408,7 @@ return hexadecimal.toString();
 
 次にパートナー限定Activityを利用する側のサンプルコードを示す。ここではパートナー限定Activityを呼び出す方法を説明する。
 
-> ポイント(Activityを利用する)：
+ポイント(Activityを利用する)：
 
 1.  利用先パートナー限定Activityアプリの証明書がホワイトリストに登録されていることを確認する
 
@@ -1132,7 +777,7 @@ Activityを呼び出す際に使用するIntentは第三者によって読み取
 
 以下に自社限定Activityを作る側のサンプルコードを示す。
 
-> ポイント(Activityを作る)：
+ポイント(Activityを作る)：
 
 1.  独自定義Signature Permissionを定義する
 
@@ -1475,7 +1120,7 @@ height="3.2743055555555554in"}
 
 次に自社限定Activityを利用する側のサンプルコードを示す。ここでは自社限定Activityを呼び出す方法を説明する。
 
-> ポイント(Activityを利用する)：
+ポイント(Activityを利用する)：
 
 1.  独自定義Signature Permissionを利用宣言する
 
@@ -1865,83 +1510,53 @@ height="3.2743055555555554in"}
 Activityを作る際、またはActivityにIntentを送信する際には以下のルールを守ること。
 
 1.  アプリ内でのみ使用するActivityは非公開設定する （必須）
-
 2.  taskAffinityを指定しない （必須）
-
 3.  launchModeを指定しない （必須）
-
-4.  Activityに送信するIntentにはFLAG\_ACTIVITY\_NEW\_TASKを設定しない
-    > （必須）
-
+4.  Activityに送信するIntentにはFLAG\_ACTIVITY\_NEW\_TASKを設定しない （必須）
 5.  受信Intentの安全性を確認する （必須）
-
-6.  独自定義Signature
-    > Permissionは、自社アプリが定義したことを確認して利用する （必須）
-
-7.  結果情報を返す場合には、返送先アプリからの結果情報漏洩に注意する
-    > （必須）
-
-8.  利用先Activityが固定できる場合は明示的IntentでActivityを利用する
-    > （必須）
-
+6.  独自定義Signature Permissionは、自社アプリが定義したことを確認して利用する （必須）
+7.  結果情報を返す場合には、返送先アプリからの結果情報漏洩に注意する （必須）
+8.  利用先Activityが固定できる場合は明示的IntentでActivityを利用する （必須）
 9.  利用先Activityからの戻りIntentの安全性を確認する （必須）
-
 10. 他社の特定アプリと連携する場合は利用先Activityを確認する （必須）
-
-11. 資産を二次的に提供する場合には、その資産の従来の保護水準を維持する
-    > （必須）
-
+11. 資産を二次的に提供する場合には、その資産の従来の保護水準を維持する （必須）
 12. センシティブな情報はできる限り送らない （推奨）
 
 #### アプリ内でのみ使用するActivityは非公開設定する （必須）<!-- x141a5bd5 -->
 
 同一アプリ内からのみ利用されるActivityは他のアプリからIntentを受け取る必要がない。またこのようなActivityでは開発者もActivityを攻撃するIntentを想定しないことが多い。このようなActivityは明示的に非公開設定し、非公開Activityとする。
 
-> AndroidManifest.xml
+AndroidManifest.xml
 
-\<!\-- 非公開Activity \--\>
+```eval_rst
+.. code-block:: xml
 
-\<!\-- ★ポイント3★ exported=\"false\"により、明示的に非公開設定する
-\--\>
+        <!-- 非公開Activity -->
+        <!-- ★ポイント3★ exported="false"により、明示的に非公開設定する -->
+        <activity
+            android:name=".PrivateActivity"
+            android:label="@string/app_name"
+            android:exported="false" />
+```
 
-\<activity
+同一アプリ内からのみ利用されるActivityではIntent Filterを設置するような設計はしてはならない。Intent Filterの性質上、同一アプリ内の非公開Activityを呼び出すつもりでも、Intent Filter経由で呼び出したときに意図せず他アプリのActivityを呼び出してしまう可能性もある。詳細は、アドバンスト「4.1.3.1 exported 設定とintent-filter設定の組み合わせ(Activityの場合)」を参照すること。
 
-android:name=\".PrivateActivity\"
+AndroidManifest.xml(非推奨)
 
-android:label=\"@string/app\_name\"
+```eval_rst
+.. code-block:: xml
 
-android:exported=\"false\" /\>
-
-同一アプリ内からのみ利用されるActivityではIntent
-Filterを設置するような設計はしてはならない。Intent
-Filterの性質上、同一アプリ内の非公開Activityを呼び出すつもりでも、Intent
-Filter経由で呼び出したときに意図せず他アプリのActivityを呼び出してしまう可能性もある。詳細は、アドバンスト「4.1.3.1
-exported
-設定とintent-filter設定の組み合わせ(Activityの場合)」を参照すること。
-
-> AndroidManifest.xml(非推奨)
-
-\<!\-- 非公開Activity \--\>
-
-\<!\-- ★ポイント3★ exported=\"false\"により、明示的に非公開設定する
-\--\>
-
-\<activity
-
-android:name=\".PictureActivity\"
-
-android:label=\"@string/picture\_name\"
-
-android:exported=\"false\" \>
-
-\<intent-filter\>
-
-\<action android:name="org.jssec.android.activity.OPEN /\>
-
-\</intent-filter\>
-
-\</activity\>
-
+        <!-- 非公開Activity -->
+        <!-- ★ポイント3★ exported="false"により、明示的に非公開設定する -->
+        <activity
+            android:name=".PictureActivity"
+            android:label="@string/picture_name"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name=”org.jssec.android.activity.OPEN />
+            </intent-filter>
+        </activity>
+```
 #### taskAffinityを指定しない （必須）<!-- x519c4264 -->
 
 Androidでは、Activityはタスクによって管理される。タスクの名前は、ルートActivityの持つアフィニティによって決定される。一方でルート以外のActivityに関しては、所属するタスクがアフィニティだけでは決定されず、Activityの起動モードにも依存する。詳細は「4.1.3.4
@@ -1953,53 +1568,35 @@ Androidでは、Activityはタスクによって管理される。タスクの�
 
 以下に非公開Activityの作成側と利用側におけるAndroidManifest.xmlを示す。
 
-> AndroidManifest.xml
+AndroidManifest.xml
 
-\<!\-- ★ポイント1★ taskAffinityを指定しない \--\>
+```eval_rst
+.. code-block:: xml
 
-\<application
+    <!-- ★ポイント1★ taskAffinityを指定しない -->
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
 
-android:icon=\"@drawable/ic\_launcher\"
+        <!-- ★ポイント1★ taskAffinityを指定しない -->
+        <activity
+            android:name=".PrivateUserActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-android:label=\"@string/app\_name\" \>
-
-\<!\-- ★ポイント1★ taskAffinityを指定しない \--\>
-
-\<activity
-
-android:name=\".PrivateUserActivity\"
-
-android:label=\"@string/app\_name\" \>
-
-\<intent-filter\>
-
-\<action android:name=\"android.intent.action.MAIN\" /\>
-
-\<category android:name=\"android.intent.category.LAUNCHER\" /\>
-
-\</intent-filter\>
-
-\</activity\>
-
-\<!\-- 非公開Activity \--\>
-
-\<!\-- ★ポイント1★ taskAffinityを指定しない \--\>
-
-\<activity
-
-android:name=\".PrivateActivity\"
-
-android:label=\"@string/app\_name\"
-
-android:exported=\"false\" /\>
-
-\</application\>
-
-タスクとアフィニティの詳細な解説は、「Google Android
-プログラミング入門」 [^2]、あるいは、Google Developers API Guide "Tasks
-and Back Stack"[^3]の解説および「4.1.3.3
-Activityに送信されるIntentの読み取り」、「4.1.3.4
-ルートActivityについて」を参照すること。
+        <!-- 非公開Activity -->
+        <!-- ★ポイント1★ taskAffinityを指定しない -->
+        <activity
+            android:name=".PrivateActivity"
+            android:label="@string/app_name"
+            android:exported="false" />
+    </application>
+```
+タスクとアフィニティの詳細な解説は、「Google Android プログラミング入門」 [^2]、あるいは、Google Developers API Guide "Tasks and Back Stack"[^3]の解説および「4.1.3.3 Activityに送信されるIntentの読み取り」、「4.1.3.4 ルートActivityについて」を参照すること。
 
 #### launchModeを指定しない （必須）<!-- x47a208be -->
 
@@ -2007,73 +1604,54 @@ Activityの起動モードとは、Activityを呼び出す際に、Activityの�
 
 Activityの起動モードはAndroidManifest.xml内にてandroid:launchModeで明示的に設定可能であるが、上記の理由により、各Activityに対してandroid:launchModeを指定せず、値をデフォルトのまま"standard"とするべきである。
 
-> AndroidManifest.xml
+AndroidManifest.xml
 
-\<!\-- ★ポイント2★
-ActivityにはlaunchModeを指定せず、値をデフォルトのまま"standard"とする
-\--\>
+```eval_rst
+.. code-block:: xml
 
-\<activity
+        <!-- ★ポイント2★ ActivityにはlaunchModeを指定せず、値をデフォルトのまま”standard”とする -->
+        <activity
+            android:name=".PrivateUserActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-android:name=\".PrivateUserActivity\"
-
-android:label=\"@string/app\_name\" \>
-
-\<intent-filter\>
-
-\<action android:name=\"android.intent.action.MAIN\" /\>
-
-\<category android:name=\"android.intent.category.LAUNCHER\" /\>
-
-\</intent-filter\>
-
-\</activity\>
-
-\<!\-- 非公開Activity \--\>
-
-\<!\-- ★ポイント2★
-ActivityにはlaunchModeを指定せず、値をデフォルトのまま"standard"とする
-\--\>
-
-\<activity
-
-android:name=\".PrivateActivity\"
-
-android:label=\"@string/app\_name\"
-
-android:exported=\"false\" /\>
-
-\</application\>
-
-> 「4.1.3.3 Activityに送信されるIntentの読み取り」、「4.1.3.4
-> ルートActivityについて」を参照すること。
+        <!-- 非公開Activity -->
+        <!-- ★ポイント2★ ActivityにはlaunchModeを指定せず、値をデフォルトのまま”standard”とする -->
+        <activity
+            android:name=".PrivateActivity"
+            android:label="@string/app_name"
+            android:exported="false" />
+    </application>
+```
+4.1.3.3 Activityに送信されるIntentの読み取り」、「4.1.3.4 ルートActivityについて」を参照すること。
 
 #### Activityに送信するIntentにはFLAG\_ACTIVITY\_NEW\_TASKを設定しない （必須）<!-- xd969f86e -->
 
 Activityの起動モードはstartActivity()あるいはstartActivityForResult()の実行時にも変更することが可能であり、タスクが新規に生成される場合がある。そのため、Activityの起動モードを実行時に変更しないようにする必要がある。
 
-Activityの起動モードを変更するには、setFlags()やaddFlags()を用いてIntentにフラグを設定し、そのIntentをstartActivity()またはstartActivityForResult()の引数とする。タスクを新規に生成するためのフラグはFLAG\_ACTIVITY\_NEW\_TASKである。FLAG\_ACTIVITY\_NEW\_TASKが設定されると、呼び出されたActivityのタスクがバックグラウンドあるいはフォアグラウンド上に存在しない場合に、新規にタスクが生成される。FLAG\_ACTIVITY\_MULTIPLE\_TASK
-はFLAG\_ACTIVITY\_NEW\_TASKと同時に設定することもできる。この場合には、タスクが必ず新規生成される。どちらの設定もタスクを生成する可能性があるため、センシティブな情報を扱うIntentには設定しないようにすべきである。
+Activityの起動モードを変更するには、setFlags()やaddFlags()を用いてIntentにフラグを設定し、そのIntentをstartActivity()またはstartActivityForResult()の引数とする。タスクを新規に生成するためのフラグはFLAG\_ACTIVITY\_NEW\_TASKである。FLAG\_ACTIVITY\_NEW\_TASKが設定されると、呼び出されたActivityのタスクがバックグラウンドあるいはフォアグラウンド上に存在しない場合に、新規にタスクが生成される。FLAG\_ACTIVITY\_MULTIPLE\_TASK はFLAG\_ACTIVITY\_NEW\_TASKと同時に設定することもできる。この場合には、タスクが必ず新規生成される。どちらの設定もタスクを生成する可能性があるため、センシティブな情報を扱うIntentには設定しないようにすべきである。
 
-> Intentの送信例
+Intentの送信例
+```eval_rst
+.. code-block:: java
 
-Intent intent = new Intent();
+        Intent intent = new Intent();
 
-// ★ポイント6★
-Activityに送信するIntentには、フラグFLAG\_ACTIVITY\_NEW\_TASKを設定しない
+        // ★ポイント6★ Activityに送信するIntentには、フラグFLAG_ACTIVITY_NEW_TASKを設定しない
 
-intent.setClass(this, PrivateActivity.class);
+        intent.setClass(this, PrivateActivity.class);
+        intent.putExtra("PARAM", "センシティブな情報");
 
-intent.putExtra(\"PARAM\", \"センシティブな情報\");
-
-startActivityForResult(intent, REQUEST\_CODE);
+        startActivityForResult(intent, REQUEST_CODE);
+```
 
 なお、Activityに送信するIntentにFLAG\_ACTIVITY\_EXCLUDE\_FROM\_RECENTSフラグを明示的に設定することで、タスクが生成されたとしてもその内容が読み取られないようにできると考えるかもしれない。しかしながら、この方法を用いても送信されたIntentの内容を読み取ることが可能である。したがって、FLAG\_ACTIVITY\_NEW\_TASKの使用は避けるべきである。
 
-「4.1.3.1 exported
-設定とintent-filter設定の組み合わせ(Activityの場合)」および「4.1.3.3
-Activityに送信されるIntentの読み取り」、「4.1.3.4
-ルートActivityについて」も参照すること。
+「4.1.3.1 exported 設定とintent-filter設定の組み合わせ(Activityの場合)」および「4.1.3.3 Activityに送信されるIntentの読み取り」、「4.1.3.4 ルートActivityについて」も参照すること。
 
 #### 受信Intentの安全性を確認する （必須）<!-- x6b6a39f9 -->
 
@@ -2085,10 +1663,7 @@ Activityのタイプによって若干リスクは異なるが、受信Intentの
 
 #### 独自定義Signature Permissionは、自社アプリが定義したことを確認して利用する （必須）<!-- x5f69a871 -->
 
-自社アプリだけから利用できる自社限定Activityを作る場合、独自定義Signature
-Permissionにより保護しなければならない。AndroidManifest.xmlでのPermission定義、Permission要求宣言だけでは保護が不十分であるため、「5.2
-PermissionとProtection Level」の「5.2.1.2 独自定義のSignature
-Permissionで自社アプリ連携する方法」を参照すること。
+自社アプリだけから利用できる自社限定Activityを作る場合、独自定義Signature Permissionにより保護しなければならない。AndroidManifest.xmlでのPermission定義、Permission要求宣言だけでは保護が不十分であるため、「5.2 PermissionとProtection Level」の「5.2.1.2 独自定義のSignature Permissionで自社アプリ連携する方法」を参照すること。
 
 #### 結果情報を返す場合には、返送先アプリからの結果情報漏洩に注意する （必須）<!-- x0a71d4ed -->
 
@@ -2096,49 +1671,44 @@ Activityのタイプによって、setResult()を用いて結果情報を返送�
 
 このようにActivityから結果情報を返す場合には、返送先アプリからの結果情報の漏洩に配慮しなければならない。
 
-> 結果情報を返送する場合の例
+結果情報を返送する場合の例
+```eval_rst
+.. code-block:: java
 
-public void onReturnResultClick(View view) {
+    public void onReturnResultClick(View view) {
 
-// ★ポイント6★ パートナーアプリに開示してよい情報に限り返送してよい
-
-Intent intent = new Intent();
-
-intent.putExtra(\"RESULT\", \"パートナーアプリに開示してよい情報\");
-
-setResult(RESULT\_OK, intent);
-
-finish();
-
-}
+        // ★ポイント6★ パートナーアプリに開示してよい情報に限り返送してよい
+        Intent intent = new Intent();
+        intent.putExtra("RESULT", "パートナーアプリに開示してよい情報");
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+```
 
 #### 利用先Activityが固定できる場合は明示的IntentでActivityを利用する （必須）<!-- x4109bd6b -->
 
-暗黙的IntentによりActivityを利用すると、最終的にどのActivityにIntentが送信されるかはAndroid
-OS任せになってしまう。もしマルウェアにIntentが送信されてしまうと情報漏洩が生じる。一方、明示的IntentによりActivityを利用すると、指定したActivity以外がIntentを受信することはなく比較的安全である。
+暗黙的IntentによりActivityを利用すると、最終的にどのActivityにIntentが送信されるかはAndroid OS任せになってしまう。もしマルウェアにIntentが送信されてしまうと情報漏洩が生じる。一方、明示的IntentによりActivityを利用すると、指定したActivity以外がIntentを受信することはなく比較的安全である。
 
 処理を任せるアプリ（のActivity）をユーザーに選択させるなど、利用先Activityを実行時に決定したい場合を除けば、利用先Activityはあらかじめ特定できる。このようなActivityを利用する場合には明示的Intentを利用すべきである。
 
-> 同一アプリ内のActivityを明示的Intentで利用する
+同一アプリ内のActivityを明示的Intentで利用する
+```eval_rst
+.. code-block:: java
 
-Intent intent = new Intent(this, PictureActivity.class);
+        Intent intent = new Intent(this, PictureActivity.class);
+        intent.putExtra("BARCODE", barcode);
+        startActivity(intent);
+```
+他のアプリの公開Activityを明示的Intentで利用する
+```eval_rst
+.. code-block:: java
 
-intent.putExtra(\"BARCODE\", barcode);
-
-startActivity(intent);
-
-> 他のアプリの公開Activityを明示的Intentで利用する
-
-Intent intent = new Intent();
-
-intent.setClassName(
-
-\"org.jssec.android.activity.publicactivity\",
-
-\"org.jssec.android.activity.publicactivity.PublicActivity\");
-
-startActivity(intent);
-
+        Intent intent = new Intent();
+        intent.setClassName(
+            "org.jssec.android.activity.publicactivity",
+            "org.jssec.android.activity.publicactivity.PublicActivity");
+        startActivity(intent);
+```
 ただし他のアプリの公開Activityを明示的Intentで利用した場合も、相手先Activityを含むアプリがマルウェアである可能性がある。宛先をパッケージ名で限定したとしても、相手先アプリが実は本物アプリと同じパッケージ名を持つ偽物アプリである可能性があるからだ。このようなリスクを排除したい場合は、パートナー限定Activityや自社限定Activityの使用を検討する必要がある。
 
 「4.1.3.1 exported
@@ -2867,186 +2437,140 @@ Activityを利用する際にActivityManagerがIntentの内容をLogCatに出力
 
 次のようにメール送信するとLogCatにメールアドレスが表示されてしまう
 
-> MainActivity.java
+MainActivity.java
+```eval_rst
+.. code-block:: java
 
-// URIはLogCatに出力される
-
-Uri uri = Uri.parse(\"mailto:test@gmail.com\");
-
-Intent intent = new Intent(Intent.ACTION\_SENDTO, uri);
-
-startActivity(intent);
+        // URIはLogCatに出力される
+        Uri uri = Uri.parse("mailto:test@gmail.com");
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        startActivity(intent);
+```
 
 次のようにExtrasを使用するとLogCatにメールアドレスが表示されなくなる
 
-> MainActivity.java
+MainActivity.java
+```eval_rst
+.. code-block:: java
 
-// Extraに設定した内容はLogCatに出力されない
+        // Extraに設定した内容はLogCatに出力されない
+        Uri uri = Uri.parse("mailto:");
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"test@gmail.com"});
+        startActivity(intent);
+```
 
-Uri uri = Uri.parse(\"mailto:\");
-
-Intent intent = new Intent(Intent.ACTION\_SENDTO, uri);
-
-intent.putExtra(Intent.EXTRA\_EMAIL, new String\[\]
-{\"test@gmail.com\"});
-
-startActivity(intent);
-
-ただし、ActivityManager\#getRecentTasks() によって
-IntentのExtrasを他のアプリから直接読める場合があるので、注意すること。詳しくは「4.1.2.2
-taskAffinityを指定しない （必須）」、「4.1.2.3 launchModeを指定しない
-（必須）」および「4.1.2.4Activityに送信するIntentにはFLAG\_ACTIVITY\_NEW\_TASKを設定しない
-（必須）」を参照のこと。
+ただし、ActivityManager\#getRecentTasks() によって IntentのExtrasを他のアプリから直接読める場合があるので、注意すること。詳しくは「4.1.2.2 taskAffinityを指定しない （必須）」、「4.1.2.3 launchModeを指定しない （必須）」および「4.1.2.4Activityに送信するIntentにはFLAG\_ACTIVITY\_NEW\_TASKを設定しない （必須）」を参照のこと。
 
 #### PreferenceActivityのFragment Injection対策について<!-- x44fc41ae -->
 
-PreferenceActivityを継承したクラスが公開Activityとなっている場合、Fragment
-Injection[^5]と呼ばれる問題が発生する可能性がある。この問題を防ぐためには
-PreferenceActivity.IsValidFragment()をoverrideし、引数の値を適切にチェックすることでActivityが意図しないFragmentを扱わないようにする必要がある。(入力データの安全性については「3.2入力データの安全性を確認する」参照)
+PreferenceActivityを継承したクラスが公開Activityとなっている場合、Fragment Injection[^5]と呼ばれる問題が発生する可能性がある。この問題を防ぐためには PreferenceActivity.IsValidFragment()をoverrideし、引数の値を適切にチェックすることでActivityが意図しないFragmentを扱わないようにする必要がある。(入力データの安全性については「3.2入力データの安全性を確認する」参照)
 
 以下に、IsValidFragment()をoverrideしたサンプルを示す。なお、ソースコードの難読化を行うと、クラス名が変わり、引数の値との比較結果が変わってまう可能性があるので、別途対応が必要になる。
 
-> overrideしたisValidFragment()メソッドの例
+overrideしたisValidFragment()メソッドの例
 
-protected boolean isValidFragment(String fragmentName) {
+```eval_rst
+.. code-block:: java
 
-　　　　// 難読化時の対応は別途行うこと
-
-return PreferenceFragmentA.class.getName().equals(fragmentName)
-
-\|\| PreferenceFragmentB.class.getName().equals(fragmentName)
-
-\|\| PreferenceFragmentC.class.getName().equals(fragmentName)
-
-\|\| PreferenceFragmentD.class.getName().equals(fragmentName);
-
-}
+    protected boolean isValidFragment(String fragmentName) {
+        // 難読化時の対応は別途行うこと
+        return PreferenceFragmentA.class.getName().equals(fragmentName)
+                || PreferenceFragmentB.class.getName().equals(fragmentName)
+                || PreferenceFragmentC.class.getName().equals(fragmentName)
+                || PreferenceFragmentD.class.getName().equals(fragmentName);
+    }
+```
 
 なお、アプリのtargetSdkVersionが19以上である場合、PreferenceActivity.isValidFragment()をoverrideしないと、Fragmentが挿入された段階（isValidFragment()が呼ばれた段階）でセキュリティ例外が発生しアプリが終了するため、PreferenceActivity.isValidFragment()のoverrideが必須である。
 
 #### Autofillフレームワークについて<!-- x81e1bdbf -->
 
-> AutofillフレームワークはAndroid 8.0(API Level
-> 26)で追加された仕組みである。この仕組みを利用することで、ユーザー名、パスワード、住所、電話番号、クレジットカード情報等が入力されたときにそれらを保存しておき、再度必要になった時に取り出してアプリに自動入力(Autofill)する機能を実現することができる。ユーザーの入力負荷を軽減することができる便利な仕組みであるが、あるアプリが扱うパスワードやクレジットカード情報等のセンシティブな情報を他のアプリ（Autofill
-> service）に渡すことを想定しており、取り扱いには十分に気をつける必要がある。
->
-> **仕組み(概要)**
->
-> [2つのコンポーネント]{.underline}
->
-> 以下に、Autofillフレームワークに登場する2つのコンポーネント[^6]の概要を示す。
+AutofillフレームワークはAndroid 8.0(API Level 26)で追加された仕組みである。この仕組みを利用することで、ユーザー名、パスワード、住所、電話番号、クレジットカード情報等が入力されたときにそれらを保存しておき、再度必要になった時に取り出してアプリに自動入力(Autofill)する機能を実現することができる。ユーザーの入力負荷を軽減することができる便利な仕組みであるが、あるアプリが扱うパスワードやクレジットカード情報等のセンシティブな情報を他のアプリ（Autofill service）に渡すことを想定しており、取り扱いには十分に気をつける必要がある。
+
+**仕組み(概要)**
+
+[2つのコンポーネント]{.underline}
+
+以下に、Autofillフレームワークに登場する2つのコンポーネント[^6]の概要を示す。
 
 -   Autofillの対象となるアプリ（利用アプリ）：
 
-    -   Viewの情報（テキストおよび属性)をAutofill
-        > serviceに渡したり、Autofill
-        > serviceからAutofillに必要な情報を提供されたりする。
-
+    -   Viewの情報（テキストおよび属性)をAutofill serviceに渡したり、Autofill serviceからAutofillに必要な情報を提供されたりする。
     -   Activityを持つすべてのアプリが利用アプリとなる（Foreground時)。
-
     -   利用アプリが持つすべてのViewがAutofillの対象になる可能性がある。View単位で明示的にAutofillの対象外とすることも可能。
-
     -   Autofill機能の利用を同一パッケージ内のAutofill serviceに限定することも可能。
 
 -   Autofill serviceを提供するサービス（Autofill service）：
 
     -   アプリから渡されたViewの情報を保存したり（ユーザーの許可が必要）、ViewにAutofillするための情報（候補リスト）をアプリに提供したりする。
-
-    -   保存対象のViewはAutofill
-        > serviceが決定する（AutofillフレームワークはデフォルトでActivityに含まれるすべてのViewの情報をAutofill
-        > serviceに渡す）。
-
+    -   保存対象のViewはAutofill  serviceが決定する（AutofillフレームワークはデフォルトでActivityに含まれるすべてのViewの情報をAutofill  serviceに渡す）。
     -   3^rd^ Party製のAutofill serviceも作成できる。
-
     -   端末内に複数存在することが可能でユーザーにより「設定」から選択されたServiceのみ有効になる（「なし」も選択可能）。
-
     -   Serviceが、扱うユーザー情報を保護するためにパスワード入力等によってユーザー認証をするためのUIを持つことも可能。
 
-> [Autofillフレームワークの処理フロー]{.underline}
->
-> **図
-> 4‑6**はAutofill時のAutofill関連コンポーネント間の処理フローを示している。利用アプリのViewのフォーカス移動等を契機にAutoillフレームワークを介してViewの情報（主にViewの親子関係や個々の属性）が「設定」で選択されたAutofill
-> serviceに渡る。Autofill
-> serviceは渡された情報を元にAutofillに必要な情報（候補リスト）をDBから取り出し、フレームワークに返信する。フレームワークは候補リストをユーザーに提示し、ユーザーが選択したデータによりアプリでAutofillが行われる。
->
-> ![Autofillの仕組み\_Autofill](media/image37.png){width="7.266666666666667in"
-> height="3.325in"}
+[Autofillフレームワークの処理フロー]{.underline}
 
-[[]{#_Ref497835622 .anchor}]{#_Ref497835648 .anchor}**図** **4‑6
-Autofill時のコンポーネント間の処理フロー**
+**図 4‑6**はAutofill時のAutofill関連コンポーネント間の処理フローを示している。利用アプリのViewのフォーカス移動等を契機にAutoillフレームワークを介してViewの情報（主にViewの親子関係や個々の属性）が「設定」で選択されたAutofill serviceに渡る。Autofill serviceは渡された情報を元にAutofillに必要な情報（候補リスト）をDBから取り出し、フレームワークに返信する。フレームワークは候補リストをユーザーに提示し、ユーザーが選択したデータによりアプリでAutofillが行われる。
 
-> 一方、**図
-> 4‑7**はAutofillによるユーザーデータ保存時の処理フローを示している。AutofillManager\#commit()の呼び出しやActivityの終了を契機に、AutofillしたViewの値に変更があり、かつ、Autofillフレームワークが表示する保存許可ダイアログに対してユーザーが許可した場合、Viewの情報（テキスト含む）がAutofillフレームワークを介して「設定」で選択されたAutofill
-> serviceに渡され、Autofill
-> serviceがViewの情報をDBに保存して一連の処理が完了となる。
->
-> ![Autofillの仕組み\_Save](media/image38.png){width="7.258333333333334in"
-> height="3.3333333333333335in"}
+![Autofillの仕組み\_Autofill](media/image37.png){width="7.266666666666667in" height="3.325in"}
+
+[[]{#_Ref497835622 .anchor}]{#_Ref497835648 .anchor}**図** **4‑6Autofill時のコンポーネント間の処理フロー**
+
+一方、**図 4‑7**はAutofillによるユーザーデータ保存時の処理フローを示している。AutofillManager\#commit()の呼び出しやActivityの終了を契機に、AutofillしたViewの値に変更があり、かつ、Autofillフレームワークが表示する保存許可ダイアログに対してユーザーが許可した場合、Viewの情報（テキスト含む）がAutofillフレームワークを介して「設定」で選択されたAutofill serviceに渡され、Autofill serviceがViewの情報をDBに保存して一連の処理が完了となる。
+
+![Autofillの仕組み\_Save](media/image38.png){width="7.258333333333334in" height="3.3333333333333335in"}
 
 []{#_Ref497835656 .anchor}**図** **4‑7 ユーザーデータ保存時のコンポーネント間の処理フロー**
 
-> **Autofill利用アプリにおけるセキュリティ上の懸案**
->
-> 「仕組み（概要）」の項で示した通りAutofillフレームワークにおけるセキュリティモデルでは、ユーザーが「設定」で安全なAutofill
-> serviceを選択し、保存時にどのデータをどのAutofill
-> serviceに渡してもよいか適切に判断できることを前提としている。
->
-> ところが、ユーザーがうっかり安全でないAutofill
-> serviceを選択したり、Autofill
-> serviceに渡すべきでないセンシティブな情報の保存を許可してしまったりする可能性がある。以下に、この場合に起きうる被害について考察する。
->
-> 保存時、ユーザーがAutofill
-> serviceを選択し、保存許可ダイアログに対して許可した場合、利用アプリで表示されているActivityに含まれるすべてのViewの情報がAutofill
-> serviceに渡る可能性がある。ここで、Autofill
-> serviceがマルウェアの場合や、Autofill
-> serviceにViewの情報を外部ストレージや安全でないクラウドサービスに保存する等のセキュリティ上の問題があった場合には、利用アプリで扱う情報の漏洩につながってしまうリスクが考えられる。
->
-> 一方、Autofill時、ユーザーがAutofill
-> serviceとしてマルウェアを選択してしまっていた場合、マルウェアが送信した値をAutofillしてしまう可能性がある。ここで、アプリやアプリのデータを送信した先のクラウドサービスが入力データの安全性を十分に確認していなかった場合、情報漏洩やアプリ／サービスの停止等につながってしまうリスクが考えられる。
->
-> なお、「2つのコンポーネント」で書いたように、Activityを持つアプリが自動的にAutofillの対象になるため、Activityを持つアプリのすべての開発者は上記のリスクを考慮して設計や実装を行う必要がある。
->
-> **懸案に対する対策**
->
-> 前述のように、Autofillフレームワークでは基本的にユーザーの裁量によってセキュリティが担保されている。そのためアプリでできる対策は限られているが、Viewに対してimportantForAutofill
-> 属性で"no"等を指定してAutofill
-> serviceにViewの情報を一切渡さないようにする（Autofillの対象外とする）ことで、ユーザーが適切な選択や許可をできなかった場合（マルウェアをAutofill
-> serviceとして利用するように選択する等）でも、上記の懸案を軽減／回避することができる。
->
-> importantForAutofill
-> 属性は、以下のいずれかの方法によって指定することができる。
+**Autofill利用アプリにおけるセキュリティ上の懸案**
+
+「仕組み（概要）」の項で示した通りAutofillフレームワークにおけるセキュリティモデルでは、ユーザーが「設定」で安全なAutofill serviceを選択し、保存時にどのデータをどのAutofill serviceに渡してもよいか適切に判断できることを前提としている。
+
+ところが、ユーザーがうっかり安全でないAutofill serviceを選択したり、Autofill serviceに渡すべきでないセンシティブな情報の保存を許可してしまったりする可能性がある。以下に、この場合に起きうる被害について考察する。
+
+保存時、ユーザーがAutofill serviceを選択し、保存許可ダイアログに対して許可した場合、利用アプリで表示されているActivityに含まれるすべてのViewの情報がAutofill serviceに渡る可能性がある。ここで、Autofill serviceがマルウェアの場合や、Autofill serviceにViewの情報を外部ストレージや安全でないクラウドサービスに保存する等のセキュリティ上の問題があった場合には、利用アプリで扱う情報の漏洩につながってしまうリスクが考えられる。
+
+一方、Autofill時、ユーザーがAutofill serviceとしてマルウェアを選択してしまっていた場合、マルウェアが送信した値をAutofillしてしまう可能性がある。ここで、アプリやアプリのデータを送信した先のクラウドサービスが入力データの安全性を十分に確認していなかった場合、情報漏洩やアプリ／サービスの停止等につながってしまうリスクが考えられる。
+
+なお、「2つのコンポーネント」で書いたように、Activityを持つアプリが自動的にAutofillの対象になるため、Activityを持つアプリのすべての開発者は上記のリスクを考慮して設計や実装を行う必要がある。
+
+**懸案に対する対策**
+
+前述のように、Autofillフレームワークでは基本的にユーザーの裁量によってセキュリティが担保されている。そのためアプリでできる対策は限られているが、Viewに対してimportantForAutofill 属性で"no"等を指定してAutofill serviceにViewの情報を一切渡さないようにする（Autofillの対象外とする）ことで、ユーザーが適切な選択や許可をできなかった場合（マルウェアをAutofill serviceとして利用するように選択する等）でも、上記の懸案を軽減／回避することができる。
+
+importantForAutofill 属性は、以下のいずれかの方法によって指定することができる。
 
 -   レイアウトXMLのimportantForAutofill属性を指定する
-
 -   View\#setImportantForAutofill()を呼び出す
 
-> 以下に指定可能な値を示す。指定する範囲によって適切な値を使うこと。特に、"no"を指定した場合、指定したViewはAutofillの対象外になるが、子供はAutofillの対象になることに注意すること。デフォルト値は、"auto"となっている。
-
-+-----------------+-----------------+-----------------+-----------------+
-| > 値            | > 定数名        | Autofillの対象になるか |
-+=================+=================+=================+=================+
-|                 |                 | 指定したView    | 子供のView      |
-+-----------------+-----------------+-----------------+-----------------+
+以下に指定可能な値を示す。指定する範囲によって適切な値を使うこと。特に、"no"を指定した場合、指定したViewはAutofillの対象外になるが、子供はAutofillの対象になることに注意すること。デフォルト値は、"auto"となっている。
+```eval_rst
++-----------------+-----------------+------------------------+------------------------+
+| 値              | 定数名          | Autofillの対象になるか |                        |
++=================+=================+========================+========================+
+|                 |                 | 指定したView           | 子供のView             |       
++-----------------+-----------------+------------------------+------------------------+
 | \"auto\"        | IMPORTANT\_FOR\ | Autofillフレームワーク | Autofillフレームワーク |
-|                 | _AUTOFILL\_AUTO | が決定          | が決定          |
-+-----------------+-----------------+-----------------+-----------------+
-| "no"            | IMPORTANT\_FOR\ | 対象外          | 対象            |
-|                 | _AUTOFILL\_NO   |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-| \"noExcludeDesc | IMPORTANT\_FOR\ | 対象外          | 対象外          |
-| endants\"       | _AUTOFILL\_NO\_ |                 |                 |
-|                 | EXCLUDE\_DESCEN |                 |                 |
-|                 | DANTS           |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-| "yes"           | IMPORTANT\_FOR\ | 対象            | 対象            |
-|                 | _AUTOFILL\_YES  |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-| "noExcludeDesce | IMPORTANT\_FOR\ | 対象            | 対象外          |
-| ndants\"        | _AUTOFILL\_YES\ |                 |                 |
-|                 | _EXCLUDE\_DESCE |                 |                 |
-|                 | NDANTS          |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-
+|                 | _AUTOFILL\_AUTO | が決定                 | が決定                 |
++-----------------+-----------------+------------------------+------------------------+
+| "no"            | IMPORTANT\_FOR\ | 対象外                 | 対象                   |
+|                 | _AUTOFILL\_NO   |                        |                        |
++-----------------+-----------------+------------------------+------------------------+
+| \"noExcludeDesc | IMPORTANT\_FOR\ | 対象外                 | 対象外                 |
+| endants\"       | _AUTOFILL\_NO\_ |                        |                        |
+|                 | EXCLUDE\_DESCEN |                        |                        |
+|                 | DANTS           |                        |                        |
++-----------------+-----------------+------------------------+------------------------+
+| "yes"           | IMPORTANT\_FOR\ | 対象                   | 対象                   |
+|                 | _AUTOFILL\_YES  |                        |                        |
++-----------------+-----------------+------------------------+------------------------+
+| "noExcludeDesce | IMPORTANT\_FOR\ | 対象                   | 対象外                 |
+| ndants\"        | _AUTOFILL\_YES\ |                        |                        |
+|                 | _EXCLUDE\_DESCE |                        |                        |
+|                 | NDANTS          |                        |                        |
++-----------------+-----------------+------------------------+------------------------+
+```
 > また、AutofillManager\#hasEnabledAutofillServices()を利用して、Autofill機能の利用を同一パッケージ内のAutofill
 > serviceに限定することも可能である。
 >
@@ -3283,7 +2807,7 @@ Receiverである。動的Broadcast
 Receiverを非公開で登録することはできないため、非公開Broadcast
 Receiverでは静的Broadcast Receiverだけで構成される。
 
-> ポイント(Broadcastを受信する)：
+ポイント(Broadcastを受信する)：
 
 1.  exported=\"false\"により、明示的に非公開設定する
 
@@ -3390,7 +2914,7 @@ abortBroadcast();
 
 次に非公開Broadcast ReceiverへBroadcast送信するサンプルコードを示す。
 
-> ポイント(Broadcastを送信する)：
+ポイント(Broadcastを送信する)：
 
 1.  同一アプリ内Receiverはクラス指定の明示的IntentでBroadcast送信する
 
@@ -3502,7 +3026,7 @@ mLogView.append(\"\\n\");
 Receiverは、不特定多数のアプリから送信されたBroadcastを受信できるBroadcast
 Receiverである。マルウェアが送信したBroadcastを受信することがあることに注意が必要だ。
 
-> ポイント(Broadcastを受信する)：
+ポイント(Broadcastを受信する)：
 
 1.  exported=\"true\"により、明示的に公開設定する
 
@@ -3784,7 +3308,7 @@ stopService(intent);
 ReceiverへBroadcast送信するサンプルコードを示す。公開Broadcast
 ReceiverにBroadcastを送信する場合、送信するBroadcastがマルウェアに受信されることがあることに注意が必要である。
 
-> ポイント(Broadcastを送信する)：
+ポイント(Broadcastを送信する)：
 
 1.  センシティブな情報を送信してはならない
 
@@ -3928,7 +3452,7 @@ mLogView.append(\"\\n\");
 Receiverは、自社以外のアプリから送信されたBroadcastを一切受信しないBroadcast
 Receiverである。複数の自社製アプリでシステムを構成し、自社アプリが扱う情報や機能を守るために利用される。
 
-> ポイント(Broadcastを受信する)：
+ポイント(Broadcastを受信する)：
 
 1.  Broadcast受信用の独自定義Signature Permissionを定義する
 
@@ -4445,7 +3969,7 @@ height="3.2743055555555554in"}
 
 次に自社限定Broadcast ReceiverへBroadcast送信するサンプルコードを示す。
 
-> ポイント(Broadcastを送信する)：
+ポイント(Broadcastを送信する)：
 
 1.  結果受信用の独自定義Signature Permissionを定義する
 
@@ -5200,7 +4724,7 @@ Providerであり、もっとも安全性の高いContent Providerである[^9]�
 
 以下、非公開Content Providerの実装例を示す。
 
-> ポイント(Content Providerを作る）：
+ポイント(Content Providerを作る）：
 
 1.  exported=\"false\"により、明示的に非公開設定する
 
@@ -5585,7 +5109,7 @@ throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 次に、非公開Content Providerを利用するActivityの例を示す。
 
-> ポイント(Content Providerを利用する)：
+ポイント(Content Providerを利用する)：
 
 1.  同一アプリ内へのリクエストであるから、センシティブな情報をリクエストに含めてよい
 
@@ -5757,7 +5281,7 @@ Providerに成り済ましできない。
 
 以下、公開Content Providerの実装例を示す。
 
-> ポイント(Content Providerを作る)：
+ポイント(Content Providerを作る)：
 
 1.  exported=\"true\"により、明示的に公開設定する
 
@@ -6122,7 +5646,7 @@ throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 次に、公開Content Providerを利用するActivityの例を示す。
 
-> ポイント(Content Providerを利用する)：
+ポイント(Content Providerを利用する)：
 
 1.  センシティブな情報をリクエストに含めてはならない
 
@@ -6364,7 +5888,7 @@ Providerである。パートナー企業のアプリと自社アプリが連携
 
 以下、パートナー限定Content Providerの実装例を示す。
 
-> ポイント(Content Providerを作る)：
+ポイント(Content Providerを作る)：
 
 1.  exported=\"true\"により、明示的に公開設定する
 
@@ -6848,7 +6372,7 @@ throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 次に、パートナー限定Content Providerを利用するActivityの例を示す。
 
-> ポイント(Content Providerを利用する)：
+ポイント(Content Providerを利用する)：
 
 1.  利用先パートナー限定Content
     Providerアプリの証明書がホワイトリストに登録されていることを確認する
@@ -7293,7 +6817,7 @@ Providerである。複数の自社製アプリでシステムを構成し、自
 
 以下、自社限定Content Providerの実装例を示す。
 
-> ポイント(Content Providerを作る)：
+ポイント(Content Providerを作る)：
 
 1.  独自定義Signature Permissionを定義する
 
@@ -7907,7 +7431,7 @@ height="3.2743055555555554in"}
 
 次に、自社限定Content Providerを利用するActivityの例を示す。
 
-> ポイント(Content Providerを利用する)：
+ポイント(Content Providerを利用する)：
 
 1.  独自定義Signature Permissionを利用宣言する
 
@@ -8480,7 +8004,7 @@ Provider側アプリが受動的にアクセス許可を与えることもでき
 
 以下、一時許可Content Providerの実装例を示す。
 
-> ポイント(Content Providerを作る)：
+ポイント(Content Providerを作る)：
 
 1.  exported=\"false"により、一時許可するPath以外を非公開設定する
 
@@ -9004,7 +8528,7 @@ finish();
 
 次に、一時許可Content Providerを利用するActivityの例を示す。
 
-> ポイント(Content Providerを利用する)：
+ポイント(Content Providerを利用する)：
 
 1.  センシティブな情報をリクエストに含めてはならない
 
@@ -9314,7 +8838,7 @@ Serviceの実装方法について」および各Serviceタイプのサンプル
 
 以下、startService型のServiceを使用した例を示す。
 
-> ポイント(Serviceを作る）：
+ポイント(Serviceを作る）：
 
 1.  exported=\"false\"により、明示的に非公開設定する
 
@@ -9457,7 +8981,7 @@ return null;
 
 次に非公開Serviceを利用するActivityのサンプルコードを示す。
 
-> ポイント(Serviceを利用する）：
+ポイント(Serviceを利用する）：
 
 1.  同一アプリ内Serviceはクラス指定の明示的Intentで呼び出す
 
@@ -9563,7 +9087,7 @@ startService(intent);
 
 以下、IntentService型のServiceを使用した例を示す。
 
-> ポイント（Serviceを作る）：
+ポイント（Serviceを作る）：
 
 1.  exported=\"true\"により、明示的に公開設定する
 
@@ -9700,7 +9224,7 @@ onDestroy()\", Toast.LENGTH\_SHORT).show();
 
 次に公開Serviceを利用するActivityのサンプルコードを示す。
 
-> ポイント（Serviceを利用する）：
+ポイント（Serviceを利用する）：
 
 1.  センシティブな情報を送信してはならない
 
@@ -9865,7 +9389,7 @@ stopService(intent);
 
 以下、AIDL bind型のServiceを使用した例を示す。
 
-> ポイント(Serviceを作る)：
+ポイント(Serviceを作る)：
 
 1.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
 
@@ -10439,7 +9963,7 @@ return hexadecimal.toString();
 
 次にパートナー限定Serviceを利用するActivityのサンプルコードを示す。
 
-> ポイント(Serviceを利用する)：
+ポイント(Serviceを利用する)：
 
 1.  利用先パートナー限定Serviceアプリの証明書がホワイトリストに登録されていることを確認する
 
@@ -10977,7 +10501,7 @@ return hexadecimal.toString();
 
 以下、Messenger bind型のServiceを使用した例を示す。
 
-> ポイント（Serviceを作る）：
+ポイント（Serviceを作る）：
 
 1.  独自定義Signature Permissionを定義する
 
@@ -11432,7 +10956,7 @@ height="3.2743055555555554in"}
 
 次に自社限定Serviceを利用するActivityのサンプルコードを示す。
 
-> ポイント(Serviceを利用する)：
+ポイント(Serviceを利用する)：
 
 1.  独自定義Signature Permissionを利用宣言する
 
@@ -12277,7 +11801,7 @@ height="4.395833333333333in"}
 
 図 4.5‑1
 
-> ポイント：
+ポイント：
 
 1.  データベース作成にはSQLiteOpenHelperを使用する
 
@@ -13432,7 +12956,7 @@ SDカード等の外部記憶デバイスは十分なアクセス制御ができ
 同一アプリ内でのみ読み書きされるファイルを扱う場合であり、安全なファイルの使い方である。ファイルに格納する情報が公開可能かどうかに関わらず、できるだけファイルは非公開の状態で保持し、他アプリとの必要な情報のやり取りは別のAndroidの仕組み（Content
 Provider、Service)を利用して行うことを原則とする。
 
-> ポイント：
+ポイント：
 
 1.  ファイルは、アプリディレクトリ内に作成する
 
@@ -13828,7 +13352,7 @@ Level17以降ではdeprecatedとなっており、API Level 24
 以降ではセキュリティ例外が発生するため、Content
 Providerによるファイル共有方法が望ましい。
 
-> ポイント：
+ポイント：
 
 1.  ファイルは、アプリディレクトリ内に作成する
 
@@ -14274,7 +13798,7 @@ return path;
 
 以上のように、セキュリティの観点からもアプリ設計の観点からも、読み書き公開ファイルを安全に運用することは不可能であり、読み書き公開ファイルの使用は避けなければならない。
 
-> ポイント：
+ポイント：
 
 1.  他アプリから読み書き可能なアクセス権を設定したファイルは作らない
 
@@ -14287,7 +13811,7 @@ Permissionを利用宣言している不特定多数のアプリに対しては�
 
 Androidアプリの慣例として、バックアップファイルは外部記憶デバイス上に作成されることが多い。しかし外部記憶デバイス上のファイルは前述のようにマルウェアを含む他のアプリから改ざんや削除されてしまうリスクがある。ゆえにバックアップを出力するアプリでは「バックアップファイルは速やかにPC等の安全な場所にコピーしてください」といった警告表示をするなど、アプリの仕様や設計面でのリスク最小化の工夫も必要となる。
 
-> ポイント：
+ポイント：
 
 1.  センシティブな情報は格納しない
 
@@ -14912,7 +14436,7 @@ ProviderやServiceの中で非公開ファイルをオープンし、そのフ�
 以下では、Content
 Providerでファイルを共有する実装例(非公開Providerの場合)をサンプルコードとして掲載する。
 
-> ポイント
+ポイント
 
 1.  利用元アプリは自社アプリであるから、センシティブな情報を保存してよい
 2.  自社限定Content Providerアプリからの結果であっても、結果データの安全性を確認する
@@ -15542,7 +15066,7 @@ Intentという機能である。アプリは、URIスキームをManifestファ
 
 以下に、Browsable Intentを利用したアプリのサンプルコードを示す。
 
-> ポイント：
+ポイント：
 
 1.  (Webページ側)対応するURIスキーマを使ったリンクのパラメータにセンシティブな情報を含めない
 
@@ -15722,7 +15246,7 @@ DEBUGログとVERBOSEログは自動的に削除されるわけではない」�
 
 次ページ以降で、Log.d()/v()で出力する開発ログ情報を開発版アプリではログ出力し、リリース版アプリではログ出力しないサンプルコードを紹介する。このサンプルコードではLog.d()/v()呼び出しコードを自動削除するために、ProGuardを使用している。
 
-> ポイント：
+ポイント：
 
 1.  []{#_Ref342576300 .anchor}センシティブな情報はLog.e()/w()/i()、System.out/errで出力しない
 2.  [[]{#_Ref343526702 .anchor}]{#_Ref342576341 .anchor}センシティブな情報をログ出力する場合はLog.d()/v()で出力する
@@ -16183,7 +15707,7 @@ WebViewのサンプルコードを選択するフローチャート
 
 以下にWebViewを使用してassetsディレクトリ内にあるHTMLファイルを表示するサンプルコードを示す。
 
-> ポイント：
+ポイント：
 
 1.  assetsとresディレクトリ以外の場所に配置したファイルへのアクセスを禁止にする
 2.  JavaScriptを有効にしてよい
@@ -16260,7 +15784,7 @@ height="4.366141732283465in"}
 [[]{#_Ref348614297 .anchor}]{#_Ref348614818 .anchor}図
 4.9‑2アプリが読み込んでよい自社管理コンテンツ
 
-> ポイント：
+ポイント：
 
 1.  WebViewのSSL通信エラーを適切にハンドリングする
 2.  WebViewのJavaScriptを有効にしてもよい
@@ -16447,7 +15971,7 @@ return result.toString();
 インターネット上の自社管理コンテンツを表示する」と同様の方法によりハンドリングしている。HTTPS通信についての詳細は、「5.4
 HTTPSで通信する」を参照すること。
 
-> ポイント：
+ポイント：
 
 1.  HTTPS 通信の場合にはSSL通信のエラーを適切にハンドリングする
 
@@ -16838,7 +16362,7 @@ height="6.603472222222222in"}
 
 プライベート情報を含んだ通知を行うサンプルコードを以下に示す。
 
-> ポイント：
+ポイント：
 
 1.  プライベート情報を含んだ通知を行う場合は、公開用（画面ロック時の表示用）のNotification
     を用意する
