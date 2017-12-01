@@ -2545,38 +2545,54 @@ importantForAutofill 属性は、以下のいずれかの方法によって指�
 -   View\#setImportantForAutofill()を呼び出す
 
 以下に指定可能な値を示す。指定する範囲によって適切な値を使うこと。特に、"no"を指定した場合、指定したViewはAutofillの対象外になるが、子供はAutofillの対象になることに注意すること。デフォルト値は、"auto"となっている。
-```eval_rst
-+-----------------+-----------------+------------------------+------------------------+
-| 値              | 定数名          | Autofillの対象になるか |                        |
-+=================+=================+========================+========================+
-|                 |                 | 指定したView           | 子供のView             |       
-+-----------------+-----------------+------------------------+------------------------+
-| \"auto\"        | IMPORTANT\_FOR\ | Autofillフレームワーク | Autofillフレームワーク |
-|                 | _AUTOFILL\_AUTO | が決定                 | が決定                 |
-+-----------------+-----------------+------------------------+------------------------+
-| "no"            | IMPORTANT\_FOR\ | 対象外                 | 対象                   |
-|                 | _AUTOFILL\_NO   |                        |                        |
-+-----------------+-----------------+------------------------+------------------------+
-| \"noExcludeDesc | IMPORTANT\_FOR\ | 対象外                 | 対象外                 |
-| endants\"       | _AUTOFILL\_NO\_ |                        |                        |
-|                 | EXCLUDE\_DESCEN |                        |                        |
-|                 | DANTS           |                        |                        |
-+-----------------+-----------------+------------------------+------------------------+
-| "yes"           | IMPORTANT\_FOR\ | 対象                   | 対象                   |
-|                 | _AUTOFILL\_YES  |                        |                        |
-+-----------------+-----------------+------------------------+------------------------+
-| "noExcludeDesce | IMPORTANT\_FOR\ | 対象                   | 対象外                 |
-| ndants\"        | _AUTOFILL\_YES\ |                        |                        |
-|                 | _EXCLUDE\_DESCE |                        |                        |
-|                 | NDANTS          |                        |                        |
-+-----------------+-----------------+------------------------+------------------------+
-```
-> また、AutofillManager\#hasEnabledAutofillServices()を利用して、Autofill機能の利用を同一パッケージ内のAutofill
-> serviceに限定することも可能である。
->
-> 以下に、「設定」で同一パッケージ内のAutofill
-> serviceを利用するように設定されている場合のみ、Activityの全てのViewをAutofillの対象にする（実際にAutofillの対象になるかはAutofill
-> service次第）場合の例を示す。個別のViewに対してView\#setImportantForAutofill()を呼び出すことも可能である。
+
+<table border="yes" bordercolor="gray">
+	<tbody>
+		<tr bgcolor="lightgray">
+			<th rowspan="2">値</th>
+			<th rowspan="2">定数名</th>
+			<th colspan="2">Autofillの対象になるか</th>
+		</tr>
+		<tr bgcolor="lightgray">
+			<th width="10%">指定したView</th>
+			<th width="10%">子供のView</th>
+		</tr>
+		<tr>
+			<td>"auto"</td>
+			<td>IMPORTANT_FOR_AUTOFILL_AUTO</td>
+			<td>Autofillフレームワークが決定</td>
+			<td>Autofillフレームワークが決定</td>
+		</tr>
+		<tr>
+			<td>"no"</td>
+			<td>IMPORTANT_FOR_AUTOFILL_NO</td>
+			<td>対象外</td>
+			<td>対象</td>
+		</tr>
+		<tr>
+			<td>"noExcludeDescendants"</td>
+			<td>IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS</td>
+			<td>対象外</td>
+			<td>対象外</td>
+		</tr>
+		<tr>
+			<td>"yes"</td>
+			<td>IMPORTANT_FOR_AUTOFILL_YES</td>
+			<td>対象</td>
+			<td>対象</td>
+		</tr>
+		<tr>
+			<td>"noExcludeDescendants"</td>
+			<td>IMPORTANT_FOR_AUTOFILL_YES_EXCLUDE_DESCENDANTS</td>
+			<td>対象</td>
+			<td>対象外</td>
+		</tr>
+	</tbody>
+</table>
+
+また、AutofillManager\#hasEnabledAutofillServices()を利用して、Autofill機能の利用を同一パッケージ内のAutofill serviceに限定することも可能である。
+
+以下に、「設定」で同一パッケージ内のAutofill serviceを利用するように設定されている場合のみ、Activityの全てのViewをAutofillの対象にする（実際にAutofillの対象になるかはAutofill service次第）場合の例を示す。個別のViewに対してView\#setImportantForAutofill()を呼び出すことも可能である。
 >
 > DisableForOtherServiceActivity.java
 
@@ -4376,58 +4392,36 @@ height="3.2743055555555554in"}
 Broadcastを送受信する際には以下のルールを守ること。
 
 1.  アプリ内でのみ使用するBroadcast Receiverは非公開設定する （必須）
-
 2.  受信Intentの安全性を確認する （必須）
-
-3.  []{#_Ref333403783 .anchor}独自定義Signature
-    > Permissionは、自社アプリが定義したことを確認して利用する （必須）
-
-4.  結果情報を返す場合には、返送先アプリからの結果情報漏洩に注意する
-    > （必須）
-
-5.  センシティブな情報をBroadcast送信する場合は、受信可能なReceiverを制限する
-    > （必須）
-
+3.  []{#_Ref333403783 .anchor}独自定義Signature Permissionは、自社アプリが定義したことを確認して利用する （必須）
+4.  結果情報を返す場合には、返送先アプリからの結果情報漏洩に注意する （必須）
+5.  センシティブな情報をBroadcast送信する場合は、受信可能なReceiverを制限する （必須）
 6.  Sticky Broadcastにはセンシティブな情報を含めない （必須）
-
-7.  receiverPermissionパラメータの指定なしOrdered
-    > Broadcastは届かないことがあることに注意 （必須）
-
+7.  receiverPermissionパラメータの指定なしOrdered Broadcastは届かないことがあることに注意 （必須）
 8.  Broadcast Receiverからの返信データの安全性を確認する （必須）
-
-9.  資産を二次的に提供する場合には、その資産の従来の保護水準を維持する
-    > （必須）
+9.  資産を二次的に提供する場合には、その資産の従来の保護水準を維持する （必須）
 
 #### アプリ内でのみ使用するBroadcast Receiverは非公開設定する （必須）<!-- xfb214d9b -->
 
-アプリ内でのみ使用されるBroadcast
-Receiverは非公開設定する。これにより、他のアプリから意図せずBroadcastを受け取ってしまうことがなくなり、アプリの機能を利用されたり、アプリの動作に異常をきたしたりするのを防ぐことができる。
+アプリ内でのみ使用されるBroadcast Receiverは非公開設定する。これにより、他のアプリから意図せずBroadcastを受け取ってしまうことがなくなり、アプリの機能を利用されたり、アプリの動作に異常をきたしたりするのを防ぐことができる。
 
-同一アプリ内からのみ利用されるReceiverではIntent
-Filterを設置するような設計はしてはならない。Intent
-Filterの性質上、同一アプリ内の非公開Receiverを呼び出すつもりでも、Intent
-Filter経由で呼び出したときに意図せず他アプリの公開Receiverを呼び出してしまう場合が存在するからである。
+同一アプリ内からのみ利用されるReceiverではIntent Filterを設置するような設計はしてはならない。Intent Filterの性質上、同一アプリ内の非公開Receiverを呼び出すつもりでも、Intent Filter経由で呼び出したときに意図せず他アプリの公開Receiverを呼び出してしまう場合が存在するからである。
 
-> AndroidManifest.xml(非推奨)
+AndroidManifest.xml(非推奨)
+```eval_rst
+.. code-block:: xml
 
-\<!\-- 外部アプリに非公開とするBroadcast Receiver \--\>
+        <!-- 外部アプリに非公開とするBroadcast Receiver -->
+        <!-- ポイント1: exported=“false”とする -->
+        <receiver android:name=".PrivateReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="org.jssec.android.broadcast.MY_ACTION" />
+            </intent-filter>
+        </receiver>
+```
 
-\<!\-- ポイント1: exported="false"とする \--\>
-
-\<receiver android:name=\".PrivateReceiver\"
-
-android:exported=\"false\" \>
-
-\<intent-filter\>
-
-\<action android:name=\"org.jssec.android.broadcast.MY\_ACTION\" /\>
-
-\</intent-filter\>
-
-\</receiver\>
-
-「4.2.3.1 使用してよいexported
-設定とintent-filter設定の組み合わせ(Receiverの場合)」も参照すること。
+「4.2.3.1 使用してよいexported 設定とintent-filter設定の組み合わせ(Receiverの場合)」も参照すること。
 
 #### 受信Intentの安全性を確認する （必須）<!-- xadd09e1b -->
 
@@ -4538,13 +4532,17 @@ Permissionにより保護されている情報資産および機能資産を他�
 
 []{#_Ref350162028 .anchor}表 4.2‑2
 exported属性とintent-filter要素の組み合わせの使用可否
-
-                            exported属性の値              
-  ------------------------- ------------------ ---------- --------
-                            true               false      無指定
-  intent-filter定義がある   可                 原則禁止   禁止
-  intent-filter定義がない   可                 可         禁止
-
+```eval_rst
++-------------------------+--------------------------+
+|                         | exported属性の値         |
++                         +------+----------+--------+
+|                         | true | false    | 無指定 |
++=========================+======+==========+========+
+| intent-filter定義がある | 可   | 原則禁止 | 禁止   |
++-------------------------+------+----------+--------+
+| intent-filter定義がない | 可   | 可       | 禁止   |
++-------------------------+------+----------+--------+
+```
 Receiverのexported属性が無指定である場合にそのReceiverが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが[^7]、本ガイドではReceiverのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
 
 intent-filterを定義し、かつ、exported="false"を指定することを原則禁止としているのは、同一アプリ内の非公開Receiverに向けてBroadcastを送信したつもりでも、意図せず他アプリの公開Receiverを呼び出してしまう場合が存在するからである。以下の2つの図で意図せぬ呼び出しが起こる様子を説明する。
