@@ -1528,9 +1528,7 @@ Activityを作る際、またはActivityにIntentを送信する際には以下�
 
 AndroidManifest.xml
 
-```eval_rst
-.. code-block:: xml
-
+``` xml
         <!-- 非公開Activity -->
         <!-- ★ポイント3★ exported="false"により、明示的に非公開設定する -->
         <activity
@@ -1543,9 +1541,7 @@ AndroidManifest.xml
 
 AndroidManifest.xml(非推奨)
 
-```eval_rst
-.. code-block:: xml
-
+``` xml
         <!-- 非公開Activity -->
         <!-- ★ポイント3★ exported="false"により、明示的に非公開設定する -->
         <activity
@@ -1570,9 +1566,7 @@ Androidでは、Activityはタスクによって管理される。タスクの�
 
 AndroidManifest.xml
 
-```eval_rst
-.. code-block:: xml
-
+``` xml
     <!-- ★ポイント1★ taskAffinityを指定しない -->
     <application
         android:icon="@drawable/ic_launcher"
@@ -1606,9 +1600,7 @@ Activityの起動モードはAndroidManifest.xml内にてandroid:launchModeで�
 
 AndroidManifest.xml
 
-```eval_rst
-.. code-block:: xml
-
+``` xml
         <!-- ★ポイント2★ ActivityにはlaunchModeを指定せず、値をデフォルトのまま”standard”とする -->
         <activity
             android:name=".PrivateUserActivity"
@@ -1636,9 +1628,7 @@ Activityの起動モードはstartActivity()あるいはstartActivityForResult()
 Activityの起動モードを変更するには、setFlags()やaddFlags()を用いてIntentにフラグを設定し、そのIntentをstartActivity()またはstartActivityForResult()の引数とする。タスクを新規に生成するためのフラグはFLAG\_ACTIVITY\_NEW\_TASKである。FLAG\_ACTIVITY\_NEW\_TASKが設定されると、呼び出されたActivityのタスクがバックグラウンドあるいはフォアグラウンド上に存在しない場合に、新規にタスクが生成される。FLAG\_ACTIVITY\_MULTIPLE\_TASK はFLAG\_ACTIVITY\_NEW\_TASKと同時に設定することもできる。この場合には、タスクが必ず新規生成される。どちらの設定もタスクを生成する可能性があるため、センシティブな情報を扱うIntentには設定しないようにすべきである。
 
 Intentの送信例
-```eval_rst
-.. code-block:: java
-
+``` java
         Intent intent = new Intent();
 
         // ★ポイント6★ Activityに送信するIntentには、フラグFLAG_ACTIVITY_NEW_TASKを設定しない
@@ -1672,9 +1662,7 @@ Activityのタイプによって、setResult()を用いて結果情報を返送�
 このようにActivityから結果情報を返す場合には、返送先アプリからの結果情報の漏洩に配慮しなければならない。
 
 結果情報を返送する場合の例
-```eval_rst
-.. code-block:: java
-
+``` java
     public void onReturnResultClick(View view) {
 
         // ★ポイント6★ パートナーアプリに開示してよい情報に限り返送してよい
@@ -1692,17 +1680,13 @@ Activityのタイプによって、setResult()を用いて結果情報を返送�
 処理を任せるアプリ（のActivity）をユーザーに選択させるなど、利用先Activityを実行時に決定したい場合を除けば、利用先Activityはあらかじめ特定できる。このようなActivityを利用する場合には明示的Intentを利用すべきである。
 
 同一アプリ内のActivityを明示的Intentで利用する
-```eval_rst
-.. code-block:: java
-
+``` java
         Intent intent = new Intent(this, PictureActivity.class);
         intent.putExtra("BARCODE", barcode);
         startActivity(intent);
 ```
 他のアプリの公開Activityを明示的Intentで利用する
-```eval_rst
-.. code-block:: java
-
+``` java
         Intent intent = new Intent();
         intent.setClassName(
             "org.jssec.android.activity.publicactivity",
@@ -2438,9 +2422,7 @@ Activityを利用する際にActivityManagerがIntentの内容をLogCatに出力
 次のようにメール送信するとLogCatにメールアドレスが表示されてしまう
 
 MainActivity.java
-```eval_rst
-.. code-block:: java
-
+``` java
         // URIはLogCatに出力される
         Uri uri = Uri.parse("mailto:test@gmail.com");
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
@@ -2450,9 +2432,7 @@ MainActivity.java
 次のようにExtrasを使用するとLogCatにメールアドレスが表示されなくなる
 
 MainActivity.java
-```eval_rst
-.. code-block:: java
-
+``` java
         // Extraに設定した内容はLogCatに出力されない
         Uri uri = Uri.parse("mailto:");
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
@@ -2470,9 +2450,7 @@ PreferenceActivityを継承したクラスが公開Activityとなっている場
 
 overrideしたisValidFragment()メソッドの例
 
-```eval_rst
-.. code-block:: java
-
+``` java
     protected boolean isValidFragment(String fragmentName) {
         // 難読化時の対応は別途行うこと
         return PreferenceFragmentA.class.getName().equals(fragmentName)
@@ -4408,9 +4386,7 @@ Broadcastを送受信する際には以下のルールを守ること。
 同一アプリ内からのみ利用されるReceiverではIntent Filterを設置するような設計はしてはならない。Intent Filterの性質上、同一アプリ内の非公開Receiverを呼び出すつもりでも、Intent Filter経由で呼び出したときに意図せず他アプリの公開Receiverを呼び出してしまう場合が存在するからである。
 
 AndroidManifest.xml(非推奨)
-```eval_rst
-.. code-block:: xml
-
+``` xml
         <!-- 外部アプリに非公開とするBroadcast Receiver -->
         <!-- ポイント1: exported=“false”とする -->
         <receiver android:name=".PrivateReceiver"
@@ -4645,28 +4621,45 @@ Broadcastの特徴的な振る舞いの視点で、上表を逆引き的に再�
 
 Broadcastの送受信は基本的にLogCatに出力されない。しかし、受信側のPermission不足によるエラーや、送信側のPermission不足によるエラーの際にLogCatにエラーログが出力される。エラーログにはBroadcastで送信するIntent情報も含まれるので、エラー発生時にはBroadcast送信する場合はLogCatに表示されることに注意してほしい。
 
-> 送信側のPermission不足時のエラー
-
+送信側のPermission不足時のエラー
+```
 W/ActivityManager(266): Permission Denial: broadcasting Intent {
 act=org.jssec.android.broadcastreceiver.creating.action.MY\_ACTION }
 from org.jssec.android.broadcast.sending (pid=4685, uid=10058) requires
 org.jssec.android.permission.MY\_PERMISSION due to receiver
 org.jssec.android.broadcastreceiver.creating/org.jssec.android.broadcastreceiver.creating.CreatingType3Receiver
+```
 
-> 受信側のPermission不足時のエラー
-
+受信側のPermission不足時のエラー
+```
 W/ActivityManager(275): Permission Denial: receiving Intent {
 act=org.jssec.android.broadcastreceiver.creating.action.MY\_ACTION } to
 org.jssec.android.broadcastreceiver.creating requires
 org.jssec.android.permission.MY\_PERMISSION due to sender
 org.jssec.android.broadcast.sending (uid 10158)
+```
 
 #### ホーム画面（アプリ）にショートカットを配置する際の注意点<!-- xe28e0492 -->
 
 ホーム画面にアプリを起動するためのショートカットボタンやWebブラウザのブックマークのようなURLショートカットを作成する場合の注意点について説明する。例として、以下のような実装を考えてみる。
 
-> ホーム画面（アプリ）にショートカットを配置する
+ホーム画面（アプリ）にショートカットを配置する
+``` java
+        Intent targetIntent = new Intent(this, TargetActivity.class);
 
+       // ショートカット作成依頼のためのIntent
+        Intent intent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+
+        // ショートカットのタップ時に起動するIntentを指定
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, targetIntent);
+        Parcelable icon = Intent.ShortcutIconResource.fromContext(context, iconResource);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
+        intent.putExtra("duplicate", false);
+
+        // BroadCastを使って、システムにショートカット作成を依頼する
+        context.sendBroadcast(intent);
+```
 Intent targetIntent = new Intent(this, TargetActivity.class);
 
 // ショートカット作成依頼のためのIntent
