@@ -65,7 +65,12 @@ TextView.setCustomSelectionActionModeCallback()メソッドによって、文字
 
 1.  文字列選択時のメニューからandroid.R.id.cutを削除する。
 
-> UncopyableActivity.java
+UncopyableActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\LeakageViaClipboard.UncopyableActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.clipboard.leakage;
 
@@ -195,7 +200,12 @@ Click)を無効にすることでも実現できる。Viewの長押し無効化�
 
 1.  コピー･カットを禁止するViewはandroid:longClickableをfalseにする。
 
-> unlongclickable.xml
+unlongclickable.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\UnlongClickableEditview.app.src.main.res.layout.unlongclickable.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<LinearLayout
 xmlns:android=\"http://schemas.android.com/apk/res/android\"
@@ -281,7 +291,12 @@ Clipboardに格納されている情報(ClipDataと呼ぶ)は、ClipboardManager
 
 以下、端末内でコピー・カットが発生する度にClipDataを取得し、Toastで表示するServiceのソースコードを示す。下記のような簡単なコードによりClipboardに格納された情報が筒抜けになってしまうことを実感していただきたい。アプリを実装する際は、少なくとも下記のコードによってセンシティブな情報が取得されてしまうことのないように注意する必要がある。
 
-> ClipboardListeningService.java
+ClipboardListeningService.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\ClipboardListening.ClipboardListeningService.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.clipboard;
 
@@ -390,7 +405,12 @@ Toast.LENGTH\_SHORT)
 
 次に、上記ClipboardListeningServiceを利用するActivityのソースコードの例を示す。
 
-> ClipboardListeningActivity.java
+ClipboardListeningActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\ClipboardListening.ClipboardListeningActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.clipboard;
 

@@ -29,7 +29,12 @@ height="3.345138888888889in"}
 
 3.  前回入力パスワードをダミー表示しているとき、ユーザーがパスワードを入力しようとした場合、前回入力パスワードをクリアし、ユーザーの入力を新たなパスワードとして扱う
 
-> password_activity.xml
+password_activity.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Password PasswordInputUI.app.src.main.res.layout.password_activity.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -142,7 +147,12 @@ android:text=\"@android:string/ok\" /\>
 
 -   private void onClickOkButton(View view)
 
-> PasswordActivity.java
+PasswordActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Password PasswordInputUI.PasswordActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.password.passwordinputui;
 
@@ -857,7 +867,12 @@ height="2.0933070866141734in"}
     Permissionが自社アプリにより定義されていることを確認する
 4.  Componentを利用するアプリと同じ開発者鍵でAPKを署名する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Permission CustomSignaturePermission ProtectedApp.permissionCustomSignaturePermissionProtectedApp.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -905,7 +920,12 @@ ComponentがActivityの場合にはintent-filterを定義しない \--\>
 
 \</manifest\>
 
-> ProtectedActivity.java
+ProtectedActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Permission CustomSignaturePermission ProtectedApp.ProtectedActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.permission.protectedapp;
 
@@ -991,7 +1011,12 @@ Permissionが自社アプリにより定義されていることを確認でき�
 
 }
 
-> SigPerm.java
+SigPerm.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.SigPerm.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -1051,7 +1076,12 @@ return null;
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -1168,7 +1198,12 @@ height="3.2817082239720037in"}
 
 5.  Componentを提供するアプリと同じ開発者鍵でAPKを署名する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Permission CustomSignaturePermission UserApp.permissionCustomSignaturePermissionUserApp.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -1216,7 +1251,12 @@ android:exported=\"true\" \>
 
 \</manifest\>
 
-> UserActivity.java
+UserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Permission CustomSignaturePermission UserApp.UserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.permission.userapp;
 
@@ -1343,7 +1383,12 @@ Toast.LENGTH\_LONG).show();
 
 }
 
-> PkgCertWhitelists.java
+PkgCertWhitelists.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCertWhitelists.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -1393,7 +1438,12 @@ return PkgCert.test(ctx, pkgname, correctHash);
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -1627,7 +1677,12 @@ Android 6.0以降のPermissionモデルについての詳細は「5.2.3.6 Androi
 
 5.  Permissionの利用が許可されていない場合の処理を実装する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PermissionRequestingPermissionAtRunTime.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -1685,7 +1740,12 @@ android:exported=\"false\"\>
 
 \</manifest\>
 
-> MainActivity.java
+MainActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PermissionRequestingPermissionAtRunTime.MainActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package
 org.jssec.android.permission.permissionrequestingpermissionatruntime;
@@ -2144,7 +2204,12 @@ APKの改ざんを行うには、APKファイルを一度展開し、内容を�
 
 1.  主要な処理を行うまでの間に、アプリの証明書が開発者の証明書であることを確認する
 
-> SignatureCheckActivity.java
+SignatureCheckActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Permission ActivitySignatureCheck.SignatureCheckActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.permission.signcheckactivity;
 
@@ -2219,7 +2284,12 @@ Toast.makeText(this, \"自己署名の照合　OK\", Toast.LENGTH\_LONG).show();
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -2586,7 +2656,12 @@ Manager経由で間接的に呼び出されることに注意してほしい。
 AndroidManifest.xmlにてAuthenticatorのIBinderをAccount
 Managerに提供するサービスを定義。meta-dataにてAuthenticatorを記述したリソースXMLファイルを指定。
 
-> AccountManager Authenticator/AndroidManifest.xml
+AccountManager Authenticator/AndroidManifest.xml
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\AccountManager Authenticator.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
@@ -2662,7 +2737,12 @@ tools:ignore=\"ExportedActivity\" /\>
 
 XMLファイルでAuthenticatorを定義。独自アカウントのアカウントタイプ等を指定する。
 
-> res/xml/authenticator.xml
+res/xml/authenticator.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\AccountManager Authenticator.app.src.main.res.xml.authenticator.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<account-authenticator
 xmlns:android=\"http://schemas.android.com/apk/res/android\"
@@ -2680,7 +2760,12 @@ android:customTokens=\"true\" /\>
 AuthenticatorのインスタンスをAccount
 Managerに提供するサービス。このサンプルで実装するAuthenticatorであるJssecAuthenticatorクラスのインスタンスをonBind()でreturnするだけの簡単な実装でよい。
 
-> AuthenticationService.java
+AuthenticationService.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\AccountManager Authenticator.AuthenticationService.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.accountmanager.authenticator;
 
@@ -2716,7 +2801,12 @@ return mAuthenticator.getIBinder();
 Managerから呼ばれる。addAccount()およびgetAuthToken()では、オンラインサービスから認証トークンを取得するためのLoginActivityを起動するintentをAccount
 Managerに返している。
 
-> JssecAuthenticator.java
+JssecAuthenticator.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\AccountManager Authenticator.JssecAuthenticator.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.accountmanager.authenticator;
 
@@ -2920,7 +3010,12 @@ return false;
 
 オンラインサービスにアカウント名、パスワードを送信してログイン認証を行い、その結果として認証トークンを取得するLoginActivity。新規アカウント追加および認証トークン再取得の場合に表示される。オンラインサービスへの実際のアクセスはWebServiceクラス内で実装されるものとしている。
 
-> LoginActivity.java
+LoginActivity.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\AccountManager Authenticator.LoginActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.accountmanager.authenticator;
 
@@ -3109,7 +3204,12 @@ finish();
 
 実際にはWebServiceクラスはダミー実装となっており、常に認証が成功し固定文字列を認証トークンとして返すサンプル実装になっている。
 
-> WebService.java
+WebService.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\AccountManager Authenticator.WebService.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.accountmanager.webservice;
 
@@ -3169,7 +3269,12 @@ height="2.296456692913386in"}
 利用アプリのAndroidManifest.xml。必要なPermissionを利用宣言。必要なPermissionについては「5.3.3.1
 Account Managerの利用とPermission」を参照。
 
-> AccountManager User/AndroidManifest.xml
+AccountManager User/AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\AccountManager User.accountManagerUser.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
@@ -3217,7 +3322,12 @@ android:exported=\"true\" \>
 
 利用アプリのActivity。画面上のボタンをタップするとaddAcount()またはgetAuthToken()が実行される。指定のアカウントタイプに対応したAuthenticatorが偽物であるケースがあるので、正規のAuthenticatorであることを確認してからアカウント処理を始めていることに注意。
 
-> UserActivity.java
+UserActivity.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\AccountManager User.UserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.accountmanager.user;
 
@@ -3511,7 +3621,12 @@ log(\"\\n\");
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -3945,7 +4060,12 @@ HTTPS通信する」や「5.4.1.3
 
 2.  受信データが攻撃者からの送信データである場合を想定する
 
-> HttpImageSearch.java
+HttpImageSearch.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\HTTPS ImageSearch.HttpImageSearch.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.https.imagesearch;
 
@@ -4158,7 +4278,12 @@ throw new IOException(\"HttpStatus: \" + statusCode);
 
 }
 
-> ImageSearchActivity.java
+ImageSearchActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\HTTPS ImageSearch.ImageSearchActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.https.imagesearch;
 
@@ -4317,7 +4442,12 @@ mImgBox.setImageBitmap(bmp);
 
 }
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\HTTPS ImageSearch.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
@@ -4391,7 +4521,12 @@ POODLE）に対する攻撃を回避するためには、接続先サーバー�
 
 4.  SSLExceptionに対してアプリに適した例外処理を行う
 
-> HttpsImageSearch.java
+HttpsImageSearch.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\HTTPS ImageSearch.HttpsImageSearch.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.https.imagesearch;
 
@@ -4624,7 +4759,12 @@ throw new IOException(\"HttpStatus: \" + statusCode);
 
 5.  SSLExceptionに対しユーザーに通知する等の適切な例外処理をする
 
-> PrivateCertificateHttpsGet.java
+PrivateCertificateHttpsGet.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\HTTPS PrivateCertificate.PrivateCertificateHttpsGet.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.https.privatecertificate;
 
@@ -4870,7 +5010,12 @@ public class KeyStoreUtil {
 }
 ```
 
-> PrivateCertificateHttpsActivity.java
+PrivateCertificateHttpsActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\HTTPS PrivateCertificate.PrivateCertificateHttpsActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.https.privatecertificate;
 
@@ -5526,7 +5671,12 @@ Configurationで以下のような設定を行えば、デバック�
 
 8.  アプリ・プライバシーポリシー概要版をassetsフォルダ内に配置しておく
 
-> MainActivity.java
+MainActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PrivacyPolicy.MainActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.privacypolicy;
 
@@ -6135,7 +6285,12 @@ Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
 
 }
 
-> ConfirmFragment.java
+ConfirmFragment.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PrivacyPolicy.ConfirmFragment.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.privacypolicy;
 
@@ -6309,7 +6464,12 @@ mListener = listener;
 
 }
 
-> WebViewAssetsActivity.java
+WebViewAssetsActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PrivacyPolicy.WebViewAssetsActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.privacypolicy;
 
@@ -6370,7 +6530,12 @@ webView.loadUrl(ABST\_PP\_URL);
 
 6.  アプリ・プライバシーポリシー概要版をassetsフォルダ内に配置しておく
 
-> MainActivity.java
+MainActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PrivacyPolicyNoPreConfirm.MainActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.privacypolicynopreconfirm;
 
@@ -6804,7 +6969,12 @@ Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
 
 }
 
-> ConfirmFragment.java
+ConfirmFragment.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PrivacyPolicyNoPreConfirm.ConfirmFragment.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.privacypolicynopreconfirm;
 
@@ -6975,7 +7145,12 @@ mListener = listener;
 
 }
 
-> WebViewAssetsActivity.java
+WebViewAssetsActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PrivacyPolicyNoPreConfirm.WebViewAssetsActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.privacypolicynopreconfirm;
 
@@ -7034,7 +7209,12 @@ webView.loadUrl(ABST\_PP\_URL);
 
 4.  アプリ・プライバシーポリシー概要版をassetsフォルダ内に配置しておく
 
-> MainActivity.java
+MainActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PrivacyPolicyNoComprehensive.MainActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.privacypolicynocomprehensive;
 
@@ -7330,7 +7510,12 @@ Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
 
 }
 
-> WebViewAssetsActivity.java
+WebViewAssetsActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PrivacyPolicyNoComprehensive.WebViewAssetsActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.privacypolicynocomprehensive;
 
@@ -7382,7 +7567,12 @@ webView.loadUrl(ABST\_PP\_URL);
 
 1.  マーケットプレイス等のアプリ説明欄に、取得した情報を外部送信しない旨を記載する
 
-> MainActivity.java
+MainActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\PrivacyPolicyNoInfoSent.MainActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.privacypolicynoinfosent;
 
@@ -7835,7 +8025,12 @@ height="2.933333333333333in"}
 
 4.  十分安全な長さを持つ鍵を利用する
 
-> AesCryptoPBEKey.java
+AesCryptoPBEKey.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\CryptSymmetricPasswordBasedKey.AesCryptoPBEKey.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.cryptsymmetricpasswordbasedkey;
 
@@ -8102,7 +8297,12 @@ return secretKey;
 
 2.  十分安全な長さを持つ鍵を利用する
 
-> RsaCryptoAsymmetricKey.java
+RsaCryptoAsymmetricKey.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\CryptAsymmetricKey.RsaCryptoAsymmetricKey.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.cryptasymmetrickey;
 
@@ -8333,7 +8533,12 @@ return privateKey;
 
 2.  十分安全な長さを持つ鍵を利用する
 
-> AesCryptoPreSharedKey.java
+AesCryptoPreSharedKey.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\CryptSymmetricPreSharedKey.AesCryptoPreSharedKey.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.cryptsymmetricpresharedkey;
 
@@ -8541,7 +8746,12 @@ return secretKey;
 
 4.  十分安全な長さを持つ鍵を利用する
 
-> HmacPBEKey.java
+HmacPBEKey.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\SignSymmetricPasswordBasedKey.HmacPBEKey.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.signsymmetricpasswordbasedkey;
 
@@ -8751,7 +8961,12 @@ return secretKey;
 
 2.  十分安全な長さを持つ鍵を利用する
 
-> RsaSignAsymmetricKey.java
+RsaSignAsymmetricKey.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\SignAsymmetricKey.RsaSignAsymmetricKey.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.signasymmetrickey;
 
@@ -8970,7 +9185,12 @@ return privateKey;
 
 2.  十分安全な長さを持つ鍵を利用する
 
-> HmacPreSharedKey.java
+HmacPreSharedKey.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\SignSymmetricPreSharedKey.HmacPreSharedKey.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.signsymmetricpresharedkey;
 
@@ -9598,7 +9818,12 @@ public class MainActivity extends Activity
 
 6.  暗号化するデータは、指紋認証以外の手段で復元（代替）可能なものに限る
 
-> MainActivity.java
+MainActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\FingerprintAuthentication.MainActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package
 authentication.fingerprint.android.jssec.org.fingerprintauthentication;
@@ -9843,7 +10068,12 @@ setAuthenticationState(false);
 
 }
 
-> FingerprintAuthentication.java
+FingerprintAuthentication.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\FingerprintAuthentication.FingerprintAuthentication.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package
 authentication.fingerprint.android.jssec.org.fingerprintauthentication;
@@ -10149,7 +10379,12 @@ throw new RuntimeException(\"failed to init Cipher\", e);
 
 }
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\FingerprintAuthentication.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
