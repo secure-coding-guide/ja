@@ -121,7 +121,12 @@ Activityを呼び出す際に使用するIntentは第三者によって読み取
 
 ホワイトリストを用いたアプリの確認方法については、「4.1.3.2 利用元アプリを確認する」を参照すること。また、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「5.2.1.3 アプリの証明書のハッシュ値を確認する方法」を参照すること。
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity PartnerActivity.activityPartnerActivity.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -156,7 +161,12 @@ android:exported=\"true\" /\>
 
 \</manifest\>
 
-> PartnerActivity.java
+PartnerActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity PartnerActivity.PartnerActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.activity.partneractivity;
 
@@ -264,7 +274,13 @@ finish();
 
 }
 
-> PkgCertWhitelists.java
+PkgCertWhitelists.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCertWhitelists.java
+   :language: java
+   :encoding: shift-jis
+```
+
 
 package org.jssec.android.shared;
 
@@ -314,7 +330,12 @@ return PkgCert.test(ctx, pkgname, correctHash);
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -426,7 +447,12 @@ return hexadecimal.toString();
 利用元アプリを確認する」を参照すること。また、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「5.2.1.3
 アプリの証明書のハッシュ値を確認する方法」を参照すること。
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity PartnerUser.activityPartnerUser.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -464,7 +490,12 @@ android:exported=\"true\" \>
 
 \</manifest\>
 
-> PartnerUserActivity.java
+PartnerUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity PartnerUser.PartnerUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.activity.partneruser;
 
@@ -627,7 +658,12 @@ break;
 
 }
 
-> PkgCertWhitelists.java
+PkgCertWhitelists.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCertWhitelists.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -677,7 +713,12 @@ return PkgCert.test(ctx, pkgname, correctHash);
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -800,7 +841,12 @@ Activityを呼び出す際に使用するIntentは第三者によって読み取
 
 8.  利用元アプリと同じ開発者鍵でAPKを署名する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity InhouseActivity.activityInhouseActivity.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -850,7 +896,12 @@ android:permission=\"org.jssec.android.activity.inhouseactivity.MY\_PERMISSION\"
 
 \</manifest\>
 
-> InhouseActivity.java
+InhouseActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity InhouseActivity.InhouseActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.activity.inhouseactivity;
 
@@ -959,7 +1010,12 @@ finish();
 
 }
 
-> SigPerm.java
+SigPerm.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.SigPerm.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -1019,7 +1075,12 @@ return null;
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -1137,7 +1198,12 @@ height="3.2743055555555554in"}
 
 7.  利用先アプリと同じ開発者鍵でAPKを署名する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity InhouseUser.activityInhouseUser.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -1182,7 +1248,12 @@ android:exported=\"true\" \>
 
 \</manifest\>
 
-> InhouseUserActivity.java
+InhouseUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity InhouseUser.InhouseUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.activity.inhouseuser;
 
@@ -1346,7 +1417,12 @@ break;
 
 }
 
-> SigPerm.java
+SigPerm.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.SigPerm.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -1406,7 +1482,12 @@ return null;
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -1786,7 +1867,12 @@ Permissionによる防御手法は利用できない。
 
 2つ目の制約事項はいわば1つ目の制約事項の結果として課される制約であるので、厳密には1つの同じ制約と言える。この制約は呼び出し元アプリのパッケージ名を取得するActivity.getCallingPackage()の制約により生じている。Activity.getCallingPackage()はstartActivityForResult()で呼び出された場合にのみ利用元アプリのパッケージ名を返すが、残念ながらstartActivity()で呼び出された場合にはnullを返す仕様となっている。そのためここで紹介する方法は必ず利用元アプリが、たとえ戻り値が不要であったとしても、startActivityForResult()を使わなければならないという制約がある。さらにstartActivityForResult()はActivityクラスでしか使えないため、利用元はActivityに限定されるという制約もある。
 
-> PartnerActivity.java
+PartnerActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity PartnerActivity.PartnerActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.activity.partneractivity;
 
@@ -1894,7 +1980,12 @@ finish();
 
 }
 
-> PkgCertWhitelists.java
+PkgCertWhitelists.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCertWhitelists.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -1944,7 +2035,12 @@ return PkgCert.test(ctx, pkgname, correctHash);
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -2050,7 +2146,12 @@ Android 5.0(API Level
 アプリからタスク履歴を参照するためのサンプルコードを以下に示す。タスク履歴を参照するためには、AndroidManifest.xmlにGET\_TASKS
 Permissionの利用を指定する。
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity MaliciousActivity.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
@@ -2092,7 +2193,12 @@ android:exported=\"true\" \>
 
 \</manifest\>
 
-> MaliciousActivity.java
+MaliciousActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity MaliciousActivity.MaliciousActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.intent.maliciousactivity;
 
@@ -2222,7 +2328,12 @@ Activityはアフィニティの値に従って所属するタスクが決まる
 
 非公開Activityに送信されるIntentが他アプリから読み取られる例として、非公開Activityの呼び出し側Activityを"singleInstance"モードで起動する場合のサンプルコードを以下に示す。このサンプルコードでは、非公開Activityが"standard"モードで起動されるが、呼び出し側Activityの"singleInstance"モードの条件により、非公開Activityは新規タスクのルートActivityとなってしまう。この時、非公開Activityに送信されるセンシティブな情報はタスク履歴に記録されるため、任意のアプリから読み取り可能である。なお、呼び出し側Activity、非公開Activityともに同一のアフィニティを持つ。
 
-> AndroidManifest.xml(非推奨)
+AndroidManifest.xml(非推奨)
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity SingleInstanceActivity.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -2282,7 +2393,12 @@ android:exported=\"false\" /\>
 
 非公開Activityは、受信したIntentに対して結果を返すのみである。
 
-> PrivateActivity.java
+PrivateActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity SingleInstanceActivity.PrivateActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.activity.singleinstanceactivity;
 
@@ -2333,7 +2449,12 @@ finish();
 
 非公開Activityの呼び出し側では、Intentにフラグを設定せずに、"standard"モードで非公開Activityを起動している。
 
-> PrivateUserActivity.java
+PrivateUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Activity SingleInstanceActivity.PrivateUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.activity.singleinstanceactivity;
 
@@ -2572,7 +2693,12 @@ importantForAutofill 属性は、以下のいずれかの方法によって指�
 
 以下に、「設定」で同一パッケージ内のAutofill serviceを利用するように設定されている場合のみ、Activityの全てのViewをAutofillの対象にする（実際にAutofillの対象になるかはAutofill service次第）場合の例を示す。個別のViewに対してView\#setImportantForAutofill()を呼び出すことも可能である。
 >
-> DisableForOtherServiceActivity.java
+DisableForOtherServiceActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Autofill Sample.DisableForOtherServiceActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.autofillframework.autofillapp;
 
@@ -2811,7 +2937,12 @@ Receiverでは静的Broadcast Receiverだけで構成される。
 
 2.  結果を返す場合、送信元は同一アプリ内であるから、センシティブな情報を返送してよい
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\Broadcast PrivateReceiver.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -2860,7 +2991,12 @@ android:exported=\"true\"\>
 
 \</manifest\>
 
-> PrivateReceiver.java
+PrivateReceiver.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\Broadcast PrivateReceiver.PrivateReceiver.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.broadcast.privatereceiver;
 
@@ -2916,7 +3052,12 @@ abortBroadcast();
 
 3.  同一アプリ内Receiverからの結果情報であっても、受信データの安全性を確認する
 
-> PrivateSenderActivity.java
+PrivateSenderActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Broadcast PrivateReceiver.PrivateSenderActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.broadcast.privatereceiver;
 
@@ -3034,7 +3175,12 @@ Receiverである。マルウェアが送信したBroadcastを受信すること
 Receiverは、静的Broadcast Receiverおよび動的Broadcast
 Receiverの両方で利用される。
 
-> PublicReceiver.java
+PublicReceiver.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\Broadcast PublicReceiver.PublicReceiver.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.broadcast.publicreceiver;
 
@@ -3108,7 +3254,12 @@ abortBroadcast();
 
 静的Broadcast ReceiverはAndroidManifest.xmlで定義する。
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\Broadcast PublicReceiver.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -3175,7 +3326,12 @@ ReceiverインスタンスはPublicReceiverActivityより生存期間が長い�
 Receiverのインスタンスを保持させ、DynamicReceiverServiceをPublicReceiverActivityから開始／終了することにより動的Broadcast
 Receiverを間接的に登録／登録解除している。
 
-> DynamicReceiverService.java
+DynamicReceiverService.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\Broadcast PublicReceiver.DynamicReceiverService.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.broadcast.publicreceiver;
 
@@ -3256,7 +3412,12 @@ Toast.LENGTH\_SHORT).show();
 
 }
 
-> PublicReceiverActivity.java
+PublicReceiverActivity.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\Broadcast PublicReceiver.PublicReceiverActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.broadcast.publicreceiver;
 
@@ -3308,7 +3469,12 @@ ReceiverにBroadcastを送信する場合、送信するBroadcastがマルウェ
 
 2.  結果を受け取る場合、結果データの安全性を確認する
 
-> PublicSenderActivity.java
+PublicSenderActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Broadcast PublicSender.PublicSenderActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.broadcast.publicsender;
 
@@ -3475,7 +3641,12 @@ Receiverである。複数の自社製アプリでシステムを構成し、自
 ReceiverのサンプルコードであるProprietaryReciverは、静的Broadcast
 Receiverおよび動的Broadcast Receiverの両方で利用される。
 
-> InhouseReceiver.java
+InhouseReceiver.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\Broadcast InhouseReceiver.InhouseReceiver.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.broadcast.inhousereceiver;
 
@@ -3592,7 +3763,12 @@ abortBroadcast();
 
 静的Broadcast ReceiverはAndroidManifest.xmlで定義する。
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Broadcast InhouseReceiver.broadcastInhouseReceiver.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -3681,7 +3857,12 @@ ReceiverインスタンスはProprietaryReceiverActivityより生存期間が長
 Receiverのインスタンスを保持させ、DynamicReceiverServiceをProprietaryReceiverActivityから開始／終了することにより動的Broadcast
 Receiverを間接的に登録／登録解除している。
 
-> InhouseReceiverActivity.java
+InhouseReceiverActivity.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\Broadcast InhouseReceiver.InhouseReceiverActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.broadcast.inhousereceiver;
 
@@ -3721,7 +3902,12 @@ stopService(intent);
 
 }}
 
-> DynamicReceiverService.java
+DynamicReceiverService.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\Broadcast InhouseReceiver.DynamicReceiverService.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.broadcast.inhousereceiver;
 
@@ -3802,7 +3988,12 @@ Toast.LENGTH\_SHORT).show();
 
 }
 
-> SigPerm.java
+SigPerm.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.SigPerm.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -3862,7 +4053,12 @@ return null;
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -3980,7 +4176,12 @@ height="3.2743055555555554in"}
 
 7.  Receiver側アプリと同じ開発者鍵でAPKを署名する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Broadcast InhouseSender.broadcastInhouseSender.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -4038,7 +4239,12 @@ android:exported=\"true\" \>
 
 \</manifest\>
 
-> InhouseSenderActivity.java
+InhouseSenderActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Broadcast InhouseSender.InhouseSenderActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.broadcast.inhousesender;
 
@@ -4206,7 +4412,12 @@ mLogView.append(\"\\n\");
 
 }
 
-> SigPerm.java
+SigPerm.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.SigPerm.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -4266,7 +4477,12 @@ return null;
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -4725,7 +4941,12 @@ Providerであり、もっとも安全性の高いContent Providerである[^9]�
 
 2.  利用元アプリは同一アプリであるから、センシティブな情報を返送してよい
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider PrivateProvider.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -4772,7 +4993,12 @@ android:exported=\"false\" /\>
 
 \</manifest\>
 
-> PrivateProvider.java
+PrivateProvider.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider PrivateProvider.PrivateProvider.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.privateprovider;
 
@@ -5106,7 +5332,12 @@ throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 2.  同一アプリ内からの結果情報であっても、受信データの安全性を確認する
 
-> PrivateUserActivity.java
+PrivateUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider PrivateProvider.PrivateUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.privateprovider;
 
@@ -5282,7 +5513,12 @@ Providerに成り済ましできない。
 
 1.  センシティブな情報を返送してはならない
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider PublicProvider.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -5310,7 +5546,12 @@ android:exported=\"true\"/\>
 
 \</manifest\>
 
-> PublicProvider.java
+PublicProvider.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider PublicProvider.PublicProvider.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.publicprovider;
 
@@ -5643,7 +5884,12 @@ throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 2.  結果データの安全性を確認する
 
-> PublicUserActivity.java
+PublicUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider PublicUser.PublicUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.publicuser;
 
@@ -5891,7 +6137,12 @@ Providerである。パートナー企業のアプリと自社アプリが連携
 
 2.  パートナーアプリに開示してよい情報に限り返送してよい
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider PartnerProvider.providerPartnerProvider.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -5919,7 +6170,12 @@ android:exported=\"true\"/\>
 
 \</manifest\>
 
-> PartnerProvider.java
+PartnerProvider.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider PartnerProvider.PartnerProvider.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.partnerprovider;
 
@@ -6374,7 +6630,12 @@ throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 3.  パートナー限定Content
     Providerアプリからの結果であっても、結果データの安全性を確認する
 
-> PartnerUserActivity.java
+PartnerUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider PartnerUser.PartnerUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.partneruser;
 
@@ -6658,7 +6919,12 @@ mLogView.append(\"\\n\");
 
 }
 
-> PkgCertWhitelists.java
+PkgCertWhitelists.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCertWhitelists.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -6708,7 +6974,12 @@ return PkgCert.test(ctx, pkgname, correctHash);
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -6827,7 +7098,12 @@ Providerである。複数の自社製アプリでシステムを構成し、自
 
 6.  利用元アプリと同じ開発者鍵でAPKを署名する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider InhouseProvider.providerInhouseProvider.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -6867,7 +7143,12 @@ android:exported=\"true\"/\>
 
 \</manifest\>
 
-> InhouseProvider.java
+InhouseProvider.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider InhouseProvider.InhouseProvider.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.inhouseprovider;
 
@@ -7261,7 +7542,12 @@ throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
-> SigPerm.java
+SigPerm.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.SigPerm.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -7321,7 +7607,12 @@ return null;
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -7440,7 +7731,12 @@ height="3.2743055555555554in"}
 
 6.  利用先アプリと同じ開発者鍵でAPKを署名する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider InhouseUser.inhouseUserActivity.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -7483,7 +7779,12 @@ android:exported=\"true\" \>
 
 \</manifest\>
 
-> InhouseUserActivity.java
+InhouseUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider InhouseUser.InhouseUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.inhouseuser;
 
@@ -7826,7 +8127,12 @@ mLogView.append(\"\\n\");
 
 }
 
-> SigPerm.java
+SigPerm.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.SigPerm.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -7886,7 +8192,12 @@ return null;
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -8015,7 +8326,12 @@ Provider側アプリが受動的にアクセス許可を与えることもでき
 
 7.  一時許可の要求元アプリにIntentを返信する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider TemporaryProvider.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -8079,7 +8395,12 @@ android:exported=\"true\" /\>
 
 \</manifest\>
 
-> TemporaryProvider.java
+TemporaryProvider.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider TemporaryProvider.TemporaryProvider.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.temporaryprovider;
 
@@ -8392,7 +8713,12 @@ throw new IllegalArgumentException(\"Invalid URI：\" + uri);
 
 }
 
-> TemporaryActiveGrantActivity.java
+TemporaryActiveGrantActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider TemporaryProvider.TemporaryActiveGrantActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.temporaryprovider;
 
@@ -8462,7 +8788,12 @@ Toast.LENGTH\_LONG).show();
 
 }
 
-> TemporaryPassiveGrantActivity.java
+TemporaryPassiveGrantActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider TemporaryProvider.TemporaryPassiveGrantActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.temporaryprovider;
 
@@ -8525,7 +8856,12 @@ finish();
 
 2.  結果データの安全性を確認する
 
-> TemporaryUserActivity.java
+TemporaryUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Provider TemporaryUser.TemporaryUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.provider.temporaryuser;
 
@@ -8835,7 +9171,12 @@ Serviceの実装方法について」および各Serviceタイプのサンプル
 
 2.  結果を返す場合、利用元アプリは同一アプリであるから、センシティブな情報を返送してよい
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service PrivateService.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -8891,7 +9232,12 @@ android:exported=\"false\"/\>
 
 \</manifest\>
 
-> PrivateStartService.java
+PrivateStartService.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service PrivateService.PrivateStartService.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.service.privateservice;
 
@@ -8976,7 +9322,12 @@ return null;
 
 3.  結果を受け取る場合、同一アプリ内Serviceからの結果情報であっても、受信データの安全性を確認する
 
-> PrivateUserActivity.java
+PrivateUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service PrivateService.PrivateUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.service.privateservice;
 
@@ -9084,7 +9435,12 @@ startService(intent);
 
 1.  結果を返す場合、センシティブな情報を含めない
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service PublicService.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -9138,7 +9494,12 @@ android:name=\"org.jssec.android.service.publicservice.action.intentservice\"
 
 \</manifest\>
 
-> PublicIntentService.java
+PublicIntentService.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service PublicService.PublicIntentService.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.service.publicservice;
 
@@ -9217,7 +9578,12 @@ onDestroy()\", Toast.LENGTH\_SHORT).show();
 
 2.  結果を受け取る場合、結果データの安全性を確認する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service PublicServiceUser.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -9255,7 +9621,12 @@ android:exported=\"true\"\>
 
 \</manifest\>
 
-> PublicUserActivity.java
+PublicUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service PublicServiceUser.PublicUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.service.publicserviceuser;
 
@@ -9393,7 +9764,12 @@ stopService(intent);
 なお、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「[[5.2.1.3]{.underline}
 アプリの証明書のハッシュ値を確認する方法[]{.underline}](#_アプリの証明書のハッシュ値を確認する方法)」を参照すること。
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service PartnerServiceAIDL.servicePartnerServiceAIDL.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -9463,7 +9839,12 @@ interface IPartnerAIDLService {
 }
 ```
 
-> PartnerAIDLService.java
+PartnerAIDLService.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service PartnerServiceAIDL.PartnerAIDLService.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.service.partnerservice.aidl;
 
@@ -9792,7 +10173,12 @@ mHandler.removeMessages(REPORT\_MSG);
 
 }
 
-> PkgCertWhitelists.java
+PkgCertWhitelists.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCertWhitelists.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -9842,7 +10228,12 @@ return PkgCert.test(ctx, pkgname, correctHash);
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -9946,7 +10337,12 @@ return hexadecimal.toString();
 
 4.  パートナー限定アプリからの結果情報であっても、受信Intentの安全性を確認する
 
-> PartnerAIDLUserActivity.java
+PartnerAIDLUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service PartnerServiceAIDLUser.PartnerAIDLUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.service.partnerservice.aidluser;
 
@@ -10324,7 +10720,12 @@ Toast.LENGTH\_SHORT).show();
 
 }
 
-> PkgCertWhitelists.java
+PkgCertWhitelists.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCertWhitelists.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -10374,7 +10775,12 @@ return PkgCert.test(ctx, pkgname, correctHash);
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -10493,7 +10899,12 @@ return hexadecimal.toString();
 
 6.  利用元アプリと同じ開発者鍵でAPKを署名する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service InhouseServiceMessenger.serviceInhouseServiceMessenger.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -10537,7 +10948,12 @@ android:permission=\"org.jssec.android.service.inhouseservice.messenger.MY\_PERM
 
 \</manifest\>
 
-> InhouseMessengerService.java
+InhouseMessengerService.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service InhouseServiceMessenger.InhouseMessengerService.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.service.inhouseservice.messenger;
 
@@ -10768,7 +11184,12 @@ Toast.LENGTH\_SHORT).show();
 
 }
 
-> SigPerm.java
+SigPerm.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.SigPerm.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -10828,7 +11249,12 @@ return null;
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -10946,7 +11372,12 @@ height="3.2743055555555554in"}
 
 7.  利用先アプリと同じ開発者鍵でAPKを署名する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service InhouseServiceMessengerUser.serviceInhouseServiceMessengerUser.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -10991,7 +11422,12 @@ android:exported=\"true\" \>
 
 \</manifest\>
 
-> InhouseMessengerUserActivity.java
+InhouseMessengerUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Service InhouseServiceMessengerUser.InhouseMessengerUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.service.inhouseservice.messengeruser;
 
@@ -11321,7 +11757,12 @@ mServiceMessenger.send(msg);
 
 }
 
-> SigPerm.java
+SigPerm.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.SigPerm.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -11381,7 +11822,12 @@ return null;
 
 }
 
-> PkgCert.java
+PkgCert.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\JSSEC Shared.PkgCert.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.shared;
 
@@ -11760,7 +12206,12 @@ height="4.395833333333333in"}
 
 2.  SQLインジェクションの保険的な対策としてアプリ要件に従って入力値をチェックする
 
-> SampleDbOpenHelper.java
+SampleDbOpenHelper.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\SQLite Database.SampleDbOpenHelper.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.sqlite;
 
@@ -11946,7 +12397,12 @@ public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
 
 }
 
-> DataSearchTask.java （SQLite Databaseプロジェクト）
+DataSearchTask.java （SQLite Databaseプロジェクト）
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\SQLite Database.DataSearchTask.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.sqlite.task;
 
@@ -12129,7 +12585,12 @@ mActivity.updateCursor(resultCur);
 
 }
 
-> DataValidator.java
+DataValidator.java
+```eval_rst
+.. literalinclude:: c:\\jssec\\Files\\SQLite Database.DataValidator.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.sqlite;
 
@@ -12263,9 +12724,7 @@ DBファイルのデータの保護を考えた場合、DBファイルの配置�
 
 1\. 配置場所
 
-> Context\#getDatabasePath(String
-> name)で取得できるファイルパスや場合によってはContext\#getFilesDir
-> で取得できるディレクトリの場所に配置する[^12]
+Context\#getDatabasePath(String name)で取得できるファイルパスや場合によってはContext\#getFilesDir で取得できるディレクトリの場所に配置する[^12]
 
 2\. アクセス権
 
@@ -12684,10 +13143,9 @@ SQLCipherを使用するためにはSDKとして含まれている以下のフ�
 
 -   assets/icudt46l.zip 2,252KB
 
-> 端末の /system/usr/icu/
-> 以下にicudt46l.datが存在しない場合に必要となる。
->
-> icudt46l.datが見つからない場合、このzipが解凍されて使用される。
+端末の /system/usr/icu/ 以下にicudt46l.datが存在しない場合に必要となる。
+
+icudt46l.datが見つからない場合、このzipが解凍されて使用される。
 
 -   libs/armeabi/libdatabase\_sqlcipher.so 44KB
 
@@ -12695,9 +13153,9 @@ SQLCipherを使用するためにはSDKとして含まれている以下のフ�
 
 -   libs/armeabi/libstlport\_shared.so 555KB
 
-> Nativeライブラリ。
->
-> SQLCipherの初期ロード時（SQLiteDatabase\#loadLibs()呼び出し時）に読み込まれる。
+Nativeライブラリ。
+
+SQLCipherの初期ロード時（SQLiteDatabase\#loadLibs()呼び出し時）に読み込まれる。
 
 -   libs/commons-codec.jar 46KB
 
@@ -12705,9 +13163,9 @@ SQLCipherを使用するためにはSDKとして含まれている以下のフ�
 
 -   libs/sqlcipher.jar 102KB
 
-> Nativeライブラリを呼び出すJavaライブラリ。
->
-> sqlcipher.jarがメイン。あとはsqlcipher.jarから参照されている。
+Nativeライブラリを呼び出すJavaライブラリ。
+
+sqlcipher.jarがメイン。あとはsqlcipher.jarから参照されている。
 
 合計：約5.12MB
 
@@ -12788,7 +13246,12 @@ Provider、Service)を利用して行うことを原則とする。
 
 3.  ファイルに格納する(された)情報に対しては、その入手先に関わらず内容の安全性を確認する
 
-> PrivateFileActivity.java
+PrivateFileActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File PrivateFile.PrivateFileActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.file.privatefile;
 
@@ -12971,7 +13434,12 @@ mFileView.setText(R.string.file\_view);
 
 }
 
-> PrivateUserActivity.java
+PrivateUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File PrivateFile.PrivateUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.file.privatefile;
 
@@ -13184,7 +13652,12 @@ Providerによるファイル共有方法が望ましい。
 
 3.  ファイルに格納する(された)情報に対しては、その入手先に関わらず内容の安全性を確認する
 
-> PublicFileActivity.java
+PublicFileActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File PublicROFile.PublicFileActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.file.publicfile.readonly;
 
@@ -13374,7 +13847,12 @@ mFileView.setText(R.string.file\_view);
 
 }
 
-> PublicUserActivity.java
+PublicUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File PublicROUser.PublicUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.file.publicuser.readonly;
 
@@ -13643,7 +14121,12 @@ Androidアプリの慣例として、バックアップファイルは外部記�
 
 3.  利用側のアプリで書き込みを行わない仕様にする
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File ExternalFile.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -13695,6 +14178,11 @@ android:exported=\"true\" \>
 \</manifest\>
 
 ExternalFileActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File ExternalFile.ExternalFileActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.file.externalfile;
 
@@ -13889,7 +14377,12 @@ mFileView.setText(R.string.file\_view);
 
 > 利用側のサンプルコード
 >
-> ExternalFileUser.java
+ExternalFileUser.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File ExternalUser.ExternalUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.file.externaluser;
 
@@ -14113,7 +14606,12 @@ return path;
 
 }
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File ExternalUser.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -14261,7 +14759,12 @@ Providerでファイルを共有する実装例(非公開Providerの場合)を�
 1.  利用元アプリは自社アプリであるから、センシティブな情報を保存してよい
 2.  自社限定Content Providerアプリからの結果であっても、結果データの安全性を確認する
 
-> InhouseProvider.java
+InhouseProvider.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File InhouseProvider.InhouseProvider.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.file.inhouseprovider;
 
@@ -14444,7 +14947,12 @@ return 0;
 
 }
 
-> InhouseUserActivity.java
+InhouseUserActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File InhouseProviderUser.InhouseUserActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.file.inhouseprovideruser;
 
@@ -14771,7 +15279,12 @@ OSのバージョンによってPermissionの利用宣言の要・不要が変�
 4.4 (API Level
 19)をまたいで端末のサポートが必要なアプリの場合は、インストールする端末のバージョンによって不要なPermissionをユーザーに要求することになり、好ましい状況とは言えない。よって、上記仕様(1)のみに該当するアプリの場合は、\<uses-permission\>タグのmaxSdkVersion属性を以下のように記述して対応することをお薦めする。
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\File ExternalFile.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -14898,7 +15411,12 @@ Starter.html
 </html>
 ```
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Browsable Intent.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -14954,7 +15472,12 @@ android:exported=\"true\" \>
 
 \</manifest\>
 
-> BrowsableIntentActivity.java
+BrowsableIntentActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Browsable Intent.BrowsableIntentActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.browsableintent;
 
@@ -15061,7 +15584,12 @@ DEBUGログとVERBOSEログは自動的に削除されるわけではない」�
 4.  [[]{#_Ref342579197 .anchor}]{#_Ref342576362 .anchor}リリースビルドではLog.d()/v()の呼び出しが自動削除される仕組みを導入する
 5.  []{#_Ref342579164 .anchor}リリース版アプリのAPKファイルはリリースビルドで作成する
 
-> ProGuardActivity.java
+ProGuardActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Log ProGuard.ProGuardActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.log.proguard;
 
@@ -15216,9 +15744,9 @@ tr)でスタックトレースをLogCatにログ出力しているケースが�
 2つ目は、カスタマーサポート等でアプリの不具合解析を行う最終手段として、「後の解析のために必要な情報をログ出力すべき」という考え方である。この考え方に基づくと、リリース版アプリではセンシティブな情報を誤ってログ出力してしまわないよう細心の注意が必要となるため、サンプルコードセクションで紹介したような人為的ミスを排除する運用が必要となる。なお、下記のGoogleのCode
 Style Guidelineも2つ目の考え方に基づいている。
 
-> Code Style Guidelines for Contributors / Log Sparingly
->
-> [[http://source.android.com/source/code-style.html\#log-sparingly]{.underline}](http://source.android.com/source/code-style.html#log-sparingly)
+Code Style Guidelines for Contributors / Log Sparingly
+
+[[http://source.android.com/source/code-style.html\#log-sparingly]{.underline}](http://source.android.com/source/code-style.html#log-sparingly)
 
 #### ログレベルとログ出力メソッドの選択基準<!-- xd7d3c83d -->
 
@@ -15238,9 +15766,9 @@ Androidのandroid.util.LogクラスにはERROR、WARN、INFO、DEBUG,VERBOSEの5
 
 より詳細なログ出力の作法については下記URLを参照すること。
 
-> Code Style Guidelines for Contributors / Log Sparingly
->
-> [[http://source.android.com/source/code-style.html\#log-sparingly]{.underline}](http://source.android.com/source/code-style.html#log-sparingly)
+Code Style Guidelines for Contributors / Log Sparingly
+
+[[http://source.android.com/source/code-style.html\#log-sparingly]{.underline}](http://source.android.com/source/code-style.html#log-sparingly)
 
 #### DEBUGログとVERBOSEログは自動的に削除されるわけではない<!-- x745a541f -->
 
@@ -15329,7 +15857,12 @@ System.out/errの出力先はLogCatである。System.out/errに出力される�
 
 保険的対策として、System.out/errの出力先をLogCat以外に変更する方法がある。以下に、リリースビルド時にSystem.out/errの出力先を変更し、どこにもログ出力しないようにする実装例を挙げる。ただし、この対応はSystem.out/errの出力先をアプリの実行時に一時的に書き換えるので、アプリやシステムの誤動作に繋がらないかどうかを充分に検討する必要がある。また、この対策はアプリ自身のプロセスには有効であるが、システムプロセスが生成するエラーログを抑制することはできない。すべてのエラーを抑制できるわけではないことに注意すること。
 
-> OutputRedirectApplication.java
+OutputRedirectApplication.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Log OutputRedirection.OutputRedirectApplication.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.android.log.outputredirection;
 
@@ -15394,7 +15927,12 @@ System.setErr(savedErr);
 
 }
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Log OutputRedirection.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
@@ -15494,7 +16032,12 @@ WebViewのサンプルコードを選択するフローチャート
 1.  assetsとresディレクトリ以外の場所に配置したファイルへのアクセスを禁止にする
 2.  JavaScriptを有効にしてよい
 
-> WebViewAssetsActivity.java
+WebViewAssetsActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\WebView Assets.WebViewAssetsActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.webview.assets;
 
@@ -15549,10 +16092,7 @@ webView.loadUrl(\"file:///android\_asset/sample/index.html\");
 
 -   サービス側の対策
 
-> 図
-> 4.9‑2に示したように、サービス側に用意するコンテンツは自社の管理していないコンテンツを参照してはならない。加えて、サービスに適切なセキュリティ対策が施されていることも必要である。その理由は、サービスを構成するコンテンツへの攻撃コードの埋め込みや改ざんを防止することにある。「4.9.2.1
-> JavaScriptを有効にするのはコンテンツを自社が管理している場合に限定する
-> （必須）」を参照すること。
+図 4.9‑2に示したように、サービス側に用意するコンテンツは自社の管理していないコンテンツを参照してはならない。加えて、サービスに適切なセキュリティ対策が施されていることも必要である。その理由は、サービスを構成するコンテンツへの攻撃コードの埋め込みや改ざんを防止することにある。「4.9.2.1 JavaScriptを有効にするのはコンテンツを自社が管理している場合に限定する （必須）」を参照すること。
 
 -   アプリ側の対策
 
@@ -15573,7 +16113,12 @@ height="4.366141732283465in"}
 3.  WebViewで表示するURLをHTTPSプロトコルだけに限定する
 4.  WebViewで表示するURLを自社管理コンテンツだけに限定する
 
-> WebViewTrustedContentsActivity.java
+WebViewTrustedContentsActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\WebView TrustedContents.WebViewTrustedContentsActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.webview.trustedcontents;
 
@@ -15759,7 +16304,12 @@ HTTPSで通信する」を参照すること。
 
 2.  JavaScriptを有効にしない
 
-> WebViewUntrustActivity.java
+WebViewUntrustActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\WebView Untrust.WebViewUntrustActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.webview.untrust;
 
@@ -16153,7 +16703,12 @@ height="6.603472222222222in"}
 
 4.  Visibility が Private の場合、プライベート情報を含めて通知してもよい
 
-> VisibilityPrivateNotificationActivity.java
+VisibilityPrivateNotificationActivity.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Notification VisibilityPrivate.VisibilityPrivateNotificationActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.notification.visibilityPrivate;
 
@@ -16362,7 +16917,12 @@ Visibilityの設定に依らず、Notificationにはセンシティブな情報�
 
 NotificationListenerServiceを使ったサンプルコードを以下に示す。
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\NotificationListenerService.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 \<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
 
@@ -16396,7 +16956,12 @@ android:permission=\"android.permission.BIND\_NOTIFICATION\_LISTENER\_SERVICE\"\
 
 \</manifest\>
 
-> MyNotificationListenerService.java
+MyNotificationListenerService.java
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\NotificationListenerService.MyNotificationListenerService.java
+   :language: java
+   :encoding: shift-jis
+```
 
 package org.jssec.notification.notificationListenerService;
 
