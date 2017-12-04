@@ -29,7 +29,7 @@ height="3.345138888888889in"}
 
 3.  前回入力パスワードをダミー表示しているとき、ユーザーがパスワードを入力しようとした場合、前回入力パスワードをクリアし、ユーザーの入力を新たなパスワードとして扱う
 
-> password\_activity.xml
+> password_activity.xml
 
 \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 
@@ -501,39 +501,29 @@ finish();
 
 レイアウトXMLで指定する方法
 
-> password\_activity.xml
-
-\<!\-- パスワード入力項目 \--\>
-
-\<!\-- android:passwordをtrueに設定する \--\>
-
-\<EditText
-
-android:id=\"@+id/password\_edit\"
-
-android:layout\_width=\"fill\_parent\"
-
-android:layout\_height=\"wrap\_content\"
-
-android:hint=\"@string/hint\_password\"
-
-android:inputType=\"textPassword\" /\>
+password_activity.xml
+```xml
+    <!-- パスワード入力項目 -->
+    <!-- android:passwordをtrueに設定する -->
+    <EditText
+        android:id="@+id/password_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword" />
+```
 
 Activity内で指定する方法
 
-> PasswordActivity.java
-
-// パスワード表示タイプを設定
-
-// InputTypeにTYPE\_TEXT\_VARIATION\_PASSWORDを設定する
-
-EditText passwordEdit = (EditText) findViewById(R.id.password\_edit);
-
-int type = InputType.TYPE\_CLASS\_TEXT
-
-\| InputType.TYPE\_TEXT\_VARIATION\_PASSWORD;
-
-passwordEdit.setInputType(type);
+PasswordActivity.java
+```java
+        // パスワード表示タイプを設定
+        // InputTypeにTYPE_TEXT_VARIATION_PASSWORDを設定する
+        EditText passwordEdit = (EditText) findViewById(R.id.password_edit);
+        int type = InputType.TYPE_CLASS_TEXT
+                | InputType.TYPE_TEXT_VARIATION_PASSWORD;
+        passwordEdit.setInputType(type);
+```
 
 #### パスワードを平文表示するオプションを用意する （必須）<!-- x1f51a1c2 -->
 
@@ -542,78 +532,55 @@ passwordEdit.setInputType(type);
 
 ただし、パスワードを平文表示した際に覗き見される可能性もあるため、そのオプションを使う際に、ユーザーに背後からの覗き見への注意を促す必要がある。また、平文表示するオプションをつけた場合、平文表示の時間を設定するなど平文表示の自動解除を行う仕組みも用意する必要がある。パスワードの平文表示の制限については今後の版にて別途記事を設ける予定である。そのため、この版のサンプルコードにはパスワードの平文表示の制限は含めていない。
 
-![](media/image57.png){width="5.786111111111111in"
-height="3.345833333333333in"}
+<img src="media/image56.png" width="40%"/>
+表示チェックオン
+<img src="media/image57.png" width="40%"/>
 
 図 5.1‑2
 
 EditTextのInputType指定で、マスク表示と平文表示を切り替えることができる
 
-> PasswordActivity.java
+PasswordActivity.java
+```java
+    /**
+     * パスワードの表示オプションチェックを変更した場合の処理
+     */
+    private class OnPasswordDisplayCheckedChangeListener implements
+            OnCheckedChangeListener {
 
-/\*\*
+        public void onCheckedChanged(CompoundButton buttonView,
+                boolean isChecked) {
+            // ★ポイント5★ ダミー表示時は空表示にする
+            if (mIsDummyPassword && isChecked) {
+                // ダミーパスワードフラグを設定する
+                mIsDummyPassword = false;
+                // パスワードを空表示にする
+                mPasswordEdit.setText(null);
+            }
 
-\* パスワードの表示オプションチェックを変更した場合の処理
+            // カーソル位置が最初に戻るので今のカーソル位置を記憶する
+            int pos = mPasswordEdit.getSelectionStart();
 
-\*/
+            // ★ポイント2★ チェックに応じてパスワードを平文表示する
+            // InputTypeの作成
+            int type = InputType.TYPE_CLASS_TEXT;
+            if (isChecked) {
+                // チェックON時は平文表示
+                type |= InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+            } else {
+                // チェックOFF時はマスク表示
+                type |= InputType.TYPE_TEXT_VARIATION_PASSWORD;
+            }
 
-private class OnPasswordDisplayCheckedChangeListener implements
+            // パスワードEditTextにInputTypeを設定
+            mPasswordEdit.setInputType(type);
 
-OnCheckedChangeListener {
+            // カーソル位置を設定する
+            mPasswordEdit.setSelection(pos);
+        }
 
-public void onCheckedChanged(CompoundButton buttonView,
-
-boolean isChecked) {
-
-// ★ポイント5★ ダミー表示時は空表示にする
-
-if (mIsDummyPassword && isChecked) {
-
-// ダミーパスワードフラグを設定する
-
-mIsDummyPassword = false;
-
-// パスワードを空表示にする
-
-mPasswordEdit.setText(null);
-
-}
-
-// カーソル位置が最初に戻るので今のカーソル位置を記憶する
-
-int pos = mPasswordEdit.getSelectionStart();
-
-// ★ポイント2★ チェックに応じてパスワードを平文表示する
-
-// InputTypeの作成
-
-int type = InputType.TYPE\_CLASS\_TEXT;
-
-if (isChecked) {
-
-// チェックON時は平文表示
-
-type \|= InputType.TYPE\_TEXT\_VARIATION\_VISIBLE\_PASSWORD;
-
-} else {
-
-// チェックOFF時はマスク表示
-
-type \|= InputType.TYPE\_TEXT\_VARIATION\_PASSWORD;
-
-}
-
-// パスワードEditTextにInputTypeを設定
-
-mPasswordEdit.setInputType(type);
-
-// カーソル位置を設定する
-
-mPasswordEdit.setSelection(pos);
-
-}
-
-}
+    }
+```
 
 #### Activity起動時はパスワードをマスク表示にする （必須）<!-- x3ce69634 -->
 
@@ -625,221 +592,149 @@ mPasswordEdit.setSelection(pos);
 
 前回入力したパスワードを表示する場合、ダミーパスワードを表示する
 
-> PasswordActivity.java
+PasswordActivity.java
+```java
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
 
-@Override
+        // ～省略～
 
-public void onCreate(Bundle savedInstanceState) {
+        // 前回入力パスワードがあるか
+        if (getPreviousPassword() != null) {
+            // ★ポイント4★ 前回入力パスワードがある場合はダミーパスワードを表示する
 
-～省略～
+            // 表示はダミーパスワードにする
+            mPasswordEdit.setText("**********");
+            // パスワード入力時にダミーパスワードをクリアするため、テキスト変更リスナーを設定
+            mPasswordEdit.addTextChangedListener(new PasswordEditTextWatcher());
+            // ダミーパスワードフラグを設定する
+            mIsDummyPassword = true;
+        }
 
-// 前回入力パスワードがあるか
+        // ～省略～
 
-if (getPreviousPassword() != null) {
+    }
 
-// ★ポイント4★ 前回入力パスワードがある場合はダミーパスワードを表示する
-
-// 表示はダミーパスワードにする
-
-mPasswordEdit.setText(\"\*\*\*\*\*\*\*\*\*\*\");
-
-//
-パスワード入力時にダミーパスワードをクリアするため、テキスト変更リスナーを設定
-
-mPasswordEdit.addTextChangedListener(new PasswordEditTextWatcher());
-
-// ダミーパスワードフラグを設定する
-
-mIsDummyPassword = true;
-
-}
-
-～省略～
-
-}
-
-/\*\*
-
-\* 前回入力パスワードを取得する
-
-\*
-
-\* @return 前回入力パスワード
-
-\*/
-
-private String getPreviousPassword() {
-
-// 保存パスワードを復帰させたい場合にパスワード文字列を返す
-
-// パスワードを保存しない用途ではnullを返す
-
-return \"hirake5ma\";
-
-}
+    /**
+     * 前回入力パスワードを取得する
+     *
+     * @return 前回入力パスワード
+     */
+    private String getPreviousPassword() {
+        // 保存パスワードを復帰させたい場合にパスワード文字列を返す
+        // パスワードを保存しない用途ではnullを返す
+        return "hirake5ma";
+    }
+```
 
 ダミー表示時は、パスワードを表示するオプションをオンにすると表示内容をクリアする
 
-> PasswordActivity.java
+PasswordActivity.java
+```java
+    /**
+     * パスワードの表示オプションチェックを変更した場合の処理
+     */
+    private class OnPasswordDisplayCheckedChangeListener implements
+            OnCheckedChangeListener {
 
-/\*\*
+        public void onCheckedChanged(CompoundButton buttonView,
+                boolean isChecked) {
+            // ★ポイント5★ ダミー表示時は空表示にする
+            if (mIsDummyPassword && isChecked) {
+                // ダミーパスワードフラグを設定する
+                mIsDummyPassword = false;
+                // パスワードを空表示にする
+                mPasswordEdit.setText(null);
+            }
 
-\* パスワードの表示オプションチェックを変更した場合の処理
+            // ～省略～
 
-\*/
+        }
 
-private class OnPasswordDisplayCheckedChangeListener implements
-
-OnCheckedChangeListener {
-
-public void onCheckedChanged(CompoundButton buttonView,
-
-boolean isChecked) {
-
-// ★ポイント5★ ダミー表示時は空表示にする
-
-if (mIsDummyPassword && isChecked) {
-
-// ダミーパスワードフラグを設定する
-
-mIsDummyPassword = false;
-
-// パスワードを空表示にする
-
-mPasswordEdit.setText(null);
-
-}
-
-～省略～
-
-}
-
-}
+    }
+```
 
 ダミー表示時にユーザーがパスワードを入力した場合には、ダミー表示を解除する
 
-> PasswordActivity.java
+PasswordActivity.java
+```java
+    // 状態保存用のキー
+    private static final String KEY_DUMMY_PASSWORD = "KEY_DUMMY_PASSWORD";
 
-// 状態保存用のキー
+    // ～省略～
 
-private static final String KEY\_DUMMY\_PASSWORD =
-\"KEY\_DUMMY\_PASSWORD\";
+    // パスワードがダミー表示かを表すフラグ
+    private boolean mIsDummyPassword;
 
-～省略～
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
 
-// パスワードがダミー表示かを表すフラグ
+        // ～省略～
 
-private boolean mIsDummyPassword;
+        // 前回入力パスワードがあるか
+        if (getPreviousPassword() != null) {
+            // ★ポイント4★ 前回入力パスワードがある場合はダミーパスワードを表示する
 
-@Override
+            // 表示はダミーパスワードにする
+            mPasswordEdit.setText("**********");
+            // パスワード入力時にダミーパスワードをクリアするため、テキスト変更リスナーを設定
+            mPasswordEdit.addTextChangedListener(new PasswordEditTextWatcher());
+            // ダミーパスワードフラグを設定する
+            mIsDummyPassword = true;
+        }
 
-public void onCreate(Bundle savedInstanceState) {
+        // ～省略～
 
-～省略～
+    }
 
-// 前回入力パスワードがあるか
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-if (getPreviousPassword() != null) {
+        // 画面の縦横変更でActivityが再生成されないよう指定した場合には不要
+        // Activityの状態保存
+        outState.putBoolean(KEY_DUMMY_PASSWORD, mIsDummyPassword);
+    }
 
-// ★ポイント4★ 前回入力パスワードがある場合はダミーパスワードを表示する
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
 
-// 表示はダミーパスワードにする
+        // 画面の縦横変更でActivityが再生成されないよう指定した場合には不要
+        // Activityの状態の復元
+        mIsDummyPassword = savedInstanceState.getBoolean(KEY_DUMMY_PASSWORD);
+    }
 
-mPasswordEdit.setText(\"\*\*\*\*\*\*\*\*\*\*\");
+    /**
+     * パスワードを入力した場合の処理
+     */
+    private class PasswordEditTextWatcher implements TextWatcher {
 
-//
-パスワード入力時にダミーパスワードをクリアするため、テキスト変更リスナーを設定
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                int after) {
+            // 未使用
+        }
 
-mPasswordEdit.addTextChangedListener(new PasswordEditTextWatcher());
+        public void onTextChanged(CharSequence s, int start, int before,
+                int count) {
+            // ★ポイント6★ ダミー表示時にパスワードを再入力した場合は入力内容に応じた表示にする
+            if (mIsDummyPassword) {
+                // ダミーパスワードフラグを設定する
+                mIsDummyPassword = false;
+                // パスワードを入力した文字だけにする
+                CharSequence work = s.subSequence(start, start + count);
+                mPasswordEdit.setText(work);
+                // カーソル位置が最初に戻るので最後にする
+                mPasswordEdit.setSelection(work.length());
+            }
+        }
 
-// ダミーパスワードフラグを設定する
+        public void afterTextChanged(Editable s) {
+            // 未使用
+        }
 
-mIsDummyPassword = true;
-
-}
-
-～省略～
-
-}
-
-@Override
-
-public void onSaveInstanceState(Bundle outState) {
-
-super.onSaveInstanceState(outState);
-
-// 画面の縦横変更でActivityが再生成されないよう指定した場合には不要
-
-// Activityの状態保存
-
-outState.putBoolean(KEY\_DUMMY\_PASSWORD, mIsDummyPassword);
-
-}
-
-@Override
-
-public void onRestoreInstanceState(Bundle savedInstanceState) {
-
-super.onRestoreInstanceState(savedInstanceState);
-
-// 画面の縦横変更でActivityが再生成されないよう指定した場合には不要
-
-// Activityの状態の復元
-
-mIsDummyPassword = savedInstanceState.getBoolean(KEY\_DUMMY\_PASSWORD);
-
-}
-
-/\*\*
-
-\* パスワードを入力した場合の処理
-
-\*/
-
-private class PasswordEditTextWatcher implements TextWatcher {
-
-public void beforeTextChanged(CharSequence s, int start, int count,
-
-int after) {
-
-// 未使用
-
-}
-
-public void onTextChanged(CharSequence s, int start, int before,
-
-int count) {
-
-// ★ポイント6★
-ダミー表示時にパスワードを再入力した場合は入力内容に応じた表示にする
-
-if (mIsDummyPassword) {
-
-// ダミーパスワードフラグを設定する
-
-mIsDummyPassword = false;
-
-// パスワードを入力した文字だけにする
-
-CharSequence work = s.subSequence(start, start + count);
-
-mPasswordEdit.setText(work);
-
-// カーソル位置が最初に戻るので最後にする
-
-mPasswordEdit.setSelection(work.length());
-
-}
-
-}
-
-public void afterTextChanged(Editable s) {
-
-// 未使用
-
-}
-
-}
+    }
+```
 
 ### アドバンスト<!-- x4ab0e1d9 -->
 
@@ -874,8 +769,9 @@ public void afterTextChanged(Editable s) {
 #### システムの「パスワードを表示」設定メニューについて<!-- x54c00bf3 -->
 
 Androidの設定メニューの中に「パスワードを表示」という設定がある。
-
-設定 \>セキュリティ \> パスワードを表示
+```
+設定 >セキュリティ > パスワードを表示
+```
 
 Android 5.0より前のバージョンまで、この手順で設定できる。ただしAndroid
 5.0以降では、「パスワードを表示」はチェックボックスからトグルボタンに変更されている。
@@ -887,8 +783,12 @@ height="2.7598425196850394in"}
 
 「パスワードを表示」設定をオンにすると最後に入力した１文字が平文表示となる。一定時間（2秒程度）経過後、または次の文字が入力されると平文表示されていた文字はマスク表示される。オフにすると、入力直後からマスク表示となる。これはシステム全体に影響する設定であり、EditTextのパスワード表示機能を使用しているすべてのアプリに適用される。
 
-![](media/image62.png){width="5.404166666666667in"
-height="3.011111111111111in"}
+<img src="media/image63.png" width="40%" />
+一定時間経過
+または
+次の文字を入力
+<img src="media/image62.png" width="40%" />
+
 
 図 5.1‑4
 
@@ -926,55 +826,12 @@ height="3.34375in"}
 
 2.  不必要なPermissionは利用宣言しない
 
-> AndroidManifest.xml
-
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
-
-\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
-
-package=\"org.jssec.android.permission.usespermission\"\>
-
-\<!\-- ★ポイント1★ アプリで利用するPermissionを利用宣言する \--\>
-
-\<!\-- インターネットにアクセスするPermission \--\>
-
-\<uses-permission android:name=\"android.permission.INTERNET\"/\>
-
-\<!\-- ★ポイント2★ 不必要なPermissionは利用宣言しない \--\>
-
-\<!\--
-アプリの動作に不必要なPermissionを利用宣言していると、ユーザーに不信感を与えてしまう
-\--\>
-
-\<application
-
-android:allowBackup=\"false\"
-
-android:icon=\"@drawable/ic\_launcher\"
-
-android:label=\"@string/app\_name\" \>
-
-\<activity
-
-android:name=\".MainActivity\"
-
-android:label=\"@string/app\_name\"
-
-android:exported=\"true\" \>
-
-\<intent-filter\>
-
-\<action android:name=\"android.intent.action.MAIN\" /\>
-
-\<category android:name=\"android.intent.category.LAUNCHER\" /\>
-
-\</intent-filter\>
-
-\</activity\>
-
-\</application\>
-
-\</manifest\>
+AndroidManifest.xml
+```eval_rst
+.. literalinclude:: C:\\jssec\\Files\\Permission UsesPermission.app.src.main.AndroidManifest.xml
+   :language: xml
+   :encoding: shift-jis
+```
 
 #### 独自定義のSignature Permissionで自社アプリ連携する方法<!-- x95af6763 -->
 
@@ -994,16 +851,10 @@ height="2.0933070866141734in"}
 > ポイント：Componentを提供するアプリ
 
 1.  独自PermissionをprotectionLevel=\"signature\"で定義する
-
-&nbsp;
-
 1.  Componentにはpermission属性で独自Permission名を指定する
-
 2.  ComponentがActivityの場合にはintent-filterを定義しない
-
 3.  ソースコード上で、独自定義Signature
     Permissionが自社アプリにより定義されていることを確認する
-
 4.  Componentを利用するアプリと同じ開発者鍵でAPKを署名する
 
 > AndroidManifest.xml
@@ -1651,7 +1502,35 @@ height="3.2817082239720037in"}
 JDKに付属するkeytoolというプログラムを利用すると開発者鍵の公開鍵証明書のハッシュ値（証明書のフィンガープリントとも言う）を求めることができる。ハッシュ値にはハッシュアルゴリズムの違いによりMD5やSHA1、SHA256など様々なものがあるが、このガイド文書では暗号ビット長の安全性を考慮してSHA256の利用を推奨している。残念なことにAndroid
 SDKで利用されているJDK6に付属するkeytoolはSHA256でのハッシュ値出力に対応しておらず、JDK7以降に付属するkeytoolを使う必要がある。
 
-> Androidのデバッグ証明書の内容をkeytoolで出力する例
+Androidのデバッグ証明書の内容をkeytoolで出力する例
+```shell
+> keytool -list -v -keystore <キーストアファイル> -storepass <パスワード>
+
+キーストアのタイプ: JKS
+キーストア・プロバイダ: SUN
+
+キーストアには1エントリが含まれます
+
+別名: androiddebugkey
+作成日: 2012/01/11
+エントリ・タイプ: PrivateKeyEntry
+証明書チェーンの長さ: 1
+証明書[1]:
+所有者: CN=Android Debug, O=Android, C=US
+発行者: CN=Android Debug, O=Android, C=US
+シリアル番号: 4f0cef98
+有効期間の開始日: Wed Jan 11 11:10:32 JST 2012終了日: Fri Jan 03 11:10:32 JST 2042
+証明書のフィンガプリント:
+         MD5:  9E:89:53:18:06:B2:E3:AC:B4:24:CD:6A:56:BF:1E:A1
+         SHA1: A8:1E:5D:E5:68:24:FD:F6:F1:ED:2F:C3:6E:0F:09:A3:07:F8:5C:0C
+         SHA256: FB:75:E9:B9:2E:9E:6B:4D:AB:3F:94:B2:EC:A1:F0:33:09:74:D8:7A:CF:42:58:22:A2:56:85:1B:0F:85:C6:35
+         署名アルゴリズム名: SHA1withRSA
+         バージョン: 3
+
+
+*******************************************
+*******************************************
+```
 
 \> keytool -list -v -keystore \<キーストアファイル\> -storepass
 \<パスワード\>
@@ -2103,11 +1982,15 @@ Permissionを定義した場合、Signature
 Permissionによる保護がまったく効かない。悪意がない場合でも、複数のアプリにおいてPermission名が衝突して意図しないProtection
 Levelで動作する可能性がある。このような事故を防ぐため、Permission名にはアプリのパッケージ名を入れた方が良い。
 
+```
 (パッケージ名).permission.(識別する文字列)
+```
 
 例えば、org.jssec.android.sampleというパッケージにREADアクセスのPermissionを定義するならば、次の様な命名が好ましい。
 
+```java
 org.jssec.android.sample.permission.READ
+```
 
 ### アドバンスト<!-- x7180566a -->
 
@@ -2185,109 +2068,68 @@ Permissionを取り除いたAndroidManifest.xmlから別署名のAPKを生成し
 
 インターネットPermissionをuses-permissionで宣言しているアプリが、実行時に自身のAndroidManifest.xmlに記載されているPermissionを確認する実装例を次に示す。
 
+```java
 public class CheckPermissionActivity extends Activity {
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        
+        // AndroidManifest.xmlに定義したPermissionを取得
+        List<String> list = getDefinedPermissionList();
+        
+        // 改ざんを検知する
+        if( checkPermissions(list) ){
+            // OK
+            Log.d("dbg", "OK.");
+        }else{
+            Log.d("dbg", "manifest file is stale.");
+            finish();
+        }
+    }
 
-@Override
-
-public void onCreate(Bundle savedInstanceState) {
-
-super.onCreate(savedInstanceState);
-
-setContentView(R.layout.main);
-
-// AndroidManifest.xmlに定義したPermissionを取得
-
-List\<String\> list = getDefinedPermissionList();
-
-// 改ざんを検知する
-
-if( checkPermissions(list) ){
-
-// OK
-
-Log.d(\"dbg\", \"OK.\");
-
-}else{
-
-Log.d(\"dbg\", \"manifest file is stale.\");
-
-finish();
-
+    /**
+     * AndroidManifest.xmlに定義したPermissionをリストで取得する
+     * @return
+     */
+    private List<String> getDefinedPermissionList(){
+        List<String> list = new ArrayList<String>();
+        list.add("android.permission.INTERNET");
+        return list;
+    }
+    
+    /**
+     * Permissionが変更されていないことを確認する。
+     * @param permissionList
+     * @return
+     */
+    private boolean checkPermissions(List<String> permissionList){
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(
+                    getPackageName(), PackageManager.GET_PERMISSIONS);
+            String[] permissionArray = packageInfo.requestedPermissions;
+            if (permissionArray != null) {
+                for (String permission : permissionArray) {
+                    if(! permissionList.remove(permission)){
+                        // 意図しないPermissionが付加されている
+                        return false;
+                    }
+                }
+            }
+            
+            if(permissionList.size() == 0){
+                // OK
+                return true;
+            }
+            
+        } catch (NameNotFoundException e) {
+        }
+        
+        return false;
+    }
 }
-
-}
-
-/\*\*
-
-\* AndroidManifest.xmlに定義したPermissionをリストで取得する
-
-\* @return
-
-\*/
-
-private List\<String\> getDefinedPermissionList(){
-
-List\<String\> list = new ArrayList\<String\>();
-
-list.add(\"android.permission.INTERNET\");
-
-return list;
-
-}
-
-/\*\*
-
-\* Permissionが変更されていないことを確認する。
-
-\* @param permissionList
-
-\* @return
-
-\*/
-
-private boolean checkPermissions(List\<String\> permissionList){
-
-try {
-
-PackageInfo packageInfo = getPackageManager().getPackageInfo(
-
-getPackageName(), PackageManager.GET\_PERMISSIONS);
-
-String\[\] permissionArray = packageInfo.requestedPermissions;
-
-if (permissionArray != null) {
-
-for (String permission : permissionArray) {
-
-if(! permissionList.remove(permission)){
-
-// 意図しないPermissionが付加されている
-
-return false;
-
-}
-
-}
-
-}
-
-if(permissionList.size() == 0){
-
-// OK
-
-return true;
-
-}
-
-} catch (NameNotFoundException e) {
-
-}
-
-return false;
-
-}
-
-}
+```
 
 #### APKの改ざんを検出する<!-- xc1aa376c -->
 
@@ -2499,85 +2341,57 @@ Permissionの利用宣言をして得た情報資産・機能資産をほぼそ�
 
 1.  Manifestで提供元と同じPermissionを要求する
 
-> AndroidManifest.xml
+AndroidManifest.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.jssec.android.permission.transferpermission" >
 
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
-\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".TransferPermissionActivity"
+            android:label="@string/title_activity_transfer_permission" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-package=\"org.jssec.android.permission.transferpermission\" \>
+        <!-- ★ポイント1★ Manifestで提供元と同じPermissionを要求する-->
+        <provider
+            android:name=".TransferPermissionContentProvider"
+            android:authorities="org.jssec.android.permission.transferpermission"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="android.permission.READ_CONTACTS" >
+        </provider>
+    </application>
 
-\<uses-permission android:name=\"android.permission.READ\_CONTACTS\"/\>
+</manifest>
+```
 
-\<application
-
-android:allowBackup=\"false\"
-
-android:icon=\"@drawable/ic\_launcher\"
-
-android:label=\"@string/app\_name\"
-
-android:theme=\"@style/AppTheme\" \>
-
-\<activity
-
-android:name=\".TransferPermissionActivity\"
-
-android:label=\"@string/title\_activity\_transfer\_permission\" \>
-
-\<intent-filter\>
-
-\<action android:name=\"android.intent.action.MAIN\" /\>
-
-\<category android:name=\"android.intent.category.LAUNCHER\" /\>
-
-\</intent-filter\>
-
-\</activity\>
-
-\<provider
-
-android:name=\".TransferPermissionContentProvider\"
-
-\<!\-- ★ポイント1★ Manifestで提供元と同じPermissionを要求する \--\>
-
-android:authorities=\"org.jssec.android.permission.transferpermission\"
-
-android:enabled=\"true\"
-
-android:exported=\"true\"
-
-android:readPermission=\"android.permission.READ\_CONTACTS\" \>
-
-\</provider\>
-
-\</application\>
-
-\</manifest\>
 
 アプリが複数のPermissionを要求する必要がある場合は、上記の方法では解決することができない。ソースコード上でContext\#checkCallingPermission()やPackageManager\#checkPermission()を使用して、呼び出し元のアプリがManifestですべてのPermissionの利用宣言を行っているかどうかを確認することになる。
 
-> Activityの場合
-
+Activityの場合
+```java
 public void onCreate(Bundle savedInstanceState) {
-
-～省略～
-
-if (checkCallingPermission(\"android.permission.READ\_CONTACTS\") ==
-PackageManager.PERMISSION\_GRANTED
-
-&& checkCallingPermission(\"android.permission.WRITE\_CONTACTS\") ==
-PackageManager.PERMISSION\_GRANTED) {
-
-// 呼び出し元が正しくPermissionを利用宣言していた時の処理
-
-return;
-
+// ～省略～
+	if (checkCallingPermission("android.permission.READ_CONTACTS") == PackageManager.PERMISSION_GRANTED
+	 && checkCallingPermission("android.permission.WRITE_CONTACTS") == PackageManager.PERMISSION_GRANTED) {
+		// 呼び出し元が正しくPermissionを利用宣言していた時の処理
+		return;
+	}
+	finish();
 }
 
-finish();
-
-}
+```
 
 #### 独自定義Permissionの署名チェック機構について (Android 5.0以降)<!-- x1c749567 -->
 
@@ -2642,13 +2456,13 @@ Groupを単位として行われる。ただし、OSとSDKのバージョンの�
 -   端末：Android 6.0(API Level
     23)以降、アプリのtargetSdkVersion：23\~25の場合
 
-> Manifestにandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARが記載されている状態で、アプリの実行時にandroid.permission.READ\_CALENDARの要求が行われ、ユーザーがこれを許可すると、Android
-> OSはandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARの利用が両方とも許可されたとみなし権限が付与される。
+Manifestにandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARが記載されている状態で、アプリの実行時にandroid.permission.READ\_CALENDARの要求が行われ、ユーザーがこれを許可すると、Android
+OSはandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARの利用が両方とも許可されたとみなし権限が付与される。
 
 -   端末：Android 8.0（API Level
     26）以降、アプリのtargetSdkVersion：26以上の場合
 
-> 要求したPermissionの権限のみが付与される。つまりManifestにandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARが記載されていても、android.permission.READ\_CALENDARのみを要求しユーザーに許可されたのならandroid.permission.READ\_CALENDARの権限のみが付与される。ただし、その後android.permission.WRITE\_CALENDARが要求された場合は、ユーザーに確認ダイアログが表示されることなく即時に権限が付与される[^28]。
+要求したPermissionの権限のみが付与される。つまりManifestにandroid.permission.READ\_CALENDARとandroid.permission.WRITE\_CALENDARが記載されていても、android.permission.READ\_CALENDARのみを要求しユーザーに許可されたのならandroid.permission.READ\_CALENDARの権限のみが付与される。ただし、その後android.permission.WRITE\_CALENDARが要求された場合は、ユーザーに確認ダイアログが表示されることなく即時に権限が付与される[^28]。
 
 また、権限の付与とは異なり、設定メニューからの権限の取り消しはAndroid
 8.0以降でもPermission Group単位で行われる。
@@ -2718,14 +2532,13 @@ Managerに登録しておき、アプリがオンラインサービスにアク�
 Managerがアプリに認証トークンを自動提供する仕組みである。パスワードという極めてセンシティブな情報をアプリが扱わなくて済むことがAccount
 Managerの利点である。
 
-> Account Managerを使用したアカウント管理機能は図
-> 5.3‑1のような構成となる。「利用アプリ」は認証トークンの提供を受けてオンラインサービスにアクセスするアプリであり、前述のアプリのことである。一方、「Authenticatorアプリ」はAccount
-> Managerの機能拡張であり、Authenticatorと呼ばれるオブジェクトをAccount
-> Managerに提供することにより、Account
-> Managerがそのオンラインサービスのアカウント情報および認証トークンを一元管理できるようになる。利用アプリとAuthenticatorアプリは別のアプリである必要はなく、一つのアプリとして実装することもできる。
->
-> ![](media/image75.png){width="6.889763779527559in"
-> height="1.9748031496062992in"}
+Account Managerを使用したアカウント管理機能は図
+5.3‑1のような構成となる。「利用アプリ」は認証トークンの提供を受けてオンラインサービスにアクセスするアプリであり、前述のアプリのことである。一方、「Authenticatorアプリ」はAccount
+Managerの機能拡張であり、Authenticatorと呼ばれるオブジェクトをAccount
+Managerに提供することにより、Account
+Managerがそのオンラインサービスのアカウント情報および認証トークンを一元管理できるようになる。利用アプリとAuthenticatorアプリは別のアプリである必要はなく、一つのアプリとして実装することもできる。
+
+![](media/image75.png){width="6.889763779527559in" height="1.9748031496062992in"}
 
 []{#_Ref351642081 .anchor}図 5.3‑1Account
 Managerを使用したアカウント管理機能の構成
@@ -3909,72 +3722,75 @@ MANAGE\_ACCOUNTSといった権限が必要であり、メソッドとの対応�
 
 []{#_Ref351768346 .anchor}表 5.3‑1　Account Managerの機能とPermission
 
-+----------------------+----------------------+----------------------+
-|                      | Account              |
-|                      | Managerが提供する機能 |
-+======================+======================+======================+
-| Permission           | メソッド             | 説明                 |
-+----------------------+----------------------+----------------------+
-| AUTHENTICATE\_ACCOUN | getPassword()        | パスワードの取得     |
-| TS                   |                      |                      |
-|                      |                      |                      |
-| (Authenticatorと同じ鍵で署 |                |                      |
-| 名されたPackageのみ利用可能) |              |                      |
-+----------------------+----------------------+----------------------+
-|                      | getUserData()        | 利用者情報の取得     |
-+----------------------+----------------------+----------------------+
-|                      | addAccountExplicitly | アカウントのDBへの追加 |
-|                      | ()                   |                      |
-+----------------------+----------------------+----------------------+
-|                      | peekAuthToken()      | キャッシュされたトークンの取得 |
-+----------------------+----------------------+----------------------+
-|                      | setAuthToken()       | 認証トークンの登録   |
-+----------------------+----------------------+----------------------+
-|                      | setPassword()        | パスワードの変更     |
-+----------------------+----------------------+----------------------+
-|                      | setUserData()        | 利用者情報の設定     |
-+----------------------+----------------------+----------------------+
-|                      | renameAccount()      | アカウント名の変更   |
-+----------------------+----------------------+----------------------+
-| GET\_ACCOUNTS        | getAccounts()        | すべてのアカウントの一覧取得 |
-+----------------------+----------------------+----------------------+
-|                      | getAccountsByType()  | アカウントタイプが同じアカウントの一覧取 |
-|                      |                      | 得                   |
-+----------------------+----------------------+----------------------+
-|                      | getAccountsByTypeAnd | 指定した機能を持ったアカウントの一覧取得 |
-|                      | Features()           |                      |
-+----------------------+----------------------+----------------------+
-|                      | addOnAccountsUpdated | イベントリスナーの登録 |
-|                      | Listener()           |                      |
-+----------------------+----------------------+----------------------+
-|                      | hasFeatures()        | 指定した機能の有無   |
-+----------------------+----------------------+----------------------+
-| MANAGE\_ACCOUNTS     | getAuthTokenByFeatur | 指定した機能を持つアカウントの認証トーク |
-|                      | es()                 | ンの取得             |
-+----------------------+----------------------+----------------------+
-|                      | addAccount()         | ユーザーへのアカウント追加要請 |
-+----------------------+----------------------+----------------------+
-|                      | removeAccount()      | アカウントの削除     |
-+----------------------+----------------------+----------------------+
-|                      | clearPassword()      | パスワードの初期化   |
-+----------------------+----------------------+----------------------+
-|                      | updateCredentials()  | ユーザーへのパスワード変更要請 |
-+----------------------+----------------------+----------------------+
-|                      | editProperties()     | Authenticatorの設定変更 |
-+----------------------+----------------------+----------------------+
-|                      | confirmCredentials() | ユーザーへのパスワード再入力要請 |
-+----------------------+----------------------+----------------------+
-| USE\_CREDENTIALS     | getAuthToken()       | 認証トークンの取得   |
-+----------------------+----------------------+----------------------+
-|                      | blockingGetAuthToken | 認証トークンの取得   |
-|                      | ()                   |                      |
-+----------------------+----------------------+----------------------+
-| MANAGE\_ACCOUNTS     | invalidateAuthToken( | キャッシュされたトークンの削除 |
-|                      | )                    |                      |
-| または               |                      |                      |
-|                      |                      |                      |
-| USE\_CREDENTIALS     |                      |                      |
-+----------------------+----------------------+----------------------+
+```eval_rst
++------------------------------+--------------------------------+------------------------------------+
+|                              | Account                        |                                    |
+|                              | Managerが提供する機能          |                                    |
++==============================+================================+====================================+
+| Permission                   | メソッド                       | 説明                               |
++------------------------------+--------------------------------+------------------------------------+
+| AUTHENTICATE_ACCOUNTS        | getPassword()                  | パスワードの取得                   |
+|                              |                                |                                    |
+| (Authenticatorと同じ鍵で署名 |                                |                                    |
+|                              |                                |                                    |
+| されたPackageのみ利用可能)   |                                |                                    |
++------------------------------+--------------------------------+------------------------------------+
+|                              | getUserData()                  | 利用者情報の取得                   |
++------------------------------+--------------------------------+------------------------------------+
+|                              | addAccountExplicitly()         | アカウントのDBへの追加             |
++------------------------------+--------------------------------+------------------------------------+
+|                              | peekAuthToken()                | キャッシュされたトークンの取得     |
++------------------------------+--------------------------------+------------------------------------+
+|                              | setAuthToken()                 | 認証トークンの登録                 |
++------------------------------+--------------------------------+------------------------------------+
+|                              | setPassword()                  | パスワードの変更                   |
++------------------------------+--------------------------------+------------------------------------+
+|                              | setUserData()                  | 利用者情報の設定                   |
++------------------------------+--------------------------------+------------------------------------+
+|                              | renameAccount()                | アカウント名の変更                 |
++------------------------------+--------------------------------+------------------------------------+
+| GET_ACCOUNTS                 | getAccounts()                  | すべてのアカウントの一覧取得       |
++------------------------------+--------------------------------+------------------------------------+
+|                              | getAccountsByType()            | アカウントタイプが同じアカウントの |
+|                              |                                |                                    |
+|                              |                                | 一覧取得                           |
++------------------------------+--------------------------------+------------------------------------+
+|                              | getAccountsByTypeAndFeatures() | 指定した機能を持ったアカウントの   |
+|                              |                                |                                    |
+|                              |                                | 一覧取得                           |
++------------------------------+--------------------------------+------------------------------------+
+|                              | addOnAccountsUpdatedListener() | イベントリスナーの登録             |
+|                              |                                |                                    |
++------------------------------+--------------------------------+------------------------------------+
+|                              | hasFeatures()                  | 指定した機能の有無                 |
++------------------------------+--------------------------------+------------------------------------+
+| MANAGE_ACCOUNTS              | getAuthTokenByFeatures()       | 指定した機能を持つアカウントの認証 |
+|                              |                                |                                    |
+|                              |                                | トークンの取得                     |
++------------------------------+--------------------------------+------------------------------------+
+|                              | addAccount()                   | ユーザーへのアカウント追加要請     |
++------------------------------+--------------------------------+------------------------------------+
+|                              | removeAccount()                | アカウントの削除                   |
++------------------------------+--------------------------------+------------------------------------+
+|                              | clearPassword()                | パスワードの初期化                 |
++------------------------------+--------------------------------+------------------------------------+
+|                              | updateCredentials()            | ユーザーへのパスワード変更要請     |
++------------------------------+--------------------------------+------------------------------------+
+|                              | editProperties()               | Authenticatorの設定変更            |
++------------------------------+--------------------------------+------------------------------------+
+|                              | confirmCredentials()           | ユーザーへのパスワード再入力要請   |
++------------------------------+--------------------------------+------------------------------------+
+| USE_CREDENTIALS              | getAuthToken()                 | 認証トークンの取得                 |
++------------------------------+--------------------------------+------------------------------------+
+|                              | blockingGetAuthToken()         | 認証トークンの取得                 |
++------------------------------+--------------------------------+------------------------------------+
+| MANAGE_ACCOUNTS              | invalidateAuthToken()          | キャッシュされたトークンの削除     |
+|                              |                                |                                    |
+| または                       |                                |                                    |
+|                              |                                |                                    |
+| USE_CREDENTIALS              |                                |                                    |
++------------------------------+--------------------------------+------------------------------------+
+```
 
 ここで、AUTHENTICATE\_ACCOUNTS
 Permissionが必要なメソッド群を使う場合にはPermissionに加えてパッケージの署名鍵に関する制限が設けられている。具体的には、Authenticatorを提供するパッケージの署名に使う鍵とメソッドを使うアプリのパッケージの署名に使う鍵が同じでなければならない。そのため、Authenticator以外にAUTHENTICATE\_ACCOUNTS
@@ -4027,14 +3843,13 @@ Permissionを持っている他アプリから、署名に関係なく読めて�
 
 以上のように署名が一致しておらず、かつsetAccountVisibilityメソッドの呼び出しによってアカウント情報の提供先に指定していないアプリにもアカウント情報を読まれてしまう例外的なケースはあるのだが、これらの挙動はAuthenticator側で予め次のスニペットのようにsetAccountVisibilityメソッドを呼び出しておくことで変更できる。
 
-> 第三者アプリにアカウント情報を提供しない
+第三者アプリにアカウント情報を提供しない
+```java
+accountManager.setAccountVisibility(account, // visibilityを変更するアカウント
+        AccountManager.PACKAGE_NAME_KEY_LEGACY_VISIBLE,
+        AccountManager.VISIBILITY_USER_MANAGED_NOT_VISIBLE);
 
-accountManager.setAccountVisibility(account, //
-visibilityを変更するアカウント
-
-AccountManager.PACKAGE\_NAME\_KEY\_LEGACY\_VISIBLE,
-
-AccountManager.VISIBILITY\_USER\_MANAGED\_NOT\_VISIBLE);
+```
 
 この通りにsetAccountVisibilityメソッドを呼び出したAuthenticatorのアカウント情報については、フレームワークはデフォルトの挙動ではなく、targetSdkVersion
 \<=
@@ -5005,91 +4820,55 @@ throw new IOException(\"HttpStatus: \" + statusCode);
 
 }
 
-> KeyStoreUtil.java
-
+KeyStoreUtil.java
+```java
 package org.jssec.android.https.privatecertificate;
 
 import java.io.IOException;
-
 import java.io.InputStream;
-
 import java.security.KeyStore;
-
 import java.security.KeyStoreException;
-
 import java.security.NoSuchAlgorithmException;
-
 import java.security.cert.Certificate;
-
 import java.security.cert.CertificateException;
-
 import java.security.cert.CertificateFactory;
-
 import java.security.cert.X509Certificate;
-
 import java.util.Enumeration;
 
 public class KeyStoreUtil {
+    public static KeyStore getEmptyKeyStore() throws KeyStoreException,
+            NoSuchAlgorithmException, CertificateException, IOException {
+        KeyStore ks = KeyStore.getInstance("BKS");
+        ks.load(null);
+        return ks;
+    }
 
-public static KeyStore getEmptyKeyStore() throws KeyStoreException,
-
-NoSuchAlgorithmException, CertificateException, IOException {
-
-KeyStore ks = KeyStore.getInstance(\"BKS\");
-
-ks.load(null);
-
-return ks;
-
+    public static void loadAndroidCAStore(KeyStore ks)
+            throws KeyStoreException, NoSuchAlgorithmException,
+            CertificateException, IOException {
+        KeyStore aks = KeyStore.getInstance("AndroidCAStore");
+        aks.load(null);
+        Enumeration<String> aliases = aks.aliases();
+        while (aliases.hasMoreElements()) {
+            String alias = aliases.nextElement();
+            Certificate cert = aks.getCertificate(alias);
+            ks.setCertificateEntry(alias, cert);
+        }
+    }
+    
+    public static void loadX509Certificate(KeyStore ks, InputStream is)
+            throws CertificateException, KeyStoreException {
+        try {
+            CertificateFactory factory = CertificateFactory.getInstance("X509");
+            X509Certificate x509 = (X509Certificate)factory.generateCertificate(is);
+            String alias = x509.getSubjectDN().getName();
+            ks.setCertificateEntry(alias, x509);
+        } finally {
+            try { is.close(); } catch (IOException e) { /* 例外処理は割愛 */ }
+        }
+    }
 }
-
-public static void loadAndroidCAStore(KeyStore ks)
-
-throws KeyStoreException, NoSuchAlgorithmException,
-
-CertificateException, IOException {
-
-KeyStore aks = KeyStore.getInstance(\"AndroidCAStore\");
-
-aks.load(null);
-
-Enumeration\<String\> aliases = aks.aliases();
-
-while (aliases.hasMoreElements()) {
-
-String alias = aliases.nextElement();
-
-Certificate cert = aks.getCertificate(alias);
-
-ks.setCertificateEntry(alias, cert);
-
-}
-
-}
-
-public static void loadX509Certificate(KeyStore ks, InputStream is)
-
-throws CertificateException, KeyStoreException {
-
-try {
-
-CertificateFactory factory = CertificateFactory.getInstance(\"X509\");
-
-X509Certificate x509 = (X509Certificate)factory.generateCertificate(is);
-
-String alias = x509.getSubjectDN().getName();
-
-ks.setCertificateEntry(alias, x509);
-
-} finally {
-
-try { is.close(); } catch (IOException e) { /\* 例外処理は割愛 \*/ }
-
-}
-
-}
-
-}
+```
 
 > PrivateCertificateHttpsActivity.java
 
@@ -5259,143 +5038,88 @@ HTTPS通信ではサーバー証明書の検証時にSSLExceptionが発生する
 
 プライベート認証局を作成するには、下記のシェルスクリプトnewca.shおよび設定ファイルopenssl.cnfを作成し実行する。シェルスクリプト中のCASTARTおよびCAENDは認証局の有効期間、CASUBJは認証局の名称であるので、作成する認証局に合わせて変更すること。シェルスクリプト実行の際には認証局アクセスのためのパスワードが合計3回聞かれるので、同じパスワードを入力すること。
 
-> newca.sh -- プライベート認証局を作成するシェルスクリプト
-
-\#!/bin/bash
+newca.sh -- プライベート認証局を作成するシェルスクリプト
+```shell
+#!/bin/bash
 
 umask 0077
 
 CONFIG=openssl.cnf
-
 CATOP=./CA
-
 CAKEY=cakey.pem
-
 CAREQ=careq.pem
-
 CACERT=cacert.pem
-
 CAX509=cacert.crt
+CASTART=130101000000Z   # 2013/01/01 00:00:00 GMT
+CAEND=230101000000Z     # 2023/01/01 00:00:00 GMT
+CASUBJ="/CN=JSSEC Private CA/O=JSSEC/ST=Tokyo/C=JP"
 
-CASTART=130101000000Z \# 2013/01/01 00:00:00 GMT
+mkdir -p ${CATOP}
+mkdir -p ${CATOP}/certs
+mkdir -p ${CATOP}/crl
+mkdir -p ${CATOP}/newcerts
+mkdir -p ${CATOP}/private
+touch ${CATOP}/index.txt
 
-CAEND=230101000000Z \# 2023/01/01 00:00:00 GMT
+openssl req -new -newkey rsa:2048 -sha256 -subj "${CASUBJ}" \
+        -keyout ${CATOP}/private/${CAKEY} -out ${CATOP}/${CAREQ}
+openssl ca -selfsign -md sha256 -create_serial -batch \
+        -keyfile ${CATOP}/private/${CAKEY} \
+        -startdate ${CASTART} -enddate ${CAEND} -extensions v3_ca \
+        -in ${CATOP}/${CAREQ} -out ${CATOP}/${CACERT} \
+        -config ${CONFIG}
+openssl x509 -in ${CATOP}/${CACERT} -outform DER -out ${CATOP}/${CAX509}
+```
 
-CASUBJ=\"/CN=JSSEC Private CA/O=JSSEC/ST=Tokyo/C=JP\"
+openssl.cnf - 2つのシェルスクリプトが共通に参照するopensslコマンドの設定ファイル
+```shell
+[ ca ]
+default_ca      = CA_default            # The default ca section
 
-mkdir -p \${CATOP}
+[ CA_default ]
+dir             = ./CA                  # Where everything is kept
+certs           = $dir/certs            # Where the issued certs are kept
+crl_dir         = $dir/crl              # Where the issued crl are kept
+database        = $dir/index.txt        # database index file.
+#unique_subject = no                    # Set to 'no' to allow creation of
+                                        # several ctificates with same subject.
+new_certs_dir   = $dir/newcerts         # default place for new certs.
+certificate     = $dir/cacert.pem       # The CA certificate
+serial          = $dir/serial           # The current serial number
+crlnumber       = $dir/crlnumber        # the current crl number
+                                        # must be commented out to leave a V1 CRL
+crl             = $dir/crl.pem          # The current CRL
+private_key     = $dir/private/cakey.pem# The private key
+RANDFILE        = $dir/private/.rand    # private random number file
+x509_extensions = usr_cert              # The extentions to add to the cert
+name_opt        = ca_default            # Subject Name options
+cert_opt        = ca_default            # Certificate field options
+policy          = policy_match
 
-mkdir -p \${CATOP}/certs
+[ policy_match ]
+countryName             = match
+stateOrProvinceName     = match
+organizationName        = supplied
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
 
-mkdir -p \${CATOP}/crl
-
-mkdir -p \${CATOP}/newcerts
-
-mkdir -p \${CATOP}/private
-
-touch \${CATOP}/index.txt
-
-openssl req -new -newkey rsa:2048 -sha256 -subj \"\${CASUBJ}\" \\
-
--keyout \${CATOP}/private/\${CAKEY} -out \${CATOP}/\${CAREQ}
-
-openssl ca -selfsign -md sha256 -create\_serial -batch \\
-
--keyfile \${CATOP}/private/\${CAKEY} \\
-
--startdate \${CASTART} -enddate \${CAEND} -extensions v3\_ca \\
-
--in \${CATOP}/\${CAREQ} -out \${CATOP}/\${CACERT} \\
-
--config \${CONFIG}
-
-openssl x509 -in \${CATOP}/\${CACERT} -outform DER -out
-\${CATOP}/\${CAX509}
-
-> openssl.cnf -
-> 2つのシェルスクリプトが共通に参照するopensslコマンドの設定ファイル
-
-\[ ca \]
-
-default\_ca = CA\_default \# The default ca section
-
-\[ CA\_default \]
-
-dir = ./CA \# Where everything is kept
-
-certs = \$dir/certs \# Where the issued certs are kept
-
-crl\_dir = \$dir/crl \# Where the issued crl are kept
-
-database = \$dir/index.txt \# database index file.
-
-\#unique\_subject = no \# Set to \'no\' to allow creation of
-
-\# several ctificates with same subject.
-
-new\_certs\_dir = \$dir/newcerts \# default place for new certs.
-
-certificate = \$dir/cacert.pem \# The CA certificate
-
-serial = \$dir/serial \# The current serial number
-
-crlnumber = \$dir/crlnumber \# the current crl number
-
-\# must be commented out to leave a V1 CRL
-
-crl = \$dir/crl.pem \# The current CRL
-
-private\_key = \$dir/private/cakey.pem\# The private key
-
-RANDFILE = \$dir/private/.rand \# private random number file
-
-x509\_extensions = usr\_cert \# The extentions to add to the cert
-
-name\_opt = ca\_default \# Subject Name options
-
-cert\_opt = ca\_default \# Certificate field options
-
-policy = policy\_match
-
-\[ policy\_match \]
-
-countryName = match
-
-stateOrProvinceName = match
-
-organizationName = supplied
-
-organizationalUnitName = optional
-
-commonName = supplied
-
-emailAddress = optional
-
-\[ usr\_cert \]
-
+[ usr_cert ]
 basicConstraints=CA:FALSE
-
-nsComment = \"OpenSSL Generated Certificate\"
-
+nsComment                       = "OpenSSL Generated Certificate"
 subjectKeyIdentifier=hash
-
 authorityKeyIdentifier=keyid,issuer
+subjectAltName=@alt_names
 
-subjectAltName=@alt\_names
-
-\[ v3\_ca \]
-
+[ v3_ca ]
 subjectKeyIdentifier=hash
-
 authorityKeyIdentifier=keyid:always,issuer
-
 basicConstraints = CA:true
 
-\[ alt\_names \]
-
-DNS.1=\${ENV::HOSTNAME}
-
-DNS.2=\*.\${ENV::HOSTNAME}
+[ alt_names ]
+DNS.1=${ENV::HOSTNAME}
+DNS.2=*.${ENV::HOSTNAME}
+```
 
 上記シェルスクリプトを実行すると、作業ディレクトリ直下にCAというディレクトリが作成される。このCAディレクトリがプライベート認証局である。CA/cacert.crtファイルがプライベート認証局のルート証明書であり、「5.4.1.3
 プライベート証明書でHTTPS通信する」のassetsに使用されたり、「5.4.3.2　Android
@@ -5405,58 +5129,41 @@ OSの証明書ストアにプライベート認証局のルート証明書をイ
 
 プライベート証明書を作成するには、下記のシェルスクリプトnewsv.shを作成し実行する。シェルスクリプト中のSVSTARTおよびSVENDはプライベート証明書の有効期間、SVSUBJはWebサーバーの名称であるので、対象Webサーバーに合わせて変更すること。特にSVSUBJの/CNで指定するWebサーバーのホスト名はタイプミスがないように気を付けること。シェルスクリプトを実行すると認証局アクセスのためのパスワードが聞かれるので、プライベート認証局を作成するときに指定したパスワードを入力すること。その後、合計2回のy/nを聞かれるのでyを入力すること。
 
-> newsv.sh - プライベート証明書を発行するシェルスクリプト
-
-\#!/bin/bash
+newsv.sh - プライベート証明書を発行するシェルスクリプト
+```shell
+#!/bin/bash
 
 umask 0077
 
 CONFIG=openssl.cnf
-
 CATOP=./CA
-
 CAKEY=cakey.pem
-
 CACERT=cacert.pem
-
 SVKEY=svkey.pem
-
 SVREQ=svreq.pem
-
 SVCERT=svcert.pem
-
 SVX509=svcert.crt
-
-SVSTART=130101000000Z \# 2013/01/01 00:00:00 GMT
-
-SVEND=230101000000Z \# 2023/01/01 00:00:00 GMT
-
+SVSTART=130101000000Z   # 2013/01/01 00:00:00 GMT
+SVEND=230101000000Z     # 2023/01/01 00:00:00 GMT
 HOSTNAME=selfsigned.jssec.org
+SVSUBJ="/CN="${HOSTNAME}"/O=JSSEC Secure Coding Group/ST=Tokyo/C=JP"
 
-SVSUBJ=\"/CN=\"\${HOSTNAME}\"/O=JSSEC Secure Coding
-Group/ST=Tokyo/C=JP\"
-
-openssl genrsa -out \${SVKEY} 2048
-
-openssl req -new -key \${SVKEY} -subj \"\${SVSUBJ}\" -out \${SVREQ}
-
-openssl ca -md sha256 \\
-
--keyfile \${CATOP}/private/\${CAKEY} -cert \${CATOP}/\${CACERT} \\
-
--startdate \${SVSTART} -enddate \${SVEND} \\
-
--in \${SVREQ} -out \${SVCERT} -config \${CONFIG}
-
-openssl x509 -in \${SVCERT} -outform DER -out \${SVX509}
+openssl genrsa -out ${SVKEY} 2048
+openssl req -new -key ${SVKEY} -subj "${SVSUBJ}" -out ${SVREQ}
+openssl ca -md sha256 \
+        -keyfile ${CATOP}/private/${CAKEY} -cert ${CATOP}/${CACERT} \
+        -startdate ${SVSTART} -enddate ${SVEND} \
+        -in ${SVREQ} -out ${SVCERT} -config ${CONFIG}
+openssl x509 -in ${SVCERT} -outform DER -out ${SVX509}
+```
 
 上記シェルスクリプトを実行すると、作業ディレクトリ直下にWebサーバー用のプライベートキーファイルsvkey.pemおよびプライベート証明書ファイルsvcert.pemが生成される。
 
 WebサーバーがApacheである場合には、設定ファイル中に上で作成したprikey.pemとcert.pemを次のように指定するとよい。
-
+``` shell
 SSLCertificateFile "/path/to/svcert.pem"
-
 SSLCertificateKeyFile "/path/to/svkey.pem"
+```
 
 #### Android OSの証明書ストアにプライベート認証局のルート証明書をインストールする<!-- x943ac954 -->
 
@@ -5499,110 +5206,75 @@ HTTPS通信する」のサンプルコードでもプライベート証明書で
 ここではこうした脆弱なHTTPS通信のサンプルコードの断片を紹介する。こうしたサンプルコードを見かけた場合には「5.4.1.3
 プライベート証明書でHTTPS通信する」のサンプルコードに置き換えるなどしていただきたい。
 
-> 危険：空っぽのTrustManagerを作るケース
+危険：空っぽのTrustManagerを作るケース
+```java
+        TrustManager tm = new X509TrustManager() {
+            
+            @Override
+            public void checkClientTrusted(X509Certificate[] chain,
+                    String authType) throws CertificateException {
+                // 何もしない → どんな証明書でも受付ける
+            }
 
-TrustManager tm = new X509TrustManager() {
+            @Override
+            public void checkServerTrusted(X509Certificate[] chain,
+                    String authType) throws CertificateException {
+                // 何もしない → どんな証明書でも受付ける
+            }
 
-@Override
+            @Override
+            public X509Certificate[] getAcceptedIssuers() {
+                return null;
+            }
+        };
+```
 
-public void checkClientTrusted(X509Certificate\[\] chain,
-
-String authType) throws CertificateException {
-
-// 何もしない → どんな証明書でも受付ける
-
-}
-
-@Override
-
-public void checkServerTrusted(X509Certificate\[\] chain,
-
-String authType) throws CertificateException {
-
-// 何もしない → どんな証明書でも受付ける
-
-}
-
-@Override
-
-public X509Certificate\[\] getAcceptedIssuers() {
-
-return null;
-
-}
-
-};
-
-> 危険：空っぽのHostnameVerifierを作るケース
-
-HostnameVerifier hv = new HostnameVerifier() {
-
-@Override
-
-public boolean verify(String hostname, SSLSession session) {
-
-// 常にtrueを返す → どんなホスト名でも受付ける
-
-return true;
-
-}
-
-};
-
-> 危険：ALLOW\_ALL\_HOSTNAME\_VERIFIERを使っているケース
-
-SSLSocketFactory sf;
-
-...
-
-sf.setHostnameVerifier(SSLSocketFactory.ALLOW\_ALL\_HOSTNAME\_VERIFIER);
+危険：空っぽのHostnameVerifierを作るケース
+```java
+        HostnameVerifier hv = new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                // 常にtrueを返す → どんなホスト名でも受付ける
+                return true;
+            }
+        };
+```
+危険：ALLOW\_ALL\_HOSTNAME\_VERIFIERを使っているケース
+```java
+        SSLSocketFactory sf;
+        // …
+        sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+```
 
 #### HTTPリクエストヘッダを設定する際の注意点<!-- x345ceef4 -->
 
 HTTPおよびHTTPS通信において、独自のHTTPリクエストヘッダを設定したい場合は、URLConnectionクラスのsetRequestProperty()メソッド、もしくはaddRequestProperty()メソッドを使用する。これらメソッドの引数に外部からの入力データを用いる場合は、HTTPヘッダ・インジェクションの対策が必要となる。HTTPヘッダ・インジェクションによる攻撃の最初のステップとなるのは、HTTPヘッダの区切り文字である改行コードを入力データに含めることであるため、入力データから改行コードを排除するようにしなければならない。
 
-> HTTPリクエストヘッダを設定する
+HTTPリクエストヘッダを設定する
+```java
+public byte[] openConnection(String strUrl, String strLanguage, String strCookie) {
+        // HttpURLConnection はURLConnectionの派生クラス
+        HttpURLConnection connection;
 
-public byte\[\] openConnection(String strUrl, String strLanguage, String
-strCookie) {
+        try {
+            URL url = new URL(strUrl);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
 
-// HttpURLConnection はURLConnectionの派生クラス
+            // ★ポイント★ HTTPリクエストヘッダに入力値を使用する場合は、アプリケーション要件に従って
+            // 入力データをチェックする(「3.2 入力データの安全性を確認する」を参照)
+            if (strLanguage.matches("^[a-zA-Z ,-]+$")) {
+                connection.addRequestProperty("Accept-Language", strLanguage);
+            } else {
+                throw new IllegalArgumentException("Invalid Language : " + strLanguage);
+            }
+            // ★ポイント★ もしくは入力データをURLエンコードする(というアプリケーション要件にする)
+            connection.setRequestProperty("Cookie", URLEncoder.encode(strCookie, "UTF-8"));
 
-HttpURLConnection connection;
-
-try {
-
-URL url = new URL(strUrl);
-
-connection = (HttpURLConnection) url.openConnection();
-
-connection.setRequestMethod(\"GET\");
-
-// ★ポイント★
-HTTPリクエストヘッダに入力値を使用する場合は、アプリケーション要件に従って
-
-// 入力データをチェックする(「3.2 入力データの安全性を確認する」を参照)
-
-if (strLanguage.matches(\"\^\[a-zA-Z ,-\]+\$\")) {
-
-connection.addRequestProperty(\"Accept-Language\", strLanguage);
-
-} else {
-
-throw new IllegalArgumentException(\"Invalid Language : \" +
-strLanguage);
-
-}
-
-// ★ポイント★
-もしくは入力データをURLエンコードする(というアプリケーション要件にする)
-
-connection.setRequestProperty(\"Cookie\", URLEncoder.encode(strCookie,
-\"UTF-8\"));
-
-connection.connect();
-
-～省略～
+            connection.connect();
+            
+            // ～省略～
+```
 
 #### ピンニングによる検証の注意点と実装例<!-- xfb18ffa7 -->
 
@@ -5632,89 +5304,55 @@ connection.connect();
 Android 4.2（API Level
 17）以上であれば、上記のメソッドの代わりにnet.http.X509TrustManagerExtensionsのcheckServerTrusted()を使用することで、ハンドシェイク処理でシステムに信頼された証明書チェーンのみを取得することができる。
 
-> X509TrustManagerExtensionsを用いたピンニング検証の例
-
-//
-正しい通信先サーバーの証明書に含まれる公開鍵のSHA-256ハッシュ値を保持（ピンニング）
-
-private static final Set\<String\> PINS = new HashSet\<\>(Arrays.asList(
-
-new String\[\] {
-
-\"d9b1a68fceaa460ac492fb8452ce13bd8c78c6013f989b76f186b1cbba1315c1\",
-
-\"cd13bb83c426551c67fabcff38d4496e094d50a20c7c15e886c151deb8531cdc\"
-
-}
-
+X509TrustManagerExtensionsを用いたピンニング検証の例
+```java
+// 正しい通信先サーバーの証明書に含まれる公開鍵のSHA-256ハッシュ値を保持（ピンニング）
+private static final Set<String> PINS = new HashSet<>(Arrays.asList(
+        new String[] {
+                "d9b1a68fceaa460ac492fb8452ce13bd8c78c6013f989b76f186b1cbba1315c1",
+                "cd13bb83c426551c67fabcff38d4496e094d50a20c7c15e886c151deb8531cdc"
+        }
 ));
 
 // AsyncTaskのワーカースレッドで通信する
+protected Object doInBackground(String... strings) {
 
-protected Object doInBackground(String\... strings) {
+    // ～省略～
 
-～省略～
+   // ハンドシェイク時の検証によりシステムに信頼された証明書チェーンを取得する
+   X509Certificate[] chain = (X509Certificate[]) connection.getServerCertificates();
+   X509TrustManagerExtensions trustManagerExt = new X509TrustManagerExtensions((X509TrustManager) (trustManagerFactory.getTrustManagers()[0]));
+   List<X509Certificate> trustedChain = trustManagerExt.checkServerTrusted(chain, "RSA", url.getHost());
 
-//
-ハンドシェイク時の検証によりシステムに信頼された証明書チェーンを取得する
+   // 公開鍵ピンニングを用いて検証する
+   boolean isValidChain = false;
+   for (X509Certificate cert : trustedChain) {
+       PublicKey key = cert.getPublicKey();
+       MessageDigest md = MessageDigest.getInstance("SHA-256");
+       String keyHash = bytesToHex(md.digest(key.getEncoded()));
 
-X509Certificate\[\] chain = (X509Certificate\[\])
-connection.getServerCertificates();
+       // ピンニングしておいた公開鍵のハッシュ値と比較する
+       if(PINS.contains(keyHash)) isValidChain = true;
+   }
+   if (isValidChain) {
+       // 処理を継続する
+   } else {
+       // 処理を継続しない
+   }
 
-X509TrustManagerExtensions trustManagerExt = new
-X509TrustManagerExtensions((X509TrustManager)
-(trustManagerFactory.getTrustManagers()\[0\]));
-
-List\<X509Certificate\> trustedChain =
-trustManagerExt.checkServerTrusted(chain, \"RSA\", url.getHost());
-
-// 公開鍵ピンニングを用いて検証する
-
-boolean isValidChain = false;
-
-for (X509Certificate cert : trustedChain) {
-
-PublicKey key = cert.getPublicKey();
-
-MessageDigest md = MessageDigest.getInstance(\"SHA-256\");
-
-String keyHash = bytesToHex(md.digest(key.getEncoded()));
-
-// ピンニングしておいた公開鍵のハッシュ値と比較する
-
-if(PINS.contains(keyHash)) isValidChain = true;
-
+    // ～省略～
 }
 
-if (isValidChain) {
-
-// 処理を継続する
-
-} else {
-
-// 処理を継続しない
-
+private String bytesToHex(byte[] bytes) {
+    StringBuilder sb = new StringBuilder();
+    for (byte b : bytes) {
+        String s = String.format("%02x", b);
+        sb.append(s);
+    }
+    return sb.toString();
 }
 
-～省略～
-
-}
-
-private String bytesToHex(byte\[\] bytes) {
-
-StringBuilder sb = new StringBuilder();
-
-for (byte b : bytes) {
-
-String s = String.format(\"%02x\", b);
-
-sb.append(s);
-
-}
-
-return sb.toString();
-
-}
+```
 
 #### Google Play開発者サービスを利用したOpenSSLの脆弱性対策<!-- x8136129b -->
 
@@ -5740,45 +5378,33 @@ Security
 Configurationを用いれば、開発者がプライベート証明書の検証処理を明示的に実装しなくても、「5.4.1.2
 HTTPS通信する」のサンプルコードで示した通常のHTTPS通信と同じ実装でプライベート証明書を用いることができる。
 
-> 特定ドメインへの通信時にプライベート証明書を用いる
+特定ドメインへの通信時にプライベート証明書を用いる
 
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
-
-\<network-security-config\>
-
-\<domain-config\>
-
-\<domain includeSubdomains=\"true\"\>jssec.org\</domain\>
-
-\<trust-anchors\>
-
-\<certificates src=\"@raw/private\_ca\" /\>
-
-\</trust-anchors\>
-
-\</domain-config\>
-
-\</network-security-config\>
+```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <network-security-config>
+        <domain-config>
+            <domain includeSubdomains="true">jssec.org</domain>
+            <trust-anchors>
+                <certificates src="@raw/private_ca" />
+            </trust-anchors>
+        </domain-config>
+    </network-security-config>
+```
 
 上記の例では、通信で使用するプライベート証明書（private\_ca）をアプリ内にリソースとして保持しておき、それらを利用する条件や適用範囲をxmlファイルに記述している。\<domain-config\>タグを使用することで特定のドメインに対してのみプライベート証明書が適用される。アプリが行う全てのHTTPS通信に対してプライベート証明書を用いるためには、以下のように\<base-config\>タグを用いればよい。
 
-> アプリが行う全てのHTTPS通信時にプライベート証明書を用いる
-
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
-
-\<network-security-config\>
-
-\<base-config\>
-
-\<trust-anchors\>
-
-\<certificates src=\"@raw/private\_ca\" /\>
-
-\</trust-anchors\>
-
-\</base-config\>
-
-\</network-security-config\>
+アプリが行う全てのHTTPS通信時にプライベート証明書を用いる
+```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <network-security-config>
+        <base-config>
+            <trust-anchors>
+                <certificates src="@raw/private_ca" />
+            </trust-anchors>
+        </base-config>
+    </network-security-config>
+```
 
 ##### ピンニングによる検証<!-- x2765e232 -->
 
@@ -5787,31 +5413,20 @@ HTTPS通信する」のサンプルコードで示した通常のHTTPS�
 Security
 Configurationを用い以下のように設定すれば、コード上の検証処理が不要となり、xmlの記述だけで検証を行うことができる。
 
-> HTTPS通信時にピンニングによる検証を行う
-
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
-
-\<network-security-config\>
-
-\<domain-config\>
-
-\<domain includeSubdomains=\"true\"\>jssec.org\</domain\>
-
-\<pin-set expiration=\"2018-12-31\"\>
-
-\<pin
-digest=\"SHA-256\"\>e30Lky+iWK21yHSls5DJoRzNikOdvQUOGXvurPidc2E=\</pin\>
-
-\<!\-- バックアップ用 \--\>
-
-\<pin
-digest=\"SHA-256\"\>fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=\</pin\>
-
-\</pin-set\>
-
-\</domain-config\>
-
-\</network-security-config\>
+HTTPS通信時にピンニングによる検証を行う
+```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <network-security-config>
+        <domain-config>
+            <domain includeSubdomains="true">jssec.org</domain>
+            <pin-set expiration="2018-12-31">
+                <pin digest="SHA-256">e30Lky+iWK21yHSls5DJoRzNikOdvQUOGXvurPidc2E=</pin>
+                <!-- バックアップ用 -->
+                <pin digest="SHA-256">fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=</pin>
+            </pin-set>
+        </domain-config>
+    </network-security-config>
+```
 
 上記の\<pin\>タグに記述するのは、ピンニング検証の対象となる公開鍵のハッシュ値をbase64でエンコードしたものである。また、ハッシュ関数はSHA-256のみサポートされている。
 
@@ -5820,19 +5435,15 @@ digest=\"SHA-256\"\>fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=\</pin\>
 Network Security
 Configurationを用いて、アプリのHTTP通信（非暗号化通信）を抑制することができる。
 
-> 非暗号化通信を抑制する
-
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
-
-\<network-security-config\>
-
-\<domain-config cleartextTrafficPermitted=\"false\"\>
-
-\<domain includeSubdomains=\"true\"\>jssec.org\</domain\>
-
-\</domain-config\>
-
-\</network-security-config\>
+非暗号化通信を抑制する
+```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <network-security-config>
+        <domain-config cleartextTrafficPermitted="false">
+            <domain includeSubdomains="true">jssec.org</domain>
+        </domain-config>
+    </network-security-config>
+```
 
 上記のように、\<domain-config\>タグに
 cleartextTrafficPermitted=\"false\"
@@ -5847,23 +5458,17 @@ Level 25)以前ではWebViewには適用されないことに注意する必要�
 Security
 Configurationで以下のような設定を行えば、デバッグ時にのみ（AndroidManifest.xml内のandroid:debuggableが\"true\"である場合のみ）使用する証明書を指定することができるため、前述のような危険なコードを製品版に残してしまう危険性がなくなり、脆弱性の作り込み防止に役立てることができる。
 
-> デバッグ時にのみプライベート証明書を用いる
-
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
-
-\<network-security-config\>
-
-\<debug-overrides\>
-
-\<trust-anchors\>
-
-\<certificates src=\"@raw/private\_cas\" /\>
-
-\</trust-anchors\>
-
-\</debug-overrides\>
-
-\</network-security-config\>
+デバッグ時にのみプライベート証明書を用いる
+```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <network-security-config>
+        <debug-overrides>
+            <trust-anchors>
+                <certificates src="@raw/private_cas" />
+            </trust-anchors>
+        </debug-overrides>
+    </network-security-config>
+```
 
 プライバシー情報を扱う<!-- x46c448a7 -->
 ----------------------
@@ -7997,36 +7602,23 @@ Toast.LENGTH\_SHORT).show();
 
 これにより、ユーザーが利用者情報の利用状況を理解した上でアプリを使用していることが保証され、ユーザーに安心感を提供するとともにアプリへの信頼感を得ることが期待できる。
 
-> MainActivity.java
-
+MainActivity.java
+```java
 protected void onStart() {
-
-super.onStart();
-
-～省略～
-
-if (privacyPolicyAgreed \<=
-VERSION\_TO\_SHOW\_COMPREHENSIVE\_AGREEMENT\_ANEW) {
-
-// ★ポイント★
-初回起動時(アップデート時)に、ユーザーによる取り換えが困難、または、慎重な取り扱いが求められる利用者情報の送信について包括同意を得る
-
-//
-アップデート時については、新しい利用者情報を扱うようになった場合にのみ、再度包括同意を得る必要がある。
-
-ConfirmFragment dialog = ConfirmFragment.newInstance(
-
-R.string.privacyPolicy, R.string.agreePrivacyPolicy,
-
-DIALOG\_TYPE\_COMPREHENSIVE\_AGREEMENT);
-
-dialog.setDialogListener(this);
-
-FragmentManager fragmentManager = getSupportFragmentManager();
-
-dialog.show(fragmentManager, \"dialog\");
-
-}
+		super.onStart();
+		
+		// ～省略～
+		if (privacyPolicyAgreed <= VERSION_TO_SHOW_COMPREHENSIVE_AGREEMENT_ANEW) {
+			// ★ポイント★ 初回起動時(アップデート時)に、ユーザーによる取り換えが困難、または、慎重な取り扱いが求められる利用者情報の送信について包括同意を得る
+			// アップデート時については、新しい利用者情報を扱うようになった場合にのみ、再度包括同意を得る必要がある。
+			ConfirmFragment dialog = ConfirmFragment.newInstance(
+					R.string.privacyPolicy, R.string.agreePrivacyPolicy,
+					DIALOG_TYPE_COMPREHENSIVE_AGREEMENT);
+			dialog.setDialogListener(this);
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			dialog.show(fragmentManager, "dialog");
+		}
+```
 
 ![](media/image85.png){width="2.2083333333333335in"
 height="3.7708333333333335in"}
@@ -8039,24 +7631,16 @@ height="3.7708333333333335in"}
 
 これにより、ユーザーは包括同意で確認した利用者情報の送信に関して、より具体的なアプリ機能(提供サービス)との関連を知ることができ、アプリ提供者はユーザーのより正確な判断による同意を得ることが期待できる。
 
-> MainActivity.java
-
-public void onSendToServer(View view) {
-
-//
-★ポイント★慎重な取り扱いが求められる利用者情報を送信する場合は、個別にユーザーの同意を得る
-
-ConfirmFragment dialog =
-ConfirmFragment.newInstance(R.string.sendLocation,
-R.string.cofirmSendLocation, DIALOG\_TYPE\_PRE\_CONFIRMATION);
-
-dialog.setDialogListener(this);
-
-FragmentManager fragmentManager = getSupportFragmentManager();
-
-dialog.show(fragmentManager, \"dialog\");
-
-}
+MainActivity.java
+```java
+	public void onSendToServer(View view) {
+		// ★ポイント★慎重な取り扱いが求められる利用者情報を送信する場合は、個別にユーザーの同意を得る
+		ConfirmFragment dialog = ConfirmFragment.newInstance(R.string.sendLocation, R.string.cofirmSendLocation, DIALOG_TYPE_PRE_CONFIRMATION);
+		dialog.setDialogListener(this);
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		dialog.show(fragmentManager, "dialog");
+	}
+```
 
 ![](media/image86.png){width="2.2083333333333335in"
 height="3.7708333333333335in"}
@@ -8067,26 +7651,18 @@ height="3.7708333333333335in"}
 
 一般に、ユーザーが該当アプリをインストールする前にアプリ・プライバシーポリシーを確認する手段として、Androidアプリのマーケットプレイス上にアプリ・プライバシーポリシーのリンクを表示する機能がある。この機能への対応に加え、アプリを端末にインストールした後でも、ユーザーがアプリ・プライバシーポリシーを参照できる手段を用意すること。特に利用者情報を外部サーバー等に送信する場合の個別同意確認時にはアプリ・プライバシーポリシーを容易に確認できる手段を用意し、ユーザーが正しく判断できるようにすることが望ましい。
 
-> MainActivity.java
-
-@Override
-
-public boolean onOptionsItemSelected(MenuItem item) {
-
-switch (item.getItemId()) {
-
-case R.id.action\_show\_pp:
-
-// ★ポイント★
-ユーザーがアプリ・プライバシーポリシーを確認できる手段を用意する
-
-Intent intent = new Intent();
-
-intent.setClass(this, WebViewAssetsActivity.class);
-
-startActivity(intent);
-
-return true;
+MainActivity.java
+```java
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_show_pp:
+			// ★ポイント★ ユーザーがアプリ・プライバシーポリシーを確認できる手段を用意する
+			Intent intent = new Intent();
+			intent.setClass(this, WebViewAssetsActivity.class);
+			startActivity(intent);
+			return true;
+```
 
 ![](media/image87.png){width="2.1979166666666665in"
 height="3.7708333333333335in"}
@@ -8105,71 +7681,46 @@ height="3.7708333333333335in"}
 Not
 Track（追跡拒否）』の観点により定められたものであり、削除同様に送信停止機能を用意することを推奨する。
 
-> MainActivity.java
-
-@Override
-
-public boolean onOptionsItemSelected(MenuItem item) {
-
-switch (item.getItemId()) {
-
-～省略～
-
-case R.id.action\_del\_id:
-
-// ★ポイント★ 送信した情報をユーザー操作により削除する手段を用意する
-
-new SendDataAsyncTack().execute(DEL\_ID\_URI, UserId);
-
-return true;
-
-}
+MainActivity.java
+```java
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		// ～省略～
+		case R.id.action_del_id:
+			// ★ポイント★ 送信した情報をユーザー操作により削除する手段を用意する
+			new SendDataAsyncTack().execute(DEL_ID_URI, UserId);
+			return true;
+		}
+```
 
 #### 端末固有IDとUUID/cookieを使い分ける （推奨）<!-- x5bff9169 -->
 
 IMEIなどの端末固有IDは、利用者情報と紐付けて送信すべきでない。端末固有IDと利用者情報が紐付いた形で一度でも公開や漏洩してしまうと、後から端末固有IDの変更が不可能なため、IDと利用者情報の紐づけを切ることができない（難しい）ことが、その理由である。この場合、端末固有IDに変わって、UUID/cookieなどの乱数をベースにした都度作成する変更可能なIDを使って、利用者情報との紐づけおよび送信をすると良い。これにより、上記で説明した『忘れられる権利』を考慮した実装とすることができる。
 
-> MainActivity.java
+MainActivity.java
+```java
+		@Override
+		protected String doInBackground(String... params) {
+			// ★ポイント★ 利用者情報の紐づけにはUUID/cookieを利用する
+			// 本サンプルではサーバー側で生成したIDを利用する
+			SharedPreferences sp = getSharedPreferences(PRIVACY_POLICY_PREF_NAME, MODE_PRIVATE);
+			UserId = sp.getString(ID_KEY, null);
+			if (UserId == null) {
+				// SharedPreferences内にトークンが存在しなため、サーバーからIDを取り寄せる。
+				try {
+					UserId = NetworkUtil.getCookie(GET_ID_URI, "", "id");
+				} catch (IOException e) {
+					// 証明書エラーなどの例外をキャッチする
+					extMessage = e.toString();
+				}
 
-@Override
-
-protected String doInBackground(String\... params) {
-
-// ★ポイント★ 利用者情報の紐づけにはUUID/cookieを利用する
-
-// 本サンプルではサーバー側で生成したIDを利用する
-
-SharedPreferences sp = getSharedPreferences(PRIVACY\_POLICY\_PREF\_NAME,
-MODE\_PRIVATE);
-
-UserId = sp.getString(ID\_KEY, null);
-
-if (UserId == null) {
-
-//
-SharedPreferences内にトークンが存在しなため、サーバーからIDを取り寄せる。
-
-try {
-
-UserId = NetworkUtil.getCookie(GET\_ID\_URI, \"\", \"id\");
-
-} catch (IOException e) {
-
-// 証明書エラーなどの例外をキャッチする
-
-extMessage = e.toString();
-
-}
-
-// 取り寄せたIDをSharedPreferencesに保存する。
-
-sp.edit().putString(ID\_KEY, UserId).commit();
-
-}
-
-return UserId;
-
-}
+				// 取り寄せたIDをSharedPreferencesに保存する。
+				sp.edit().putString(ID_KEY, UserId).commit();
+			}
+			return UserId;
+		}
+```
 
 #### 利用者情報を端末内のみで利用する場合、外部送信しない旨をユーザーに通知する （推奨）<!-- x02b4a80f -->
 
@@ -8210,38 +7761,26 @@ return UserId;
 
 #### Android IDのバージョンによる違いについて<!-- x64fbd3a6 -->
 
-> Android
-> ID(Settings.Secure.ANDROID\_ID)は、ランダムに生成される64ビットの数値を16進数文字列で表現したものであり、(ごく稀に重複する可能性はあるが)端末を個別に識別することができる識別子である。そのため、使用法を間違えるとユーザーのトラッキングに繋がるリスクが大きくなり、使用の際には注意を必要とするが、Android
-> 7.1(API Level 25)以前とAndroid 8.0(API
-> Level26)以降の端末では、生成規則やアクセス可能範囲などが異なるため以下ではその違いについて説明する。
->
-> **Android 7.1(API Level 25)以前の端末**
->
-> Android 7.1(API Level
-> 25)以前の端末では端末内に1つの値を持ちすべてのアプリからアクセス可能となる。ただし、マルチユーザーをサポートする端末ではユーザー毎に別の値が生成される。生成のタイミングとしては、最初は端末の工場出荷後の初回起動時であり、その後は、ファクトリーリセットの度に新しく生成される。
->
-> **Android 8.0(API Level 26)以降の端末**
->
-> Android 8.0(API Level
-> 26)以降の端末ではアプリ(開発者)毎に異なる値を持ち、対象のアプリだけがアクセスできるように変更されている。具体的には、Android
-> 7.1(API Level
-> 25)以前のユーザーおよび端末に加えて、アプリの署名を要素として値が一意に決定される仕組みとなっており、署名の異なるアプリは別の(署名が同じ場合は同じ)Android
-> IDの値を持つことになる。
->
-> 値が変更されるタイミングに関しては以前とほぼ変わらないが、いくつか注意する点があるので以下に示す。
+Android ID(Settings.Secure.ANDROID\_ID)は、ランダムに生成される64ビットの数値を16進数文字列で表現したものであり、(ごく稀に重複する可能性はあるが)端末を個別に識別することができる識別子である。そのため、使用法を間違えるとユーザーのトラッキングに繋がるリスクが大きくなり、使用の際には注意を必要とするが、Android 7.1(API Level 25)以前とAndroid 8.0(API Level26)以降の端末では、生成規則やアクセス可能範囲などが異なるため以下ではその違いについて説明する。
+
+**Android 7.1(API Level 25)以前の端末**
+
+Android 7.1(API Level
+25)以前の端末では端末内に1つの値を持ちすべてのアプリからアクセス可能となる。ただし、マルチユーザーをサポートする端末ではユーザー毎に別の値が生成される。生成のタイミングとしては、最初は端末の工場出荷後の初回起動時であり、その後は、ファクトリーリセットの度に新しく生成される。
+
+**Android 8.0(API Level 26)以降の端末**
+
+Android 8.0(API Level 26)以降の端末ではアプリ(開発者)毎に異なる値を持ち、対象のアプリだけがアクセスできるように変更されている。具体的には、Android 7.1(API Level 25)以前のユーザーおよび端末に加えて、アプリの署名を要素として値が一意に決定される仕組みとなっており、署名の異なるアプリは別の(署名が同じ場合は同じ)Android IDの値を持つことになる。
+
+値が変更されるタイミングに関しては以前とほぼ変わらないが、いくつか注意する点があるので以下に示す。
 
 -   パッケージのアンインストール・再インストール時
 
-> Android
-> IDの値は、署名が同じである限り、アプリをアンインストール・再インストールされても変わらない。逆に、署名する鍵が変わった場合は、パッケージ名が同じでも再インストール時にAndroid
-> IDの値が異なることに注意する。
+Android IDの値は、署名が同じである限り、アプリをアンインストール・再インストールされても変わらない。逆に、署名する鍵が変わった場合は、パッケージ名が同じでも再インストール時にAndroid IDの値が異なることに注意する。
 
 -   Android 8.0(API Level 26)以降の端末へのアップデート時
 
-> Android 7.1(API Level
-> 25)以前の端末で既にアプリがインストールされていた場合、端末をAndroid
-> 8.0(API Level 26)以降にアップデートしてもアプリで取得できるAndroid
-> IDの値は変わらない。ただし、アップデート後にアプリがアンインストール・再インストールする場合は除く。
+Android 7.1(API Level 25)以前の端末で既にアプリがインストールされていた場合、端末をAndroid 8.0(API Level 26)以降にアップデートしてもアプリで取得できるAndroid IDの値は変わらない。ただし、アップデート後にアプリがアンインストール・再インストールする場合は除く。
 
 なお、いずれのAndroid
 IDでも「5.5.3.2用語解説」における「利用者による取り換えが困難な利用者情報」に分類されるため、冒頭に言及したように使用の際は同様の注意を払うことを推奨する。
@@ -9670,50 +9209,38 @@ java.crypto のクラスである Cipher
 
 パスワードベース暗号で、ユーザーから入力を受けたパスワードをベースに暗号鍵を生成する場合、必ずSaltを使用すること。また、端末内の別ユーザーに機能を提供する場合は、ユーザー毎に異なるSaltを利用すること。Saltを利用せずに単純なハッシュ関数のみで暗号鍵を生成した場合、レインボーテーブルと呼ばれる技術を使うことで、容易に元のパスワードを類推することができるためである。Saltを付けた場合、同じパスワードから生成した鍵であっても異なる鍵（ハッシュ値）が生成されるようになり、レインボーテーブルによる鍵の探索を妨害することができる。
 
-> パスワードから鍵を生成する場合に、Saltを使用する例
+パスワードから鍵を生成する場合に、Saltを使用する例
+```java
+	public final byte[] encrypt(final byte[] plain, final char[] password) {
+		byte[] encrypted = null;
 
-public final byte\[\] encrypt(final byte\[\] plain, final char\[\]
-password) {
+		try {
+			// ★ポイント★ 明示的に暗号モードとパディングを設定する
+			// ★ポイント★ 脆弱でない(基準を満たす)暗号技術（アルゴリズム・モード・パディング等）を使用する
+			Cipher cipher = Cipher.getInstance(TRANSFORMATION);
 
-byte\[\] encrypted = null;
-
-try {
-
-// ★ポイント★ 明示的に暗号モードとパディングを設定する
-
-// ★ポイント★
-脆弱でない(基準を満たす)暗号技術（アルゴリズム・モード・パディング等）を使用する
-
-Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-
-// ★ポイント★ パスワードから鍵を生成する場合は、Saltを使用する
-
-SecretKey secretKey = generateKey(password, mSalt);
+			// ★ポイント★ パスワードから鍵を生成する場合は、Saltを使用する
+			SecretKey secretKey = generateKey(password, mSalt);
+```
 
 #### パスワードから鍵を生成する場合は、適正なハッシュの繰り返し回数を指定する （必須）<!-- xa0ae1877 -->
 
 パスワードベース暗号で、ユーザーから入力を受けたパスワードをベースに暗号鍵を生成する場合、鍵生成で適用するハッシュ処理を十分安全な回数繰り返す（ストレッチングする）こと。一般に1,000回以上の繰り返しであれば良いとされる。さらに重要な資産を保護するために利用する場合は1,000,000回以上の繰り返しを行うこと。ハッシュ関数は一回の計算にかかる時間が非常に短時間であるため、攻撃者による総当たり攻撃が容易になる原因にもなっている。そのため、ハッシュ処理を繰り返し用いるストレッチング手法で、わざと時間がかかるようにして総当たり攻撃を困難にする。なお、ストレッチング回数はアプリの処理速度にも影響を及ぼすため、設定する回数には注意すること。
 
-> パスワードから鍵を生成する場合に、ハッシュの繰り返し回数を指定する例
+パスワードから鍵を生成する場合に、ハッシュの繰り返し回数を指定する例
+```java
+	private static final SecretKey generateKey(final char[] password, final byte[] salt) {
+		SecretKey secretKey = null;
+		PBEKeySpec keySpec = null;
 
-private static final SecretKey generateKey(final char\[\] password,
-final byte\[\] salt) {
+		// ～省略～
 
-SecretKey secretKey = null;
+			// ★ポイント★ パスワードから鍵を生成する場合は、Saltを使用する
+			// ★ポイント★ パスワードから鍵を生成する場合は、適正なハッシュの繰り返し回数を指定する
+			// ★ポイント★ 十分安全な長さを持つ鍵を利用する
+			keySpec = new PBEKeySpec(password, salt, KEY_GEN_ITERATION_COUNT, KEY_LENGTH_BITS);
 
-PBEKeySpec keySpec = null;
-
-～省略～
-
-// ★ポイント★ パスワードから鍵を生成する場合は、Saltを使用する
-
-// ★ポイント★
-パスワードから鍵を生成する場合は、適正なハッシュの繰り返し回数を指定する
-
-// ★ポイント★ 十分安全な長さを持つ鍵を利用する
-
-keySpec = new PBEKeySpec(password, salt, KEY\_GEN\_ITERATION\_COUNT,
-KEY\_LENGTH\_BITS);
+```
 
 #### パスワードの強度を高める工夫をする （推奨）<!-- xab5faf7b -->
 
@@ -9798,47 +9325,38 @@ Androidアプリでは、暗号用途での利用に対して十分セキュア�
 
 なお、SecureRandomにはAndroidのバージョンによっていくつか脆弱性があり、実装上の対策が必要になる。「5.6.3.3　乱数生成における脆弱性と対策」を参照すること。
 
-> SecureRandomの使用(デフォルトの実装を使用する)
-
+SecureRandomの使用(デフォルトの実装を使用する)
+```java
 import java.security.SecureRandom;
+// ～省略～
+	SecureRandom random = new SecureRandom();
+	byte[] randomBuf = new byte [128];
+	
+	random.nextBytes(randomBuf);
+// ～省略～
+```
 
-～省略～
-
-SecureRandom random = new SecureRandom();
-
-byte\[\] randomBuf = new byte \[128\];
-
-random.nextBytes(randomBuf);
-
-～省略～
-
-> SecureRandomの使用(明示的にアルゴリズムを指定する)
-
+SecureRandomの使用(明示的にアルゴリズムを指定する)
+```java
 import java.security.SecureRandom;
+// ～省略～
+	SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+	byte[] randomBuf = new byte [128];
+	
+	random.nextBytes(randomBuf); 
+// ～省略～
+```
 
-～省略～
-
-SecureRandom random = SecureRandom.getInstance(\"SHA1PRNG\");
-
-byte\[\] randomBuf = new byte \[128\];
-
-random.nextBytes(randomBuf);
-
-～省略～
-
-> SecureRandomの使用(明示的に実装(Provider)を指定する)
-
+SecureRandomの使用(明示的に実装(Provider)を指定する)
+```java
 import java.security.SecureRandom;
-
-～省略～
-
-SecureRandom random = SecureRandom.getInstance(\"SHA1PRNG\", "Crypto");
-
-byte\[\] randomBuf = new byte \[128\];
-
-random.nextBytes(randomBuf);
-
-～省略～
+// ～省略～
+	SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "Crypto");
+	byte[] randomBuf = new byte [128];
+	
+	random.nextBytes(randomBuf); 
+// ～省略～
+```
 
 SecureRandomのようなプログラムで実現されている疑似乱数生成器は一般に「図
 5.6‑3　疑似乱数生成器の内部プロセス」のように動作しており、乱数の種を入力して内部状態を初期化すると、乱数を生成する度に内部状態を一定のアルゴリズムで更新することで、次々と乱数列の生成が可能になる。
@@ -10021,47 +9539,34 @@ Providerも、メーカーとユーザーの対応状況に関わらず、最新
 
 以下に、Provider Installerを呼び出すサンプルコードを示す。
 
-> Provider Installerを呼び出す
-
+Provider Installerを呼び出す
+```java
 import com.google.android.gms.common.GooglePlayServicesUtil;
-
 import com.google.android.gms.security.ProviderInstaller;
 
 public class MainActivity extends Activity
+        implements ProviderInstaller.ProviderInstallListener {
 
-implements ProviderInstaller.ProviderInstallListener {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-@Override
+        ProviderInstaller.installIfNeededAsync(this, this);
+        setContentView(R.layout.activity_main);
+    }
 
-protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onProviderInstalled() {
+        // Security Providerが最新、またはインストールが済んだときに呼ばれる
+    }
 
-super.onCreate(savedInstanceState);
+    @Override
+    public void onProviderInstallFailed(int errorCode, Intent recoveryIntent) {
+        GoogleApiAvailability.getInstance().showErrorNotification(this, errorCode);
 
-ProviderInstaller.installIfNeededAsync(this, this);
-
-setContentView(R.layout.activity\_main);
-
+    }
 }
-
-@Override
-
-public void onProviderInstalled() {
-
-// Security Providerが最新、またはインストールが済んだときに呼ばれる
-
-}
-
-@Override
-
-public void onProviderInstallFailed(int errorCode, Intent
-recoveryIntent) {
-
-GoogleApiAvailability.getInstance().showErrorNotification(this,
-errorCode);
-
-}
-
-}
+```
 
 指紋認証機能を利用する<!-- x2b89c9ef -->
 ----------------------
@@ -10726,30 +10231,20 @@ android:screenOrientation=\"portrait\" \>
 
 指紋認証機能を利用して鍵を生成するためには端末にユーザーの指紋が登録されている必要がある。指紋登録ユーザーに促すため、設定メニューへ誘導する際には、指紋が重要な個人情報であることに留意し、ユーザーに対してアプリが指紋を利用する必要性や利便性について説明することが望ましい。
 
-> 指紋認証の登録が必要である旨、ユーザーに伝える
-
-if (!mFingerprintAuthentication.isFingerprintAuthAvailable()) {
-
-// ★ポイント★
-鍵を生成するためには指紋の登録が必要である旨をユーザーに伝える
-
-new AlertDialog.Builder(this)
-
-.setTitle(R.string.app\_name)
-
-.setMessage(\"指紋情報が登録されていません。\\n\" +
-
-\"設定メニューの「セキュリティ」で指紋を登録してください。\\n\" +
-
-\"指紋を登録することにより、簡単に認証することができます。\")
-
-.setPositiveButton(\"OK\", null)
-
-.show();
-
-return false;
-
-}
+指紋認証の登録が必要である旨、ユーザーに伝える
+```java
+        if (!mFingerprintAuthentication.isFingerprintAuthAvailable()) {
+            // ★ポイント★ 鍵を生成するためには指紋の登録が必要である旨をユーザーに伝える
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.app_name)
+                    .setMessage("指紋情報が登録されていません。\n" +
+                            "設定メニューの「セキュリティ」で指紋を登録してください。\n" +
+                            "指紋を登録することにより、簡単に認証することができます。")
+                    .setPositiveButton("OK", null)
+                    .show();
+            return false;
+        }
+```
 
 ### アドバンスト<!-- xac8c0e2b -->
 
@@ -10774,68 +10269,40 @@ Providerが提供するKeyGeneratorやKeyStoreインスタンス等を使用す�
 
 指紋情報と紐づいた鍵を生成する場合は、KeyGeneratorを生成する際のパラメータとして、ユーザー認証の要求を有効にするよう設定する。
 
-> 指紋情報と紐づいた鍵の生成と登録
-
-try {
-
-// \"AndroidKeyStore\" ProviderからKeyGeneratorインスタンスを取得する
-
-KeyGenerator keyGenerator =
-KeyGenerator.getInstance(KeyProperties.KEY\_ALGORITHM\_AES,
-\"AndroidKeyStore\");
-
-keyGenerator.init(
-
-new KeyGenParameterSpec.Builder(KEY\_NAME,
-KeyProperties.PURPOSE\_ENCRYPT)
-
-.setBlockModes(KeyProperties.BLOCK\_MODE\_CBC)
-
-.setEncryptionPaddings(KeyProperties.ENCRYPTION\_PADDING\_PKCS7)
-
-.setUserAuthenticationRequired(true) //
-ユーザー（指紋）認証の要求を有効にする
-
-.build());
-
-keyGenerator.generateKey();
-
-} catch (IllegalStateException e) {
-
-// 端末に指紋が登録されていない
-
-throw new RuntimeException("No fingerprint registered", e);
-
-} catch (NoSuchAlgorithmException \| InvalidAlgorithmParameterException
-
-\| CertificateException \| KeyStoreException \| IOException e) {
-
-// 鍵の生成に失敗
-
-throw new RuntimeException(\"Failed to generate a key\", e);
-
-}
+指紋情報と紐づいた鍵の生成と登録
+```java
+    try {
+        // "AndroidKeyStore" ProviderからKeyGeneratorインスタンスを取得する
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+        keyGenerator.init(
+            new KeyGenParameterSpec.Builder(KEY_NAME, KeyProperties.PURPOSE_ENCRYPT)
+            .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+            .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
+            .setUserAuthenticationRequired(true)  // ユーザー（指紋）認証の要求を有効にする
+            .build());
+        keyGenerator.generateKey();
+    } catch (IllegalStateException e) {
+        // 端末に指紋が登録されていない
+	  throw new RuntimeException("No fingerprint registered", e);
+    } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
+                | CertificateException | KeyStoreException | IOException e) {
+        // 鍵の生成に失敗
+        throw new RuntimeException("Failed to generate a key", e); 
+    }
+```
 
 既存の鍵に指紋情報を紐づける場合は、ユーザー認証の要求を有効にする設定を加えたKeyStoreエントリーに鍵を登録する。
 
-> 既存の鍵に指紋情報を紐付ける
+既存の鍵に指紋情報を紐付ける
+```java
+    SecretKey key = existingKey;  // 既存の鍵
 
-SecretKey key = ...; // 既存の鍵
-
-KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
-
-keyStore.load(null);
-
-keyStore.setEntry(
-
-\"alias\_for\_the\_key\",
-
-new KeyStore.SecretKeyEntry(key),
-
-new KeyProtection.Builder(KeyProperties.PURPOSE\_ENCRYPT)
-
-.setUserAuthenticationRequired(true) //
-ユーザー（指紋）認証の要求を有効にする
-
-.build());
-
+    KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
+    keyStore.load(null);
+    keyStore.setEntry(
+        "alias_for_the_key",
+        new KeyStore.SecretKeyEntry(key),
+        new KeyProtection.Builder(KeyProperties.PURPOSE_ENCRYPT)
+                .setUserAuthenticationRequired(true)  // ユーザー（指紋）認証の要求を有効にする
+                .build());
+```
