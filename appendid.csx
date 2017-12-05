@@ -15,9 +15,14 @@ using (var output = new StreamWriter(Args[1], false, new UTF8Encoding(false)))
         {
             break;
         }
-        if (line.StartsWith("#"))
+        // if (line.StartsWith("#"))
+        switch (line)
         {
-            line += $"<!-- x{Guid.NewGuid().GetHashCode():x8} -->";
+            case "### サンプルコード":
+            case "### ルールブック":
+            case "### アドバンスト":
+                line += $"<!-- {Guid.NewGuid().GetHashCode():x8} -->";
+                break;
         }
         output.WriteLine(line);
     }
