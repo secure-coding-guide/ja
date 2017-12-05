@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.jssec.android.autofillframework">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".autofillapp.MainActivity"
+            android:taskAffinity=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".autofillapp.CredentialActivity" />
+        <activity android:name=".autofillapp.DisableForOtherServiceActivity" />
+        <activity android:name=".autofillapp.SettingsActivity" />
+
+        <service
+            android:name=".autofillservice.MyAutofillService"
+            android:label="Autofill Service(JSSEC Autofill Sample)"
+            android:permission="android.permission.BIND_AUTOFILL_SERVICE">
+            <meta-data
+                android:name="android.autofill"
+                android:resource="@xml/my_autofill_service" />
+
+            <intent-filter>
+                <action android:name="android.service.autofill.AutofillService" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".autofillservice.settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+Jssec My
+</manifest>

@@ -67,7 +67,7 @@ TextView.setCustomSelectionActionModeCallback()メソッドによって、文字
 
 UncopyableActivity.java
 ```eval_rst
-.. literalinclude:: C:\\jssec\\Files\\LeakageViaClipboard.UncopyableActivity.java
+.. literalinclude:: Files/LeakageViaClipboard.UncopyableActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -83,7 +83,7 @@ Click)を無効にすることでも実現できる。Viewの長押し無効化�
 
 unlongclickable.xml
 ```eval_rst
-.. literalinclude:: C:\\jssec\\Files\\UnlongClickableEditview.app.src.main.res.layout.unlongclickable.xml
+.. literalinclude:: Files/UnlongClickableEditview.app.src.main.res.layout.unlongclickable.xml
    :language: xml
    :encoding: shift-jis
 ```
@@ -138,7 +138,7 @@ Clipboardに格納されている情報(ClipDataと呼ぶ)は、ClipboardManager
 
 ClipboardListeningService.java
 ```eval_rst
-.. literalinclude:: C:\\jssec\\Files\\ClipboardListening.ClipboardListeningService.java
+.. literalinclude:: Files/ClipboardListening.ClipboardListeningService.java
    :language: java
    :encoding: shift-jis
 ```
@@ -147,7 +147,7 @@ ClipboardListeningService.java
 
 ClipboardListeningActivity.java
 ```eval_rst
-.. literalinclude:: C:\\jssec\\Files\\ClipboardListening.ClipboardListeningActivity.java
+.. literalinclude:: Files/ClipboardListening.ClipboardListeningActivity.java
    :language: java
    :encoding: shift-jis
 ```
