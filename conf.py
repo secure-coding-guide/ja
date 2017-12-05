@@ -22,9 +22,7 @@ import sys
 import recommonmark
 from recommonmark.parser import CommonMarkParser
 from recommonmark.transform import AutoStructify
-import distutils.sysconfig
-site_package_path = distutils.sysconfig.get_python_lib()
-sys.path.insert(0, os.path.join(site_package_path, 'sphinxcontrib/unicode_ids'))
+sys.path.insert(0, 'unicode_ids-2.0.5/sphinxcontrib/unicode_ids')
 
 source_parsers = {
     '.md': CommonMarkParser
