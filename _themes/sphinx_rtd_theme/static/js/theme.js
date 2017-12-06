@@ -93,7 +93,7 @@ function ThemeNav () {
 
     nav.reset = function () {
         // Get anchor from URL and open up nested nav
-        var anchor = encodeURI(window.location.hash);
+        var anchor = window.location.hash;
         if (anchor) {
             try {
                 var link = $('.wy-menu-vertical')
