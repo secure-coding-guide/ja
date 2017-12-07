@@ -49,7 +49,7 @@ source_suffix = ['.rst', '.md']
 #source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = 'readme'
 
 # General information about the project.
 project = u'Secure Coding Guide'
