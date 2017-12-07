@@ -101,23 +101,13 @@ Studioへの取り込み手順を説明します。サンプルコードは目�
 Studioに設定してください。なお、確認は下記の環境で行っております。
 
 -   OS
-
     -   Windows 7 Ultimate SP1
-
-&nbsp;
-
 -   Android Studio
-
     -   2.1.2
-
 -   Android SDK
-
     -   Android 6.0(API 23)
-
         -   特に注意のないサンプルプロジェクトはAndroid 6.0(API
             23)でビルドできます。
-
-[]{#_Ref338255148 .anchor}
 
 ### サンプルプロジェクトを取り込む
 
@@ -246,8 +236,6 @@ Studioは、Eclipseとは違い、１つのプロジェクトに対して１つ�
 height="3.3672222222222223in"}
 
 図 2.5‑13
-
-[]{#_Ref339636397 .anchor}
 
 ### サンプルコード動作確認用debug.keystoreを設定する <!-- Setup the debug.keystore to run and test the Sample Code -->
 
