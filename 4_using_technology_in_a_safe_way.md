@@ -1931,14 +1931,11 @@ Content Providerの実装時には以下のルールを守ること。
 
 2.  リクエストパラメータの安全性を確認する （必須）
 
-3.  独自定義Signature
-    > Permissionは、自社アプリが定義したことを確認して利用する （必須）
+3.  独自定義Signature Permissionは、自社アプリが定義したことを確認して利用する （必須）
 
-4.  結果情報を返す場合には、返送先アプリからの結果情報漏洩に注意する
-    > （必須）
+4.  結果情報を返す場合には、返送先アプリからの結果情報漏洩に注意する （必須）
 
-5.  資産を二次的に提供する場合には、その資産の従来の保護水準を維持する
-    > （必須）
+5.  資産を二次的に提供する場合には、その資産の従来の保護水準を維持する （必須）
 
 また、利用側は、以下のルールも守ること。
 
@@ -2069,59 +2066,6 @@ AndroidManifest.xml
    :encoding: shift-jis
 ```
 
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
-
-\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
-
-package=\"org.jssec.android.service.privateservice\" \>
-
-\<application
-
-android:icon=\"@drawable/ic\_launcher\"
-
-android:label=\"@string/app\_name\"
-
-android:allowBackup=\"false\"\>
-
-\<activity
-
-android:name=\".PrivateUserActivity\"
-
-android:label=\"@string/app\_name\"
-
-android:exported=\"true\" \>
-
-\<intent-filter\>
-
-\<action android:name=\"android.intent.action.MAIN\" /\>
-
-\<category android:name=\"android.intent.category.LAUNCHER\" /\>
-
-\</intent-filter\>
-
-\</activity\>
-
-\<!\-- 非公開Service \--\>
-
-\<!\-- ★ポイント1★ exported=\"false\"により、明示的に非公開設定する
-\--\>
-
-\<service android:name=\".PrivateStartService\"
-android:exported=\"false\"/\>
-
-\<!\-- IntentServiceを継承したService \--\>
-
-\<!\-- 非公開Service \--\>
-
-\<!\-- ★ポイント1★ exported=\"false\"により、明示的に非公開設定する
-\--\>
-
-\<service android:name=\".PrivateIntentService\"
-android:exported=\"false\"/\>
-
-\</application\>
-
-\</manifest\>
 
 PrivateStartService.java
 ```eval_rst
@@ -2130,78 +2074,6 @@ PrivateStartService.java
    :encoding: shift-jis
 ```
 
-package org.jssec.android.service.privateservice;
-
-import android.app.Service;
-
-import android.content.Intent;
-
-import android.os.IBinder;
-
-import android.widget.Toast;
-
-public class PrivateStartService extends Service{
-
-// Serviceが起動するときに１回だけ呼び出される
-
-@Override
-
-public void onCreate() {
-
-Toast.makeText(this, this.getClass().getSimpleName() + \" -
-onCreate()\", Toast.LENGTH\_SHORT).show();
-
-}
-
-// startService()が呼ばれた回数だけ呼び出される
-
-@Override
-
-public int onStartCommand(Intent intent, int flags, int startId) {
-
-// ★ポイント2★
-同一アプリからのIntentであっても、受信Intentの安全性を確認する
-
-// サンプルにつき割愛。「3.2 入力データの安全性を確認する」を参照。
-
-String param = intent.getStringExtra(\"PARAM\");
-
-Toast.makeText(this, String.format(\"パラメータ「%s」を受け取った。\",
-param), Toast.LENGTH\_LONG).show();
-
-// サービスは明示的に終了させる
-
-// stopSelf や stopService を実行したときにサービスを終了する
-
-// START\_NOT\_STICKY
-は、メモリが少ない等でkillされた場合に自動的には復帰しない
-
-return Service.START\_NOT\_STICKY;
-
-}
-
-// Serviceが終了するときに１回だけ呼び出される
-
-@Override
-
-public void onDestroy() {
-
-Toast.makeText(this, this.getClass().getSimpleName() + \" -
-onDestroy()\", Toast.LENGTH\_SHORT).show();
-
-}
-
-@Override
-
-public IBinder onBind(Intent intent) {
-
-// このサービスにはバインドしない
-
-return null;
-
-}
-
-}
 
 次に非公開Serviceを利用するActivityのサンプルコードを示す。
 
@@ -2220,95 +2092,6 @@ PrivateUserActivity.java
    :encoding: shift-jis
 ```
 
-package org.jssec.android.service.privateservice;
-
-import android.app.Activity;
-
-import android.content.Intent;
-
-import android.os.Bundle;
-
-import android.view.View;
-
-public class PrivateUserActivity extends Activity {
-
-@Override
-
-public void onCreate(Bundle savedInstanceState) {
-
-super.onCreate(savedInstanceState);
-
-setContentView(R.layout.privateservice\_activity);
-
-}
-
-// サービス開始
-
-public void onStartServiceClick(View v) {
-
-// ★ポイント4★ 同一アプリ内Serviceはクラス指定の明示的Intentで呼び出す
-
-Intent intent = new Intent(this, PrivateStartService.class);
-
-// ★ポイント5★
-利用先アプリは同一アプリであるから、センシティブな情報を送信してもよい
-
-intent.putExtra(\"PARAM\", \"センシティブな情報\");
-
-startService(intent);
-
-}
-
-// サービス停止ボタン
-
-public void onStopServiceClick(View v) {
-
-doStopService();
-
-}
-
-@Override
-
-public void onStop(){
-
-super.onStop();
-
-// サービスが終了していない場合は終了する
-
-doStopService();
-
-}
-
-// サービスを停止する
-
-private void doStopService() {
-
-// ★ポイント4★ 同一アプリ内Serviceはクラス指定の明示的Intentで呼び出す
-
-Intent intent = new Intent(this, PrivateStartService.class);
-
-stopService(intent);
-
-}
-
-// IntentService 開始ボタン
-
-public void onIntentServiceClick(View v) {
-
-// ★ポイント4★ 同一アプリ内Serviceはクラス指定の明示的Intentで呼び出す
-
-Intent intent = new Intent(this, PrivateIntentService.class);
-
-// ★ポイント5★
-利用先アプリは同一アプリであるから、センシティブな情報を送信してもよい
-
-intent.putExtra(\"PARAM\", \"センシティブな情報\");
-
-startService(intent);
-
-}
-
-}
 
 #### 公開Serviceを作る・利用する
 
