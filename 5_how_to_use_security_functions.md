@@ -31,7 +31,7 @@ height="3.345138888888889in"}
 
 password_activity.xml
 ```eval_rst
-.. literalinclude:: Files/Password PasswordInputUI.app.src.main.res.layout.password_activity.xml
+.. literalinclude:: CodeSamples/Password PasswordInputUI.app.src.main.res.layout.password_activity.xml
    :language: xml
    :encoding: shift-jis
 ```
@@ -149,7 +149,7 @@ android:text=\"@android:string/ok\" /\>
 
 PasswordActivity.java
 ```eval_rst
-.. literalinclude:: Files/Password PasswordInputUI.PasswordActivity.java
+.. literalinclude:: CodeSamples/Password PasswordInputUI.PasswordActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -838,7 +838,7 @@ height="3.34375in"}
 
 AndroidManifest.xml
 ```eval_rst
-.. literalinclude:: Files/Permission UsesPermission.app.src.main.AndroidManifest.xml
+.. literalinclude:: CodeSamples/Permission UsesPermission.app.src.main.AndroidManifest.xml
    :language: xml
    :encoding: shift-jis
 ```
@@ -869,7 +869,7 @@ height="2.0933070866141734in"}
 
 AndroidManifest.xml
 ```eval_rst
-.. literalinclude:: Files/Permission CustomSignaturePermission ProtectedApp.permissionCustomSignaturePermissionProtectedApp.src.main.AndroidManifest.xml
+.. literalinclude:: CodeSamples/Permission CustomSignaturePermission ProtectedApp.permissionCustomSignaturePermissionProtectedApp.src.main.AndroidManifest.xml
    :language: xml
    :encoding: shift-jis
 ```
@@ -922,7 +922,7 @@ ComponentがActivityの場合にはintent-filterを定義しない \--\>
 
 ProtectedActivity.java
 ```eval_rst
-.. literalinclude:: Files/Permission CustomSignaturePermission ProtectedApp.ProtectedActivity.java
+.. literalinclude:: CodeSamples/Permission CustomSignaturePermission ProtectedApp.ProtectedActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -1013,7 +1013,7 @@ Permissionが自社アプリにより定義されていることを確認でき�
 
 SigPerm.java
 ```eval_rst
-.. literalinclude:: Files/JSSEC Shared.SigPerm.java
+.. literalinclude:: CodeSamples/JSSEC Shared.SigPerm.java
    :language: java
    :encoding: shift-jis
 ```
@@ -1078,7 +1078,7 @@ return null;
 
 PkgCert.java
 ```eval_rst
-.. literalinclude:: Files/JSSEC Shared.PkgCert.java
+.. literalinclude:: CodeSamples/JSSEC Shared.PkgCert.java
    :language: java
    :encoding: shift-jis
 ```
@@ -1200,7 +1200,7 @@ height="3.2817082239720037in"}
 
 AndroidManifest.xml
 ```eval_rst
-.. literalinclude:: Files/Permission CustomSignaturePermission UserApp.permissionCustomSignaturePermissionUserApp.src.main.AndroidManifest.xml
+.. literalinclude:: CodeSamples/Permission CustomSignaturePermission UserApp.permissionCustomSignaturePermissionUserApp.src.main.AndroidManifest.xml
    :language: xml
    :encoding: shift-jis
 ```
@@ -1253,7 +1253,7 @@ android:exported=\"true\" \>
 
 UserActivity.java
 ```eval_rst
-.. literalinclude:: Files/Permission CustomSignaturePermission UserApp.UserActivity.java
+.. literalinclude:: CodeSamples/Permission CustomSignaturePermission UserApp.UserActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -1385,7 +1385,7 @@ Toast.LENGTH\_LONG).show();
 
 PkgCertWhitelists.java
 ```eval_rst
-.. literalinclude:: Files/JSSEC Shared.PkgCertWhitelists.java
+.. literalinclude:: CodeSamples/JSSEC Shared.PkgCertWhitelists.java
    :language: java
    :encoding: shift-jis
 ```
@@ -1440,7 +1440,7 @@ return PkgCert.test(ctx, pkgname, correctHash);
 
 PkgCert.java
 ```eval_rst
-.. literalinclude:: Files/JSSEC Shared.PkgCert.java
+.. literalinclude:: CodeSamples/JSSEC Shared.PkgCert.java
    :language: java
    :encoding: shift-jis
 ```
@@ -1679,7 +1679,7 @@ Android 6.0以降のPermissionモデルについての詳細は「5.2.3.6 Androi
 
 AndroidManifest.xml
 ```eval_rst
-.. literalinclude:: Files/PermissionRequestingPermissionAtRunTime.app.src.main.AndroidManifest.xml
+.. literalinclude:: CodeSamples/PermissionRequestingPermissionAtRunTime.app.src.main.AndroidManifest.xml
    :language: xml
    :encoding: shift-jis
 ```
@@ -1742,7 +1742,7 @@ android:exported=\"false\"\>
 
 MainActivity.java
 ```eval_rst
-.. literalinclude:: Files/PermissionRequestingPermissionAtRunTime.MainActivity.java
+.. literalinclude:: CodeSamples/PermissionRequestingPermissionAtRunTime.MainActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -2206,7 +2206,7 @@ APKの改ざんを行うには、APKファイルを一度展開し、内容を�
 
 SignatureCheckActivity.java
 ```eval_rst
-.. literalinclude:: Files/Permission ActivitySignatureCheck.SignatureCheckActivity.java
+.. literalinclude:: CodeSamples/Permission ActivitySignatureCheck.SignatureCheckActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -2286,7 +2286,7 @@ Toast.makeText(this, \"自己署名の照合　OK\", Toast.LENGTH\_LONG).show();
 
 PkgCert.java
 ```eval_rst
-.. literalinclude:: Files/JSSEC Shared.PkgCert.java
+.. literalinclude:: CodeSamples/JSSEC Shared.PkgCert.java
    :language: java
    :encoding: shift-jis
 ```
@@ -2658,7 +2658,7 @@ Managerに提供するサービスを定義。meta-dataにてAuthenticatorを記
 
 AccountManager Authenticator/AndroidManifest.xml
 ```eval_rst
-.. literalinclude:: Files/AccountManager Authenticator.app.src.main.AndroidManifest.xml
+.. literalinclude:: CodeSamples/AccountManager Authenticator.app.src.main.AndroidManifest.xml
    :language: xml
    :encoding: shift-jis
 ```
@@ -2739,7 +2739,7 @@ XMLファイルでAuthenticatorを定義。独自アカウントのアカウン�
 
 res/xml/authenticator.xml
 ```eval_rst
-.. literalinclude:: Files/AccountManager Authenticator.app.src.main.res.xml.authenticator.xml
+.. literalinclude:: CodeSamples/AccountManager Authenticator.app.src.main.res.xml.authenticator.xml
    :language: xml
    :encoding: shift-jis
 ```
@@ -2762,7 +2762,7 @@ Managerに提供するサービス。このサンプルで実装するAuthentica
 
 AuthenticationService.java
 ```eval_rst
-.. literalinclude:: Files/AccountManager Authenticator.AuthenticationService.java
+.. literalinclude:: CodeSamples/AccountManager Authenticator.AuthenticationService.java
    :language: java
    :encoding: shift-jis
 ```
@@ -2803,7 +2803,7 @@ Managerに返している。
 
 JssecAuthenticator.java
 ```eval_rst
-.. literalinclude:: Files/AccountManager Authenticator.JssecAuthenticator.java
+.. literalinclude:: CodeSamples/AccountManager Authenticator.JssecAuthenticator.java
    :language: java
    :encoding: shift-jis
 ```
@@ -3012,7 +3012,7 @@ return false;
 
 LoginActivity.java
 ```eval_rst
-.. literalinclude:: Files/AccountManager Authenticator.LoginActivity.java
+.. literalinclude:: CodeSamples/AccountManager Authenticator.LoginActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -3206,7 +3206,7 @@ finish();
 
 WebService.java
 ```eval_rst
-.. literalinclude:: Files/AccountManager Authenticator.WebService.java
+.. literalinclude:: CodeSamples/AccountManager Authenticator.WebService.java
    :language: java
    :encoding: shift-jis
 ```
@@ -3271,7 +3271,7 @@ Account Managerの利用とPermission」を参照。
 
 AccountManager User/AndroidManifest.xml
 ```eval_rst
-.. literalinclude:: Files/AccountManager User.accountManagerUser.src.main.AndroidManifest.xml
+.. literalinclude:: CodeSamples/AccountManager User.accountManagerUser.src.main.AndroidManifest.xml
    :language: xml
    :encoding: shift-jis
 ```
@@ -3324,7 +3324,7 @@ android:exported=\"true\" \>
 
 UserActivity.java
 ```eval_rst
-.. literalinclude:: Files/AccountManager User.UserActivity.java
+.. literalinclude:: CodeSamples/AccountManager User.UserActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -3623,7 +3623,7 @@ log(\"\\n\");
 
 PkgCert.java
 ```eval_rst
-.. literalinclude:: Files/JSSEC Shared.PkgCert.java
+.. literalinclude:: CodeSamples/JSSEC Shared.PkgCert.java
    :language: java
    :encoding: shift-jis
 ```
@@ -4062,7 +4062,7 @@ HTTPS通信する」や「5.4.1.3
 
 HttpImageSearch.java
 ```eval_rst
-.. literalinclude:: Files/HTTPS ImageSearch.HttpImageSearch.java
+.. literalinclude:: CodeSamples/HTTPS ImageSearch.HttpImageSearch.java
    :language: java
    :encoding: shift-jis
 ```
@@ -4280,7 +4280,7 @@ throw new IOException(\"HttpStatus: \" + statusCode);
 
 ImageSearchActivity.java
 ```eval_rst
-.. literalinclude:: Files/HTTPS ImageSearch.ImageSearchActivity.java
+.. literalinclude:: CodeSamples/HTTPS ImageSearch.ImageSearchActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -4444,7 +4444,7 @@ mImgBox.setImageBitmap(bmp);
 
 AndroidManifest.xml
 ```eval_rst
-.. literalinclude:: Files/HTTPS ImageSearch.app.src.main.AndroidManifest.xml
+.. literalinclude:: CodeSamples/HTTPS ImageSearch.app.src.main.AndroidManifest.xml
    :language: xml
    :encoding: shift-jis
 ```
@@ -4523,7 +4523,7 @@ POODLE）に対する攻撃を回避するためには、接続先サーバー�
 
 HttpsImageSearch.java
 ```eval_rst
-.. literalinclude:: Files/HTTPS ImageSearch.HttpsImageSearch.java
+.. literalinclude:: CodeSamples/HTTPS ImageSearch.HttpsImageSearch.java
    :language: java
    :encoding: shift-jis
 ```
@@ -4761,7 +4761,7 @@ throw new IOException(\"HttpStatus: \" + statusCode);
 
 PrivateCertificateHttpsGet.java
 ```eval_rst
-.. literalinclude:: Files/HTTPS PrivateCertificate.PrivateCertificateHttpsGet.java
+.. literalinclude:: CodeSamples/HTTPS PrivateCertificate.PrivateCertificateHttpsGet.java
    :language: java
    :encoding: shift-jis
 ```
@@ -5012,7 +5012,7 @@ public class KeyStoreUtil {
 
 PrivateCertificateHttpsActivity.java
 ```eval_rst
-.. literalinclude:: Files/HTTPS PrivateCertificate.PrivateCertificateHttpsActivity.java
+.. literalinclude:: CodeSamples/HTTPS PrivateCertificate.PrivateCertificateHttpsActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -5673,7 +5673,7 @@ Configurationで以下のような設定を行えば、デバック�
 
 MainActivity.java
 ```eval_rst
-.. literalinclude:: Files/PrivacyPolicy.MainActivity.java
+.. literalinclude:: CodeSamples/PrivacyPolicy.MainActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -6287,7 +6287,7 @@ Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
 
 ConfirmFragment.java
 ```eval_rst
-.. literalinclude:: Files/PrivacyPolicy.ConfirmFragment.java
+.. literalinclude:: CodeSamples/PrivacyPolicy.ConfirmFragment.java
    :language: java
    :encoding: shift-jis
 ```
@@ -6466,7 +6466,7 @@ mListener = listener;
 
 WebViewAssetsActivity.java
 ```eval_rst
-.. literalinclude:: Files/PrivacyPolicy.WebViewAssetsActivity.java
+.. literalinclude:: CodeSamples/PrivacyPolicy.WebViewAssetsActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -6532,7 +6532,7 @@ webView.loadUrl(ABST\_PP\_URL);
 
 MainActivity.java
 ```eval_rst
-.. literalinclude:: Files/PrivacyPolicyNoPreConfirm.MainActivity.java
+.. literalinclude:: CodeSamples/PrivacyPolicyNoPreConfirm.MainActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -6971,7 +6971,7 @@ Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
 
 ConfirmFragment.java
 ```eval_rst
-.. literalinclude:: Files/PrivacyPolicyNoPreConfirm.ConfirmFragment.java
+.. literalinclude:: CodeSamples/PrivacyPolicyNoPreConfirm.ConfirmFragment.java
    :language: java
    :encoding: shift-jis
 ```
@@ -7147,7 +7147,7 @@ mListener = listener;
 
 WebViewAssetsActivity.java
 ```eval_rst
-.. literalinclude:: Files/PrivacyPolicyNoPreConfirm.WebViewAssetsActivity.java
+.. literalinclude:: CodeSamples/PrivacyPolicyNoPreConfirm.WebViewAssetsActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -7211,7 +7211,7 @@ webView.loadUrl(ABST\_PP\_URL);
 
 MainActivity.java
 ```eval_rst
-.. literalinclude:: Files/PrivacyPolicyNoComprehensive.MainActivity.java
+.. literalinclude:: CodeSamples/PrivacyPolicyNoComprehensive.MainActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -7512,7 +7512,7 @@ Toast.makeText(MainActivity.this, this.getClass().getSimpleName() + \" -
 
 WebViewAssetsActivity.java
 ```eval_rst
-.. literalinclude:: Files/PrivacyPolicyNoComprehensive.WebViewAssetsActivity.java
+.. literalinclude:: CodeSamples/PrivacyPolicyNoComprehensive.WebViewAssetsActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -7569,7 +7569,7 @@ webView.loadUrl(ABST\_PP\_URL);
 
 MainActivity.java
 ```eval_rst
-.. literalinclude:: Files/PrivacyPolicyNoInfoSent.MainActivity.java
+.. literalinclude:: CodeSamples/PrivacyPolicyNoInfoSent.MainActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -8027,7 +8027,7 @@ height="2.933333333333333in"}
 
 AesCryptoPBEKey.java
 ```eval_rst
-.. literalinclude:: Files/CryptSymmetricPasswordBasedKey.AesCryptoPBEKey.java
+.. literalinclude:: CodeSamples/CryptSymmetricPasswordBasedKey.AesCryptoPBEKey.java
    :language: java
    :encoding: shift-jis
 ```
@@ -8299,7 +8299,7 @@ return secretKey;
 
 RsaCryptoAsymmetricKey.java
 ```eval_rst
-.. literalinclude:: Files/CryptAsymmetricKey.RsaCryptoAsymmetricKey.java
+.. literalinclude:: CodeSamples/CryptAsymmetricKey.RsaCryptoAsymmetricKey.java
    :language: java
    :encoding: shift-jis
 ```
@@ -8535,7 +8535,7 @@ return privateKey;
 
 AesCryptoPreSharedKey.java
 ```eval_rst
-.. literalinclude:: Files/CryptSymmetricPreSharedKey.AesCryptoPreSharedKey.java
+.. literalinclude:: CodeSamples/CryptSymmetricPreSharedKey.AesCryptoPreSharedKey.java
    :language: java
    :encoding: shift-jis
 ```
@@ -8748,7 +8748,7 @@ return secretKey;
 
 HmacPBEKey.java
 ```eval_rst
-.. literalinclude:: Files/SignSymmetricPasswordBasedKey.HmacPBEKey.java
+.. literalinclude:: CodeSamples/SignSymmetricPasswordBasedKey.HmacPBEKey.java
    :language: java
    :encoding: shift-jis
 ```
@@ -8963,7 +8963,7 @@ return secretKey;
 
 RsaSignAsymmetricKey.java
 ```eval_rst
-.. literalinclude:: Files/SignAsymmetricKey.RsaSignAsymmetricKey.java
+.. literalinclude:: CodeSamples/SignAsymmetricKey.RsaSignAsymmetricKey.java
    :language: java
    :encoding: shift-jis
 ```
@@ -9187,7 +9187,7 @@ return privateKey;
 
 HmacPreSharedKey.java
 ```eval_rst
-.. literalinclude:: Files/SignSymmetricPreSharedKey.HmacPreSharedKey.java
+.. literalinclude:: CodeSamples/SignSymmetricPreSharedKey.HmacPreSharedKey.java
    :language: java
    :encoding: shift-jis
 ```
@@ -9820,7 +9820,7 @@ public class MainActivity extends Activity
 
 MainActivity.java
 ```eval_rst
-.. literalinclude:: Files/FingerprintAuthentication.MainActivity.java
+.. literalinclude:: CodeSamples/FingerprintAuthentication.MainActivity.java
    :language: java
    :encoding: shift-jis
 ```
@@ -10070,7 +10070,7 @@ setAuthenticationState(false);
 
 FingerprintAuthentication.java
 ```eval_rst
-.. literalinclude:: Files/FingerprintAuthentication.FingerprintAuthentication.java
+.. literalinclude:: CodeSamples/FingerprintAuthentication.FingerprintAuthentication.java
    :language: java
    :encoding: shift-jis
 ```
@@ -10381,7 +10381,7 @@ throw new RuntimeException(\"failed to init Cipher\", e);
 
 AndroidManifest.xml
 ```eval_rst
-.. literalinclude:: Files/FingerprintAuthentication.app.src.main.AndroidManifest.xml
+.. literalinclude:: CodeSamples/FingerprintAuthentication.app.src.main.AndroidManifest.xml
    :language: xml
    :encoding: shift-jis
 ```
