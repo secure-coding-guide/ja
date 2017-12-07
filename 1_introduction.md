@@ -25,10 +25,10 @@ Market）は無審査でアプリケーション公開ができるなど、ア�
 
 このガイド文書とサンプルコードの最新版はいつでも下記URLから入手できます。
 
--   [[http://www.jssec.org/dl/android\_securecoding.pdf]{.underline}](http://www.jssec.org/dl/android_securecoding.pdf)
+-   [[http://www.jssec.org/dl/android_securecoding.pdf]{.underline}](http://www.jssec.org/dl/android_securecoding.pdf)
     ガイド文書
 
--   [[http://www.jssec.org/dl/android\_securecoding.zip]{.underline}](http://www.jssec.org/dl/android_securecoding.zip)
+-   [[http://www.jssec.org/dl/android_securecoding.zip]{.underline}](http://www.jssec.org/dl/android_securecoding.zip)
     サンプルコード一式
 
 本文書の利用許諾
@@ -65,15 +65,59 @@ Market）は無審査でアプリケーション公開ができるなど、ア�
 
 **訂正記事一覧**
 
-  2017年2月1日版の修正個所                                                                         本改訂版の訂正記事                                                                                 訂正の要旨
-  ------------------------------------------------------------------------------------------------ -------------------------------------------------------------------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------
-  (該当なし)                                                                                       4.1.3.7 Autofillフレームワークについて                                                             Autofillフレームワークについての解説を記載しました。
-  5.2.3.6 Android 6.0以降のPermissionモデルの仕様変更について                                      5.2.3.6 Android 6.0以降のPermissionモデルの仕様変更について                                        Android 8.0(API Level 26)以降のPermission付与に関する挙動の変更について追記しました。
-  5.3.2.4 KEY\_INTENTには、ログイン画面Activityのクラス名を指定した明示的Intentを与える （必須）   5.3.2.4 KEY\_INTENTには、ログイン画面Activityのクラス名を指定した明示的Intentを与える （必須）     Android 4.4（API Level 19）前後でのKey Intentの挙動の違いについて追記しました。
-  5.3.2.6 Account Managerにパスワードを保存しない （推奨）                                         5.3.2.6 Account Managerにパスワードを保存しない （推奨）                                           Android 7.0(API Level 24)以降のパスワード保存場所に関する記述を追記しました。
-  5.3.3.1 Account Managerの利用とPermission                                                        5.3.3.1 Account Managerの利用とPermission                                                          Android 6.0(API Level 23)以降およびAndorid 8.0(API Level 26)以降のAccountManagerに関するPermissionとメソッドの対応を追記しました。
-  （該当なし）                                                                                     5.3.3.3 Android 8.0（API Level 26）以降で署名の一致しないAuthenticatorのアカウントを読めるケース   Android 8.0（API Level 26）以降で署名の一致しないAuthenticatorのアカウント情報を取得できるケースとその対策に関する記述を追記しました。
-  5.4 HTTPSで通信する                                                                              5.4 HTTPSで通信する                                                                                Android 8.0以降のSSLv3のサポート打ち切りに関して追記しました。
-  5.4.3.1 プライベート証明書の作成方法とサーバー設定                                               5.4.3.1 プライベート証明書の作成方法とサーバー設定                                                 プライベート証明書にSubjectAltNameを含むように作成スクリプトを修正しました。
-  (該当なし)                                                                                       5.5.3.3 Android IDのバージョンによる違いについて                                                   Android IDのバージョンによる値や生成規則の違いについて記載しました。
-
+<table border="yes" bordercolor="gray">
+<thead>
+<tr bgcolor="lightgray">
+<th>2017年2月1日版の修正個所</th>
+<th>本改訂版の訂正記事</th>
+<th>訂正の要旨</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(該当なし)</td>
+<td>4.1.3.7 Autofillフレームワークについて</td>
+<td>Autofillフレームワークについての解説を記載しました。</td>
+</tr>
+<tr>
+<td>5.2.3.6 Android 6.0以降のPermissionモデルの仕様変更について</td>
+<td>5.2.3.6 Android 6.0以降のPermissionモデルの仕様変更について</td>
+<td>Android 8.0(API Level 26)以降のPermission付与に関する挙動の変更について追記しました。</td>
+</tr>
+<tr>
+<td>5.3.2.4 KEY_INTENTには、ログイン画面Activityのクラス名を指定した明示的Intentを与える （必須）</td>
+<td>5.3.2.4 KEY_INTENTには、ログイン画面Activityのクラス名を指定した明示的Intentを与える （必須）</td>
+<td>Android 4.4（API Level 19）前後でのKey Intentの挙動の違いについて追記しました。</td>
+</tr>
+<tr>
+<td>5.3.2.6 Account Managerにパスワードを保存しない （推奨）</td>
+<td>5.3.2.6 Account Managerにパスワードを保存しない （推奨）</td>
+<td>Android 7.0(API Level 24)以降のパスワード保存場所に関する記述を追記しました。</td>
+</tr>
+<tr>
+<td>5.3.3.1 Account Managerの利用とPermission</td>
+<td>5.3.3.1 Account Managerの利用とPermission</td>
+<td>Android 6.0(API Level 23)以降およびAndorid 8.0(API Level 26)以降のAccountManagerに関するPermissionとメソッドの対応を追記しました。</td>
+</tr>
+<tr>
+<td>（該当なし）</td>
+<td>5.3.3.3 Android 8.0（API Level 26）以降で署名の一致しないAuthenticatorのアカウントを読めるケース</td>
+<td>Android 8.0（API Level 26）以降で署名の一致しないAuthenticatorのアカウント情報を取得できるケースとその対策に関する記述を追記しました。</td>
+</tr>
+<tr>
+<td>5.4 HTTPSで通信する</td>
+<td>5.4 HTTPSで通信する</td>
+<td>Android 8.0以降のSSLv3のサポート打ち切りに関して追記しました。</td>
+</tr>
+<tr>
+<td>5.4.3.1 プライベート証明書の作成方法とサーバー設定</td>
+<td>5.4.3.1 プライベート証明書の作成方法とサーバー設定</td>
+<td>プライベート証明書にSubjectAltNameを含むように作成スクリプトを修正しました。</td>
+</tr>
+<tr>
+<td> (該当なし)</td>
+<td>5.5.3.3 Android IDのバージョンによる違いについて</td>
+<td>Android IDのバージョンによる値や生成規則の違いについて記載しました。</td>
+</tr>
+</tbody>
+</table>
