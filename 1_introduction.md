@@ -25,10 +25,10 @@ Market）は無審査でアプリケーション公開ができるなど、ア�
 
 このガイド文書とサンプルコードの最新版はいつでも下記URLから入手できます。
 
--   [[http://www.jssec.org/dl/android_securecoding.pdf]{.underline}](http://www.jssec.org/dl/android_securecoding.pdf)
+-   [http://www.jssec.org/dl/android_securecoding.pdf](http://www.jssec.org/dl/android_securecoding.pdf)
     ガイド文書
 
--   [[http://www.jssec.org/dl/android_securecoding.zip]{.underline}](http://www.jssec.org/dl/android_securecoding.zip)
+-   [http://www.jssec.org/dl/android_securecoding.zip](http://www.jssec.org/dl/android_securecoding.zip)
     サンプルコード一式
 
 本文書の利用許諾
@@ -45,7 +45,7 @@ Market）は無審査でアプリケーション公開ができるなど、ア�
 セキュアコーディングWG問い合わせ
 
 メール宛先：
-[[jssec-securecoding-qa@googlegroups.com]{.underline}](mailto:jssec-securecoding-qa@googlegroups.com)
+[jssec-securecoding-qa@googlegroups.com](mailto:jssec-securecoding-qa@googlegroups.com)
 
 件名：【コメント応募】Androidアプリのセキュア設計・セキュアコーディングガイド
 2016年9月1日版

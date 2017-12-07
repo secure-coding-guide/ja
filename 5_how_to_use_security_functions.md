@@ -2061,7 +2061,7 @@ Permissionは、同じ開発者鍵で署名されたアプリ間だけでアプ�
 Permissionによる保護は自社アプリだけで連携する場合に使われることが多い。
 
 まずは、AndroidのDev
-Guide（[[http://developer.android.com/guide/topics/security/security.html]{.underline}](http://developer.android.com/guide/topics/security/security.html)）で説明されている独自定義Signature
+Guide（[http://developer.android.com/guide/topics/security/security.html](http://developer.android.com/guide/topics/security/security.html)）で説明されている独自定義Signature
 Permissionの基本的な使い方を紹介する。ただし、後述するように、この使い方にはPermission回避の問題があることが分かっており、本ガイドに掲載した対策が必要となる。
 
 以下、独自定義Signature Permissionの基本的な使い方である。
@@ -3933,7 +3933,7 @@ Managerは認証トークン使用許諾画面（GrantCredentialsPermissionActiv
 4.0.xのAndroid Frameworkには不具合があり、Account
 Managerによってこの画面が開かれた途端、例外が発生し、アプリが強制終了してしまう（図
 5.3‑3）。不具合の詳細は
-[[https://code.google.com/p/android/issues/detail?id=23421]{.underline}](https://code.google.com/p/android/issues/detail?id=23421)
+[https://code.google.com/p/android/issues/detail?id=23421](https://code.google.com/p/android/issues/detail?id=23421)
 に記載されている。Android 4.1.x以降ではこの不具合はない。
 
 ![](media/image77.png){width="6.3597222222222225in" height="4.5in"}
@@ -5316,7 +5316,7 @@ SSLCertificateKeyFile "/path/to/svkey.pem"
 プライベート証明書でHTTPS通信する」のサンプルコードは、1つのアプリにプライベート認証局のルート証明書を持たせることで、プライベート証明書で運用するWebサーバーにHTTPS接続する方法を紹介した。ここではAndroid
 OSにプライベート認証局のルート証明書をインストールすることで、すべてのアプリがプライベート証明書で運用するWebサーバーにHTTPS接続する方法を紹介する。インストールしてよいのは、信頼できる認証局の発行した証明書に限ることに注意すること。
 
-まずプライベート認証局のルート証明書ファイルcacert.crtをAndroid端末の内部ストレージにコピーする。なおサンプルコードで使用しているルート証明書ファイルは[[https://selfsigned.jssec.org/cacert.crt]{.underline}](https://selfsigned.jssec.org/cacert.crt)からも取得できる。
+まずプライベート認証局のルート証明書ファイルcacert.crtをAndroid端末の内部ストレージにコピーする。なおサンプルコードで使用しているルート証明書ファイルは[https://selfsigned.jssec.org/cacert.crt](https://selfsigned.jssec.org/cacert.crt)からも取得できる。
 
 次にAndroidの設定メニューのセキュリティを開き、下図のような手順を進めることでAndroid
 OSにルート証明書をインストールすることができる。
@@ -5332,7 +5332,7 @@ height="3.665748031496063in"}
 図 5.4‑3 ルート証明書がインストールされていることの確認
 
 Android
-OSにプライベート認証局のルート証明書をインストールすると、その認証局から発行されたプライベート証明書をすべてのアプリで正しく証明書検証できるようになる。下図はChromeブラウザで[[https://selfsigned.jssec.org/droid\_knight.png]{.underline}](https://selfsigned.jssec.org/droid_knight.png)を表示した場合の例である。
+OSにプライベート認証局のルート証明書をインストールすると、その認証局から発行されたプライベート証明書をすべてのアプリで正しく証明書検証できるようになる。下図はChromeブラウザで[https://selfsigned.jssec.org/droid\_knight.png](https://selfsigned.jssec.org/droid_knight.png)を表示した場合の例である。
 
 ![](media/image81.png){width="6.3082677165354335in"
 height="4.186220472440945in"}
@@ -7928,13 +7928,13 @@ MainActivity.java
 
 アプリ・プライバシーポリシーは個々のアプリが扱うすべての利用者情報と、その用途や情報の保存先、送信先等を明らかにすることに主眼が置かれている。それとは別に事業者が個々のアプリから収集したすべての利用者情報をどのように保管・管理・廃棄をするかを示す事業者プライバシーポリシーも必要となる。従来、個人情報保護法をもとに作成されているプライバシーポリシーとはこの事業者プライバシーポリシーが相当する。
 
-プライバシーポリシーの作成・提示方法やそれぞれのプラバシーポリシーの役割分担などは、『JSSEC　スマホ・アプリのプライバシーポリシー作成・開示についての考察』([[http://www.jssec.org/event/20140206/03-1\_app\_policy.pdf]{.underline}](http://www.jssec.org/event/20140206/03-1_app_policy.pdf)）
+プライバシーポリシーの作成・提示方法やそれぞれのプラバシーポリシーの役割分担などは、『JSSEC　スマホ・アプリのプライバシーポリシー作成・開示についての考察』([http://www.jssec.org/event/20140206/03-1\_app\_policy.pdf](http://www.jssec.org/event/20140206/03-1_app_policy.pdf)）
 に詳細説明が記載されているので参照のこと。
 
 #### 用語解説
 
 以下に、本ガイドで使用している用語について、『JSSEC　スマホ・アプリのプライバシーポリシー作成・開示についての考察』
-([[http://www.jssec.org/event/20140206/03-1\_app\_policy.pdf]{.underline}](http://www.jssec.org/event/20140206/03-1_app_policy.pdf))
+([http://www.jssec.org/event/20140206/03-1\_app\_policy.pdf](http://www.jssec.org/event/20140206/03-1_app_policy.pdf))
 に記載されている用語解説を引用しておく。
 
 表 5.5‑1
@@ -9652,7 +9652,7 @@ OSバージョンと各脆弱性の影響を受ける機能の整理しておく
 OSの脆弱性を修正するパッチがGoogleからパートナー(端末メーカーなど)に配布されている。しかし、これらSecureRandomに関する脆弱性は暗号機能、HTTPS通信機能を含めて広い範囲に影響する上に、パッチが適用されていない端末が多数存在することも考えられるため、Android
 4.3.x以前のOSを対象とするアプリでは、以下のサイトで紹介されている対策(実装)を組み込んでおくことをお薦めする。
 
-[[http://android-developers.blogspot.jp/2013/08/some-securerandom-thoughts.html]{.underline}](http://android-developers.blogspot.jp/2013/08/some-securerandom-thoughts.html)
+[http://android-developers.blogspot.jp/2013/08/some-securerandom-thoughts.html](http://android-developers.blogspot.jp/2013/08/some-securerandom-thoughts.html)
 
 #### 鍵の保護
 

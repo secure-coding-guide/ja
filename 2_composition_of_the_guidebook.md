@@ -27,10 +27,10 @@
 License, Version
 2.0で公開していますので、自由にサンプルコードをコピー&ペーストしてご利用いただけます。ただしエラー処理についてはサンプルコードが長くなり過ぎないように最小限にしていますのでご注意ください。
 
--   [[http://www.jssec.org/dl/android\_securecoding.pdf]{.underline}](http://www.jssec.org/dl/android_securecoding.pdf)
+-   [http://www.jssec.org/dl/android\_securecoding.pdf](http://www.jssec.org/dl/android_securecoding.pdf)
     ガイド文書
 
--   [[http://www.jssec.org/dl/android\_securecoding.zip]{.underline}](http://www.jssec.org/dl/android_securecoding.zip)
+-   [http://www.jssec.org/dl/android\_securecoding.zip](http://www.jssec.org/dl/android_securecoding.zip)
     サンプルコード一式
 
 サンプルコードに添付するProjects/keystoreファイルはAPK署名用の開発者鍵を含んだキーストアファイルです。パスワードは「android」です。自社限定系のサンプルコードをAPK署名する際にご利用ください。
@@ -83,13 +83,13 @@ Androidセキュアコーディング関連書籍の紹介
 
 -   Android Security 安全なアプリケーションを作成するために\
     著者：タオソフトウェア株式会社　ISBN978-4-8443-3134-6\
-    [[http://www.amazon.co.jp/dp/4844331345/]{.underline}](http://www.amazon.co.jp/dp/4844331345/)
+    [http://www.amazon.co.jp/dp/4844331345/](http://www.amazon.co.jp/dp/4844331345/)
 
 -   Javaセキュアコーディングスタンダード CERT/ Oracle版\
     著者：Fred Long, Dhruv Mohindra, Robert C. Seacord, Dean F.
     Sutherland, David Svoboda\
     監修：歌代和正　翻訳：久保正樹, 戸田洋三　ISBN978-4-04-886070-3\
-    [[http://www.amazon.co.jp/dp/4048860704/]{.underline}](http://www.amazon.co.jp/dp/4048860704/)
+    [http://www.amazon.co.jp/dp/4048860704/](http://www.amazon.co.jp/dp/4048860704/)
 
 サンプルコードのAndroid Studioへの取り込み手順
 ----------------------------------------------

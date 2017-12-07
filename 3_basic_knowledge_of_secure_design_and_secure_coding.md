@@ -201,18 +201,18 @@ Androidスマートフォンのアプリ開発においては、一般ユーザ�
 
 -   『スマートフォン＆タブレットの業務利用に関するセキュリティガイドライン』
     【第二版】\
-    [[http://www.jssec.org/dl/guidelines\_v2.pdf]{.underline}](http://www.jssec.org/dl/guidelines_v2.pdf)\
-    [[http://www.jssec.org/dl/guidelines2012enew\_v1.0.pdf]{.underline}](http://www.jssec.org/dl/guidelines2012enew_v1.0.pdf)
+    [http://www.jssec.org/dl/guidelines\_v2.pdf](http://www.jssec.org/dl/guidelines_v2.pdf)\
+    [http://www.jssec.org/dl/guidelines2012enew\_v1.0.pdf](http://www.jssec.org/dl/guidelines2012enew_v1.0.pdf)
     (English)
 
 -   『スマートフォンネットワークセキュリティ実装ガイド』 【第一版】\
-    [[http://www.jssec.org/dl/NetworkSecurityGuide1.pdf]{.underline}](http://www.jssec.org/dl/NetworkSecurityGuide1.pdf)
+    [http://www.jssec.org/dl/NetworkSecurityGuide1.pdf](http://www.jssec.org/dl/NetworkSecurityGuide1.pdf)
 
 -   『スマートフォンの業務利用におけるクラウド活用ガイド』 【ベータ版】\
-    [[http://www.jssec.org/dl/cloudguide2012\_beta.pdf]{.underline}](http://www.jssec.org/dl/cloudguide2012_beta.pdf)
+    [http://www.jssec.org/dl/cloudguide2012\_beta.pdf](http://www.jssec.org/dl/cloudguide2012_beta.pdf)
 
 -   『MDM導入・運用検討ガイド』【第一版】\
-    [[http://www.jssec.org/dl/MDMGuideV1.pdf]{.underline}](http://www.jssec.org/dl/MDMGuideV1.pdf)
+    [http://www.jssec.org/dl/MDMGuideV1.pdf](http://www.jssec.org/dl/MDMGuideV1.pdf)
 
 ### 資産分類と保護施策
 
@@ -352,13 +352,13 @@ Validationと呼ばれる基礎的なセキュアコーディング作法であ�
 Validationという言葉の語感から(a)の観点のみ気を付けて(b)の観点を忘れてしまいがちである。データはプログラムに入ってきたときではなく、プログラムがそのデータを「使う」ときに被害が発生することに気を付けていただきたい。下記URLもぜひ参考にしていただきたい。
 
 -   IPA 「セキュアプログラミング講座」\
-    [[http://www.ipa.go.jp/security/awareness/vendor/programmingv2/clanguage.html]{.underline}](http://www.ipa.go.jp/security/awareness/vendor/programmingv2/clanguage.html)
+    [http://www.ipa.go.jp/security/awareness/vendor/programmingv2/clanguage.html](http://www.ipa.go.jp/security/awareness/vendor/programmingv2/clanguage.html)
 
 -   JPCERT CC 「Java セキュアコーディングスタンダード CERT/Oracle 版」\
-    [[http://www.jpcert.or.jp/java-rules/]{.underline}](http://www.jpcert.or.jp/java-rules/)
+    [http://www.jpcert.or.jp/java-rules/](http://www.jpcert.or.jp/java-rules/)
 
 -   JPCERT CC 「Java Androidアプリケーション開発へのルールの適用」\
-    [[http://www.jpcert.or.jp/java-rules/android-j.html]{.underline}](http://www.jpcert.or.jp/java-rules/android-j.html)
+    [http://www.jpcert.or.jp/java-rules/android-j.html](http://www.jpcert.or.jp/java-rules/android-j.html)
 
 [[[[[[[[[[[[[[[[[[[]{#_Toc318925749 .anchor}]{#_Toc321181237
 .anchor}]{#_Toc321159835 .anchor}]{#_Toc321144480

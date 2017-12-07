@@ -2310,9 +2310,9 @@ overrideしたisValidFragment()メソッドの例
 
 AutofillフレームワークはAndroid 8.0(API Level 26)で追加された仕組みである。この仕組みを利用することで、ユーザー名、パスワード、住所、電話番号、クレジットカード情報等が入力されたときにそれらを保存しておき、再度必要になった時に取り出してアプリに自動入力(Autofill)する機能を実現することができる。ユーザーの入力負荷を軽減することができる便利な仕組みであるが、あるアプリが扱うパスワードやクレジットカード情報等のセンシティブな情報を他のアプリ（Autofill service）に渡すことを想定しており、取り扱いには十分に気をつける必要がある。
 
-**仕組み(概要)**
+#### 仕組み(概要)
 
-[2つのコンポーネント]{.underline}
+##### 2つのコンポーネント
 
 以下に、Autofillフレームワークに登場する2つのコンポーネント[^6]の概要を示す。
 
@@ -2331,7 +2331,7 @@ AutofillフレームワークはAndroid 8.0(API Level 26)で追加された仕�
     -   端末内に複数存在することが可能でユーザーにより「設定」から選択されたServiceのみ有効になる（「なし」も選択可能）。
     -   Serviceが、扱うユーザー情報を保護するためにパスワード入力等によってユーザー認証をするためのUIを持つことも可能。
 
-[Autofillフレームワークの処理フロー]{.underline}
+##### Autofillフレームワークの処理フロー
 
 **図 4‑6**はAutofill時のAutofill関連コンポーネント間の処理フローを示している。利用アプリのViewのフォーカス移動等を契機にAutoillフレームワークを介してViewの情報（主にViewの親子関係や個々の属性）が「設定」で選択されたAutofill serviceに渡る。Autofill serviceは渡された情報を元にAutofillに必要な情報（候補リスト）をDBから取り出し、フレームワークに返信する。フレームワークは候補リストをユーザーに提示し、ユーザーが選択したデータによりアプリでAutofillが行われる。
 
@@ -9473,15 +9473,9 @@ stopService(intent);
 ポイント(Serviceを作る)：
 
 1.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
-
-&nbsp;
-
 1.  利用元アプリの証明書がホワイトリストに登録されていることを確認する
-
 2.  onBind(onStartCommand,onHandleIntent)で呼び出し元がパートナーかどうか判別できない
-
 3.  パートナーアプリからのIntentであっても、受信Intentの安全性を確認する
-
 4.  パートナーアプリに開示してよい情報に限り返送してよい
 
 なお、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「[[5.2.1.3]{.underline}
@@ -12712,7 +12706,7 @@ public class DataSearchTask extends AsyncTask<String, Void, Cursor> {
 を実施する。
 
 > 参照：
-> [[http://www.ipa.go.jp/security/vuln/documents/website\_security\_sql.pdf]{.underline}](http://www.ipa.go.jp/security/vuln/documents/website_security_sql.pdf)
+> [http://www.ipa.go.jp/security/vuln/documents/website\_security\_sql.pdf](http://www.ipa.go.jp/security/vuln/documents/website_security_sql.pdf)
 
 #### 不用意にデータベースの書き換えが行われないための対策を行う
 
@@ -12731,7 +12725,7 @@ SQLiteOpenHelper\#getReadableDatabase、getWritableDatabaseを使用してDBの�
            = SQLiteDatabase.openDatabase(SQLiteDatabase.getDatabasePath("Sample.db"), null, OPEN_READONLY);
 ```
 
-> 参照：[[http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html - getReadableDatabase()]{.underline}](http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html#getReadableDatabase())
+> 参照：[http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html - getReadableDatabase()](http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html#getReadableDatabase())
 
 #### アプリの要件に従ってDBの入出力データの妥当性をチェックする
 
@@ -12828,7 +12822,7 @@ LLCによって維持・管理されている。モバイルの世界では、SQ
 SQLCipher for
 Androidプロジェクトは、Android環境におけるSQLiteデータベースの標準の統合化された暗号化をサポートすることを目的としている。標準のSQLiteのAPIをSQLCipher用に作成することで、開発者は通常と同じコーディングで暗号化されたデータベースを利用できるようになっている。
 
-参照：[[https://guardianproject.info/code/sqlcipher/]{.underline}](https://guardianproject.info/code/sqlcipher/)
+参照：[https://guardianproject.info/code/sqlcipher/](https://guardianproject.info/code/sqlcipher/)
 
 ##### 使い方
 
@@ -15469,7 +15463,7 @@ Style Guidelineも2つ目の考え方に基づいている。
 
 Code Style Guidelines for Contributors / Log Sparingly
 
-[[http://source.android.com/source/code-style.html\#log-sparingly]{.underline}](http://source.android.com/source/code-style.html#log-sparingly)
+[http://source.android.com/source/code-style.html\#log-sparingly](http://source.android.com/source/code-style.html#log-sparingly)
 
 #### ログレベルとログ出力メソッドの選択基準
 
@@ -15491,7 +15485,7 @@ Androidのandroid.util.LogクラスにはERROR、WARN、INFO、DEBUG,VERBOSEの5
 
 Code Style Guidelines for Contributors / Log Sparingly
 
-[[http://source.android.com/source/code-style.html\#log-sparingly]{.underline}](http://source.android.com/source/code-style.html#log-sparingly)
+[http://source.android.com/source/code-style.html\#log-sparingly](http://source.android.com/source/code-style.html#log-sparingly)
 
 #### DEBUGログとVERBOSEログは自動的に削除されるわけではない
 

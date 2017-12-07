@@ -162,7 +162,7 @@ ClipboardListeningActivity.java
 [^2]: 江川、藤井、麻野、藤田、山田、山岡、佐野、竹端著「Google Android
     プログラミング入門」 (アスキー・メディアワークス、2009年7月)
 
-[^3]: [[http://developer.android.com/guide/components/tasks-and-back-stack.html]{.underline}](http://developer.android.com/guide/components/tasks-and-back-stack.html)
+[^3]: [http://developer.android.com/guide/components/tasks-and-back-stack.html](http://developer.android.com/guide/components/tasks-and-back-stack.html)
 
 [^4]: intent-filterが定義されていれば公開Activity、定義されていなければ非公開Activityとなる。
     https://developer.android.com/guide/topics/manifest/activity-element.html\#exported
@@ -222,7 +222,7 @@ ClipboardListeningActivity.java
 
 [^22]: http://www.w3.org/TR/webmessaging/
 
-[^23]: オリジンとは、URLのスキーム、ホスト名、ポート番号の組み合わせのこと。詳細な定義は[[http://tools.ietf.org/html/rfc6454]{.underline}](http://tools.ietf.org/html/rfc6454)を参照。
+[^23]: オリジンとは、URLのスキーム、ホスト名、ポート番号の組み合わせのこと。詳細な定義は[http://tools.ietf.org/html/rfc6454](http://tools.ietf.org/html/rfc6454)を参照。
 
 [^24]: Uri.EMPTYおよびUri.parse(\"\")がワイルドカードとして機能する(2016年9月1日版執筆時)
 
@@ -254,7 +254,7 @@ ClipboardListeningActivity.java
     Search API
     は2016年2月15日をもって正式にサービス提供を終了している。そのため、サンプルコードをそのまま動作させるには同等のサービスに置き換える必要がある。
 
-[^33]: 中間者攻撃については次のページを参照。[[http://www.ipa.go.jp/about/press/20140919\_1.html]{.underline}](http://www.ipa.go.jp/about/press/20140919_1.html)
+[^33]: 中間者攻撃については次のページを参照。[http://www.ipa.go.jp/about/press/20140919\_1.html](http://www.ipa.go.jp/about/press/20140919_1.html)
 
 [^34]: 本サンプルコード内で画像検索APIとして利用している Google Image
     Search API
@@ -265,7 +265,7 @@ ClipboardListeningActivity.java
 
 [^36]: この危険性については以下の記事で詳しく説明されている
 
-    [[https://www.cigital.com/blog/ineffective-certificate-pinning-implementations/]{.underline}](https://www.cigital.com/blog/ineffective-certificate-pinning-implementations/)
+    [https://www.cigital.com/blog/ineffective-certificate-pinning-implementations/](https://www.cigital.com/blog/ineffective-certificate-pinning-implementations/)
 
 [^37]: Network Security Configurationの詳細については以下を参照すること
     https://developer.android.com/training/articles/security-config.html

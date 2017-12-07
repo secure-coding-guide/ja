@@ -22,7 +22,7 @@ import sys
 import recommonmark
 from recommonmark.parser import CommonMarkParser
 from recommonmark.transform import AutoStructify
-sys.path.insert(0, 'unicode_ids-2.0.5/sphinxcontrib/unicode_ids')
+sys.path.insert(0, 'sphinxcontrib/unicode_ids')
 
 source_parsers = {
     '.md': CommonMarkParser
@@ -83,6 +83,8 @@ pygments_style = 'sphinx'
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
+
+numfig = True
 
 # -- Options for HTML output ----------------------------------------------
 
