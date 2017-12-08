@@ -56,7 +56,7 @@ TextView.setCustomSelectionActionModeCallback()メソッドによって、文字
 
 以下、EditTextの文字列選択時のメニューからコピー・カットの項目を削除するサンプルコードを示す。
 
-> ポイント：
+ポイント：
 
 1.  文字列選択時のメニューからandroid.R.id.copyを削除する。
 
@@ -74,7 +74,7 @@ UncopyableActivity.java
 コピー・カットを禁止する方法は、Viewの長押し(Long
 Click)を無効にすることでも実現できる。Viewの長押し無効化はレイアウトのxmlファイルで指定することができる。
 
-> ポイント：
+ポイント：
 
 1.  コピー･カットを禁止するViewはandroid:longClickableをfalseにする。
 
