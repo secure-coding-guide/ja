@@ -60,8 +60,6 @@ TextView.setCustomSelectionActionModeCallback()メソッドによって、文字
 
 1.  文字列選択時のメニューからandroid.R.id.copyを削除する。
 
-&nbsp;
-
 1.  文字列選択時のメニューからandroid.R.id.cutを削除する。
 
 UncopyableActivity.java
