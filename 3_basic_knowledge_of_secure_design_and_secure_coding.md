@@ -282,70 +282,46 @@ Intentはactionやdata、extrasなどのデータで構成されるが、攻撃�
 を取得し、画面上のTextView に表示するだけの簡単なサンプルである。
 しかしこれには不具合がある。
 
-> Internet上のWebページのHTMLをTextViewに表示するサンプルコード
-
+Internet上のWebページのHTMLをTextViewに表示するサンプルコード
+```java
 TextView tv = (TextView) findViewById(R.id.textview);
-
 InputStreamReader isr = null;
-
-char\[\] text = new char\[1024\];
-
+char[] text = new char[1024];
 int read;
-
 try {
-
-String urlstr = getIntent().getStringExtra(\"WEBPAGE\_URL\");
-
-URL url = new URL(urlstr);
-
-isr = new InputStreamReader(url.openConnection().getInputStream());
-
-while ((read=isr.read(text)) != -1) {
-
-tv.append(new String(text, 0, read));
-
-}
-
-} catch (MalformedURLException e) { \...
+    String urlstr = getIntent().getStringExtra("WEBPAGE_URL");
+    URL url = new URL(urlstr);
+    isr = new InputStreamReader(url.openConnection().getInputStream());
+    while ((read=isr.read(text)) != -1) {
+        tv.append(new String(text, 0, read));
+    }
+} catch (MalformedURLException e) { //...
+```
 
 (a)の観点で「urlstrが正しいURLである」ことをnew
 URL()でMalformedURLExceptionが発生しないことに​より確認している。しかしこれは不十分であり、urlstrに「file://～」形式のURLが指定されるとInternet上のWebページではなく、内部ファイルシステム上のファイルを開いてTextViewに表示してしまう。プログラマが想定した動作を保証していないため、(b)の観点を満たしていない。
 
 次は改善例である。(a)の観点で「urlstrは正規のURLであって、protocolはhttpまたはhttpsに限定される」ことを確認している。これにより(b)の観点でもurl.openConnection().getInputStream()でInternet経由のInputStreamを取得することが保証される。
 
-> Internet上のWebページのHTMLをTextViewに表示するサンプルコードの修正版
-
+Internet上のWebページのHTMLをTextViewに表示するサンプルコードの修正版
+```java
 TextView tv = (TextView) findViewById(R.id.textview);
-
 InputStreamReader isr = null;
-
-char\[\] text = new char\[1024\];
-
+char[] text = new char[1024];
 int read;
-
 try {
-
-String urlstr = getIntent().getStringExtra(\"WEBPAGE\_URL\");
-
-URL url = new URL(urlstr);
-
-String prot = url.getProtocol();
-
-if (!"http".equals(prot) && !"https".equals(prot)) {
-
-throw new MalformedURLException(\"invalid protocol\");
-
-}
-
-isr = new InputStreamReader(url.openConnection().getInputStream());
-
-while ((read=isr.read(text)) != -1) {
-
-tv.append(new String(text, 0, read));
-
-}
-
-} catch (MalformedURLException e) { \...
+    String urlstr = getIntent().getStringExtra("WEBPAGE_URL");
+    URL url = new URL(urlstr);
+    String prot = url.getProtocol();
+    if (!"http".equals(prot) && !"https".equals(prot)) {
+        throw new MalformedURLException("invalid protocol");
+    }
+    isr = new InputStreamReader(url.openConnection().getInputStream());
+    while ((read=isr.read(text)) != -1) {
+        tv.append(new String(text, 0, read));
+    }
+} catch (MalformedURLException e) { //...
+```
 
 入力データの安全性確認はInput
 Validationと呼ばれる基礎的なセキュアコーディング作法である。Input
