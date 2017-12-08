@@ -289,4 +289,3 @@ signingConfigsに選択したdebug.keystoreのパスが表示され、buildTypes
 ![](media/image23.png){width="5.5in" height="4.7354538495188105in"}
 
 図 2.5‑19
-
