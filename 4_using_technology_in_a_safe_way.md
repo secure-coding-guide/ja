@@ -2257,53 +2257,6 @@ PkgCertWhitelists.java
    :encoding: shift-jis
 ```
 
-package org.jssec.android.shared;
-
-import java.util.HashMap;
-
-import java.util.Map;
-
-import android.content.Context;
-
-public class PkgCertWhitelists {
-
-private Map\<String, String\> mWhitelists = new HashMap\<String,
-String\>();
-
-public boolean add(String pkgname, String sha256) {
-
-if (pkgname == null) return false;
-
-if (sha256 == null) return false;
-
-sha256 = sha256.replaceAll(\" \", \"\");
-
-if (sha256.length() != 64) return false; // SHA-256は32バイト
-
-sha256 = sha256.toUpperCase();
-
-if (sha256.replaceAll(\"\[0-9A-F\]+\", \"\").length() != 0) return
-false; // 0-9A-F 以外の文字がある
-
-mWhitelists.put(pkgname, sha256);
-
-return true;
-
-}
-
-public boolean test(Context ctx, String pkgname) {
-
-// pkgnameに対応する正解のハッシュ値を取得する
-
-String correctHash = mWhitelists.get(pkgname);
-
-// pkgnameの実際のハッシュ値と正解のハッシュ値を比較する
-
-return PkgCert.test(ctx, pkgname, correctHash);
-
-}
-
-}
 
 PkgCert.java
 ```eval_rst
@@ -2312,95 +2265,6 @@ PkgCert.java
    :encoding: shift-jis
 ```
 
-package org.jssec.android.shared;
-
-import java.security.MessageDigest;
-
-import java.security.NoSuchAlgorithmException;
-
-import android.content.Context;
-
-import android.content.pm.PackageInfo;
-
-import android.content.pm.PackageManager;
-
-import android.content.pm.PackageManager.NameNotFoundException;
-
-import android.content.pm.Signature;
-
-public class PkgCert {
-
-public static boolean test(Context ctx, String pkgname, String
-correctHash) {
-
-if (correctHash == null) return false;
-
-correctHash = correctHash.replaceAll(\" \", \"\");
-
-return correctHash.equals(hash(ctx, pkgname));
-
-}
-
-public static String hash(Context ctx, String pkgname) {
-
-if (pkgname == null) return null;
-
-try {
-
-PackageManager pm = ctx.getPackageManager();
-
-PackageInfo pkginfo = pm.getPackageInfo(pkgname,
-PackageManager.GET\_SIGNATURES);
-
-if (pkginfo.signatures.length != 1) return null; // 複数署名は扱わない
-
-Signature sig = pkginfo.signatures\[0\];
-
-byte\[\] cert = sig.toByteArray();
-
-byte\[\] sha256 = computeSha256(cert);
-
-return byte2hex(sha256);
-
-} catch (NameNotFoundException e) {
-
-return null;
-
-}
-
-}
-
-private static byte\[\] computeSha256(byte\[\] data) {
-
-try {
-
-return MessageDigest.getInstance(\"SHA-256\").digest(data);
-
-} catch (NoSuchAlgorithmException e) {
-
-return null;
-
-}
-
-}
-
-private static String byte2hex(byte\[\] data) {
-
-if (data == null) return null;
-
-final StringBuilder hexadecimal = new StringBuilder();
-
-for (final byte b : data) {
-
-hexadecimal.append(String.format(\"%02X\", b));
-
-}
-
-return hexadecimal.toString();
-
-}
-
-}
 
 #### 自社限定Service
 
@@ -2426,47 +2290,6 @@ AndroidManifest.xml
    :encoding: shift-jis
 ```
 
-\<?xml version=\"1.0\" encoding=\"utf-8\"?\>
-
-\<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"
-
-package=\"org.jssec.android.service.inhouseservice.messenger\" \>
-
-\<!\-- ★ポイント1★ 独自定義Signature Permissionを定義する \--\>
-
-\<permission
-
-android:name=\"org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION\"
-
-android:protectionLevel=\"signature\" /\>
-
-\<application
-
-android:icon=\"@drawable/ic\_launcher\"
-
-android:label=\"@string/app\_name\"
-
-android:allowBackup=\"false\" \>
-
-\<!\-- Messengerを利用したService \--\>
-
-\<!\-- ★ポイント2★ 独自定義Signature Permissionを要求宣言する \--\>
-
-\<!\-- ★ポイント3★ Intent
-Filterを定義せず、exported=\"true\"を明示的に設定する \--\>
-
-\<service
-
-android:name=\"org.jssec.android.service.inhouseservice.messenger.InhouseMessengerService\"
-
-android:exported=\"true\"
-
-android:permission=\"org.jssec.android.service.inhouseservice.messenger.MY\_PERMISSION\"
-/\>
-
-\</application\>
-
-\</manifest\>
 
 InhouseMessengerService.java
 ```eval_rst
