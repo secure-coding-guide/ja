@@ -850,16 +850,18 @@ importantForAutofill 属性は、以下のいずれかの方法によって指�
 以下に指定可能な値を示す。指定する範囲によって適切な値を使うこと。特に、"no"を指定した場合、指定したViewはAutofillの対象外になるが、子供はAutofillの対象になることに注意すること。デフォルト値は、"auto"となっている。
 
 <table border="yes" bordercolor="gray">
-	<tbody>
-		<tr bgcolor="lightgray">
+    <thead bgcolor="lightgray">
+		<tr>
 			<th rowspan="2">値</th>
 			<th rowspan="2">定数名</th>
 			<th colspan="2">Autofillの対象になるか</th>
 		</tr>
-		<tr bgcolor="lightgray">
+		<tr>
 			<th width="10%">指定したView</th>
 			<th width="10%">子供のView</th>
 		</tr>
+    </thead>
+	<tbody>
 		<tr>
 			<td>"auto"</td>
 			<td>IMPORTANT_FOR_AUTOFILL_AUTO</td>
@@ -1439,14 +1441,41 @@ Broadcastの使用はAndroid 5.0（API Level 21）において非推奨となっ
 それぞれのBroadcastの特徴は次のとおりである。
 
 表 4.2‑4
-
-  Broadcastの種類            Broadcastの種類ごとの特徴
-  -------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Normal Broadcast           Normal Broadcastは送信時に受信可能な状態にあるBroadcast Receiverに配送されて消滅する。Ordered Broadcastと異なり、複数のBroadcast Receiverが同時にBroadcastを受信するのが特徴である。特定のPermissionを持つアプリのBroadcast ReceiverだけにBroadcastを受信させることもできる。
-  Ordered Broadcast          Ordered Broadcastは送信時に受信可能な状態にあるBroadcast Receiverが一つずつ順番にBroadcastを受信することが特徴である。よりpriority値が大きいBroadcast Receiverが先に受信する。すべてのBroadcast Receiverに配送完了するか、途中のBroadcast　ReceiverがabortBroadcast()を呼び出した場合に、Broadcastは消滅する。特定のPermissionを利用宣言したアプリのBroadcast ReceiverだけにBroadcastを受信させることもできる。またOrdered Broadcastでは送信元がBroadcast Receiverからの結果情報を受け取ることもできる。SMS受信通知Broadcast（SMS\_RECEIVED）はOrdered Broadcastの代表例である。
-  Sticky Broadcast           Sticky Broadcastは送信時に受信可能な状態にあるBroadcast Receiverに配送された後に消滅することはなくシステムに残り続け、後にregisterReceiver()を呼び出したアプリがSticky Broadcastを受信することができることが特徴である。Sticky Broadcastは他のBroadcastと異なり自動的に消滅することはないので、Sticky Broadcastが不要になったときに、明示的にremoveStickyBroadcast()を呼び出してSticky Broadcastを消滅させる必要がある。他のBroadcastと異なり、特定のPermissionを持つアプリのBroadcast ReceiverだけにBroadcastを受信させることはできない。バッテリー状態変更通知Broadcast（ACTION\_BATTERY\_CHANGED）はSticky Broadcastの代表例である。
-  Sticky Ordered Broadcast   Ordered BroadcastとSticky Broadcastの両方の特徴を持ったBroadcastである。Sticky Broadcastと同様、特定のPermissionを持つアプリのBroadcast ReceiverだけにBroadcastを受信させることはできない。
-
+<table border="yes" bordercolor="gray">
+<thead bgcolor="lightgray">
+<tr>
+<th>Broadcastの種類</th>
+<th>Broadcastの種類ごとの特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal Broadcast</td>
+<td>Normal Broadcastは送信時に受信可能な状態にあるBroadcast Receiverに配送されて消滅する。
+Ordered Broadcastと異なり、複数のBroadcast Receiverが同時にBroadcastを受信するのが特徴である。
+特定のPermissionを持つアプリのBroadcast ReceiverだけにBroadcastを受信させることもできる。</td></tr>
+<tr>
+<td>Ordered Broadcast</td>
+<td>Ordered Broadcastは送信時に受信可能な状態にあるBroadcast Receiverが一つずつ順番にBroadcastを
+受信することが特徴である。よりpriority値が大きいBroadcast Receiverが先に受信する。すべてのBroadcast
+ Receiverに配送完了するか、途中のBroadcast　ReceiverがabortBroadcast()を呼び出した場合に、Broadcast
+ は消滅する。特定のPermissionを利用宣言したアプリのBroadcast ReceiverだけにBroadcastを受信させること
+ もできる。またOrdered Broadcastでは送信元がBroadcast Receiverからの結果情報を受け取ることもできる。
+ SMS受信通知Broadcast（SMS\_RECEIVED）はOrdered Broadcastの代表例である。</td></tr>
+<tr>
+<td>Sticky Broadcast</td>
+<td>Sticky Broadcastは送信時に受信可能な状態にあるBroadcast Receiverに配送された後に消滅することは
+なくシステムに残り続け、後にregisterReceiver()を呼び出したアプリがSticky Broadcastを受信することが
+できることが特徴である。Sticky Broadcastは他のBroadcastと異なり自動的に消滅することはないので、
+Sticky Broadcastが不要になったときに、明示的にremoveStickyBroadcast()を呼び出してSticky Broadcastを
+消滅させる必要がある。他のBroadcastと異なり、特定のPermissionを持つアプリのBroadcast Receiverだけに
+Broadcastを受信させることはできない。バッテリー状態変更通知Broadcast（ACTION\_BATTERY\_CHANGED）は
+Sticky Broadcastの代表例である。</td></tr>
+<tr><td>Sticky Ordered Broadcast</td>
+<td>Ordered BroadcastとSticky Broadcastの両方の特徴を持ったBroadcastである。Sticky Broadcastと同様、
+特定のPermissionを持つアプリのBroadcast ReceiverだけにBroadcastを受信させることはできない。</td></tr>
+</tbody>
+</table>
 Broadcastの特徴的な振る舞いの視点で、上表を逆引き的に再整理すると下表になる。
 
 表 4.2‑5
