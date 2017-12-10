@@ -1429,14 +1429,14 @@ Broadcastの使用はAndroid 5.0（API Level 21）において非推奨となっ
 
 表 4.2‑3
 ```eval_rst
-  ========================== ============================== ========== =========
-  Broadcastの種類            送信用メソッド                 Ordered?   Sticky?
-  -------------------------- ------------------------------ ---------- ---------
-  Normal Broadcast           sendBroadcast()                No         No
-  Ordered Broadcast          sendOrderedBroadcast()         Yes        No
-  Sticky Broadcast           sendStickyBroadcast()          No         Yes
-  Sticky Ordered Broadcast   sendStickyOrderedBroadcast()   Yes        Yes
-  ========================== ============================== ========== =========
+========================== ============================== ========== =========
+Broadcastの種類            送信用メソッド                   Ordered?   Sticky?
+========================== ============================== ========== =========
+Normal Broadcast           sendBroadcast()                No         No
+Ordered Broadcast          sendOrderedBroadcast()         Yes        No
+Sticky Broadcast           sendStickyBroadcast()          No         Yes
+Sticky Ordered Broadcast   sendStickyOrderedBroadcast()   Yes        Yes
+========================== ============================== ========== =========
 ```
 それぞれのBroadcastの特徴は次のとおりである。
 
@@ -3590,7 +3590,6 @@ Accessでは、StorageVolume\#createAccessIntentメソッドの引数にEnvirome
 ```eval_rst
 ========================== ========================================================
 DIRECTORY\_MUSIC           一般的な音楽ファイルの標準ディレクトリ
--------------------------- --------------------------------------------------------
 DIRECTORY\_PODCASTS        ポッドキャストの標準ディレクトリ
 DIRECTORY\_RINGTONES       着信音の標準ディレクトリ
 DIRECTORY\_ALARMS          アラーム音の標準ディレクトリ
@@ -3625,7 +3624,7 @@ Intentという機能である。アプリは、URIスキームをManifestファ
 ```eval_rst
 ============= ================
 URIスキーム   対応するアプリ
-------------- ----------------
+============= ================
 fb://         Facebook
 twitter://    Twitter
 ============= ================
