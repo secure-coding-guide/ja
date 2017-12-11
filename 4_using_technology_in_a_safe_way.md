@@ -1430,7 +1430,7 @@ Broadcastの使用はAndroid 5.0（API Level 21）において非推奨となっ
 表 4.2‑3
 ```eval_rst
 ========================== ============================== ========== =========
-Broadcastの種類            送信用メソッド                   Ordered?   Sticky?
+Broadcastの種類            送信用メソッド                 Ordered?   Sticky?
 ========================== ============================== ========== =========
 Normal Broadcast           sendBroadcast()                No         No
 Ordered Broadcast          sendOrderedBroadcast()         Yes        No
