@@ -59,8 +59,7 @@ PrivateActivity.java
 3.  利用先アプリは同一アプリであるから、センシティブな情報をputExtra()を使う場合に限り送信してもよい [1]_
 4.  同一アプリ内Activityからの結果情報であっても、受信データの安全性を確認する
 
-.. [1] ただし、ポイント1, 2, 6を遵守している場合を除いてはIntentが第三者に読み取られるおそれがあることに注意する必要がある。
-詳細はルールブックセクションの4.1.2.2、4.1.2.3を参照すること。
+.. [1] ただし、ポイント1, 2, 6を遵守している場合を除いてはIntentが第三者に読み取られるおそれがあることに注意する必要がある。詳細はルールブックセクションの4.1.2.2、4.1.2.3を参照すること。
 ```
 
 PrivateUserActivity.java
@@ -417,7 +416,13 @@ AndroidManifest.xml
             android:exported="false" />
     </application>
 ```
-タスクとアフィニティの詳細な解説は、「Google Android プログラミング入門」 [^2]、あるいは、Google Developers API Guide "Tasks and Back Stack"[^3]の解説および「4.1.3.3 Activityに送信されるIntentの読み取り」、「4.1.3.4 ルートActivityについて」を参照すること。
+```eval_rst
+タスクとアフィニティの詳細な解説は、「Google Android プログラミング入門」 [2]_、あるいは、Google Developers API Guide "Tasks and Back Stack" [3]_ の解説および「4.1.3.3 Activityに送信されるIntentの読み取り」、「4.1.3.4 ルートActivityについて」を参照すること。
+
+.. [2] 江川、藤井、麻野、藤田、山田、山岡、佐野、竹端著「Google Android
+    プログラミング入門」 (アスキー・メディアワークス、2009年7月)
+.. [3] http://developer.android.com/guide/components/tasks-and-back-stack.html
+```
 
 #### launchModeを指定しない （必須）
 
@@ -577,9 +582,13 @@ Activityに送信されるIntentの読み取り」、「4.1.3.4
 +-------------------------+--------------------------------+--------------+--------------+
 | intent-filter定義がない | 公開、パートナー限定、自社限定 | 非公開       | （使用禁止） |
 +-------------------------+--------------------------------+--------------+--------------+
-```
 
-Activityのexported属性が無指定である場合にそのActivityが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが[^4]、本ガイドではActivityのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
+Activityのexported属性が無指定である場合にそのActivityが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが [4]_、本ガイドではActivityのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
+
+.. [4] intent-filterが定義されていれば公開Activity、定義されていなければ非公開Activityとなる。
+    https://developer.android.com/guide/topics/manifest/activity-element.html#exported
+    を参照のこと。
+```
 
 exported属性の値で「intent-filter定義がある」&「exported="false"」を使用禁止にしているのは、Androidの振る舞いに抜け穴があり、Intent
 Filterの性質上、意図せず他アプリのActivityを呼び出してしまう場合が存在するためである。以下の2つの図は、その説明のためのものである。図
@@ -789,9 +798,11 @@ MainActivity.java
 ただし、ActivityManager\#getRecentTasks() によって IntentのExtrasを他のアプリから直接読める場合があるので、注意すること。詳しくは「4.1.2.2 taskAffinityを指定しない （必須）」、「4.1.2.3 launchModeを指定しない （必須）」および「4.1.2.4Activityに送信するIntentにはFLAG\_ACTIVITY\_NEW\_TASKを設定しない （必須）」を参照のこと。
 
 #### PreferenceActivityのFragment Injection対策について
+```eval_rst
+PreferenceActivityを継承したクラスが公開Activityとなっている場合、Fragment Injection [5]_ と呼ばれる問題が発生する可能性がある。この問題を防ぐためには PreferenceActivity.IsValidFragment()をoverrideし、引数の値を適切にチェックすることでActivityが意図しないFragmentを扱わないようにする必要がある。(入力データの安全性については「3.2入力データの安全性を確認する」参照)
 
-PreferenceActivityを継承したクラスが公開Activityとなっている場合、Fragment Injection[^5]と呼ばれる問題が発生する可能性がある。この問題を防ぐためには PreferenceActivity.IsValidFragment()をoverrideし、引数の値を適切にチェックすることでActivityが意図しないFragmentを扱わないようにする必要がある。(入力データの安全性については「3.2入力データの安全性を確認する」参照)
-
+.. [5] Fragment Injectionの詳細は以下のURLを参照のこと https://securityintelligence.com/new-vulnerability-android-framework-fragment-injection/
+```
 以下に、IsValidFragment()をoverrideしたサンプルを示す。なお、ソースコードの難読化を行うと、クラス名が変わり、引数の値との比較結果が変わってまう可能性があるので、別途対応が必要になる。
 
 overrideしたisValidFragment()メソッドの例
@@ -815,8 +826,8 @@ AutofillフレームワークはAndroid 8.0(API Level 26)で追加された仕�
 #### 仕組み(概要)
 
 ##### 2つのコンポーネント
-
-以下に、Autofillフレームワークに登場する2つのコンポーネント[^6]の概要を示す。
+```eval_rst
+以下に、Autofillフレームワークに登場する2つのコンポーネント [6]_ の概要を示す。
 
 -   Autofillの対象となるアプリ（利用アプリ）：
 
@@ -829,10 +840,12 @@ AutofillフレームワークはAndroid 8.0(API Level 26)で追加された仕�
 
     -   アプリから渡されたViewの情報を保存したり（ユーザーの許可が必要）、ViewにAutofillするための情報（候補リスト）をアプリに提供したりする。
     -   保存対象のViewはAutofill  serviceが決定する（AutofillフレームワークはデフォルトでActivityに含まれるすべてのViewの情報をAutofill  serviceに渡す）。
-    -   3^rd^ Party製のAutofill serviceも作成できる。
+    -   3rd Party製のAutofill serviceも作成できる。
     -   端末内に複数存在することが可能でユーザーにより「設定」から選択されたServiceのみ有効になる（「なし」も選択可能）。
     -   Serviceが、扱うユーザー情報を保護するためにパスワード入力等によってユーザー認証をするためのUIを持つことも可能。
 
+.. [6] 「利用アプリ」と「Autofill service」は、それぞれ同じパッケージ(APKファイル)であることも、別パッケージであることもあり得る。
+```
 ##### Autofillフレームワークの処理フロー
 
 **図 4‑6**はAutofill時のAutofill関連コンポーネント間の処理フローを示している。利用アプリのViewのフォーカス移動等を契機にAutoillフレームワークを介してViewの情報（主にViewの親子関係や個々の属性）が「設定」で選択されたAutofill serviceに渡る。Autofill serviceは渡された情報を元にAutofillに必要な情報（候補リスト）をDBから取り出し、フレームワークに返信する。フレームワークは候補リストをユーザーに提示し、ユーザーが選択したデータによりアプリでAutofillが行われる。
