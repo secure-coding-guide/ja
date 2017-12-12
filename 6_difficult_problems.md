@@ -156,33 +156,6 @@ ClipboardListeningActivity.java
 
 ただし、setPrimaryClip()はClipboardに格納されていた情報を上書きするので、ユーザーが予めコピー・カット操作により格納しておいた情報が失われる可能性がある点に注意が必要である。これらのメソッドを使用して独自のコピー機能あるいはカット機能を提供する場合は、必要に応じて、内容が改変される旨を警告するダイアログを表示するなど、Clipboardに格納されている内容がユーザーの意図しない内容に変更されることのないように設計・実装する必要がある。
 
-.. [7] intent-filterが定義されていれば公開Receiver、定義されていなければ非公開Receiverとなる。
-    https://developer.android.com/guide/topics/manifest/receiver-element.html\#exported
-    を参照のこと。
-
-.. [8] Android
-    3.0未満ではアプリのインストールをしただけでReceiverが登録される
-
-.. [9] ただし、Content Providerの非公開設定はAndroid 2.2 (API Level 8)
-    以前では機能しない。
-
-.. [10] intent-filterが定義されていれば公開Service、定義されていなければ非公開Serviceとなる。
-    https://developer.android.com/guide/topics/manifest/service-element.html\#exported
-    を参照のこと。
-
-.. [11] ファイルの配置に関しては、SQLiteOpenHelperのコンストラクタの第2引数（name）にファイルの絶対パスも指定できる。そのため、誤ってSDカードを直接指定した場合には他のアプリからの読み書きが可能になるので注意が必要である。
-
-.. [12] どちらのメソッドも該当するアプリだけが読み書き権限を与えられ、他のアプリからはアクセスができないディレクトリ（パッケージディレクトリ）のサブディレクトリ以下のパスが取得できる。
-
-.. [13] （ドキュメントに記述はないが）SQLiteOpenHelper
-    の実装ではDBの名前にはファイルのフルパスを指定できるので、SDカードなどアクセス権の設定できない場所のパスが意図せず入力されないように注意が必要である。
-
-.. [14] MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEの性質と注意点については、「4.6.3.2
-    ディレクトリのアクセス権設定」を参照
-
-.. [15] getReableDatabase
-    は基本的にはgetWritableDatabaseで取得するのと同じオブジェクトを返す。ディスクフルなどの状況で書き込み可能オブジェクトを生成できない場合にリードオンリーのオブジェクトを返すという仕様である（getWritableDatabaseはディスクフルなどの状況では実行エラーとなる）。
-
 .. [16] MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEは API Level17
     以降ではdeprecated となっており、API Level 24
     以降ではセキュリティ例外が発生するため使用できなくなっている。

@@ -1420,8 +1420,10 @@ exported属性とintent-filter要素の組み合わせの使用可否
 +-------------------------+------+----------+--------+
 | intent-filter定義がない | 可   | 可       | 禁止   |
 +-------------------------+------+----------+--------+
+Receiverのexported属性が無指定である場合にそのReceiverが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが [7]_、本ガイドではReceiverのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
+
+.. [7] intent-filterが定義されていれば公開Receiver、定義されていなければ非公開Receiverとなる。https://developer.android.com/guide/topics/manifest/receiver-element.html#exportedを参照のこと。
 ```
-Receiverのexported属性が無指定である場合にそのReceiverが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが[^7]、本ガイドではReceiverのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
 
 intent-filterを定義し、かつ、exported="false"を指定することを原則禁止としているのは、同一アプリ内の非公開Receiverに向けてBroadcastを送信したつもりでも、意図せず他アプリの公開Receiverを呼び出してしまう場合が存在するからである。以下の2つの図で意図せぬ呼び出しが起こる様子を説明する。
 
@@ -1456,12 +1458,14 @@ Intentに関してはexported="false"でも受信可能であるという事実�
 Intentと同じACTIONのIntentを他アプリが送信した場合、それを受信してしまうと意図しない動作を引き起こす可能性があるが、これはexported="false"を指定することによって防ぐことができる。
 
 #### Receiverはアプリを起動しないと登録されない
-
+```eval_rst
 AndroidManifest.xmlに静的に定義したBroadcast
-Receiverは、インストールしただけでは有効にならないので注意が必要である[^8]。アプリを1回起動することで、それ以降のBroadcastを受信できるようになるため、インストール後にBroadcast受信をトリガーにして処理を起動させることはできない。ただしBroadcastの送信側でIntentにIntent.FLAG\_INCLUDE\_STOPPED\_PACKAGES
+Receiverは、インストールしただけでは有効にならないので注意が必要である [8]_。アプリを1回起動することで、それ以降のBroadcastを受信できるようになるため、インストール後にBroadcast受信をトリガーにして処理を起動させることはできない。ただしBroadcastの送信側でIntentにIntent.FLAG\_INCLUDE\_STOPPED_PACKAGES
 を設定してBroadcast送信した場合は、一度も起動していないアプリであってもこのBroadcast
 を受信することができる。
 
+.. [8] Android 3.0未満ではアプリのインストールをしただけでReceiverが登録される
+```
 #### 同じUIDを持つアプリから送信されたBroadcastは、非公開Broadcast Receiverでも受信できる
 
 複数のアプリに同じUIDを持たせることができる。この場合、たとえ非公開Broadcast
@@ -1645,9 +1649,13 @@ Providerがどのタイプであるかを判断できる。
 図 4.3‑1
 
 #### 非公開Content Providerを作る・利用する
+```eval_rst
+非公開Content Providerは、同一アプリ内だけで利用されるContent Providerであり、
+もっとも安全性の高いContent Providerである [9]_。
 
-非公開Content Providerは、同一アプリ内だけで利用されるContent
-Providerであり、もっとも安全性の高いContent Providerである[^9]。
+.. [9] ただし、Content Providerの非公開設定はAndroid 2.2 (API Level 8)
+    以前では機能しない。
+```
 
 以下、非公開Content Providerの実装例を示す。
 
@@ -2578,8 +2586,12 @@ Permissionにより保護されている情報資産および機能資産を他�
 +-------------------------+--------------------------------+--------------+--------------+
 | intent-filter定義がない | 公開、パートナー限定、自社限定 | 非公開       | （使用禁止） |
 +-------------------------+--------------------------------+--------------+--------------+
+Serviceのexported属性が無指定である場合にそのServiceが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが [10]_、本ガイドではServiceのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
+
+.. [10] intent-filterが定義されていれば公開Service、定義されていなければ非公開Serviceとなる。
+    https://developer.android.com/guide/topics/manifest/service-element.html\exported
+    を参照のこと。
 ```
-Serviceのexported属性が無指定である場合にそのServiceが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが[^10]、本ガイドではServiceのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
 
 「intent-filter定義がある」&「exported="false"」を使用禁止にしているのは、Androidの振る舞いとして、同一アプリ内の非公開Serviceを呼び出したつもりでも、意図せず他アプリの公開Serviceを呼び出してしまう場合が存在するためである。
 
@@ -2722,9 +2734,11 @@ Provider
 ### サンプルコード<!-- b48a65ad -->
 
 #### データベースの作成と操作　
+```eval_rst
+Androidのアプリでデータベースを扱う場合、SQLiteOpenHelperを使用することでデータベースファイルの適切な配置およびアクセス権の設定（他のアプリがアクセスできない設定）ができる [11]_。ここでは、アプリ起動時にデータベースを作成し、UI上からデータの検索・追加・変更・削除を行う簡単なアプリを例に、外部からの入力に対して不正なSQLが実行されないようにSQLインジェクション対策したサンプルコードを示す。
 
-Androidのアプリでデータベースを扱う場合、SQLiteOpenHelperを使用することでデータベースファイルの適切な配置およびアクセス権の設定（他のアプリがアクセスできない設定）ができる[^11]。ここでは、アプリ起動時にデータベースを作成し、UI上からデータの検索・追加・変更・削除を行う簡単なアプリを例に、外部からの入力に対して不正なSQLが実行されないようにSQLインジェクション対策したサンプルコードを示す。
-
+.. [11] ファイルの配置に関しては、SQLiteOpenHelperのコンストラクタの第2引数（name）にファイルの絶対パスも指定できる。そのため、誤ってSDカードを直接指定した場合には他のアプリからの読み書きが可能になるので注意が必要である。
+```
 ![](media/image47.png)
 ```eval_rst
 .. {width="5.541666666666667in"
@@ -2784,15 +2798,17 @@ DBファイルのデータの保護を考えた場合、DBファイルの配置�
 カードなどアクセス権の設定を行えない場所に配置している場合には、誰からでもアクセス可能なDBファイルになってしまう。また、アプリディレクトリに配置した場合でも、アクセス権を正しく設定しないと意図しないアクセスを許してしまうことになる。ここでは、配置場所とアクセス権設定について守るべき点を挙げた後、それを実現するための方法について説明する。
 
 まず配置場所とアクセス権設定については、DBファイル(データ)を保護する観点から考えると、以下の2点を実施する必要がある。
+```eval_rst
+1. 配置場所
 
-1\. 配置場所
+Context\#getDatabasePath(String name)で取得できるファイルパスや場合によってはContext\#getFilesDir で取得できるディレクトリの場所に配置する [12]_
 
-Context\#getDatabasePath(String name)で取得できるファイルパスや場合によってはContext\#getFilesDir で取得できるディレクトリの場所に配置する[^12]
+2. アクセス権
 
-2\. アクセス権
+MODE_PRIVATE（=ファイルを作成したアプリのみがアクセス可能）モードに設定する
 
-MODE\_PRIVATE（=ファイルを作成したアプリのみがアクセス可能）モードに設定する
-
+.. [12] どちらのメソッドも該当するアプリだけが読み書き権限を与えられ、他のアプリからはアクセスができないディレクトリ（パッケージディレクトリ）のサブディレクトリ以下のパスが取得できる。
+```
 この2点を実施することで、他のアプリからアクセスできないDBファイルの作成を行うことができる。これらを実施するためには以下の方法が挙げられる。
 
 1\. SQLiteOpenHelperを使用する
@@ -2802,12 +2818,14 @@ MODE\_PRIVATE（=ファイルを作成したアプリのみがアクセス可能
 DBファイルの作成に際しては、SQLiteDatabase\#openOrCreateDatabaseを使用することもできる。しかし、このメソッドを使用した場合、Androidスマートフォンの機種によっては、他のアプリから読み取り可能なDBファイルが作成されることが分かっている。そのため、このメソッドの使用は避けて、他の方法を利用することを推奨する。上に挙げた2つの方法について、それぞれの特徴を以下で説明する。
 
 ##### SQLiteOpenHelperを使用する
+```eval_rst
+SQLiteOpenHelperを使用する場合、開発者はあまり多くのことを考えなくてもよい。SQLiteOpenHelperを派生したクラスを作成し、コンストラクタの引数にDBの名前（ファイル名に使われる） [13]_ を指定すれば、自動的に上記のセキュリティ要件を満たすDBファイルを作成してくれる。
 
-SQLiteOpenHelperを使用する場合、開発者はあまり多くのことを考えなくてもよい。SQLiteOpenHelperを派生したクラスを作成し、コンストラクタの引数にDBの名前（ファイル名に使われる）[^13]を指定すれば、自動的に上記のセキュリティ要件を満たすDBファイルを作成してくれる。
+「4.5.1.1 データベースの作成と操作」に具体的な使用方法を示しているので参照すること。
 
-「4.5.1.1
-データベースの作成と操作」に具体的な使用方法を示しているので参照すること。
-
+.. [13] （ドキュメントに記述はないが）SQLiteOpenHelper
+    の実装ではDBの名前にはファイルのフルパスを指定できるので、SDカードなどアクセス権の設定できない場所のパスが意図せず入力されないように注意が必要である。
+```
 ##### Context\#openOrCreateDatabaseを使用する
 
 Context\#openOrCreateDatabaseメソッドを使用してDBの作成を行う場合、ファイルのアクセス権をオプションで指定する必要があり、明示的にMODE\_PRIVATEを指定する。
@@ -2833,12 +2851,8 @@ public void onCreate(Bundle savedInstanceState) {
         //省略 その他の初期化処理
     }
 ```
-
-なお、アクセス権の設定はMODE\_PRIVATE
-と合わせて以下の3種類があり、MODE\_WORLD\_READABLEとMODE\_WORLD\_WRITEABLEはOR演算で同時指定することもできる。ただし、MODE\_PRIVATE以外はAPI
-Level 17以降ではdeprecatedとなっており、API Level 24
-以降ではセキュリティ例外が発生する。API Level
-15以降を対象とする場合でも、通常はこのフラグを使用しないことが望ましい[^14]。
+```eval_rst
+なお、アクセス権の設定はMODE_PRIVATEと合わせて以下の3種類があり、MODE\_WORLD\_READABLEとMODE\_WORLD\_WRITEABLEはOR演算で同時指定することもできる。ただし、MODE\_PRIVATE以外はAPI Level 17以降ではdeprecatedとなっており、API Level 24 以降ではセキュリティ例外が発生する。API Level 15以降を対象とする場合でも、通常はこのフラグを使用しないことが望ましい [14]_。
 
 -   MODE\_PRIVATE 作成アプリのみ読み書き可能
 
@@ -2846,6 +2860,9 @@ Level 17以降ではdeprecatedとなっており、API Level 24
 
 -   MODE\_WORLD\_WRITEABLE 作成アプリは読み書き可能、他は書き込みのみ
 
+.. [14] MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEの性質と注意点については、「4.6.3.2
+    ディレクトリのアクセス権設定」を参照
+```
 #### 他アプリとDBデータを共有する場合はContent Providerでアクセス制御する （必須）
 
 他のアプリとDBデータを共有する手段として、DBファイルをWORLD\_READABLE、WORLD\_WRITABLEとして作成し、他のアプリから直接アクセスできるようにするという方法がある。しかし、この方法ではDBにアクセスするアプリやDBへの操作を制限できないため、意図しない相手（アプリ）にデータを読み書きされることもある。結果として、データの機密性や整合性に問題が生じたり、マルウェアの攻撃対象となったりする可能性も考えられる。
@@ -3054,9 +3071,12 @@ public class DataSearchTask extends AsyncTask<String, Void, Cursor> {
 > 参照：[http://www.ipa.go.jp/security/vuln/documents/website\_security\_sql.pdf](http://www.ipa.go.jp/security/vuln/documents/website_security_sql.pdf)
 
 #### 不用意にデータベースの書き換えが行われないための対策を行う
+```eval_rst
+SQLiteOpenHelper\#getReadableDatabase、getWritableDatabaseを使用してDBのインスタンスを取得した場合、どちらのメソッドを利用してもDBは読み書き可能な状態でオープンされる [15]_。また、Context\#openOrCreateDatabase、SQLiteDatabase\#openOrCreateDatabaseなども同様である。
 
-SQLiteOpenHelper\#getReadableDatabase、getWritableDatabaseを使用してDBのインスタンスを取得した場合、どちらのメソッドを利用してもDBは読み書き可能な状態でオープンされる[^15]。また、Context\#openOrCreateDatabase、SQLiteDatabase\#openOrCreateDatabaseなども同様である。
-
+.. [15] getReableDatabase
+    は基本的にはgetWritableDatabaseで取得するのと同じオブジェクトを返す。ディスクフルなどの状況で書き込み可能オブジェクトを生成できない場合にリードオンリーのオブジェクトを返すという仕様である（getWritableDatabaseはディスクフルなどの状況では実行エラーとなる）。
+```
 これは、アプリ操作や実装の不具合により意図せずDBの中身を書き換えてしまう（書き換えられてしまう）可能性を意味している。基本的にはアプリの仕様と実装の範囲で対応できると考えられるが、アプリの検索機能など、読み取りしか必要のない機能を実装する場合は、データベースを読み取り専用でオープンすることで、設計や検証の簡素化ひいてはアプリ品質の向上に繋がる場合があるので、状況に応じて検討をお勧めする。
 
 具体的には、SQLiteDatabase\#openDatabaseにOPEN\_READONLYを指定してデータベースをオープンする。
