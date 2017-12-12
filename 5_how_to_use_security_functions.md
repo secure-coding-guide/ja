@@ -10,8 +10,11 @@
 
 パスワード入力画面を作る際、セキュリティ上考慮すべきポイントについて述べる。ここではパスワードの入力に関する内容のみとする。パスワードの保存方法については今後の版にて別途記事を設ける予定である。
 
-![スクリーンショット2](media/image56.png){width="2.0in"
-height="3.345138888888889in"}
+![スクリーンショット2](media/image56.png)
+```eval_rst
+.. {width="2.0in"
+.. height="3.345138888888889in"}
+```
 
 図 5.1‑1
 
@@ -350,8 +353,11 @@ Androidの設定メニューの中に「パスワードを表示」という設�
 Android 5.0より前のバージョンまで、この手順で設定できる。ただしAndroid
 5.0以降では、「パスワードを表示」はチェックボックスからトグルボタンに変更されている。
 
-![設定-パスワードを表示](media/image61.png){width="1.6598425196850393in"
-height="2.7598425196850394in"}
+![設定-パスワードを表示](media/image61.png)
+```eval_rst
+.. {width="1.6598425196850393in"
+.. height="2.7598425196850394in"}
+```
 
 図 5.1‑3
 
@@ -387,8 +393,11 @@ Android
 OSは電話帳やGPSなどのユーザー資産をマルウェアから保護するためのPermissionというセキュリティの仕組みがある。Android
 OSが保護対象としている、こうした情報や機能にアクセスするアプリは、明示的にそれらにアクセスするための権限（Permission）を利用宣言しなければならない。ユーザー確認が必要なPermissionでは、そのPermissionを利用宣言したアプリがインストールされるときに次のようなユーザー確認画面が表示される[^25]。
 
-![usespermission\_install](media/image66.png){width="1.8645833333333333in"
-height="3.34375in"}
+![usespermission\_install](media/image66.png)
+```eval_rst
+.. {width="1.8645833333333333in"
+.. height="3.34375in"}
+```
 
 図 5.2‑1
 
@@ -417,8 +426,11 @@ Permission（UserApp）」はサンプルプログラム「独自定義Signature
 Permission（ProtectedApp）」にstartActivity()する。両アプリは同じ開発者鍵で署名されている必要がある。もし署名した開発者鍵が異なる場合は、UserAppはIntentを送信せず、ProtectedAppは受信したIntentを処理しない。またアドバンストセクションで説明しているインストール順序によるSignature
 Permission回避の問題にも対処している。
 
-![](media/image67.png){width="6.889763779527559in"
-height="2.0933070866141734in"}
+![](media/image67.png)
+```eval_rst
+.. {width="6.889763779527559in"
+.. height="2.0933070866141734in"}
+```
 
 図 5.2‑2
 
@@ -464,8 +476,11 @@ PkgCert.java
 ★ポイント5★ Android Studioからメニュー：Build -\> Generated Signed
 APKと選択し、Componentを提供するアプリと同じ開発者鍵で署名する。
 
-![](media/image68.png){width="4.646481846019247in"
-height="3.2817082239720037in"}
+![](media/image68.png)
+```eval_rst
+.. {width="4.646481846019247in"
+.. height="3.2817082239720037in"}
+```
 
 図 5.2‑3
 
@@ -516,8 +531,11 @@ PkgCert.java
 ★ポイント11★ Android Studioからメニュー：Build -\> Generated Signed
 APKと選択し、Componentを提供するアプリと同じ開発者鍵で署名する。
 
-![](media/image68.png){width="4.646481846019247in"
-height="3.2817082239720037in"}
+![](media/image68.png)
+```eval_rst
+.. {width="4.646481846019247in"
+.. height="3.2817082239720037in"}
+```
 
 図 5.2‑4
 
@@ -611,8 +629,11 @@ JDK7以降をインストールしなくても、JSSEC証明書ハッシュ値�
 
 ![C:\\Users\\0025110063\\AppData\\Local\\Microsoft\\Windows\\Temporary
 Internet
-Files\\Content.Word\\Screenshot\_2012-04-24-13-01-57.png](media/image69.png){width="3.93125in"
-height="2.2180555555555554in"}
+Files\\Content.Word\\Screenshot\_2012-04-24-13-01-57.png](media/image69.png)
+```eval_rst
+.. {width="3.93125in"
+.. height="2.2180555555555554in"}
+```
 
 図 5.2‑5
 
@@ -631,8 +652,11 @@ Android 5.1(API Level 22)以前のPermissionモデル（「5.2.3.6 Android
 Permissionについてはアプリが適切なタイミングでPermissionを要求するよう、アプリ開発者が明示的に実装しなければならない。アプリがPermissionを要求すると、Android
 OSはユーザーに対して下記のような確認画面を表示し、そのPermissionの利用を許可するかどうかの判断を求めることになる。ユーザーがPermissionの利用を許可すれば、アプリはそのPermissionを必要とする処理を実行することができる。
 
-![](media/image70.png){width="2.0072648731408576in"
-height="3.571259842519685in"}
+![](media/image70.png)
+```eval_rst
+.. {width="2.0072648731408576in"
+.. height="3.571259842519685in"}
+```
 
 図 5.2‑6
 
@@ -700,8 +724,11 @@ Permissionを利用宣言しているアプリを端末にインストールす�
 PermissionおよびNormal
 Permission）を利用しようとしているのかをユーザーが知ることができる。ユーザーが「インストール」をタップすることで、そのアプリは利用宣言した権限が付与され、インストールされるようになっている。
 
-![permission\_network](media/image71.png){width="1.6666666666666667in"
-height="2.7736111111111112in"}
+![permission\_network](media/image71.png)
+```eval_rst
+.. {width="1.6666666666666667in"
+.. height="2.7736111111111112in"}
+```
 
 図 5.2‑7
 
@@ -878,7 +905,10 @@ Permissionの基本的な使い方を紹介する。ただし、後述するよ�
 
 1.  AttackerAppをProtectedAppより先に端末にインストールする
 
-![](media/image72.png){width="6.5in" height="4.270833333333333in"}
+![](media/image72.png)
+```eval_rst
+.. {width="6.5in" height="4.270833333333333in"}
+```
 
 図 5.2‑8
 
@@ -1007,7 +1037,10 @@ OSに保護されている電話帳やGPSといった情報や機能にアクセ
 5.2‑9に示す。中央のアプリはandroid.permission.READ\_CONTACTSを利用宣言したアプリが連絡先情報を読み取って自分のDBに蓄積している。何の制限もなくContent
 Provider経由で蓄積した情報を他のアプリに提供した場合に、Permissionの再委譲問題が生じる。
 
-![](media/image73.png){width="5.375in" height="3.8020833333333335in"}
+![](media/image73.png)
+```eval_rst
+.. {width="5.375in" height="3.8020833333333335in"}
+```
 
 図
 5.2‑9　Permissionを持たないアプリが連絡先情報を取得する
@@ -1123,8 +1156,11 @@ OSに確認画面を表示させ、ユーザーに権限利用の許可を求め
 Permission)を、設定メニューを通じて任意のタイミングで取り消すことができる（図
 5.2‑10）ため、権限がアプリに付与されておらず必要な情報や機能にアクセスすることができない状況においても、アプリが異常な動作を起こすことがないよう適切な処理を実装する必要がある。
 
-![](media/image74.png){width="1.9999628171478565in"
-height="3.558266622922135in"}
+![](media/image74.png)
+```eval_rst
+.. {width="1.9999628171478565in"
+.. height="3.558266622922135in"}
+```
 
 図 5.2‑10
 
@@ -1223,7 +1259,10 @@ Managerの機能拡張であり、Authenticatorと呼ばれるオブジェクト
 Managerに提供することにより、Account
 Managerがそのオンラインサービスのアカウント情報および認証トークンを一元管理できるようになる。利用アプリとAuthenticatorアプリは別のアプリである必要はなく、一つのアプリとして実装することもできる。
 
-![](media/image75.png){width="6.889763779527559in" height="1.9748031496062992in"}
+![](media/image75.png)
+```eval_rst
+.. {width="6.889763779527559in" height="1.9748031496062992in"}
+```
 
 図 5.3‑1Account
 Managerを使用したアカウント管理機能の構成
@@ -1333,8 +1372,11 @@ WebService.java
 独自アカウントの追加と認証トークンの取得を行うアプリのサンプルコードを以下に示す。もう一つのサンプルアプリ「5.3.1.1
 独自アカウントを作る」が端末にインストールされているときに、独自アカウントの追加や認証トークンの取得ができる。「アクセスリクエスト」　画面は両アプリの署名鍵が異なる場合にだけ表示される。
 
-![](media/image76.png){width="6.889763779527559in"
-height="2.296456692913386in"}
+![](media/image76.png)
+```eval_rst
+.. {width="6.889763779527559in"
+.. height="2.296456692913386in"}
+```
 
 図 5.3‑2 サンプルアプリAccountManager Userの動作画面
 
@@ -1579,7 +1621,10 @@ Managerによってこの画面が開かれた途端、例外が発生し、ア�
 [https://code.google.com/p/android/issues/detail?id=23421](https://code.google.com/p/android/issues/detail?id=23421)
 に記載されている。Android 4.1.x以降ではこの不具合はない。
 
-![](media/image77.png){width="6.3597222222222225in" height="4.5in"}
+![](media/image77.png)
+```eval_rst
+.. {width="6.3597222222222225in" height="4.5in"}
+```
 
 図
 5.3‑3Android標準の認証トークン使用許諾画面を表示した場合
@@ -1627,8 +1672,11 @@ HTTPSで通信する
 開発しているアプリの通信処理の特性を踏まえ、図
 5.4‑1に従いサンプルコードを選択すること。
 
-![](media/image78.png){width="6.900393700787402in"
-height="4.751968503937008in"}
+![](media/image78.png)
+```eval_rst
+.. {width="6.900393700787402in"
+.. height="4.751968503937008in"}
+```
 
 図 5.4‑1
 HTTP/HTTPSのサンプルコードを選択するフローチャート
@@ -2048,21 +2096,30 @@ OSにプライベート認証局のルート証明書をインストールする
 次にAndroidの設定メニューのセキュリティを開き、下図のような手順を進めることでAndroid
 OSにルート証明書をインストールすることができる。
 
-![](media/image79.png){width="6.624409448818898in"
-height="3.771259842519685in"}
+![](media/image79.png)
+```eval_rst
+.. {width="6.624409448818898in"
+.. height="3.771259842519685in"}
+```
 
 図 5.4‑2　プライベート認証局のルート証明書のインストール手順
 
-![](media/image80.png){width="6.448031496062992in"
-height="3.665748031496063in"}
+![](media/image80.png)
+```eval_rst
+.. {width="6.448031496062992in"
+.. height="3.665748031496063in"}
+```
 
 図 5.4‑3 ルート証明書がインストールされていることの確認
 
 Android
 OSにプライベート認証局のルート証明書をインストールすると、その認証局から発行されたプライベート証明書をすべてのアプリで正しく証明書検証できるようになる。下図はChromeブラウザで[https://selfsigned.jssec.org/droid\_knight.png](https://selfsigned.jssec.org/droid_knight.png)を表示した場合の例である。
 
-![](media/image81.png){width="6.3082677165354335in"
-height="4.186220472440945in"}
+![](media/image81.png)
+```eval_rst
+.. {width="6.3082677165354335in"
+.. height="4.186220472440945in"}
+```
 
 図
 5.4‑4ルート証明書のインストール後はプライベート証明書を正しく検証できるようになる
@@ -2358,13 +2415,19 @@ Configurationで以下のような設定を行えば、デバック�
 
 アプリ・プライバシーポリシーの作成には、一般に公開されている「アプリケーション・プライバシーポリシー作成支援ツール[^39]」を利用することもできる。このツールの出力はHTML形式およびXML形式となっており、概要版アプリケーション・プライバシーポリシーと詳細版アプリケーション・プライバシーポリシーのそれぞれのファイルが作成される。作成されたXMLファイルには検査用のタグがつくなど、総務省SPIに準拠した形となっている。以下のサンプルコードでは、上記ツールを使って作成したHTMLファイルを利用してアプリ・プライバシーポリシーを提示する例を示す。
 
-![](media/image82.png){width="2.46875in" height="4.395833333333333in"}
+![](media/image82.png)
+```eval_rst
+.. {width="2.46875in" height="4.395833333333333in"}
+```
 
 図 5.5‑1概要版アプリケーション・プライバシーポリシーの例
 
 具体的には、次の判定フローに従うことで利用するサンプルコードを判断できる。
 
-![](media/image83.png){width="7.26875in" height="3.0257053805774277in"}
+![](media/image83.png)
+```eval_rst
+.. {width="7.26875in" height="3.0257053805774277in"}
+```
 
 図 5.5‑2　 プライバシー情報を扱うサンプルコードを選択するフローチャート
 
@@ -2508,7 +2571,10 @@ MainActivity.java
 
 ★ポイント2★マーケットプレイス等のアプリ説明欄に、取得した情報を外部送信しない旨を記載する
 
-![](media/image84.png){width="2.46875in" height="4.229166666666667in"}
+![](media/image84.png)
+```eval_rst
+.. {width="2.46875in" height="4.229166666666667in"}
+```
 
 図 5.5‑3　マーケットプレイス上での説明例
 
@@ -2562,8 +2628,11 @@ protected void onStart() {
 		}
 ```
 
-![](media/image85.png){width="2.2083333333333335in"
-height="3.7708333333333335in"}
+![](media/image85.png)
+```eval_rst
+.. {width="2.2083333333333335in"
+.. height="3.7708333333333335in"}
+```
 
 図 5.5‑4　包括同意の例
 
@@ -2584,8 +2653,11 @@ MainActivity.java
 	}
 ```
 
-![](media/image86.png){width="2.2083333333333335in"
-height="3.7708333333333335in"}
+![](media/image86.png)
+```eval_rst
+.. {width="2.2083333333333335in"
+.. height="3.7708333333333335in"}
+```
 
 図 5.5‑5 個別同意の例
 
@@ -2606,8 +2678,11 @@ MainActivity.java
 			return true;
 ```
 
-![](media/image87.png){width="2.1979166666666665in"
-height="3.7708333333333335in"}
+![](media/image87.png)
+```eval_rst
+.. {width="2.1979166666666665in"
+.. height="3.7708333333333335in"}
+```
 
 図 5.5‑6　プライバシーポリシー表示用メニュー
 
@@ -2668,7 +2743,10 @@ MainActivity.java
 
 利用者の端末内部で一時的に利用者情報にアクセスするのみの場合であっても、利用者の理解を助け透明性を高めるために、その旨を伝えることが望ましい。具体的には、アクセスした利用者情報は、ある決まった目的のために端末内部で一時的に使用するのみであり、端末内に保存したり、外部サーバに送信したりしない旨をを利用者に通知すると良い。通知方法としては、マーケットプレイス上でのアプリ説明欄に記載するなどの方法が考えられる。なお、端末内での一時利用のみの場合は、アプリ・プライバシーポリシーへの記載は必須ではない。
 
-![](media/image88.png){width="3.1145833333333335in" height="4.875in"}
+![](media/image88.png)
+```eval_rst
+.. {width="3.1145833333333335in" height="4.875in"}
+```
 
 図 5.5‑7　マーケットプレイス上での説明例
 
@@ -2745,16 +2823,22 @@ IDでも「5.5.3.2用語解説」における「利用者による取り換え�
 
 -   第三者の盗聴からデータを守る
 
-![](media/image89.png){width="5.606944444444444in"
-height="2.933333333333333in"}
+![](media/image89.png)
+```eval_rst
+.. {width="5.606944444444444in"
+.. height="2.933333333333333in"}
+```
 
 図 5.6‑1
 盗聴からデータを守るサンプルコードを選択するフローチャート
 
 -   第三者によるデータの改ざんを検知する
 
-![](media/image90.png){width="5.720833333333333in"
-height="2.933333333333333in"}
+![](media/image90.png)
+```eval_rst
+.. {width="5.720833333333333in"
+.. height="2.933333333333333in"}
+```
 
 図
 5.6‑2　データの改ざんを検知するサンプルコードを選択するフローチャート
@@ -3132,8 +3216,11 @@ import java.security.SecureRandom;
 SecureRandomのようなプログラムで実現されている疑似乱数生成器は一般に「図
 5.6‑3　疑似乱数生成器の内部プロセス」のように動作しており、乱数の種を入力して内部状態を初期化すると、乱数を生成する度に内部状態を一定のアルゴリズムで更新することで、次々と乱数列の生成が可能になる。
 
-![](media/image91.png){width="5.697916666666667in"
-height="1.9430555555555555in"}
+![](media/image91.png)
+```eval_rst
+.. {width="5.697916666666667in"
+.. height="1.9430555555555555in"}
+```
 
 図 5.6‑3　疑似乱数生成器の内部プロセス
 
@@ -3197,8 +3284,11 @@ OSの脆弱性を修正するパッチがGoogleからパートナー(端末メ�
 まずは、Androidスマートフォン/タブレットにおいて暗号化等に使う鍵が存在する可能性のある場所とその保護方針の概観を「図
 5.6‑4　暗号鍵が存在する場所と保護方針」に示す。
 
-![](media/image92.png){width="5.642125984251969in"
-height="3.719685039370079in"}
+![](media/image92.png)
+```eval_rst
+.. {width="5.642125984251969in"
+.. height="3.719685039370079in"}
+```
 
 図 5.6‑4　暗号鍵が存在する場所と保護方針
 

@@ -43,8 +43,11 @@ Type)がアプリの実行時に常に下記のいずれかであることを指
 -   InputType.TYPE\_CLASS\_NUMBER \|
     InputType.TYPE\_NUMBER\_VARIATION\_PASSWORD
 
-![](media/image93.png){width="3.9358267716535433in"
-height="3.6429133858267715in"}
+![](media/image93.png)
+```eval_rst
+.. {width="3.9358267716535433in"
+.. height="3.6429133858267715in"}
+```
 
 図 6.1‑1対策要否の判定フロー
 

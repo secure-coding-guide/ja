@@ -10,8 +10,11 @@ Activityを作る・利用する
 
 Activityがどのように利用されるかによって、Activityが抱えるリスクや適切な防御手段が異なる。ここでは、Activityがどのように利用されるかという観点で、Activityを4つのタイプに分類した。次の判定フローによって作成するActivityがどのタイプであるかを判断できる。なお、どのような相手を利用するかによって適切な防御手段が決まるため、Activityの利用側の実装についても合わせて説明する。
 
-![](media/image33.png){width="6.889763779527559in"
-height="3.0074803149606297in"}
+![](media/image33.png)
+```eval_rst
+.. {width="6.889763779527559in"
+.. height="3.0074803149606297in"}
+```
 
 図 4.1‑1
 
@@ -254,8 +257,11 @@ PkgCert.java
 
 ★ポイント9★APKをExportするときに、利用元アプリと同じ開発者鍵でAPKを署名する。
 
-![](media/image34.png){width="4.647222222222222in"
-height="3.2743055555555554in"}
+![](media/image34.png)
+```eval_rst
+.. {width="4.647222222222222in"
+.. height="3.2743055555555554in"}
+```
 
 図 4.1‑2
 
@@ -312,8 +318,11 @@ PkgCert.java
 
 ★ポイント16★APKをExportするときに、利用先アプリと同じ開発者鍵でAPKを署名する。
 
-![](media/image34.png){width="4.647222222222222in"
-height="3.2743055555555554in"}
+![](media/image34.png)
+```eval_rst
+.. {width="4.647222222222222in"
+.. height="3.2743055555555554in"}
+```
 
 図 4.1‑3
 
@@ -570,7 +579,10 @@ exported属性の値で「intent-filter定義がある」&「exported="false"」
 Filterの性質上、意図せず他アプリのActivityを呼び出してしまう場合が存在するためである。以下の2つの図は、その説明のためのものである。図
 4.1‑4は、同一アプリ内からしか非公開Activity(アプリA）を暗黙的Intentで呼び出せない正常な動作の例である。Intent-filter(図中action=\"X\")を定義しているのが、アプリAしかいないので意図通りの動きとなっている。
 
-![](media/image35.png){width="4.739583333333333in" height="2.9375in"}
+![](media/image35.png)
+```eval_rst
+.. {width="4.739583333333333in" height="2.9375in"}
+```
 
 図 4.1‑4
 
@@ -578,8 +590,11 @@ Filterの性質上、意図せず他アプリのActivityを呼び出してしま
 4.1‑5は、アプリAに加えてアプリBでも同じintent-filter(図中action=\"X\")を定義している場合である。図
 4.1‑5では、アプリAが暗黙的Intentを送信して同一アプリ内の非公開Activityを呼び出そうとするが、「アプリケーションの選択」ダイアログが表示され、ユーザーの選択によって公開Activity(B-1)が呼び出されてしまう例を示している。これにより他アプリに対してセンシティブな情報を送信したり、意図せぬ戻り値を受け取る可能性が生じてしまう。
 
-![](media/image36.png){width="4.739583333333333in"
-height="3.8020833333333335in"}
+![](media/image36.png)
+```eval_rst
+.. {width="4.739583333333333in"
+.. height="3.8020833333333335in"}
+```
 
 図 4.1‑5
 
@@ -816,13 +831,19 @@ AutofillフレームワークはAndroid 8.0(API Level 26)で追加された仕�
 
 **図 4‑6**はAutofill時のAutofill関連コンポーネント間の処理フローを示している。利用アプリのViewのフォーカス移動等を契機にAutoillフレームワークを介してViewの情報（主にViewの親子関係や個々の属性）が「設定」で選択されたAutofill serviceに渡る。Autofill serviceは渡された情報を元にAutofillに必要な情報（候補リスト）をDBから取り出し、フレームワークに返信する。フレームワークは候補リストをユーザーに提示し、ユーザーが選択したデータによりアプリでAutofillが行われる。
 
-![Autofillの仕組み\_Autofill](media/image37.png){width="7.266666666666667in" height="3.325in"}
+![Autofillの仕組み\_Autofill](media/image37.png)
+```eval_rst
+.. {width="7.266666666666667in" height="3.325in"}
+```
 
 **図** **4‑6Autofill時のコンポーネント間の処理フロー**
 
 一方、**図 4‑7**はAutofillによるユーザーデータ保存時の処理フローを示している。AutofillManager\#commit()の呼び出しやActivityの終了を契機に、AutofillしたViewの値に変更があり、かつ、Autofillフレームワークが表示する保存許可ダイアログに対してユーザーが許可した場合、Viewの情報（テキスト含む）がAutofillフレームワークを介して「設定」で選択されたAutofill serviceに渡され、Autofill serviceがViewの情報をDBに保存して一連の処理が完了となる。
 
-![Autofillの仕組み\_Save](media/image38.png){width="7.258333333333334in" height="3.3333333333333335in"}
+![Autofillの仕組み\_Save](media/image38.png)
+```eval_rst
+.. {width="7.258333333333334in" height="3.3333333333333335in"}
+```
 
 **図** **4‑7 ユーザーデータ保存時のコンポーネント間の処理フロー**
 
@@ -918,8 +939,11 @@ Receiverが抱えるリスクや適切な防御手段が異なる。次の判定
 Receiverがどのタイプであるかを判断できる。ちなみに、パートナー限定の連携に必要なBroadcast送信元アプリのパッケージ名を受信側アプリで確認する手段がないため、パートナー限定Broadcast
 Receiverを作る事はできない。
 
-![](media/image39.png){width="6.395833333333333in"
-height="3.4895833333333335in"}
+![](media/image39.png)
+```eval_rst
+.. {width="6.395833333333333in"
+.. height="3.4895833333333335in"}
+```
 
 図 4.2‑1
 
@@ -1157,8 +1181,11 @@ PkgCert.java
 
 ★ポイント9★APKをExportするときに、Broadcast送信元アプリと同じ開発者鍵でAPKを署名する。
 
-![](media/image34.png){width="4.647222222222222in"
-height="3.2743055555555554in"}
+![](media/image34.png)
+```eval_rst
+.. {width="4.647222222222222in"
+.. height="3.2743055555555554in"}
+```
 
 図 4.2‑2
 
@@ -1213,8 +1240,11 @@ PkgCert.java
 
 ★ポイント16★APKをExportするときに、Receiver側アプリと同じ開発者鍵でAPKを署名する。
 
-![](media/image34.png){width="4.647222222222222in"
-height="3.2743055555555554in"}
+![](media/image34.png)
+```eval_rst
+.. {width="4.647222222222222in"
+.. height="3.2743055555555554in"}
+```
 
 図 4.2‑3
 
@@ -1379,8 +1409,11 @@ intent-filterを定義し、かつ、exported="false"を指定することを原
 図
 4.2‑4は、同一アプリ内からしか非公開Receiver(アプリA）を暗黙的Intentで呼び出せない正常な動作の例である。Intent-filter(図中action=\"X\")を定義しているのが、アプリAしかいないので意図通りの動きとなっている。
 
-![](media/image40.png){width="4.739583333333333in"
-height="3.8020833333333335in"}
+![](media/image40.png)
+```eval_rst
+.. {width="4.739583333333333in"
+.. height="3.8020833333333335in"}
+```
 
 図 4.2‑4
 
@@ -1390,8 +1423,11 @@ height="3.8020833333333335in"}
 セキュリティ面で問題になるのは、アプリAによる同一アプリ内の非公開Receiverの呼び出しである。アプリAが暗黙的IntentをBroadcastすると、同一アプリ内の非公開Receiverに加えて、同じIntent-filterを定義したBの持つ公開Receiver(B-1)もそのIntentを受信できてしまうからである(図の赤色の矢印)。AからアプリBに対してセンシティブな情報を送信する可能性が生じてしまう。アプリBがマルウェアであれば、そのままセンシティブな情報の漏洩に繋がる。また、BroadcastがOrdered
 Broadcastであった場合は、意図しない結果情報を受け取ってしまう可能性もある。
 
-![](media/image41.png){width="4.739583333333333in"
-height="3.8020833333333335in"}
+![](media/image41.png)
+```eval_rst
+.. {width="4.739583333333333in"
+.. height="3.8020833333333335in"}
+```
 
 図 4.2‑5
 
@@ -1581,8 +1617,11 @@ Content Providerがどのように利用されるかによって、Content
 Providerが抱えるリスクや適切な防御手段が異なる。次の判定フローによって作成するContent
 Providerがどのタイプであるかを判断できる。
 
-![](media/image42.png){width="6.889763779527559in"
-height="3.0866141732283463in"}
+![](media/image42.png)
+```eval_rst
+.. {width="6.889763779527559in"
+.. height="3.0866141732283463in"}
+```
 
 図 4.3‑1
 
@@ -1797,8 +1836,11 @@ PkgCert.java
 
 ★ポイント7★　APKをExportするときに、利用元アプリと同じ開発者鍵でAPKを署名する。
 
-![](media/image34.png){width="4.647222222222222in"
-height="3.2743055555555554in"}
+![](media/image34.png)
+```eval_rst
+.. {width="4.647222222222222in"
+.. height="3.2743055555555554in"}
+```
 
 図 4.3‑2
 
@@ -1856,8 +1898,11 @@ PkgCert.java
 
 ★ポイント13★APKをExportするときに、利用先アプリと同じ開発者鍵でAPKを署名する。
 
-![](media/image34.png){width="4.647222222222222in"
-height="3.2743055555555554in"}
+![](media/image34.png)
+```eval_rst
+.. {width="4.647222222222222in"
+.. height="3.2743055555555554in"}
+```
 
 図 4.3‑3
 
@@ -2024,7 +2069,10 @@ Serviceを作る・利用する
 
 Serviceがどのように利用されるかによって、Serviceが抱えるリスクや適切な防御手段が異なる。次の判定フローによって作成するServiceがどのタイプであるかを判断できる。なお、作成するServiceのタイプによってServiceを利用する側の実装も決まるので、利用側の実装についても合わせて説明する。
 
-![](media/image43.png){width="7.26875in" height="3.186301399825022in"}
+![](media/image43.png)
+```eval_rst
+.. {width="7.26875in" height="3.186301399825022in"}
+```
 
 図 4.4‑1
 
@@ -2325,8 +2373,11 @@ PkgCert.java
 
 ★ポイント7★APKをExportするときに、利用元アプリと同じ開発者鍵でAPKを署名する。
 
-![](media/image34.png){width="4.647222222222222in"
-height="3.2743055555555554in"}
+![](media/image34.png)
+```eval_rst
+.. {width="4.647222222222222in"
+.. height="3.2743055555555554in"}
+```
 
 図 4.4‑2
 
@@ -2380,8 +2431,11 @@ PkgCert.java
 
 ★ポイント14★APKをExportするときに、利用先アプリと同じ開発者鍵でAPKを署名する。
 
-![](media/image34.png){width="4.647222222222222in"
-height="3.2743055555555554in"}
+![](media/image34.png)
+```eval_rst
+.. {width="4.647222222222222in"
+.. height="3.2743055555555554in"}
+```
 
 図 4.4‑3
 
@@ -2519,7 +2573,10 @@ Serviceのexported属性が無指定である場合にそのServiceが�
 以下の3つの図でAndroidの振る舞いによる意図せぬ呼び出しが起こる仕組みを説明する。図
 4.4‑4は、同一アプリ内からしか非公開Service(アプリA）を暗黙的Intentで呼び出せない正常な動作の例である。Intent-filter(図中action=\"X\")を定義しているのが、アプリAしかいないので意図通りの動きとなっている。
 
-![](media/image44.png){width="4.739583333333333in" height="2.9375in"}
+![](media/image44.png)
+```eval_rst
+.. {width="4.739583333333333in" height="2.9375in"}
+```
 
 図 4.4‑4
 
@@ -2529,16 +2586,22 @@ Serviceのexported属性が無指定である場合にそのServiceが�
 図
 4.4‑5は、アプリA→アプリBの順でインストールされた場合である。この場合、アプリCが暗黙的Intentを送信すると、非公開のService(A-1)を呼び出そうとして失敗する。一方、アプリAは暗黙的Intentを使って意図通りに同一アプリ内の非公開Serviceを呼び出せるので、セキュリティの(マルウェア対策の)面では問題は起こらない。
 
-![](media/image45.png){width="4.739583333333333in"
-height="3.8020833333333335in"}
+![](media/image45.png)
+```eval_rst
+.. {width="4.739583333333333in"
+.. height="3.8020833333333335in"}
+```
 
 図 4.4‑5
 
 図
 4.4‑6は、アプリB→アプリAの順でインストールされた場合であり、セキュリティ面からみて問題がある。アプリAが暗黙的Intentを送信して同一アプリ内の非公開Serviceを呼び出そうとするが、先にインストールしたアプリBの公開Activity(B-1)が呼び出されてしまう例を示している。これによりアプリAからアプリBに対してセンシティブな情報を送信する可能性が生じてしまう。アプリBがマルウェアであれば、そのままセンシティブな情報の漏洩に繋がる。
 
-![](media/image46.png){width="4.739583333333333in"
-height="3.8020833333333335in"}
+![](media/image46.png)
+```eval_rst
+.. {width="4.739583333333333in"
+.. height="3.8020833333333335in"}
+```
 
 図 4.4‑6
 
@@ -2643,8 +2706,11 @@ Provider
 
 Androidのアプリでデータベースを扱う場合、SQLiteOpenHelperを使用することでデータベースファイルの適切な配置およびアクセス権の設定（他のアプリがアクセスできない設定）ができる[^11]。ここでは、アプリ起動時にデータベースを作成し、UI上からデータの検索・追加・変更・削除を行う簡単なアプリを例に、外部からの入力に対して不正なSQLが実行されないようにSQLインジェクション対策したサンプルコードを示す。
 
-![](media/image47.png){width="5.541666666666667in"
-height="4.395833333333333in"}
+![](media/image47.png)
+```eval_rst
+.. {width="5.541666666666667in"
+.. height="4.395833333333333in"}
+```
 
 図 4.5‑1
 
@@ -3699,15 +3765,21 @@ proguard-project.txt
 
 ★ポイント5★ リリース版アプリのAPKファイルはリリースビルドで作成する
 
-![](media/image48.png){width="7.26875in" height="2.7849146981627295in"}
+![](media/image48.png)
+```eval_rst
+.. {width="7.26875in" height="2.7849146981627295in"}
+```
 
 図 4.8‑1リリース版アプリを作成する方法(Exportする)
 
 開発版アプリ（デバッグビルド）とリリース版アプリ（リリースビルド）のLogCat出力の違いを図
 4.8‑2に示す。
 
-![](media/image49.png){width="6.889763779527559in"
-height="2.2236220472440946in"}
+![](media/image49.png)
+```eval_rst
+.. {width="6.889763779527559in"
+.. height="2.2236220472440946in"}
+```
 
 図 4.8‑2
 Logメソッドの開発版アプリとリリース版アプリのLogCat出力の違い
@@ -3970,7 +4042,10 @@ proguard-project.txt
 開発版アプリ（デバッグビルド）とリリース版アプリ（リリースビルド）のLogCat出力の違いを図
 4.8‑3に示す。
 
-![](media/image50.png){width="7.26875in" height="2.237303149606299in"}
+![](media/image50.png)
+```eval_rst
+.. {width="7.26875in" height="2.237303149606299in"}
+```
 
 図 4.8‑3
 System.out/errの開発版アプリとリリース版アプリのLogCat出力の違い
@@ -3995,8 +4070,11 @@ WebViewを用いてコンテンツにアクセスするアプリを開発する�
 開発しているアプリがアクセスするコンテンツの特性を踏まえ、図
 4.9‑1に従いサンプルコードを選択することが必要である。
 
-![](media/image51.png){width="6.889763779527559in"
-height="2.912204724409449in"}
+![](media/image51.png)
+```eval_rst
+.. {width="6.889763779527559in"
+.. height="2.912204724409449in"}
+```
 
 図 4.9‑1
 WebViewのサンプルコードを選択するフローチャート
@@ -4032,8 +4110,11 @@ WebViewAssetsActivity.java
 
 以下では、アプリ側での実装の例として、WebViewを使って自社管理コンテンツを表示するActivityの例を示す。
 
-![](media/image52.png){width="6.471653543307086in"
-height="4.366141732283465in"}
+![](media/image52.png)
+```eval_rst
+.. {width="6.471653543307086in"
+.. height="4.366141732283465in"}
+```
 
 図 4.9‑2アプリが読み込んでよい自社管理コンテンツ
 
@@ -4187,8 +4268,11 @@ Notificationを使用する
 
 Androidにはエンドユーザーへのメッセージを通知するNotification機能がある。Notificationを使うと、画面上部のステータスバーと呼ばれる領域に、アイコンやメッセージを表示することができる。
 
-![](media/image53.png){width="3.716666666666667in"
-height="6.603472222222222in"}
+![](media/image53.png)
+```eval_rst
+.. {width="3.716666666666667in"
+.. height="6.603472222222222in"}
+```
 
 図 4.10‑1　Notifcationの表示例
 
@@ -4213,8 +4297,11 @@ Secret          | パスワード等で保護されたロック画面（セキ�
 
 Notificationに端末ユーザーのプライベートな情報を含む場合、プライベート情報を取り除いた通知を画面ロック時の表示用に作成し、加えておくこと。
 
-![](media/image54.png){width="3.716666666666667in"
-height="6.603472222222222in"}
+![](media/image54.png)
+```eval_rst
+.. {width="3.716666666666667in"
+.. height="6.603472222222222in"}
+```
 
 図 4.10‑2　ロック画面上のNotification
 
@@ -4325,7 +4412,10 @@ Visibilityの設定に依らず、Notificationにはセンシティブな情報�
 （必須）」で述べたように、Android4.3(API Level
 18)以降の端末では、ユーザーが許可を与えた場合、指定されたアプリは全てのNotificationの情報を読み取ることが可能になる。ただし、ユーザー許可の対象となるためには、アプリがNotificationListenerServiceを継承したServiceを実装しておく必要がある。
 
-![](media/image55.png){width="3.71875in" height="6.604166666666667in"}
+![](media/image55.png)
+```eval_rst
+.. {width="3.71875in" height="6.604166666666667in"}
+```
 
 図 4.10‑3　Notificationの読み取りを設定する「通知へのアクセス」画面
 
