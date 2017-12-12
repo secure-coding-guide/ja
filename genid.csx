@@ -1,1 +1,1 @@
-Console.WriteLine($"{DateTime.Now}\n<!-- x{Guid.NewGuid().GetHashCode():x8} -->");
+Console.WriteLine($"{DateTime.Now}\n<!-- {Guid.NewGuid().GetHashCode():x8} -->");
