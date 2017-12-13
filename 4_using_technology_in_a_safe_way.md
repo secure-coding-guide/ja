@@ -1493,41 +1493,43 @@ Sticky Ordered Broadcast   sendStickyOrderedBroadcast()   Yes        Yes
 それぞれのBroadcastの特徴は次のとおりである。
 
 表 4.2‑4
-<table border="yes" bordercolor="gray">
-<thead bgcolor="lightgray">
-<tr>
-<th>Broadcastの種類</th>
-<th>Broadcastの種類ごとの特徴</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Normal Broadcast</td>
-<td>Normal Broadcastは送信時に受信可能な状態にあるBroadcast Receiverに配送されて消滅する。
-Ordered Broadcastと異なり、複数のBroadcast Receiverが同時にBroadcastを受信するのが特徴である。
-特定のPermissionを持つアプリのBroadcast ReceiverだけにBroadcastを受信させることもできる。</td></tr>
-<tr>
-<td>Ordered Broadcast</td>
-<td>Ordered Broadcastは送信時に受信可能な状態にあるBroadcast Receiverが一つずつ順番にBroadcastを
-受信することが特徴である。よりpriority値が大きいBroadcast Receiverが先に受信する。すべてのBroadcast
- Receiverに配送完了するか、途中のBroadcast　ReceiverがabortBroadcast()を呼び出した場合に、Broadcast
- は消滅する。特定のPermissionを利用宣言したアプリのBroadcast ReceiverだけにBroadcastを受信させること
- もできる。またOrdered Broadcastでは送信元がBroadcast Receiverからの結果情報を受け取ることもできる。
- SMS受信通知Broadcast（SMS\_RECEIVED）はOrdered Broadcastの代表例である。</td></tr>
-<tr>
-<td>Sticky Broadcast</td>
-<td>Sticky Broadcastは送信時に受信可能な状態にあるBroadcast Receiverに配送された後に消滅することは
-なくシステムに残り続け、後にregisterReceiver()を呼び出したアプリがSticky Broadcastを受信することが
-できることが特徴である。Sticky Broadcastは他のBroadcastと異なり自動的に消滅することはないので、
-Sticky Broadcastが不要になったときに、明示的にremoveStickyBroadcast()を呼び出してSticky Broadcastを
-消滅させる必要がある。他のBroadcastと異なり、特定のPermissionを持つアプリのBroadcast Receiverだけに
-Broadcastを受信させることはできない。バッテリー状態変更通知Broadcast（ACTION\_BATTERY\_CHANGED）は
-Sticky Broadcastの代表例である。</td></tr>
-<tr><td>Sticky Ordered Broadcast</td>
-<td>Ordered BroadcastとSticky Broadcastの両方の特徴を持ったBroadcastである。Sticky Broadcastと同様、
-特定のPermissionを持つアプリのBroadcast ReceiverだけにBroadcastを受信させることはできない。</td></tr>
-</tbody>
-</table>
+```eval_rst
+========================= ===========================================================
+Broadcastの種類           Broadcastの種類ごとの特徴
+========================= ===========================================================
+Normal Broadcast          | Normal Broadcastは送信時に受信可能な状態にあるBroadcast
+                          | Receiverに配送されて消滅する。Ordered Broadcastと異なり、
+                          | 複数のBroadcast Receiverが同時にBroadcastを受信するのが
+                          | 特徴である。特定のPermissionを持つアプリのBroadcast
+                          | ReceiverだけにBroadcastを受信させることもできる。
+Ordered Broadcast         | Ordered Broadcastは送信時に受信可能な状態にあるBroadcast
+                          | Receiverが一つずつ順番にBroadcastを受信することが特徴で
+                          | ある。よりpriority値が大きいBroadcast Receiverが先に受信
+                          | する。すべてのBroadcast Receiverに配送完了するか、途中の
+                          | Broadcast　ReceiverがabortBroadcast()を呼び出した場合に、
+                          | Broadcastは消滅する。特定のPermissionを利用宣言したアプリ
+                          | のBroadcast ReceiverだけにBroadcastを受信させることもでき
+                          | る。またOrdered Broadcastでは送信元がBroadcast Receiverか
+                          | らの結果情報を受け取ることもできる。SMS受信通知Broadcast
+                          | （SMS_RECEIVED）はOrdered Broadcastの代表例である。
+Sticky Broadcast          | Sticky Broadcastは送信時に受信可能な状態にあるBroadcast
+                          | Receiverに配送された後に消滅することはなくシステムに残り
+                          | 続け、後にregisterReceiver()を呼び出したアプリがSticky
+                          | Broadcastを受信することができることが特徴である。Sticky
+                          | Broadcastは他のBroadcastと異なり自動的に消滅することはな
+                          | いので、Sticky Broadcastが不要になったときに、明示的に
+                          | removeStickyBroadcast()を呼び出してSticky Broadcastを消滅
+                          | させる必要がある。他のBroadcastと異なり、特定のPermission
+                          | を持つアプリのBroadcast ReceiverだけにBroadcastを受信させ
+                          | ることはできない。バッテリー状態変更通知Broadcast
+                          | （ACTION_BATTERY_CHANGED）はSticky Broadcastの代表例
+                          | である。
+Sticky Ordered Broadcast  | Ordered BroadcastとSticky Broadcastの両方の特徴を持った
+                          | Broadcastである。Sticky Broadcastと同様、特定のPermission
+                          | を持つアプリのBroadcast ReceiverだけにBroadcastを受信させ
+                          | ることはできない。
+========================= ===========================================================
+```
 Broadcastの特徴的な振る舞いの視点で、上表を逆引き的に再整理すると下表になる。
 
 表 4.2‑5
@@ -1537,19 +1539,19 @@ Broadcastの特徴的な振る舞いの視点で、上表を逆引き的に再�
 || 特徴的な            || Broadcast|| Broadcast|| Broadcast|| Ordered  |
 || 振る舞い            |           |           |           || Broadcast|
 +======================+===========+===========+===========+===========+
-|| 受信可能なBroadcast | o         | o         | \-        | \-        |
+|| 受信可能なBroadcast || o        || o        || \-       || \-       |
 || ReceiverをPermission|           |           |           |           |
 || により制限する      |           |           |           |           |
 +----------------------+-----------+-----------+-----------+-----------+
-|| Broadcast           | \-        | o         | \-        | o         |
+|| Broadcast           || \-       || o        || \-       || o        |
 || Receiverからの      |           |           |           |           |
 || 処理結果を取得する  |           |           |           |           |
 +----------------------+-----------+-----------+-----------+-----------+
-|| 順番にBroadcast     | \-        | o         | \-        | o         |
+|| 順番にBroadcast     || \-       || o        || \-       || o        |
 || ReceiverにBroadcast |           |           |           |           |
 || を処理させる        |           |           |           |           |
 +----------------------+-----------+-----------+-----------+-----------+
-|| 既に送信されている  | \-        | \-        | o         | o         |
+|| 既に送信されている  || \-       || \-       || o        || o        |
 || Broadcastを後から   |           |           |           |           |
 || 受信する            |           |           |           |           |
 +----------------------+-----------+-----------+-----------+-----------+
