@@ -83,14 +83,14 @@ Androidセキュアコーディング関連書籍の紹介
 
 このガイド文書ではAndroidセキュアコーディングのすべてを扱うことはとてもできないので、下記で紹介する書籍を併用することをお勧めします。
 
--   Android Security 安全なアプリケーションを作成するために\
-    著者：タオソフトウェア株式会社　ISBN978-4-8443-3134-6\
+-   Android Security 安全なアプリケーションを作成するために<br/>
+    著者：タオソフトウェア株式会社　ISBN978-4-8443-3134-6<br/>
     [http://www.amazon.co.jp/dp/4844331345/](http://www.amazon.co.jp/dp/4844331345/)
 
--   Javaセキュアコーディングスタンダード CERT/ Oracle版\
+-   Javaセキュアコーディングスタンダード CERT/ Oracle版<br/>
     著者：Fred Long, Dhruv Mohindra, Robert C. Seacord, Dean F.
-    Sutherland, David Svoboda\
-    監修：歌代和正　翻訳：久保正樹, 戸田洋三　ISBN978-4-04-886070-3\
+    Sutherland, David Svoboda<br/>
+    監修：歌代和正　翻訳：久保正樹, 戸田洋三　ISBN978-4-04-886070-3<br/>
     [http://www.amazon.co.jp/dp/4048860704/](http://www.amazon.co.jp/dp/4048860704/)
 
 サンプルコードのAndroid Studioへの取り込み手順
