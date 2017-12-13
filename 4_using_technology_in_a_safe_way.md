@@ -1597,29 +1597,6 @@ org.jssec.android.broadcast.sending (uid 10158)
         // BroadCastを使って、システムにショートカット作成を依頼する
         context.sendBroadcast(intent);
 ```
-Intent targetIntent = new Intent(this, TargetActivity.class);
-
-// ショートカット作成依頼のためのIntent
-
-Intent intent = new
-Intent(\"com.android.launcher.action.INSTALL\_SHORTCUT\");
-
-// ショートカットのタップ時に起動するIntentを指定
-
-intent.putExtra(Intent.EXTRA\_SHORTCUT\_INTENT, targetIntent);
-
-Parcelable icon = Intent.ShortcutIconResource.fromContext(context,
-iconResource);
-
-intent.putExtra(Intent.EXTRA\_SHORTCUT\_ICON\_RESOURCE, icon);
-
-intent.putExtra(Intent.EXTRA\_SHORTCUT\_NAME, title);
-
-intent.putExtra(\"duplicate\", false);
-
-// BroadCastを使って、システムにショートカット作成を依頼する
-
-context.sendBroadcast(intent);
 
 上記で送信しているBroadcastは、受け手がホーム画面アプリであり、パッケージ名を特定することが難しいため、暗黙的Intentによる公開Receiverへの送信となっていることに注意が必要である。つまり、上記で送信したBroadcastはマルウェアを含めた任意のアプリが受信することができ、そのため、Intentにセンシティブな情報が含まれていると情報漏洩の被害につながる可能性がある。URLを基にしたショートカットを作成する場合、URLに秘密の情報が含まれていることもあるため、特に注意が必要である。
 
