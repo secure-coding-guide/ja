@@ -756,13 +756,13 @@ OSの特性とその対策」を参照すること。
 
 続いて、ソースコード上にて次を実装する。
 
-1.  保護したいComponentでリクエストを処理する前に、独自定義したSignature Permissionが自社アプリにより定義されたものかどうかを確認し、そうでなければリクエストを無視する（Component提供側による保護）
+4.  保護したいComponentでリクエストを処理する前に、独自定義したSignature Permissionが自社アプリにより定義されたものかどうかを確認し、そうでなければリクエストを無視する（Component提供側による保護）
 
-2.  保護したいComponentにアクセスする前に、独自定義したSignature Permissionが自社アプリにより定義されたものかどうかを確認し、そうでなければComponentにアクセスしない（Component利用側による保護）
+5.  保護したいComponentにアクセスする前に、独自定義したSignature Permissionが自社アプリにより定義されたものかどうかを確認し、そうでなければComponentにアクセスしない（Component利用側による保護）
 
 最後にAndroid Studioの署名機能にて次を行う。
 
-1.  連携するすべてのアプリのAPKを同じ開発者鍵で署名する
+6.  連携するすべてのアプリのAPKを同じ開発者鍵で署名する
 
 ここで「独自定義したSignature Permissionが、自社アプリにより定義されたものかどうかを確認」する必要があるが、具体的な実装方法についてはサンプルコードセクションの「5.2.1.2 独自定義のSignature Permissionで自社アプリ連携する方法」を参照すること。
 
@@ -819,14 +819,14 @@ org.jssec.android.sample.permission.READ
 説明のために独自定義のSignature Permissionで保護したアプリをProtectedAppとし、ProtectedAppとは異なる開発者鍵で署名したアプリをAttackerAppとする。
 ここでSignature Permission回避の抜け道とは、AttackerAppは署名が一致していないにもかかわらず、ProtectedAppのComponentにアクセス可能になることである。
 
-1.  AttackerAppもProtectedAppが独自定義したSignature Permissionと同じ名前でNormal Permissionを定義する（厳密にはSignature
+条件1.  AttackerAppもProtectedAppが独自定義したSignature Permissionと同じ名前でNormal Permissionを定義する（厳密にはSignature
     Permissionでも構わない）<br/>
 例: \<permission android:name=\" xxx \" android:protectionLevel=\"normal\" /\>
 
-1.  AttackerAppは独自定義したNormal Permissionをuses-permissionで利用宣言する\
+条件2.  AttackerAppは独自定義したNormal Permissionをuses-permissionで利用宣言する<br/>
 例: \<uses-permission android:name=\"xxx\" /\>
 
-1.  AttackerAppをProtectedAppより先に端末にインストールする
+条件3.  AttackerAppをProtectedAppより先に端末にインストールする
 
 ![](media/image72.png)
 ```eval_rst
