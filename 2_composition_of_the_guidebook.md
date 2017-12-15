@@ -113,11 +113,11 @@ Studioに設定してください。なお、確認は下記の環境で行っ�
 
 ### サンプルプロジェクトを取り込む
 
-1.  サンプルコードをダウンロードする
+#### サンプルコードをダウンロードする
 
 「2.2.1 サンプルコード」で紹介したURLよりサンプルコードを取得します。
 
-1.  サンプルコードを展開する
+#### サンプルコードを展開する
 
 Zipで圧縮されたサンプルコードを右クリックし、表示されたメニューの"すべて展開"をクリックします。
 
@@ -128,7 +128,7 @@ Zipで圧縮されたサンプルコードを右クリックし、表示され�
 
 図 2.5‑1
 
-1.  展開先を指定する
+#### 展開先を指定する
 
 ここでは"C:\\android\_securecoding"という名前でワークスペースを作成します。そのため、"C:\\
 "を指定し"展開"ボタンをクリックします。
@@ -164,7 +164,7 @@ android\_securecoding/
 
 以上のように、"android\_securecoding"フォルダ配下は、節ごとに「サンプルコードのプロジェクト」が配置された構成となります。
 
-1.  Android Studioを起動しワークスペースを指定する
+#### Android Studioを起動しワークスペースを指定する
 
 スタートメニューやデスクトップアイコンなどからAndroid
 Studioを起動します。
@@ -198,7 +198,7 @@ Studioを起動します。
 
 図 2.5‑6
 
-1.  インポートを開始する
+#### インポートを開始する
 
 表示されているダイアログの\"Import project (Eclipse ADT, Gradle,
 etc.)\"をクリックします。
@@ -210,7 +210,7 @@ etc.)\"をクリックします。
 
 図 2.5‑7
 
-1.  プロジェクトを選択する
+#### プロジェクトを選択する
 
 インポートするプロジェクトフォルダを展開し、同フォルダ内の
 \"gradle\\build.gradle\" を選択します。
@@ -254,7 +254,8 @@ Wrapperの更新を行ってください。
 
 図 2.5‑11
 
-1.  インポートの完了\
+#### インポートの完了
+
 プロジェクトがインポートされ完了します。
 
 ![](media/image16.png)
@@ -282,7 +283,7 @@ Studioは、Eclipseとは違い、１つのプロジェクトに対して１つ�
 サンプルコードから作成したアプリをAndroid端末やエミュレーターで動作させるためには署名が必要です。この署名に使うデバッグ用の鍵ファイル"debug.keystore"をAndroid
 Studioのプロジェクトに設定します。
 
-1.  File -\>Project Structure\...をクリックする
+#### File -\>Project Structure\...をクリックする
 
 ![](media/image18.png)
 ```eval_rst
@@ -291,7 +292,7 @@ Studioのプロジェクトに設定します。
 
 図 2.5‑14
 
-1.  Signingを追加する
+#### Signingを追加する
 
 左欄のModulesからプロジェクト名を選択し、Signingタブを選択後、「＋」ボタンをクリックします。
 
@@ -303,7 +304,7 @@ Studioのプロジェクトに設定します。
 
 図 2.5‑15
 
-1.  "debug.keystore"を選択する
+#### "debug.keystore"を選択する
 
 debug.keystoreはサンプルコードに含まれています。(android\_securecodingフォルダ直下)
 
@@ -315,7 +316,7 @@ debug.keystoreはサンプルコードに含まれています。(android\_secur
 
 図 2.5‑16
 
-1.  Signingの名前を入力
+#### Signingの名前を入力
 
 ![](media/image21.png)
 ```eval_rst
@@ -325,7 +326,7 @@ debug.keystoreはサンプルコードに含まれています。(android\_secur
 
 図 2.5‑17
 
-1.  Build TypesでSigning Configを設定
+#### Build TypesでSigning Configを設定
 
 Build Typesタブを選択し、debugビルド用のSigning
 ConfigをSingningで追加した\"debug\"を選択し、OKをクリックします。
@@ -337,7 +338,7 @@ ConfigをSingningで追加した\"debug\"を選択し、OKをクリックしま�
 
 図 2.5‑18
 
-1.  build.gradleファイルで確認
+#### build.gradleファイルで確認
 
 signingConfigsに選択したdebug.keystoreのパスが表示され、buildTypesのdebugにsigningConfigが表示されます。
 
