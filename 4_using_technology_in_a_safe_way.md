@@ -3124,31 +3124,19 @@ Androidは執筆時点でバージョン1.1.0であり、2.0.0版が開発進行
 
 SQLCipherを使用するためにはSDKとして含まれている以下のファイルが必要となる。
 
--   assets/icudt46l.zip 2,252KB
-
-端末の /system/usr/icu/ 以下にicudt46l.datが存在しない場合に必要となる。
-
-icudt46l.datが見つからない場合、このzipが解凍されて使用される。
-
+-   assets/icudt46l.zip 2,252KB<br/>
+    端末の /system/usr/icu/ 以下にicudt46l.datが存在しない場合に必要となる。<br/>
+    icudt46l.datが見つからない場合、このzipが解凍されて使用される。
 -   libs/armeabi/libdatabase\_sqlcipher.so 44KB
-
 -   libs/armeabi/libsqlcipher\_android.so 1,117KB
-
--   libs/armeabi/libstlport\_shared.so 555KB
-
-Nativeライブラリ。
-
-SQLCipherの初期ロード時（SQLiteDatabase\#loadLibs()呼び出し時）に読み込まれる。
-
+-   libs/armeabi/libstlport\_shared.so 555KB<br/>
+    Nativeライブラリ。<br/>
+    SQLCipherの初期ロード時（SQLiteDatabase\#loadLibs()呼び出し時）に読み込まれる。
 -   libs/commons-codec.jar 46KB
-
 -   libs/guava-r09.jar 1,116KB
-
--   libs/sqlcipher.jar 102KB
-
-Nativeライブラリを呼び出すJavaライブラリ。
-
-sqlcipher.jarがメイン。あとはsqlcipher.jarから参照されている。
+-   libs/sqlcipher.jar 102KB<br/>
+    Nativeライブラリを呼び出すJavaライブラリ。<br/>
+    sqlcipher.jarがメイン。あとはsqlcipher.jarから参照されている。
 
 合計：約5.12MB
 
