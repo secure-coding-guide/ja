@@ -802,58 +802,45 @@ OSの特性とその対策」を参照すること。
 まず、AndroidManifest.xmlにて次を行う。
 
 1.  保護したいComponentのあるアプリのAndroidManifest.xmlにて、独自Signature
-    Permissionを定義する（Permissionの定義）\
+    Permissionを定義する（Permissionの定義）<br/>
     例： \<permission android:name="xxx"
     android:protectionLevel="signature" /\>
 
-2.  保護したいComponentのあるAndroidManifest.xmlにて、そのComponentの定義タグのpermission属性で、独自定義Signature
-    Permissionを指定する（Permissionの要求宣言）\
+2.  保護したいComponentのあるAndroidManifest.xmlにて、そのComponentの定義タグのpermission属性で、独自定義Signature Permissionを指定する（Permissionの要求宣言）<br/>
     例： \<activity android:permission="xxx" ... \>...\</activity\>
 
 3.  保護したいComponentにアクセスする連携アプリのAndroidManifest.xmlにて、uses-permissionタグに独自定義Signature
-    Permissionを指定する（Permissionの利用宣言）\
+    Permissionを指定する（Permissionの利用宣言）<br/>
     例： \<uses-permission android:name="xxx" /\>
 
 続いて、ソースコード上にて次を実装する。
 
-1.  保護したいComponentでリクエストを処理する前に、独自定義したSignature
-    Permissionが自社アプリにより定義されたものかどうかを確認し、そうでなければリクエストを無視する（Component提供側による保護）
+1.  保護したいComponentでリクエストを処理する前に、独自定義したSignature Permissionが自社アプリにより定義されたものかどうかを確認し、そうでなければリクエストを無視する（Component提供側による保護）
 
-2.  保護したいComponentにアクセスする前に、独自定義したSignature
-    Permissionが自社アプリにより定義されたものかどうかを確認し、そうでなければComponentにアクセスしない（Component利用側による保護）
+2.  保護したいComponentにアクセスする前に、独自定義したSignature Permissionが自社アプリにより定義されたものかどうかを確認し、そうでなければComponentにアクセスしない（Component利用側による保護）
 
 最後にAndroid Studioの署名機能にて次を行う。
 
 1.  連携するすべてのアプリのAPKを同じ開発者鍵で署名する
 
-ここで「独自定義したSignature
-Permissionが、自社アプリにより定義されたものかどうかを確認」する必要があるが、具体的な実装方法についてはサンプルコードセクションの「5.2.1.2
-独自定義のSignature Permissionで自社アプリ連携する方法」を参照すること。
+ここで「独自定義したSignature Permissionが、自社アプリにより定義されたものかどうかを確認」する必要があるが、具体的な実装方法についてはサンプルコードセクションの「5.2.1.2 独自定義のSignature Permissionで自社アプリ連携する方法」を参照すること。
 
 なお、signatureOrSystem　Permissionについても同様である。
 
 #### 独自定義のNormal Permissionは利用してはならない （推奨）
 
-Normal Permissionを利用するアプリはAndroid
-Manifest.xmlにuses-permissionで利用宣言するだけでその権限を得ることができる。そのため、一度インストールされてしまったマルウェアからComponentを保護するような目的にNormal
-Permissionは利用できない。
+Normal Permissionを利用するアプリはAndroid Manifest.xmlにuses-permissionで利用宣言するだけでその権限を得ることができる。そのため、一度インストールされてしまったマルウェアからComponentを保護するような目的にNormal Permissionは利用できない。
 
-さらに独自定義Normal
-Permissionを用いてアプリ間連携を行う場合、連携する各アプリへのPermissionの付与はインストール順に依存する。例えば、Permissionを定義したコンポーネントを持つアプリよりも先にそのPermissionを利用宣言したアプリをインストールすると、Permissionを定義したアプリをインストールした後も利用側アプリはPermissionで保護されたコンポーネントにアクセスすることができない。
+さらに独自定義Normal Permissionを用いてアプリ間連携を行う場合、連携する各アプリへのPermissionの付与はインストール順に依存する。例えば、Permissionを定義したコンポーネントを持つアプリよりも先にそのPermissionを利用宣言したアプリをインストールすると、Permissionを定義したアプリをインストールした後も利用側アプリはPermissionで保護されたコンポーネントにアクセスすることができない。
 
 インストール順によりアプリ間連携ができなくなる問題を回避する方法として、連携する全てのアプリにPermissionを定義することも考えられる。そうすることにより最初に利用側アプリがインストールされた場合でも、全ての利用側アプリが提供側アプリにアクセスすることが可能となる。しかし、最初にインストールした利用側アプリがアンインストールされた際にPermissionが未定義な状態となり、他に利用側アプリが存在していても、それらのアプリから提供側アプリにアクセスすることができなくなってしまうのである。
 
-以上のようにアプリの可用性が損なわれる恐れがあることから、独自定義Normal
-Permissionの利用は控えるべきである。
+以上のようにアプリの可用性が損なわれる恐れがあることから、独自定義Normal Permissionの利用は控えるべきである。
 
 #### 独自定義のPermission名はアプリのパッケージ名を拡張した文字列にする （推奨）
 
-複数のアプリが同じ名前でPermissionを定義する場合、先にインストールされたアプリが定義するProtection
-Levelが適用される。先にインストールされたアプリがNormal
-Permissionを定義し、後にインストールされたアプリが同じ名前でSignature
-Permissionを定義した場合、Signature
-Permissionによる保護がまったく効かない。悪意がない場合でも、複数のアプリにおいてPermission名が衝突して意図しないProtection
-Levelで動作する可能性がある。このような事故を防ぐため、Permission名にはアプリのパッケージ名を入れた方が良い。
+複数のアプリが同じ名前でPermissionを定義する場合、先にインストールされたアプリが定義するProtection Levelが適用される。先にインストールされたアプリがNormal Permissionを定義し、後にインストールされたアプリが同じ名前でSignature
+Permissionを定義した場合、Signature Permissionによる保護がまったく効かない。悪意がない場合でも、複数のアプリにおいてPermission名が衝突して意図しないProtection Levelで動作する可能性がある。このような事故を防ぐため、Permission名にはアプリのパッケージ名を入れた方が良い。
 
 ```
 (パッケージ名).permission.(識別する文字列)
@@ -869,23 +856,19 @@ org.jssec.android.sample.permission.READ
 
 #### 独自定義Signature Permissionを回避できるAndroid OSの特性とその対策
 
-独自定義Signature
-Permissionは、同じ開発者鍵で署名されたアプリ間だけでアプリ間連携を実現するPermissionである。開発者鍵はプライベート鍵であり絶対に公開してはならないものであるため、Signature
-Permissionによる保護は自社アプリだけで連携する場合に使われることが多い。
+独自定義Signature Permissionは、同じ開発者鍵で署名されたアプリ間だけでアプリ間連携を実現するPermissionである。開発者鍵はプライベート鍵であり絶対に公開してはならないものであるため、Signature Permissionによる保護は自社アプリだけで連携する場合に使われることが多い。
 
-まずは、AndroidのDev
-Guide（[http://developer.android.com/guide/topics/security/security.html](http://developer.android.com/guide/topics/security/security.html)）で説明されている独自定義Signature
-Permissionの基本的な使い方を紹介する。ただし、後述するように、この使い方にはPermission回避の問題があることが分かっており、本ガイドに掲載した対策が必要となる。
+まずは、AndroidのDev Guide（[http://developer.android.com/guide/topics/security/security.html](http://developer.android.com/guide/topics/security/security.html)）で説明されている独自定義Signature Permissionの基本的な使い方を紹介する。ただし、後述するように、この使い方にはPermission回避の問題があることが分かっており、本ガイドに掲載した対策が必要となる。
 
 以下、独自定義Signature Permissionの基本的な使い方である。
 
-1.  保護したいComponentのあるアプリのAndroidManifest.xmlにて、独自Signature Permissionを定義する\
+1.  保護したいComponentのあるアプリのAndroidManifest.xmlにて、独自Signature Permissionを定義する<br/>
 例： \<permission android:name="xxx" android:protectionLevel="signature" />
 
-2.  保護したいComponentを持つアプリのAndroidManifest.xmlで、保護したいComponentにandroid:permission属性を指定し、1.で定義したSignature Permissionを要求する\
+2.  保護したいComponentを持つアプリのAndroidManifest.xmlで、保護したいComponentにandroid:permission属性を指定し、1.で定義したSignature Permissionを要求する<br/>
 例： \<activity android:permission="xxx" ... \>...\</activity\>
 
-3.  保護したいComponentにアクセスしたい連携アプリのAndroidManifest.xmlにて、独自定義Signature Permissionを利用宣言する\
+3.  保護したいComponentにアクセスしたい連携アプリのAndroidManifest.xmlにて、独自定義Signature Permissionを利用宣言する<br/>
 例： \<uses-permission android:name="xxx" /\>
 
 4.  連携するすべてのアプリのAPKを同じ開発者鍵で署名する
@@ -896,7 +879,7 @@ Permissionの基本的な使い方を紹介する。ただし、後述するよ�
 ここでSignature Permission回避の抜け道とは、AttackerAppは署名が一致していないにもかかわらず、ProtectedAppのComponentにアクセス可能になることである。
 
 1.  AttackerAppもProtectedAppが独自定義したSignature Permissionと同じ名前でNormal Permissionを定義する（厳密にはSignature
-    Permissionでも構わない）\
+    Permissionでも構わない）<br/>
 例: \<permission android:name=\" xxx \" android:protectionLevel=\"normal\" /\>
 
 1.  AttackerAppは独自定義したNormal Permissionをuses-permissionで利用宣言する\
