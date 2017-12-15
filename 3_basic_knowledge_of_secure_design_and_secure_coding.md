@@ -244,19 +244,18 @@ Androidスマートフォンのアプリ開発においては、一般ユーザ�
 図
 3.1‑9はこれまで説明した脅威をひとまとめにした図である。このようにスマートフォンアプリを取り巻く脅威には様々なものがあり、この図はそのすべてを書き出しているものではない。日々の情報収集により、Androidアプリを取り巻く脅威について認識を広め、アプリのセキュア設計・セキュアコーディングに活かしていく努力が必要である。一般社団法人日本スマートフォンセキュリティ協会が作成した次の文書もスマートフォンの脅威について役立つ情報を提供しているので参考にしていただきたい。
 
--   『スマートフォン＆タブレットの業務利用に関するセキュリティガイドライン』
-    【第二版】\
-    [http://www.jssec.org/dl/guidelines\_v2.pdf](http://www.jssec.org/dl/guidelines_v2.pdf)\
+-   『スマートフォン＆タブレットの業務利用に関するセキュリティガイドライン』【第二版】<br/>
+    [http://www.jssec.org/dl/guidelines\_v2.pdf](http://www.jssec.org/dl/guidelines_v2.pdf)<br/>
     [http://www.jssec.org/dl/guidelines2012enew\_v1.0.pdf](http://www.jssec.org/dl/guidelines2012enew_v1.0.pdf)
     (English)
 
--   『スマートフォンネットワークセキュリティ実装ガイド』 【第一版】\
+-   『スマートフォンネットワークセキュリティ実装ガイド』 【第一版】<br/>
     [http://www.jssec.org/dl/NetworkSecurityGuide1.pdf](http://www.jssec.org/dl/NetworkSecurityGuide1.pdf)
 
--   『スマートフォンの業務利用におけるクラウド活用ガイド』 【ベータ版】\
+-   『スマートフォンの業務利用におけるクラウド活用ガイド』 【ベータ版】<br/>
     [http://www.jssec.org/dl/cloudguide2012\_beta.pdf](http://www.jssec.org/dl/cloudguide2012_beta.pdf)
 
--   『MDM導入・運用検討ガイド』【第一版】\
+-   『MDM導入・運用検討ガイド』【第一版】<br/>
     [http://www.jssec.org/dl/MDMGuideV1.pdf](http://www.jssec.org/dl/MDMGuideV1.pdf)
 
 ### 資産分類と保護施策
