@@ -54,10 +54,10 @@ PrivateActivity.java
 ```eval_rst
 ポイント(Activityを利用する)：
 
-1.  Activityに送信するIntentには、フラグFLAG\_ACTIVITY\_NEW\_TASKを設定しない
-2.  同一アプリ内Activityはクラス指定の明示的Intentで呼び出す
-3.  利用先アプリは同一アプリであるから、センシティブな情報をputExtra()を使う場合に限り送信してもよい [1]_
-4.  同一アプリ内Activityからの結果情報であっても、受信データの安全性を確認する
+6.  Activityに送信するIntentには、フラグFLAG\_ACTIVITY\_NEW\_TASKを設定しない
+7.  同一アプリ内Activityはクラス指定の明示的Intentで呼び出す
+8.  利用先アプリは同一アプリであるから、センシティブな情報をputExtra()を使う場合に限り送信してもよい [1]_
+9.  同一アプリ内Activityからの結果情報であっても、受信データの安全性を確認する
 
 .. [1] ただし、ポイント1, 2, 6を遵守している場合を除いてはIntentが第三者に読み取られるおそれがあることに注意する必要がある。詳細はルールブックセクションの4.1.2.2、4.1.2.3を参照すること。
 ```
@@ -98,8 +98,8 @@ PrivateActivity.java
 
 ポイント(Activityを利用する)：
 
-1.  センシティブな情報を送信してはならない
-2.  結果を受け取る場合、結果データの安全性を確認する
+4.  センシティブな情報を送信してはならない
+5.  結果を受け取る場合、結果データの安全性を確認する
 
 PublicUserActivity.java
 ```eval_rst
@@ -119,11 +119,11 @@ Activityを呼び出す際に使用するIntentは第三者によって読み取
 ポイント(Activityを作る)：
 
 1.  taskAffinityを指定しない
-1.  launchModeを指定しない
-2.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
-3.  利用元アプリの証明書がホワイトリストに登録されていることを確認する
-4.  パートナーアプリからのIntentであっても、受信Intentの安全性を確認する
-5.  パートナーアプリに開示してよい情報に限り返送してよい
+2.  launchModeを指定しない
+3.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
+4.  利用元アプリの証明書がホワイトリストに登録されていることを確認する
+5.  パートナーアプリからのIntentであっても、受信Intentの安全性を確認する
+6.  パートナーアプリに開示してよい情報に限り返送してよい
 
 ホワイトリストを用いたアプリの確認方法については、「4.1.3.2 利用元アプリを確認する」を参照すること。また、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「5.2.1.3 アプリの証明書のハッシュ値を確認する方法」を参照すること。
 
@@ -160,17 +160,12 @@ PkgCert.java
 
 ポイント(Activityを利用する)：
 
-1.  利用先パートナー限定Activityアプリの証明書がホワイトリストに登録されていることを確認する
-
-2.  Activityに送信するIntentには、フラグFLAG\_ACTIVITY\_NEW\_TASKを設定しない
-
-3.  利用先パートナー限定アプリに開示してよい情報はputExtra()を使う場合に限り送信してよい
-
-4.  明示的Intentによりパートナー限定Activityを呼び出す
-
-5.  startActivityForResult()によりパートナー限定Activityを呼び出す
-
-6.  パートナー限定アプリからの結果情報であっても、受信Intentの安全性を確認する
+7.  利用先パートナー限定Activityアプリの証明書がホワイトリストに登録されていることを確認する
+8.  Activityに送信するIntentには、フラグFLAG\_ACTIVITY\_NEW\_TASKを設定しない
+9.  利用先パートナー限定アプリに開示してよい情報はputExtra()を使う場合に限り送信してよい
+10.  明示的Intentによりパートナー限定Activityを呼び出す
+11.  startActivityForResult()によりパートナー限定Activityを呼び出す
+12.  パートナー限定アプリからの結果情報であっても、受信Intentの安全性を確認する
 
 ホワイトリストを用いたアプリの確認方法については、「4.1.3.2
 利用元アプリを確認する」を参照すること。また、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「5.2.1.3
@@ -218,15 +213,14 @@ Activityを呼び出す際に使用するIntentは第三者によって読み取
 ポイント(Activityを作る)：
 
 1.  独自定義Signature Permissionを定義する
-1.  taskAffinityを指定しない
-2.  launchModeを指定しない
-3.  独自定義Signature Permissionを要求宣言する
-4.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
-5.  独自定義Signature
-    Permissionが自社アプリにより定義されていることを確認する
-6.  自社アプリからのIntentであっても、受信Intentの安全性を確認する
-7.  利用元アプリは自社アプリであるから、センシティブな情報を返送してよい
-8.  利用元アプリと同じ開発者鍵でAPKを署名する
+2.  taskAffinityを指定しない
+3.  launchModeを指定しない
+4.  独自定義Signature Permissionを要求宣言する
+5.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
+6.  独自定義Signature Permissionが自社アプリにより定義されていることを確認する
+7.  自社アプリからのIntentであっても、受信Intentの安全性を確認する
+8.  利用元アプリは自社アプリであるから、センシティブな情報を返送してよい
+9.  利用元アプリと同じ開発者鍵でAPKを署名する
 
 AndroidManifest.xml
 ```eval_rst
@@ -274,20 +268,13 @@ PkgCert.java
 
 ポイント(Activityを利用する)：
 
-1.  独自定義Signature Permissionを利用宣言する
-
-2.  独自定義Signature
-    Permissionが自社アプリにより定義されていることを確認する
-
-3.  利用先アプリの証明書が自社の証明書であることを確認する
-
-4.  利用先アプリは自社アプリであるから、センシティブな情報をputExtra()を使う場合に限り送信してもよい
-
-5.  明示的Intentにより自社限定Activityを呼び出す
-
-6.  自社アプリからの結果情報であっても、受信Intentの安全性を確認する
-
-7.  利用先アプリと同じ開発者鍵でAPKを署名する
+10.  独自定義Signature Permissionを利用宣言する
+11.  独自定義Signature Permissionが自社アプリにより定義されていることを確認する
+12.  利用先アプリの証明書が自社の証明書であることを確認する
+13.  利用先アプリは自社アプリであるから、センシティブな情報をputExtra()を使う場合に限り送信してもよい
+14.  明示的Intentにより自社限定Activityを呼び出す
+15.  自社アプリからの結果情報であっても、受信Intentの安全性を確認する
+16.  利用先アプリと同じ開発者鍵でAPKを署名する
 
 AndroidManifest.xml
 ```eval_rst
@@ -1004,10 +991,8 @@ Receiverでは静的Broadcast Receiverだけで構成される。
 ポイント(Broadcastを受信する)：
 
 1.  exported=\"false\"により、明示的に非公開設定する
-
-1.  同一アプリ内から送信されたBroadcastであっても、受信Intentの安全性を確認する
-
-2.  結果を返す場合、送信元は同一アプリ内であるから、センシティブな情報を返送してよい
+2.  同一アプリ内から送信されたBroadcastであっても、受信Intentの安全性を確認する
+3.  結果を返す場合、送信元は同一アプリ内であるから、センシティブな情報を返送してよい
 
 AndroidManifest.xml
 ```eval_rst
@@ -1029,11 +1014,9 @@ PrivateReceiver.java
 
 ポイント(Broadcastを送信する)：
 
-1.  同一アプリ内Receiverはクラス指定の明示的IntentでBroadcast送信する
-
-2.  送信先は同一アプリ内Receiverであるため、センシティブな情報を送信してよい
-
-3.  同一アプリ内Receiverからの結果情報であっても、受信データの安全性を確認する
+4.  同一アプリ内Receiverはクラス指定の明示的IntentでBroadcast送信する
+5.  送信先は同一アプリ内Receiverであるため、センシティブな情報を送信してよい
+6.  同一アプリ内Receiverからの結果情報であっても、受信データの安全性を確認する
 
 PrivateSenderActivity.java
 ```eval_rst
@@ -1053,7 +1036,7 @@ Receiverである。マルウェアが送信したBroadcastを受信すること
 
 1.  exported=\"true\"により、明示的に公開設定する
 2.  受信Intentの安全性を確認する
-1.  結果を返す場合、センシティブな情報を含めない
+3.  結果を返す場合、センシティブな情報を含めない
 
 公開Broadcast ReceiverのサンプルコードであるPublic
 Receiverは、静的Broadcast Receiverおよび動的Broadcast
@@ -1105,9 +1088,8 @@ ReceiverにBroadcastを送信する場合、送信するBroadcastがマルウェ
 
 ポイント(Broadcastを送信する)：
 
-1.  センシティブな情報を送信してはならない
-
-2.  結果を受け取る場合、結果データの安全性を確認する
+4.  センシティブな情報を送信してはならない
+5.  結果を受け取る場合、結果データの安全性を確認する
 
 PublicSenderActivity.java
 ```eval_rst
@@ -1126,17 +1108,17 @@ Receiverである。複数の自社製アプリでシステムを構成し、自
 ポイント(Broadcastを受信する)：
 
 1.  Broadcast受信用の独自定義Signature Permissionを定義する
-1.  結果受信用の独自定義Signature Permissionを利用宣言する
-2.  exported=\"true\"により、明示的に公開設定する
-3.  静的Broadcast Receiver定義にて、独自定義Signature
+2.  結果受信用の独自定義Signature Permissionを利用宣言する
+3.  exported=\"true\"により、明示的に公開設定する
+4.  静的Broadcast Receiver定義にて、独自定義Signature
     Permissionを要求宣言する
-4.  動的Broadcast Receiverを登録するとき、独自定義Signature
+5.  動的Broadcast Receiverを登録するとき、独自定義Signature
     Permissionを要求宣言する
-5.  独自定義Signature
+6.  独自定義Signature
     Permissionが自社アプリにより定義されていることを確認する
-6.  自社アプリからのBroadcastであっても、受信Intentの安全性を確認する
-7.  Broadcast送信元は自社アプリであるから、センシティブな情報を返送してよい
-8.  Broadcast送信元アプリと同じ開発者鍵でAPKを署名する
+7.  自社アプリからのBroadcastであっても、受信Intentの安全性を確認する
+8.  Broadcast送信元は自社アプリであるから、センシティブな情報を返送してよい
+9.  Broadcast送信元アプリと同じ開発者鍵でAPKを署名する
 
 自社限定Broadcast
 ReceiverのサンプルコードであるProprietaryReciverは、静的Broadcast
@@ -1212,20 +1194,13 @@ PkgCert.java
 
 ポイント(Broadcastを送信する)：
 
-1.  結果受信用の独自定義Signature Permissionを定義する
-
-2.  Broadcast受信用の独自定義Signature Permissionを利用宣言する
-
-3.  独自定義Signature
-    Permissionが自社アプリにより定義されていることを確認する
-
-4.  Receiverは自社アプリ限定であるから、センシティブな情報を送信してもよい
-
-5.  Receiverに独自定義Signature Permissionを要求する
-
-6.  結果を受け取る場合、結果データの安全性を確認する
-
-7.  Receiver側アプリと同じ開発者鍵でAPKを署名する
+10.  結果受信用の独自定義Signature Permissionを定義する
+11.  Broadcast受信用の独自定義Signature Permissionを利用宣言する
+12.  独自定義Signature Permissionが自社アプリにより定義されていることを確認する
+13.  Receiverは自社アプリ限定であるから、センシティブな情報を送信してもよい
+14.  Receiverに独自定義Signature Permissionを要求する
+15.  結果を受け取る場合、結果データの安全性を確認する
+16.  Receiver側アプリと同じ開発者鍵でAPKを署名する
 
 AndroidManifest.xml
 ```eval_rst
@@ -1642,10 +1617,8 @@ Providerがどのタイプであるかを判断できる。
 ポイント(Content Providerを作る）：
 
 1.  exported=\"false\"により、明示的に非公開設定する
-
-1.  同一アプリ内からのリクエストであっても、パラメータの安全性を確認する
-
-2.  利用元アプリは同一アプリであるから、センシティブな情報を返送してよい
+2.  同一アプリ内からのリクエストであっても、パラメータの安全性を確認する
+3.  利用元アプリは同一アプリであるから、センシティブな情報を返送してよい
 
 AndroidManifest.xml
 ```eval_rst
@@ -1665,9 +1638,8 @@ PrivateProvider.java
 
 ポイント(Content Providerを利用する)：
 
-1.  同一アプリ内へのリクエストであるから、センシティブな情報をリクエストに含めてよい
-
-2.  同一アプリ内からの結果情報であっても、受信データの安全性を確認する
+4.  同一アプリ内へのリクエストであるから、センシティブな情報をリクエストに含めてよい
+5.  同一アプリ内からの結果情報であっても、受信データの安全性を確認する
 
 PrivateUserActivity.java
 ```eval_rst
@@ -1694,10 +1666,8 @@ Providerに成り済ましできない。
 ポイント(Content Providerを作る)：
 
 1.  exported=\"true\"により、明示的に公開設定する
-
 2.  リクエストパラメータの安全性を確認する
-
-1.  センシティブな情報を返送してはならない
+3.  センシティブな情報を返送してはならない
 
 AndroidManifest.xml
 ```eval_rst
@@ -1717,9 +1687,8 @@ PublicProvider.java
 
 ポイント(Content Providerを利用する)：
 
-1.  センシティブな情報をリクエストに含めてはならない
-
-2.  結果データの安全性を確認する
+4.  センシティブな情報をリクエストに含めてはならない
+5.  結果データの安全性を確認する
 
 PublicUserActivity.java
 ```eval_rst
@@ -1739,8 +1708,8 @@ Providerである。パートナー企業のアプリと自社アプリが連携
 
 1.  exported=\"true\"により、明示的に公開設定する
 2.  利用元アプリの証明書がホワイトリストに登録されていることを確認する
-1.  パートナーアプリからのリクエストであっても、パラメータの安全性を確認する
-2.  パートナーアプリに開示してよい情報に限り返送してよい
+3.  パートナーアプリからのリクエストであっても、パラメータの安全性を確認する
+4.  パートナーアプリに開示してよい情報に限り返送してよい
 
 AndroidManifest.xml
 ```eval_rst
@@ -1760,14 +1729,9 @@ PartnerProvider.java
 
 ポイント(Content Providerを利用する)：
 
-1.  利用先パートナー限定Content
-    Providerアプリの証明書がホワイトリストに登録されていることを確認する
-
-2.  パートナー限定Content
-    Providerアプリに開示してよい情報に限りリクエストに含めてよい
-
-3.  パートナー限定Content
-    Providerアプリからの結果であっても、結果データの安全性を確認する
+5.  利用先パートナー限定Content Providerアプリの証明書がホワイトリストに登録されていることを確認する
+6.  パートナー限定Content Providerアプリに開示してよい情報に限りリクエストに含めてよい
+7.  パートナー限定Content Providerアプリからの結果であっても、結果データの安全性を確認する
 
 PartnerUserActivity.java
 ```eval_rst
@@ -1802,13 +1766,12 @@ Providerである。複数の自社製アプリでシステムを構成し、自
 ポイント(Content Providerを作る)：
 
 1.  独自定義Signature Permissionを定義する
-1.  独自定義Signature Permissionを要求宣言する
-2.  exported=\"true\"により、明示的に公開設定する
-3.  独自定義Signature
-    Permissionが自社アプリにより定義されていることを確認する
-4.  自社アプリからのリクエストであっても、パラメータの安全性を確認する
-5.  利用元アプリは自社アプリであるから、センシティブな情報を返送してよい
-6.  利用元アプリと同じ開発者鍵でAPKを署名する
+2.  独自定義Signature Permissionを要求宣言する
+3.  exported=\"true\"により、明示的に公開設定する
+4.  独自定義Signature Permissionが自社アプリにより定義されていることを確認する
+5.  自社アプリからのリクエストであっても、パラメータの安全性を確認する
+6.  利用元アプリは自社アプリであるから、センシティブな情報を返送してよい
+7.  利用元アプリと同じ開発者鍵でAPKを署名する
 
 AndroidManifest.xml
 ```eval_rst
@@ -1855,21 +1818,12 @@ PkgCert.java
 
 ポイント(Content Providerを利用する)：
 
-1.  独自定義Signature Permissionを利用宣言する
-
-2.  独自定義Signature
-    Permissionが自社アプリにより定義されていることを確認する
-
-3.  利用先Content
-    Providerアプリの証明書が自社の証明書であることを確認する
-
-4.  自社限定Content
-    Providerアプリに開示してよい情報に限りリクエストに含めてよい
-
-5.  自社限定Content
-    Providerアプリからの結果であっても、結果データの安全性を確認する
-
-6.  利用先アプリと同じ開発者鍵でAPKを署名する
+8.  独自定義Signature Permissionを利用宣言する
+9.  独自定義Signature Permissionが自社アプリにより定義されていることを確認する
+10.  利用先Content Providerアプリの証明書が自社の証明書であることを確認する
+11.  自社限定Content Providerアプリに開示してよい情報に限りリクエストに含めてよい
+12.  自社限定Content Providerアプリからの結果であっても、結果データの安全性を確認する
+13.  利用先アプリと同じ開発者鍵でAPKを署名する
 
 AndroidManifest.xml
 ```eval_rst
@@ -1926,20 +1880,13 @@ Provider側アプリが受動的にアクセス許可を与えることもでき
 ポイント(Content Providerを作る)：
 
 1.  exported=\"false"により、一時許可するPath以外を非公開設定する
-
-1.  grant-uri-permissionにより、一時許可するPathを指定する
-
-2.  一時的に許可したアプリからのリクエストであっても、パラメータの安全性を確認する
-
-3.  一時的に許可したアプリに開示してよい情報に限り返送してよい
-
-4.  一時的にアクセスを許可するURIをIntentに指定する
-
-5.  一時的に許可するアクセス権限をIntentに指定する
-
-6.  一時的にアクセスを許可するアプリに明示的Intentを送信する
-
-7.  一時許可の要求元アプリにIntentを返信する
+2.  grant-uri-permissionにより、一時許可するPathを指定する
+3.  一時的に許可したアプリからのリクエストであっても、パラメータの安全性を確認する
+4.  一時的に許可したアプリに開示してよい情報に限り返送してよい
+5.  一時的にアクセスを許可するURIをIntentに指定する
+6.  一時的に許可するアクセス権限をIntentに指定する
+7.  一時的にアクセスを許可するアプリに明示的Intentを送信する
+8.  一時許可の要求元アプリにIntentを返信する
 
 AndroidManifest.xml
 ```eval_rst
@@ -1977,9 +1924,8 @@ TemporaryPassiveGrantActivity.java
 
 ポイント(Content Providerを利用する)：
 
-1.  センシティブな情報をリクエストに含めてはならない
-
-2.  結果データの安全性を確認する
+9.  センシティブな情報をリクエストに含めてはならない
+10.  結果データの安全性を確認する
 
 TemporaryUserActivity.java
 ```eval_rst
@@ -2119,10 +2065,8 @@ Serviceの実装方法について」および各Serviceタイプのサンプル
 ポイント(Serviceを作る）：
 
 1.  exported=\"false\"により、明示的に非公開設定する
-
-1.  同一アプリからのIntentであっても、受信Intentの安全性を確認する
-
-2.  結果を返す場合、利用元アプリは同一アプリであるから、センシティブな情報を返送してよい
+2.  同一アプリからのIntentであっても、受信Intentの安全性を確認する
+3.  結果を返す場合、利用元アプリは同一アプリであるから、センシティブな情報を返送してよい
 
 AndroidManifest.xml
 ```eval_rst
@@ -2144,11 +2088,9 @@ PrivateStartService.java
 
 ポイント(Serviceを利用する）：
 
-1.  同一アプリ内Serviceはクラス指定の明示的Intentで呼び出す
-
-2.  利用先アプリは同一アプリであるから、センシティブな情報を送信してもよい
-
-3.  結果を受け取る場合、同一アプリ内Serviceからの結果情報であっても、受信データの安全性を確認する
+4.  同一アプリ内Serviceはクラス指定の明示的Intentで呼び出す
+5.  利用先アプリは同一アプリであるから、センシティブな情報を送信してもよい
+6.  結果を受け取る場合、同一アプリ内Serviceからの結果情報であっても、受信データの安全性を確認する
 
 PrivateUserActivity.java
 ```eval_rst
@@ -2167,10 +2109,8 @@ PrivateUserActivity.java
 ポイント（Serviceを作る）：
 
 1.  exported=\"true\"により、明示的に公開設定する
-
 2.  受信Intentの安全性を確認する
-
-1.  結果を返す場合、センシティブな情報を含めない
+3.  結果を返す場合、センシティブな情報を含めない
 
 AndroidManifest.xml
 ```eval_rst
@@ -2191,9 +2131,8 @@ PublicIntentService.java
 
 ポイント（Serviceを利用する）：
 
-1.  センシティブな情報を送信してはならない
-
-2.  結果を受け取る場合、結果データの安全性を確認する
+4.  センシティブな情報を送信してはならない
+5.  結果を受け取る場合、結果データの安全性を確認する
 
 AndroidManifest.xml
 ```eval_rst
@@ -2219,10 +2158,10 @@ PublicUserActivity.java
 ポイント(Serviceを作る)：
 
 1.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
-1.  利用元アプリの証明書がホワイトリストに登録されていることを確認する
-2.  onBind(onStartCommand,onHandleIntent)で呼び出し元がパートナーかどうか判別できない
-3.  パートナーアプリからのIntentであっても、受信Intentの安全性を確認する
-4.  パートナーアプリに開示してよい情報に限り返送してよい
+2.  利用元アプリの証明書がホワイトリストに登録されていることを確認する
+3.  onBind(onStartCommand,onHandleIntent)で呼び出し元がパートナーかどうか判別できない
+4.  パートナーアプリからのIntentであっても、受信Intentの安全性を確認する
+5.  パートナーアプリに開示してよい情報に限り返送してよい
 
 なお、ホワイトリストに指定する利用先アプリの証明書ハッシュ値の確認方法は「[5.2.1.3 アプリの証明書のハッシュ値を確認する方法」を参照すること。
 
@@ -2299,13 +2238,10 @@ PkgCert.java
 
 ポイント(Serviceを利用する)：
 
-1.  利用先パートナー限定Serviceアプリの証明書がホワイトリストに登録されていることを確認する
-
-2.  利用先パートナー限定アプリに開示してよい情報に限り送信してよい
-
-3.  明示的Intentによりパートナー限定Serviceを呼び出す
-
-4.  パートナー限定アプリからの結果情報であっても、受信Intentの安全性を確認する
+6.  利用先パートナー限定Serviceアプリの証明書がホワイトリストに登録されていることを確認する
+7.  利用先パートナー限定アプリに開示してよい情報に限り送信してよい
+8.  明示的Intentによりパートナー限定Serviceを呼び出す
+9.  パートナー限定アプリからの結果情報であっても、受信Intentの安全性を確認する
 
 PartnerAIDLUserActivity.java
 ```eval_rst
@@ -2340,13 +2276,12 @@ PkgCert.java
 ポイント（Serviceを作る）：
 
 1.  独自定義Signature Permissionを定義する
-1.  独自定義Signature Permissionを要求宣言する
-2.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
-3.  独自定義Signature
-    Permissionが自社アプリにより定義されていることを確認する
-4.  自社アプリからのIntentであっても、受信Intentの安全性を確認する
-5.  利用元アプリは自社アプリであるから、センシティブな情報を返送してよい
-6.  利用元アプリと同じ開発者鍵でAPKを署名する
+2.  独自定義Signature Permissionを要求宣言する
+3.  Intent Filterを定義せず、exported=\"true\"を明示的に設定する
+4.  独自定義Signature Permissionが自社アプリにより定義されていることを確認する
+5.  自社アプリからのIntentであっても、受信Intentの安全性を確認する
+6.  利用元アプリは自社アプリであるから、センシティブな情報を返送してよい
+7.  利用元アプリと同じ開発者鍵でAPKを署名する
 
 AndroidManifest.xml
 ```eval_rst
@@ -2392,20 +2327,13 @@ PkgCert.java
 
 ポイント(Serviceを利用する)：
 
-1.  独自定義Signature Permissionを利用宣言する
-
-2.  独自定義Signature
-    Permissionが自社アプリにより定義されていることを確認する
-
-3.  利用先アプリの証明書が自社の証明書であることを確認する
-
-4.  利用先アプリは自社アプリであるから、センシティブな情報を送信してもよい
-
-5.  明示的Intentにより自社限定Serviceを呼び出す
-
-6.  自社アプリからの結果情報であっても、受信Intentの安全性を確認する
-
-7.  利用先アプリと同じ開発者鍵でAPKを署名する
+8.  独自定義Signature Permissionを利用宣言する
+9.  独自定義Signature Permissionが自社アプリにより定義されていることを確認する
+10.  利用先アプリの証明書が自社の証明書であることを確認する
+11.  利用先アプリは自社アプリであるから、センシティブな情報を送信してもよい
+12.  明示的Intentにより自社限定Serviceを呼び出す
+13.  自社アプリからの結果情報であっても、受信Intentの安全性を確認する
+14.  利用先アプリと同じ開発者鍵でAPKを署名する
 
 AndroidManifest.xml
 ```eval_rst
@@ -2731,10 +2659,8 @@ Androidのアプリでデータベースを扱う場合、SQLiteOpenHelperを使
 ポイント：
 
 1.  データベース作成にはSQLiteOpenHelperを使用する
-
-1.  SQLインジェクションの対策として入力値をSQL文に使用する場合にはプレースホルダを利用する
-
-2.  SQLインジェクションの保険的な対策としてアプリ要件に従って入力値をチェックする
+2.  SQLインジェクションの対策として入力値をSQL文に使用する場合にはプレースホルダを利用する
+3.  SQLインジェクションの保険的な対策としてアプリ要件に従って入力値をチェックする
 
 SampleDbOpenHelper.java
 ```eval_rst
@@ -3283,12 +3209,9 @@ Provider、Service)を利用して行うことを原則とする。
 ポイント：
 
 1.  ファイルは、アプリディレクトリ内に作成する
-
-1.  ファイルのアクセス権は、他のアプリが利用できないようにプライベートモードにする
-
-2.  センシティブな情報を格納することができる
-
-3.  ファイルに格納する(された)情報に対しては、その入手先に関わらず内容の安全性を確認する
+2.  ファイルのアクセス権は、他のアプリが利用できないようにプライベートモードにする
+3.  センシティブな情報を格納することができる
+4.  ファイルに格納する(された)情報に対しては、その入手先に関わらず内容の安全性を確認する
 
 PrivateFileActivity.java
 ```eval_rst
@@ -3316,12 +3239,9 @@ Providerによるファイル共有方法が望ましい。
 ポイント：
 
 1.  ファイルは、アプリディレクトリ内に作成する
-
-1.  ファイルのアクセス権は、他のアプリに対しては読み取り専用モードにする
-
-2.  センシティブな情報は格納しない
-
-3.  ファイルに格納する(された)情報に対しては、その入手先に関わらず内容の安全性を確認する
+2.  ファイルのアクセス権は、他のアプリに対しては読み取り専用モードにする
+3.  センシティブな情報は格納しない
+4.  ファイルに格納する(された)情報に対しては、その入手先に関わらず内容の安全性を確認する
 
 PublicFileActivity.java
 ```eval_rst
@@ -3363,12 +3283,9 @@ Androidアプリの慣例として、バックアップファイルは外部記�
 ポイント：
 
 1.  センシティブな情報は格納しない
-
-1.  アプリ毎にユニークなディレクトリにファイルを配置する
-
-2.  ファイルに格納する(された)情報に対しては、その入手先に関わらず内容の安全性を確認する
-
-3.  利用側のアプリで書き込みを行わない仕様にする
+2.  アプリ毎にユニークなディレクトリにファイルを配置する
+3.  ファイルに格納する(された)情報に対しては、その入手先に関わらず内容の安全性を確認する
+4.  利用側のアプリで書き込みを行わない仕様にする
 
 AndroidManifest.xml
 ```eval_rst
@@ -3678,8 +3595,7 @@ twitter://    Twitter
 ポイント：
 
 1.  (Webページ側)対応するURIスキーマを使ったリンクのパラメータにセンシティブな情報を含めない
-
-1.  URLのパラメータを利用する前に値の安全性を確認する
+2.  URLのパラメータを利用する前に値の安全性を確認する
 
 Starter.html
 ```html
@@ -4177,7 +4093,6 @@ HTTPSで通信する」を参照すること。
 ポイント：
 
 1.  HTTPS 通信の場合にはSSL通信のエラーを適切にハンドリングする
-
 2.  JavaScriptを有効にしない
 
 WebViewUntrustActivity.java
@@ -4346,12 +4261,8 @@ Notificationに端末ユーザーのプライベートな情報を含む場合�
 
 1.  プライベート情報を含んだ通知を行う場合は、公開用（画面ロック時の表示用）のNotification
     を用意する
-
-2.  公開用（画面ロック時の表示用）の
-    Notificationにはプライベート情報を含めない
-
+2.  公開用（画面ロック時の表示用）の Notificationにはプライベート情報を含めない
 3.  Visibility を明示的にPrivate に設定して、Notification を作成する
-
 4.  Visibility が Private の場合、プライベート情報を含めて通知してもよい
 
 VisibilityPrivateNotificationActivity.java
