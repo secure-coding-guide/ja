@@ -156,11 +156,9 @@ Zipで圧縮されたサンプルコードを右クリックし、表示され�
 例えば、「4.1 Activityを作る・利用する」の「4.1.1.3
 パートナー限定Activityを作る・利用する」においてサンプルコードを参照したい場合は以下をご覧ください。
 
-android\_securecoding/
-
-　Create Use Activity/
-
-　　　Activity PartnerActivity/
+    android_securecoding/
+        Create Use Activity/
+            Activity PartnerActivity/
 
 以上のように、"android\_securecoding"フォルダ配下は、節ごとに「サンプルコードのプロジェクト」が配置された構成となります。
 
