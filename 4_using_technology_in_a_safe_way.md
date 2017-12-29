@@ -1539,18 +1539,18 @@ Broadcastの送受信は基本的にLogCatに出力されない。しかし、�
 送信側のPermission不足時のエラー
 ```
 W/ActivityManager(266): Permission Denial: broadcasting Intent {
-act=org.jssec.android.broadcastreceiver.creating.action.MY\_ACTION }
+act=org.jssec.android.broadcastreceiver.creating.action.MY_ACTION }
 from org.jssec.android.broadcast.sending (pid=4685, uid=10058) requires
-org.jssec.android.permission.MY\_PERMISSION due to receiver
+org.jssec.android.permission.MY_PERMISSION due to receiver
 org.jssec.android.broadcastreceiver.creating/org.jssec.android.broadcastreceiver.creating.CreatingType3Receiver
 ```
 
 受信側のPermission不足時のエラー
 ```
 W/ActivityManager(275): Permission Denial: receiving Intent {
-act=org.jssec.android.broadcastreceiver.creating.action.MY\_ACTION } to
+act=org.jssec.android.broadcastreceiver.creating.action.MY_ACTION } to
 org.jssec.android.broadcastreceiver.creating requires
-org.jssec.android.permission.MY\_PERMISSION due to sender
+org.jssec.android.permission.MY_PERMISSION due to sender
 org.jssec.android.broadcast.sending (uid 10158)
 ```
 
