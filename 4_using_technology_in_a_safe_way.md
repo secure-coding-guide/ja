@@ -573,8 +573,7 @@ Activityに送信されるIntentの読み取り」、「4.1.3.4
 Activityのexported属性が無指定である場合にそのActivityが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが [4]_、本ガイドではActivityのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
 
 .. [4] intent-filterが定義されていれば公開Activity、定義されていなければ非公開Activityとなる。
-    https://developer.android.com/guide/topics/manifest/activity-element.html#exported
-    を参照のこと。
+   https://developer.android.com/guide/topics/manifest/activity-element.html#exported を参照のこと。
 ```
 
 exported属性の値で「intent-filter定義がある」&「exported="false"」を使用禁止にしているのは、Androidの振る舞いに抜け穴があり、Intent
@@ -999,7 +998,7 @@ Receiverとの2種類があり、下表のような特徴の違いがある。�
 ======================= ====================== =======================================
 
 .. [8] システムが送信する暗黙的Broadcast Intentの中には例外的に利用可能なものも存在する。詳細は以下のURLを参照のこと
-https://developer.android.com/guide/components/broadcast-exceptions.html
+   https://developer.android.com/guide/components/broadcast-exceptions.html
 ```
 
 #### 非公開Broadcast Receiver - Broadcastを受信する・送信する
