@@ -35,7 +35,6 @@ public class Database {
         public CredentialList() {
             mCredentials = new ArrayList<>();
         }
-        //ArrayListが変更されたらtrue
         boolean add(Credential cred) {
             return mCredentials.add(cred);
         }
@@ -56,6 +55,7 @@ public class Database {
     }
 
     public boolean add(String username, String pass) {
+        //本来、情報の機密度に応じて適切に保存するべきである。
         SharedPreferences pref = mContext.getSharedPreferences(PREF_FILENAME,MODE_PRIVATE);
         String credString = pref.getString(CREDENTIAL_LIST, DEFAULT_CREDLIST_STRING);
 
@@ -63,9 +63,8 @@ public class Database {
         CredentialList credList = createCredentialListFromString(gson, credString);
 
         //追加
-        Log.d(TAG, "Database::add() num(before)=" + credList.getSize());
         boolean ret = credList.add(new Credential(username, pass));
-        Log.d(TAG, "Database::add() num(after)=" + credList.getSize());
+        Log.d(TAG, "Database::add() num=" + credList.getSize());
         credString = gson.toJson(credList);
 
         SharedPreferences.Editor editor = pref.edit();
@@ -92,9 +91,8 @@ public class Database {
         CredentialList credList = createCredentialListFromString(gson, credString);
 
         //クリア
-        Log.d(TAG, "Database::clearAll() num(before)=" + credList.getSize());
         credList.clearAll();
-        Log.d(TAG, "Database::clearAll() num(before)=" + credList.getSize());
+        Log.d(TAG, "Database::clearAll() num=" + credList.getSize());
         credString = gson.toJson(credList);
 
         SharedPreferences.Editor editor = pref.edit();

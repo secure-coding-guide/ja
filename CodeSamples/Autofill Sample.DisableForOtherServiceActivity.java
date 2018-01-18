@@ -1,12 +1,7 @@
 package org.jssec.android.autofillframework.autofillapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.autofill.AutofillManager;
 import android.widget.EditText;
@@ -40,7 +35,8 @@ public class DisableForOtherServiceActivity extends AppCompatActivity {
                 resetFields();
             }
         });
-
+        //このActivityではフローティングツールバーの対応をしていないため、
+        // 「自動入力」の選択でAutofill機能が利用可能になります。
     }
 
     @Override
@@ -72,6 +68,9 @@ public class DisableForOtherServiceActivity extends AppCompatActivity {
         if (!Util.validateUsername(username) || !Util.validatePassword(password)) {
             //適切なエラー処理をする
         }
+
+        //サーバーにusername, passwordを送信
+
         finish();
     }
 

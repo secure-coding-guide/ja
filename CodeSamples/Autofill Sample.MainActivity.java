@@ -31,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button buttonDisableAutofill = (Button) findViewById(R.id.button_disable_autofill);
+        buttonDisableAutofill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DisableAutofillActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

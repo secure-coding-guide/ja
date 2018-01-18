@@ -21,4 +21,7 @@ public class Util {
         }
         return true;
     }
+    void printLog() {
+
+    }
 }

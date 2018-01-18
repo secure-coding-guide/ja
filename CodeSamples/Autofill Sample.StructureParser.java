@@ -2,7 +2,6 @@ package org.jssec.android.autofillframework.autofillservice;
 
 import android.app.assist.AssistStructure;
 import android.app.assist.AssistStructure.ViewNode;
-import android.app.assist.AssistStructure.WindowNode;
 import android.util.Log;
 import android.view.View;
 import android.view.autofill.AutofillId;
@@ -13,8 +12,6 @@ import java.util.Arrays;
 import static android.view.View.AUTOFILL_HINT_USERNAME;
 
 final public class StructureParser {
-    private static final String TAG = "JssecAutofillSample";
-
     private final AssistStructure mStructure;
     AutofillId mUsernameFieldId = null;
     AutofillId mPasswordFieldId = null;
@@ -27,31 +24,32 @@ final public class StructureParser {
 
     void parseForFill() {
         int nodes = mStructure.getWindowNodeCount();
-        Log.d(TAG, "StructureParser::parseForFill() node num=" + Integer.toString(nodes));
+        printLog("StructureParser::parseForFill");
         for (int i = 0; i < nodes; i++) {
             AssistStructure.WindowNode node = mStructure.getWindowNodeAt(i);
             AssistStructure.ViewNode view = node.getRootViewNode();
-            parse(true, view);
+            parse(true, view, 0);
         }
     }
 
     void parseForSave() {
+        printLog("StructureParser::parseForSave");
         int nodes = mStructure.getWindowNodeCount();
         for (int i = 0; i < nodes; i++) {
             AssistStructure.WindowNode node = mStructure.getWindowNodeAt(i);
             AssistStructure.ViewNode view = node.getRootViewNode();
-            parse(false, view);
+            parse(false, view, 0);
         }
     }
 
-    void parse(boolean forFill, ViewNode viewNode) {
-        dumpNode(viewNode, forFill);
+    void parse(boolean forFill, ViewNode viewNode, int layer) {
+        dumpNode(viewNode, forFill, layer);
 
         if (viewNode.getAutofillHints() != null) {
             String[] filteredHints = filterSupportedHints(viewNode.getAutofillHints());
             if (filteredHints != null && filteredHints.length == 1) {
                 //サンプルではHintsが1つ指定されている場合のみ扱う
-                Log.d(TAG, "StructureParser::parse() filteredHints=" + filteredHints[0]);
+//                printLog("StructureParser::parse() filteredHints=" + filteredHints[0]);
                 if (forFill) {
                     if (filteredHints[0].equals(AUTOFILL_HINT_USERNAME)) {
                         mUsernameFieldId = viewNode.getAutofillId();
@@ -70,7 +68,7 @@ final public class StructureParser {
         int childrenSize = viewNode.getChildCount();
         if (childrenSize > 0) {
             for (int i = 0; i < childrenSize; i++) {
-                parse(forFill, viewNode.getChildAt(i));
+                parse(forFill, viewNode.getChildAt(i), layer+1);
             }
         }
     }
@@ -101,7 +99,9 @@ final public class StructureParser {
         return new String[] {};
     }
 
-    private void dumpNode(ViewNode viewNode, boolean forFill) {
+    //デバッグ用の出力
+    //AutofillServiceは重要な情報を扱うため、本来はこのようなデバッグ用の出力をするべきではない
+    private void dumpNode(ViewNode viewNode, boolean forFill, int layer) {
         String autofillStringValue = "N/A";
         AutofillValue value = viewNode.getAutofillValue();
         if (value != null) {
@@ -113,11 +113,18 @@ final public class StructureParser {
                 autofillStringValue = "no type";
             }
         }
-        String ids = (viewNode.getAutofillId() != null ? viewNode.getAutofillId().toString() : "N/A");
+        String id = (viewNode.getAutofillId() != null ? viewNode.getAutofillId().toString() : "N/A");
         String texts = (viewNode.getText() != null ? viewNode.getText().toString() : "N/A");
         String hints = (viewNode.getAutofillHints() != null) ? viewNode.getAutofillHints()[0] : "N/A";
         int type = viewNode.getAutofillType();
-        Log.d(TAG, "StructureParse::parse(): forFill=" + forFill + ", ids=" + ids + ", type=" + type + ", values=" + autofillStringValue + ", text=" + texts + ",hints=" + hints);
-        Log.d(TAG, "StructureParser::parse() child viewNode num=" + Integer.toString(viewNode.getChildCount()));
+        String layerSpace = "";
+        for (int i=0; i<layer; i++) {
+            layerSpace += "    ";
+        }
+        printLog("StructureParse::parse(): " + layerSpace + "forFill=" + forFill + ",id=" + id + ",type=" + type + ",values=" + autofillStringValue + ",text=" + texts + ",hints=" + hints + ",class=" + viewNode.getClassName()+",childNum="+Integer.toString(viewNode.getChildCount()));
+    }
+
+    private void printLog(String msg) {
+        Log.d("JssecAutofillSample", msg);
     }
 }

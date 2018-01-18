@@ -1,21 +1,17 @@
 package org.jssec.android.autofillframework.autofillapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.autofill.AutofillManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import org.jssec.android.autofillframework.autofillapp.Util.*;
 
 import org.jssec.android.autofillframework.R;
 
-public class CredentialActivity extends AppCompatActivity {
-    private boolean mIsAutofillEnabled = false;
+import static android.view.View.IMPORTANT_FOR_AUTOFILL_NO;
 
+public class CredentialActivity extends AppCompatActivity {
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
 
@@ -49,6 +45,8 @@ public class CredentialActivity extends AppCompatActivity {
         if (!Util.validateUsername(username) || Util.validatePassword(password)) {
             //適切なエラー処理をする
         }
+        //サーバーにusername, passwordを送信
+
         finish();
     }
 

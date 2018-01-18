@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Credential Info"
+        android:text="Disable Autofill"
         />
     <!-- Username -->
     <TextView
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="username"
-        android:importantForAutofill="auto"
+        android:importantForAutofill="no"
         android:inputType="text"
         />
 
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:importantForAutofill="auto"
+        android:importantForAutofill="no"
         android:autofillHints="password"
         />
 

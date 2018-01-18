@@ -16,7 +16,13 @@
 
     <Button
         android:id="@+id/button_disable_for_other_service"
-        android:text="disable for other service"
+        android:text="Disable for other service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button_disable_autofill"
+        android:text="Disable Autofill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

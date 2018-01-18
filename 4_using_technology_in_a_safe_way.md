@@ -861,14 +861,16 @@ AutofillフレームワークはAndroid 8.0(API Level 26)で追加された仕�
 
 保存時、ユーザーがAutofill serviceを選択し、保存許可ダイアログに対して許可した場合、利用アプリで表示されているActivityに含まれるすべてのViewの情報がAutofill serviceに渡る可能性がある。ここで、Autofill serviceがマルウェアの場合や、Autofill serviceにViewの情報を外部ストレージや安全でないクラウドサービスに保存する等のセキュリティ上の問題があった場合には、利用アプリで扱う情報の漏洩につながってしまうリスクが考えられる。
 
-一方、Autofill時、ユーザーがAutofill serviceとしてマルウェアを選択してしまっていた場合、マルウェアが送信した値をAutofillしてしまう可能性がある。ここで、アプリやアプリのデータを送信した先のクラウドサービスが入力データの安全性を十分に確認していなかった場合、情報漏洩やアプリ／サービスの停止等につながってしまうリスクが考えられる。
+一方、Autofill時、ユーザーがAutofill serviceとしてマルウェアを選択してしまっていた場合、マルウェアが送信した値を入力してしまう可能性がある。ここで、アプリやアプリのデータを送信した先のクラウドサービスが入力データの安全性を十分に確認していなかった場合、情報漏洩やアプリ／サービスの停止等につながってしまうリスクが考えられる。
 
-なお、「2つのコンポーネント」で書いたように、Activityを持つアプリが自動的にAutofillの対象になるため、Activityを持つアプリのすべての開発者は上記のリスクを考慮して設計や実装を行う必要がある。
+なお、「2つのコンポーネント」で書いたように、Activityを持つアプリが自動的にAutofillの対象になるため、Activityを持つアプリのすべての開発者は上記のリスクを考慮して設計や実装を行う必要がある。以下に、上記のリスクに対する対策案を示すが、「3.1.3 資産分類と保護施策」なども参考にして、アプリに必要な対策を検討した上で、適用することをお勧めする。
 
-**懸案に対する対策**
+**リスクに対する対策-1**
+```eval_rst
+前述のように、Autofillフレームワークでは基本的にユーザーの裁量によってセキュリティが担保されている。そのためアプリでできる対策は限られているが、Viewに対してimportantForAutofill 属性で"no"等を指定してAutofill serviceにViewの情報を渡さないようにする（Autofillの対象外とする）ことで、ユーザーが適切な選択や許可をできなかった場合（マルウェアをAutofill serviceとして利用するように選択する等）でも、上記の懸案を軽減することができる。[7]_
 
-前述のように、Autofillフレームワークでは基本的にユーザーの裁量によってセキュリティが担保されている。そのためアプリでできる対策は限られているが、Viewに対してimportantForAutofill 属性で"no"等を指定してAutofill serviceにViewの情報を一切渡さないようにする（Autofillの対象外とする）ことで、ユーザーが適切な選択や許可をできなかった場合（マルウェアをAutofill serviceとして利用するように選択する等）でも、上記の懸案を軽減／回避することができる。
-
+.. [7] ユーザーが意図的にAutofill機能を利用した場合など、本対策でも上記の懸案を回避できないことがある。「リスクに対する対策-2」を実施することでこのような場合にも対応することができる。
+```
 importantForAutofill 属性は、以下のいずれかの方法によって指定することができる。
 
 -   レイアウトXMLのimportantForAutofill属性を指定する
@@ -933,6 +935,20 @@ DisableForOtherServiceActivity.java
    :encoding: shift-jis
 ```
 
+**リスクに対する対策-2**
+
+アプリで「リスクに対する対策-1」を施した場合でも、ユーザーがViewの長押しでフローティングツールバーなどを表示させて「自動入力」を選択すると、強制的にAutofillを利用できてしまう。この場合、importantForAutofill属性で"no"等を指定したViewを含む全てのViewの情報がAutofill Servicceに渡ることになる。
+
+「リスクに対する対策-1」に加えて、フローティングツールバーなどのメニューから「自動入力」を削除することで、上記のような場合でも、情報漏えいのリスクを回避することができる。
+
+以下にサンプルコートを示す。
+
+DisableAutofillActivity.java
+```eval_rst
+.. literalinclude:: CodeSamples/Autofill Sample.DisableAutofillActivity.java
+   :language: java
+   :encoding: shift-jis
+```
 
 Broadcastを受信する・送信する
 -----------------------------
@@ -968,6 +984,10 @@ Receiverとの2種類があり、下表のような特徴の違いがある。�
                         | する                 | ・アプリが初回起動してからアンインス
                         |                      | トールされるまでの間、Broadcastを受信
                         |                      | できる。
+                        |                      | ・アプリのtargetSDKVersionが26以上の
+                        |                      | 場合、Android 8.0（API level 26）以降
+                        |                      | の端末では、暗黙的Broadcast Intentに
+                        |                      | 対するBroadcast Receiverを登録できない [8]_
 動的Broadcast Receiver  | プログラム中で       | ・静的Broadcast Receiverでは受信でき
                         | registerReceiver()   | ないBroadcastでも受信できる。
                         | および               | ・Activityが前面に出ている期間だけ
@@ -977,6 +997,9 @@ Receiverとの2種類があり、下表のような特徴の違いがある。�
                         | Receiverを登録／     | ・非公開のBroadcast Receiverを作る
                         | 登録解除する         | ことはできない。
 ======================= ====================== =======================================
+
+.. [8] システムが送信する暗黙的Broadcast Intentの中には例外的に利用可能なものも存在する。詳細は以下のURLを参照のこと
+https://developer.android.com/guide/components/broadcast-exceptions.html
 ```
 
 #### 非公開Broadcast Receiver - Broadcastを受信する・送信する
@@ -1050,7 +1073,8 @@ PublicReceiver.java
 ```
 
 
-静的Broadcast ReceiverはAndroidManifest.xmlで定義する。
+静的Broadcast ReceiverはAndroidManifest.xmlで定義する。「**エラー! 参照元が見つかりません。**」のように、端末のバージョンによって暗黙的Broadcst
+Intentの受信に制限があるので注意すること。
 
 AndroidManifest.xml
 ```eval_rst
@@ -1132,7 +1156,8 @@ InhouseReceiver.java
 ```
 
 
-静的Broadcast ReceiverはAndroidManifest.xmlで定義する。
+静的Broadcast ReceiverはAndroidManifest.xmlで定義する。「**エラー! 参照元が見つかりません。**」のように、端末のバージョンによって暗黙的Broadcst
+Intentの受信に制限があるので注意すること。
 
 AndroidManifest.xml
 ```eval_rst
@@ -1396,9 +1421,9 @@ exported属性とintent-filter要素の組み合わせの使用可否
 | intent-filter定義がない | 可   | 可       | 禁止   |
 +-------------------------+------+----------+--------+
 
-Receiverのexported属性が無指定である場合にそのReceiverが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが [7]_、本ガイドではReceiverのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
+Receiverのexported属性が無指定である場合にそのReceiverが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが [9]_、本ガイドではReceiverのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
 
-.. [7] intent-filterが定義されていれば公開Receiver、定義されていなければ非公開Receiverとなる。https://developer.android.com/guide/topics/manifest/receiver-element.html#exportedを参照のこと。
+.. [9] intent-filterが定義されていれば公開Receiver、定義されていなければ非公開Receiverとなる。https://developer.android.com/guide/topics/manifest/receiver-element.html#exported を参照のこと。
 ```
 
 intent-filterを定義し、かつ、exported="false"を指定することを原則禁止としているのは、同一アプリ内の非公開Receiverに向けてBroadcastを送信したつもりでも、意図せず他アプリの公開Receiverを呼び出してしまう場合が存在するからである。以下の2つの図で意図せぬ呼び出しが起こる様子を説明する。
@@ -1436,11 +1461,11 @@ Intentと同じACTIONのIntentを他アプリが送信した場合、それを�
 #### Receiverはアプリを起動しないと登録されない
 ```eval_rst
 AndroidManifest.xmlに静的に定義したBroadcast
-Receiverは、インストールしただけでは有効にならないので注意が必要である [8]_。アプリを1回起動することで、それ以降のBroadcastを受信できるようになるため、インストール後にBroadcast受信をトリガーにして処理を起動させることはできない。ただしBroadcastの送信側でIntentにIntent.FLAG\_INCLUDE\_STOPPED_PACKAGES
+Receiverは、インストールしただけでは有効にならないので注意が必要である [10]_。アプリを1回起動することで、それ以降のBroadcastを受信できるようになるため、インストール後にBroadcast受信をトリガーにして処理を起動させることはできない。ただしBroadcastの送信側でIntentにIntent.FLAG\_INCLUDE\_STOPPED_PACKAGES
 を設定してBroadcast送信した場合は、一度も起動していないアプリであってもこのBroadcast
 を受信することができる。
 
-.. [8] Android 3.0未満ではアプリのインストールをしただけでReceiverが登録される
+.. [10] Android 3.0未満ではアプリのインストールをしただけでReceiverが登録される
 ```
 #### 同じUIDを持つアプリから送信されたBroadcastは、非公開Broadcast Receiverでも受信できる
 
@@ -1606,9 +1631,9 @@ Providerがどのタイプであるかを判断できる。
 #### 非公開Content Providerを作る・利用する
 ```eval_rst
 非公開Content Providerは、同一アプリ内だけで利用されるContent Providerであり、
-もっとも安全性の高いContent Providerである [9]_。
+もっとも安全性の高いContent Providerである [11]_。
 
-.. [9] ただし、Content Providerの非公開設定はAndroid 2.2 (API Level 8)
+.. [11] ただし、Content Providerの非公開設定はAndroid 2.2 (API Level 8)
     以前では機能しない。
 ```
 
@@ -2489,9 +2514,9 @@ Permissionにより保護されている情報資産および機能資産を他�
 | intent-filter定義がない | 公開、パートナー限定、自社限定 | 非公開       | （使用禁止） |
 +-------------------------+--------------------------------+--------------+--------------+
 
-Serviceのexported属性が無指定である場合にそのServiceが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが [10]_、本ガイドではServiceのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
+Serviceのexported属性が無指定である場合にそのServiceが公開されるか非公開となるかは、intent-filterの定義の有無により決まるが [12]_、本ガイドではServiceのexported属性を「無指定」にすることを禁止している。前述のようなAPIのデフォルトの挙動に頼る実装をすることは避けるべきであり、exported属性のようなセキュリティ上重要な設定を明示的に有効化する手段があるのであればそれを利用すべきであると考えられるためである。
 
-.. [10] intent-filterが定義されていれば公開Service、定義されていなければ非公開Serviceとなる。
+.. [12] intent-filterが定義されていれば公開Service、定義されていなければ非公開Serviceとなる。
     https://developer.android.com/guide/topics/manifest/service-element.html\exported
     を参照のこと。
 ```
@@ -2638,9 +2663,9 @@ Provider
 
 #### データベースの作成と操作　
 ```eval_rst
-Androidのアプリでデータベースを扱う場合、SQLiteOpenHelperを使用することでデータベースファイルの適切な配置およびアクセス権の設定（他のアプリがアクセスできない設定）ができる [11]_。ここでは、アプリ起動時にデータベースを作成し、UI上からデータの検索・追加・変更・削除を行う簡単なアプリを例に、外部からの入力に対して不正なSQLが実行されないようにSQLインジェクション対策したサンプルコードを示す。
+Androidのアプリでデータベースを扱う場合、SQLiteOpenHelperを使用することでデータベースファイルの適切な配置およびアクセス権の設定（他のアプリがアクセスできない設定）ができる [13]_。ここでは、アプリ起動時にデータベースを作成し、UI上からデータの検索・追加・変更・削除を行う簡単なアプリを例に、外部からの入力に対して不正なSQLが実行されないようにSQLインジェクション対策したサンプルコードを示す。
 
-.. [11] ファイルの配置に関しては、SQLiteOpenHelperのコンストラクタの第2引数（name）にファイルの絶対パスも指定できる。そのため、誤ってSDカードを直接指定した場合には他のアプリからの読み書きが可能になるので注意が必要である。
+.. [13] ファイルの配置に関しては、SQLiteOpenHelperのコンストラクタの第2引数（name）にファイルの絶対パスも指定できる。そのため、誤ってSDカードを直接指定した場合には他のアプリからの読み書きが可能になるので注意が必要である。
 ```
 ![](media/image47.png)
 ```eval_rst
@@ -2702,13 +2727,13 @@ DBファイルのデータの保護を考えた場合、DBファイルの配置�
 ```eval_rst
 1. 配置場所
 
-Context\#getDatabasePath(String name)で取得できるファイルパスや場合によってはContext\#getFilesDir で取得できるディレクトリの場所に配置する [12]_
+Context\#getDatabasePath(String name)で取得できるファイルパスや場合によってはContext\#getFilesDir で取得できるディレクトリの場所に配置する [14]_
 
 2. アクセス権
 
 MODE_PRIVATE（=ファイルを作成したアプリのみがアクセス可能）モードに設定する
 
-.. [12] どちらのメソッドも該当するアプリだけが読み書き権限を与えられ、他のアプリからはアクセスができないディレクトリ（パッケージディレクトリ）のサブディレクトリ以下のパスが取得できる。
+.. [14] どちらのメソッドも該当するアプリだけが読み書き権限を与えられ、他のアプリからはアクセスができないディレクトリ（パッケージディレクトリ）のサブディレクトリ以下のパスが取得できる。
 ```
 この2点を実施することで、他のアプリからアクセスできないDBファイルの作成を行うことができる。これらを実施するためには以下の方法が挙げられる。
 
@@ -2720,11 +2745,11 @@ DBファイルの作成に際しては、SQLiteDatabase\#openOrCreateDatabaseを
 
 ##### SQLiteOpenHelperを使用する
 ```eval_rst
-SQLiteOpenHelperを使用する場合、開発者はあまり多くのことを考えなくてもよい。SQLiteOpenHelperを派生したクラスを作成し、コンストラクタの引数にDBの名前（ファイル名に使われる） [13]_ を指定すれば、自動的に上記のセキュリティ要件を満たすDBファイルを作成してくれる。
+SQLiteOpenHelperを使用する場合、開発者はあまり多くのことを考えなくてもよい。SQLiteOpenHelperを派生したクラスを作成し、コンストラクタの引数にDBの名前（ファイル名に使われる） [15]_ を指定すれば、自動的に上記のセキュリティ要件を満たすDBファイルを作成してくれる。
 
 「4.5.1.1 データベースの作成と操作」に具体的な使用方法を示しているので参照すること。
 
-.. [13] （ドキュメントに記述はないが）SQLiteOpenHelper
+.. [15] （ドキュメントに記述はないが）SQLiteOpenHelper
     の実装ではDBの名前にはファイルのフルパスを指定できるので、SDカードなどアクセス権の設定できない場所のパスが意図せず入力されないように注意が必要である。
 ```
 ##### Context\#openOrCreateDatabaseを使用する
@@ -2753,7 +2778,7 @@ public void onCreate(Bundle savedInstanceState) {
     }
 ```
 ```eval_rst
-なお、アクセス権の設定はMODE_PRIVATEと合わせて以下の3種類があり、MODE\_WORLD\_READABLEとMODE\_WORLD\_WRITEABLEはOR演算で同時指定することもできる。ただし、MODE\_PRIVATE以外はAPI Level 17以降ではdeprecatedとなっており、API Level 24 以降ではセキュリティ例外が発生する。API Level 15以降を対象とする場合でも、通常はこのフラグを使用しないことが望ましい [14]_。
+なお、アクセス権の設定はMODE_PRIVATEと合わせて以下の3種類があり、MODE\_WORLD\_READABLEとMODE\_WORLD\_WRITEABLEはOR演算で同時指定することもできる。ただし、MODE\_PRIVATE以外はAPI Level 17以降ではdeprecatedとなっており、API Level 24 以降ではセキュリティ例外が発生する。API Level 15以降を対象とする場合でも、通常はこのフラグを使用しないことが望ましい [16]_。
 
 -   MODE\_PRIVATE 作成アプリのみ読み書き可能
 
@@ -2761,7 +2786,7 @@ public void onCreate(Bundle savedInstanceState) {
 
 -   MODE\_WORLD\_WRITEABLE 作成アプリは読み書き可能、他は書き込みのみ
 
-.. [14] MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEの性質と注意点については、「4.6.3.2
+.. [16] MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEの性質と注意点については、「4.6.3.2
     ディレクトリのアクセス権設定」を参照
 ```
 #### 他アプリとDBデータを共有する場合はContent Providerでアクセス制御する （必須）
@@ -2973,9 +2998,9 @@ public class DataSearchTask extends AsyncTask<String, Void, Cursor> {
 
 #### 不用意にデータベースの書き換えが行われないための対策を行う
 ```eval_rst
-SQLiteOpenHelper\#getReadableDatabase、getWritableDatabaseを使用してDBのインスタンスを取得した場合、どちらのメソッドを利用してもDBは読み書き可能な状態でオープンされる [15]_。また、Context\#openOrCreateDatabase、SQLiteDatabase\#openOrCreateDatabaseなども同様である。
+SQLiteOpenHelper\#getReadableDatabase、getWritableDatabaseを使用してDBのインスタンスを取得した場合、どちらのメソッドを利用してもDBは読み書き可能な状態でオープンされる [17]_。また、Context\#openOrCreateDatabase、SQLiteDatabase\#openOrCreateDatabaseなども同様である。
 
-.. [15] getReableDatabase
+.. [17] getReableDatabase
     は基本的にはgetWritableDatabaseで取得するのと同じオブジェクトを返す。ディスクフルなどの状況で書き込み可能オブジェクトを生成できない場合にリードオンリーのオブジェクトを返すという仕様である（getWritableDatabaseはディスクフルなどの状況では実行エラーとなる）。
 ```
 これは、アプリ操作や実装の不具合により意図せずDBの中身を書き換えてしまう（書き換えられてしまう）可能性を意味している。基本的にはアプリの仕様と実装の範囲で対応できると考えられるが、アプリの検索機能など、読み取りしか必要のない機能を実装する場合は、データベースを読み取り専用でオープンすることで、設計や検証の簡素化ひいてはアプリ品質の向上に繋がる場合があるので、状況に応じて検討をお勧めする。
@@ -3445,16 +3470,16 @@ Context\#getDir(String name, int mode) | modeに以下を指定可能 | 「設�
 
 ##### MODE\_WORLD\_READABLE
 ```eval_rst
-すべてのアプリに対してディレクトリの読み取り権限を与えるフラグである。すべてのアプリがディレクトリ内のファイル一覧や個々のファイルの属性情報を取得可能になる。このディレクトリ配下に秘密のファイルを配置することはできないため、通常はこのフラグを使用してはならない [16]_。
+すべてのアプリに対してディレクトリの読み取り権限を与えるフラグである。すべてのアプリがディレクトリ内のファイル一覧や個々のファイルの属性情報を取得可能になる。このディレクトリ配下に秘密のファイルを配置することはできないため、通常はこのフラグを使用してはならない [18]_。
 
-.. [16] MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEは API Level17 以降ではdeprecated となっており、API Level 24 以降ではセキュリティ例外が発生するため使用できなくなっている。
+.. [18] MODE\_WORLD\_READABLEおよびMODE\_WORLD\_WRITEABLEは API Level17 以降ではdeprecated となっており、API Level 24 以降ではセキュリティ例外が発生するため使用できなくなっている。
 ```
 
 ##### MODE\_WORLD\_WRITEABLE
 ```eval_rst
-他アプリに対してディレクトリの書き込み権限を与えるフラグである。すべてのアプリがディレクトリ内のファイルを作成、移動 [17]_、リネーム、削除が可能になる。これらの操作はファイル自体のアクセス権設定（読み取り、書き込み、実行）とは無関係であり、ディレクトリの書き込み権限があるだけで可能となる操作であることに注意が必要だ。他のアプリから勝手にファイルを削除されたり置き換えられたりするため、通常はこのフラグを使用してはならない [16]_。
+他アプリに対してディレクトリの書き込み権限を与えるフラグである。すべてのアプリがディレクトリ内のファイルを作成、移動 [19]_、リネーム、削除が可能になる。これらの操作はファイル自体のアクセス権設定（読み取り、書き込み、実行）とは無関係であり、ディレクトリの書き込み権限があるだけで可能となる操作であることに注意が必要だ。他のアプリから勝手にファイルを削除されたり置き換えられたりするため、通常はこのフラグを使用してはならない [18]_。
 
-.. [17] 内部ストレージから外部記憶装置(SDカードなど)への移動などマウントポイントを超えた移動はできない。そのため、読み取り権限のない内部ストレージファイルが外部記憶装置に移動されて読み書き可能になるようなことはない。
+.. [19] 内部ストレージから外部記憶装置(SDカードなど)への移動などマウントポイントを超えた移動はできない。そのため、読み取り権限のない内部ストレージファイルが外部記憶装置に移動されて読み書き可能になるようなことはない。
 ```
 表 4.6‑3の「ユーザーによる削除」に関しては、「4.6.2.4ファイルの生存期間を考慮してアプリの設計を行う （必須）」を参照のこと。
 
@@ -3640,9 +3665,9 @@ URIスキーマに合わせたリンクは、アプリ開発者に限らず誰�
 LogCatにログ出力する
 --------------------
 ```eval_rst
-AndroidはLogCatと呼ばれるシステムログ機構があり、システムのログ情報だけでなくアプリのログ情報もLogCatに出力される。LogCatのログ情報は同じ端末内の他のアプリからも読み取り可能 [18]_ であるため、センシティブな情報をLogCatにログ出力してしまうアプリには情報漏洩の脆弱性があるとされる。LogCatにはセンシティブな情報をログ出力すべきではない。
+AndroidはLogCatと呼ばれるシステムログ機構があり、システムのログ情報だけでなくアプリのログ情報もLogCatに出力される。LogCatのログ情報は同じ端末内の他のアプリからも読み取り可能 [20]_ であるため、センシティブな情報をLogCatにログ出力してしまうアプリには情報漏洩の脆弱性があるとされる。LogCatにはセンシティブな情報をログ出力すべきではない。
 
-.. [18] LogCat に出力されたログ情報は、READ\_LOGS Permissionを利用宣言したアプリであれば読み取り可能である。ただしAndroid
+.. [20] LogCat に出力されたログ情報は、READ\_LOGS Permissionを利用宣言したアプリであれば読み取り可能である。ただしAndroid
     4.1 以降ではLogCatに出力された他のアプリのログ情報は読み取り不可となった。また、スマートフォンユーザーであれば、ADB
     経由でLogCat のログ情報を参照することも可能である。
 ```
@@ -3847,14 +3872,14 @@ Code Style Guidelines for Contributors / Log Sparingly
 
 #### DEBUGログとVERBOSEログは自動的に削除されるわけではない
 ```eval_rst
-Developer Referenceのandroid.util.Logクラスの解説 [19]_ には次のような記載がある。
+Developer Referenceのandroid.util.Logクラスの解説 [21]_ には次のような記載がある。
 
 The order in terms of verbosity, from least to most is ERROR, WARN,
 INFO, DEBUG, VERBOSE. Verbose should never be compiled into an
 application except during development. Debug logs are compiled in but
 stripped at runtime. Error, warning and info logs are always kept.
 
-.. [19] http://developer.android.com/intl/ja/reference/android/util/Log.html
+.. [21] http://developer.android.com/intl/ja/reference/android/util/Log.html
 ```
 開発者の中には、この文章からLogクラスの動作を次のように誤った解釈をしている人がいる。
 
@@ -3893,9 +3918,9 @@ stripped at runtime. Error, warning and info logs are always kept.
 
 実際にはAPKファイルを逆アセンブルして、上記のようにログ出力情報を組み立てている箇所を発見するのは容易なことではない。しかし非常に機密度の高い情報を扱っているアプリにおいては、このような処理がAPKファイルに残ってしまってはならない場合もあり得る。
 ```eval_rst
-もし上記のようなログ出力情報の組み立て処理も削除してしまいたい場合には、次のように記述するとよい [20]_。リリースビルド時にはコンパイラの最適化処理によって、下記サンプルコードの処理は丸ごと削除される。
+もし上記のようなログ出力情報の組み立て処理も削除してしまいたい場合には、次のように記述するとよい [22]_。リリースビルド時にはコンパイラの最適化処理によって、下記サンプルコードの処理は丸ごと削除される。
 
-.. [20] 前述のサンプルコードを、条件式にBuildConfig.DEBUGを用いたif文で囲った。Log.d()呼び出し前のif文は不要であるが、前述のサンプルコードと対比させるため、そのまま残した。
+.. [22] 前述のサンプルコードを、条件式にBuildConfig.DEBUGを用いたif文で囲った。Log.d()呼び出し前のif文は不要であるが、前述のサンプルコードと対比させるため、そのまま残した。
 ```
 ```java
     if (BuildConfig.DEBUG) { 
@@ -3989,13 +4014,13 @@ WebViewを使用することにより容易にWebサイト、HTMLファイル閲
 
 特に気をつけなければいけないのはJavaScriptの使用である。WebViewのデフォルト設定ではJavaScriptの機能が無効になっているが、WebSettings\#setJavaScriptEnabled()メソッドにより有効にすることが可能である。JavaScriptを使用することでインタラクティブなコンテンツの表示が可能になるが、悪意のある第三者により端末の情報を取得される、あるいは端末を操作されるという被害が発生する可能性がある。
 ```eval_rst
-WebViewを用いてコンテンツにアクセスするアプリを開発する際は、次の原則に従うこと [21]_。
+WebViewを用いてコンテンツにアクセスするアプリを開発する際は、次の原則に従うこと [23]_。
 
 (1) 自社が管理しているコンテンツにのみアクセスする場合に限りJavaScriptを有効にしてよい
 
 (2) 上記以外の場合には、JavaScriptを有効にしてはならない
 
-.. [21] 厳密に言えば安全性を保証できるコンテンツであればJavaScriptを有効にしてよい。自社管理のコンテンツであれば自社の努力で安全性を確保できるし責任も取れる。では信頼できる提携会社のコンテンツは安全だろうか？これは会社間の信頼関係により決まる。信頼できる提携会社のコンテンツを安全であると信頼してJavaScriptを有効にしてもよいが、万一の場合は自社責任も伴うため、ビジネス責任者の判断が必要となる。
+.. [23] 厳密に言えば安全性を保証できるコンテンツであればJavaScriptを有効にしてよい。自社管理のコンテンツであれば自社の努力で安全性を確保できるし責任も取れる。では信頼できる提携会社のコンテンツは安全だろうか？これは会社間の信頼関係により決まる。信頼できる提携会社のコンテンツを安全であると信頼してJavaScriptを有効にしてもよいが、万一の場合は自社責任も伴うため、ビジネス責任者の判断が必要となる。
 ```
 開発しているアプリがアクセスするコンテンツの特性を踏まえ、図 4.9‑1に従いサンプルコードを選択することが必要である。
 
@@ -4182,17 +4207,17 @@ fileスキームの無効化
 
 #### Web Messaging利用時の送信先オリジン指定について
 ```eval_rst
-Android 6.0(API Level 23)において、HTML5 Web Messagingを実現するためのAPIが追加された。Web Messagingは異なるブラウジング・コンテキスト間でデータを送受信するための仕組みであり、HTML5で定義されている [22]_。
+Android 6.0(API Level 23)において、HTML5 Web Messagingを実現するためのAPIが追加された。Web Messagingは異なるブラウジング・コンテキスト間でデータを送受信するための仕組みであり、HTML5で定義されている [24]_。
 
-.. [22] http://www.w3.org/TR/webmessaging/
+.. [24] http://www.w3.org/TR/webmessaging/
 
-WebViewクラスに追加されたpostWebMessage()はWeb Messagingで定義されているCross-domain messagingによるデータ送信を処理するメソッドである。このメソッドは第一引数で指定されたメッセージオブジェクトをWebViewに読み込んでいるブラウジング・コンテキストに対して送信するのだが、その際第二引数として送信先のオリジンを指定する必要がある。指定されたオリジン [23]_ が送信先コンテキストのオリジンと一致しない限りメッセージは送信されない。送信先オリジンを制限することで、意図しない送信先にメッセージを渡してしまうことを防いでいるのである。
+WebViewクラスに追加されたpostWebMessage()はWeb Messagingで定義されているCross-domain messagingによるデータ送信を処理するメソッドである。このメソッドは第一引数で指定されたメッセージオブジェクトをWebViewに読み込んでいるブラウジング・コンテキストに対して送信するのだが、その際第二引数として送信先のオリジンを指定する必要がある。指定されたオリジン [25]_ が送信先コンテキストのオリジンと一致しない限りメッセージは送信されない。送信先オリジンを制限することで、意図しない送信先にメッセージを渡してしまうことを防いでいるのである。
 
-.. [23] オリジンとは、URLのスキーム、ホスト名、ポート番号の組み合わせのこと。詳細な定義は http://tools.ietf.org/html/rfc6454 を参照。
+.. [25] オリジンとは、URLのスキーム、ホスト名、ポート番号の組み合わせのこと。詳細な定義は http://tools.ietf.org/html/rfc6454 を参照。
 
-ただし、postWebMessage()メソッドではオリジンとしてワイルドカードを指定できることに注意が必要である [24]_。ワイルドカードを指定するとメッセージの送信先オリジンがチェックされず、どのようなオリジンに対してもメッセージを送信してしまう。もしWebViewに悪意のあるコンテンツが読み込まれている状況でオリジンの制限なしに重要なメッセージを送信してしまうと何らかの被害につながる可能性も生じる。WebViewを用いてWeb messagingを行う際は、postWebMessage()メソッドに特定のオリジンを明示的に指定するべきである。
+ただし、postWebMessage()メソッドではオリジンとしてワイルドカードを指定できることに注意が必要である [26]_。ワイルドカードを指定するとメッセージの送信先オリジンがチェックされず、どのようなオリジンに対してもメッセージを送信してしまう。もしWebViewに悪意のあるコンテンツが読み込まれている状況でオリジンの制限なしに重要なメッセージを送信してしまうと何らかの被害につながる可能性も生じる。WebViewを用いてWeb messagingを行う際は、postWebMessage()メソッドに特定のオリジンを明示的に指定するべきである。
 
-.. [24] Uri.EMPTYおよびUri.parse(\"\")がワイルドカードとして機能する(2016年9月1日版執筆時)
+.. [26] Uri.EMPTYおよびUri.parse(\"\")がワイルドカードとして機能する(2016年9月1日版執筆時)
 ```
 
 Notificationを使用する

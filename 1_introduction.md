@@ -48,7 +48,7 @@ Market）は無審査でアプリケーション公開ができるなど、ア�
 [jssec-securecoding-qa@googlegroups.com](mailto:jssec-securecoding-qa@googlegroups.com)
 
 件名：【コメント応募】Androidアプリのセキュア設計・セキュアコーディングガイド
-2016年9月1日版
+2018年2月1日版
 
 内容：氏名(任意)/所属(任意)/連絡先E-mail(任意)/ご意見(必須)/その他ご希望(任意)
 
@@ -76,6 +76,11 @@ Market）は無審査でアプリケーション公開ができるなど、ア�
 <td>(該当なし)</td>
 <td>4.1.3.7 Autofillフレームワークについて</td>
 <td>Autofillフレームワークについての解説を記載しました。</td>
+</tr>
+<tr>
+<td>4.2 Broadcastを受信する・送信する</td>
+<td>4.2 Broadcastを受信する・送信する</td>
+<td>Android 8.0(API Level 26)以降の暗黙的Broadcst Intentの受信に対する制限について追記しました。</td>
 </tr>
 <tr>
 <td>5.2.3.6 Android 6.0以降のPermissionモデルの仕様変更について</td>
