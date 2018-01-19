@@ -864,7 +864,7 @@ AutofillフレームワークはAndroid 8.0(API Level 26)で追加された仕�
 
 なお、「2つのコンポーネント」で書いたように、Activityを持つアプリが自動的にAutofillの対象になるため、Activityを持つアプリのすべての開発者は上記のリスクを考慮して設計や実装を行う必要がある。以下に、上記のリスクに対する対策案を示すが、「3.1.3 資産分類と保護施策」なども参考にして、アプリに必要な対策を検討した上で、適用することをお勧めする。
 
-**リスクに対する対策-1**
+#### リスクに対する対策-1
 ```eval_rst
 前述のように、Autofillフレームワークでは基本的にユーザーの裁量によってセキュリティが担保されている。そのためアプリでできる対策は限られているが、Viewに対してimportantForAutofill 属性で"no"等を指定してAutofill serviceにViewの情報を渡さないようにする（Autofillの対象外とする）ことで、ユーザーが適切な選択や許可をできなかった場合（マルウェアをAutofill serviceとして利用するように選択する等）でも、上記の懸案を軽減することができる。[7]_
 
@@ -876,6 +876,8 @@ importantForAutofill 属性は、以下のいずれかの方法によって指�
 -   View\#setImportantForAutofill()を呼び出す
 
 以下に指定可能な値を示す。指定する範囲によって適切な値を使うこと。特に、"no"を指定した場合、指定したViewはAutofillの対象外になるが、子供はAutofillの対象になることに注意すること。デフォルト値は、"auto"となっている。
+
+表 4.1‑2
 
 <table border="yes" bordercolor="gray">
     <thead bgcolor="lightgray">
@@ -903,7 +905,7 @@ importantForAutofill 属性は、以下のいずれかの方法によって指�
 			<td>対象</td>
 		</tr>
 		<tr>
-			<td>"noExcludeDescendants"</td>
+			<td>"yesExcludeDescendants"</td>
 			<td>IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS</td>
 			<td>対象外</td>
 			<td>対象外</td>
@@ -915,7 +917,7 @@ importantForAutofill 属性は、以下のいずれかの方法によって指�
 			<td>対象</td>
 		</tr>
 		<tr>
-			<td>"noExcludeDescendants"</td>
+			<td>"yesExcludeDescendants"</td>
 			<td>IMPORTANT_FOR_AUTOFILL_YES_EXCLUDE_DESCENDANTS</td>
 			<td>対象</td>
 			<td>対象外</td>
@@ -934,7 +936,7 @@ DisableForOtherServiceActivity.java
    :encoding: shift-jis
 ```
 
-**リスクに対する対策-2**
+#### リスクに対する対策-2
 
 アプリで「リスクに対する対策-1」を施した場合でも、ユーザーがViewの長押しでフローティングツールバーなどを表示させて「自動入力」を選択すると、強制的にAutofillを利用できてしまう。この場合、importantForAutofill属性で"no"等を指定したViewを含む全てのViewの情報がAutofill Servicceに渡ることになる。
 
