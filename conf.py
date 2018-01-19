@@ -61,7 +61,7 @@ author = u'Japan Smartphone Security Association'
 # built documents.
 #
 # The short X.Y version.
-version = u'9'
+version = u'2018-02-01'
 # The full version, including alpha/beta/rc tags.
 release = u'9'
 
