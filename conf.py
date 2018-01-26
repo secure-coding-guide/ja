@@ -53,7 +53,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Secure Coding Guide'
-copyright = u'2017, Japan Smartphone Security Association'
+copyright = u'2018, Japan Smartphone Security Association'
 author = u'Japan Smartphone Security Association'
 
 # The version info for the project you're documenting, acts as replacement for
