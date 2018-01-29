@@ -1074,7 +1074,7 @@ PublicReceiver.java
 ```
 
 
-静的Broadcast ReceiverはAndroidManifest.xmlで定義する。「**エラー! 参照元が見つかりません。**」のように、端末のバージョンによって暗黙的Broadcst
+静的Broadcast ReceiverはAndroidManifest.xmlで定義する。「表 4.2‑1」のように、端末のバージョンによって暗黙的Broadcst
 Intentの受信に制限があるので注意すること。
 
 AndroidManifest.xml
@@ -1157,7 +1157,7 @@ InhouseReceiver.java
 ```
 
 
-静的Broadcast ReceiverはAndroidManifest.xmlで定義する。「**エラー! 参照元が見つかりません。**」のように、端末のバージョンによって暗黙的Broadcst
+静的Broadcast ReceiverはAndroidManifest.xmlで定義する。「表 4.2‑1」のように、端末のバージョンによって暗黙的Broadcst
 Intentの受信に制限があるので注意すること。
 
 AndroidManifest.xml
