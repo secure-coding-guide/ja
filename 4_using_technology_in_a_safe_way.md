@@ -905,7 +905,7 @@ importantForAutofill 属性は、以下のいずれかの方法によって指�
 			<td>対象</td>
 		</tr>
 		<tr>
-			<td>"yesExcludeDescendants"</td>
+			<td>"noExcludeDescendants"</td>
 			<td>IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS</td>
 			<td>対象外</td>
 			<td>対象外</td>
