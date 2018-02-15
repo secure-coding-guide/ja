@@ -87,7 +87,7 @@ AndroidManifest.xml
    :language: xml
    :encoding: shift-jis
 ```
-PrivateActivity.java
+PublicActivity.java
 ```eval_rst
 .. literalinclude:: CodeSamples/Activity PublicActivity.PublicActivity.java
    :language: java
@@ -3313,7 +3313,7 @@ ExternalFileActivity.java
 
 利用側のサンプルコード
 
-ExternalFileUser.java
+ExternalUserActivity.java
 ```eval_rst
 .. literalinclude:: CodeSamples/File ExternalUser.ExternalUserActivity.java
    :language: java
