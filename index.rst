@@ -110,8 +110,8 @@ Indices and tables
         - 5.6 暗号技術を利用する
 2017-02-01
     下記の新しい記事を追加致しました
-        - 5.4.3.7 Network Security Configuration
         - 4.6.3.5 Android 7.0（API Level 24）における外部ストレージの特定ディレクトリへのアクセスに関する仕様変更について
+        - 5.4.3.7 Network Security Configuration
     下記の構成・内容を見直し拡充致しました
         - 4.1 Activityを作る・利用する
         - 4.2 Broadcastを受信する・送信する
