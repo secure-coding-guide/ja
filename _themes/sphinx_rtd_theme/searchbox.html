@@ -1,9 +1,21 @@
 {%- if builder != 'singlehtml' %}
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="{{ pathto('search') }}" method="get">
+  <form id="rtd-search-form" class="wy-form" action="{{ pathto('search') }}" method="get" onsubmit="segmentQuery()">
     <input type="text" name="q" placeholder="{{ _('Search docs') }}" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
+<script type="text/javascript" src="{{ pathto('_static/tiny_segmenter.js', 1) }}" charset="UTF-8"></script>
+<script type="text/javascript">
+function segmentQuery() {
+  var query = document.getElementsByName("q")[0];
+  if (query.value.includes(" ")) {
+    return;
+  }
+  var segmenter = new TinySegmenter();
+  var segs = segmenter.segment(query.value);
+  query.value = segs.join(" ");
+};
+</script>
 {%- endif %}
