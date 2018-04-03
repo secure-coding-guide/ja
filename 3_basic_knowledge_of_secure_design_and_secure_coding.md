@@ -246,7 +246,7 @@ Androidスマートフォンのアプリ開発においては、一般ユーザ�
 
 -   『スマートフォン＆タブレットの業務利用に関するセキュリティガイドライン』【第二版】<br/>
     [http://www.jssec.org/dl/guidelines\_v2.pdf](http://www.jssec.org/dl/guidelines_v2.pdf)<br/>
-    [http://www.jssec.org/dl/guidelines2012enew\_v1.0.pdf](http://www.jssec.org/dl/guidelines2012enew_v1.0.pdf)
+    [http://www.jssec.org/dl/guidelines2012Enew_v1.0.pdf](http://www.jssec.org/dl/guidelines2012Enew_v1.0.pdf)
     (English)
 
 -   『スマートフォンネットワークセキュリティ実装ガイド』 【第一版】<br/>
