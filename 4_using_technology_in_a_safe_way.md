@@ -1988,7 +1988,7 @@ Providerは明示的に非公開設定し、非公開Content Providerとすべ�
 
 AndroidManifest.xml
 ```xml
-        <!-- ★ポイント2★ exported="false"により、明示的に非公開設定する -->
+        <!-- ★ポイント1★ exported="false"により、明示的に非公開設定する -->
         <provider
             android:name=".PrivateProvider"
             android:authorities="org.jssec.android.provider.privateprovider"
@@ -2955,7 +2955,7 @@ public class DataSearchTask extends AsyncTask<String, Void, Cursor> {
 
         //infoを条件にしてlike検索（部分一致）
         //ポイント：ワイルドカードに相当する文字はエスケープ処理する
-        String argString = info.replaceAll("@", "@@"); //入力として受け取ったinfo内の$をエスケープ
+        String argString = info.replaceAll("@", "@@"); //入力として受け取ったinfo内の@をエスケープ
         argString = argString.replaceAll("%", "@%"); //入力として受け取ったinfo内の%をエスケープ
         argString = argString.replaceAll("_", "@_"); //入力として受け取ったinfo内の_をエスケープ
         String selectionArgs[] = {argString};
@@ -3133,14 +3133,8 @@ Androidプロジェクトは、Android環境におけるSQLiteデータベース
 簡単なコード例
 ```java
 SQLiteDatabase.loadLibs(this);                   //まず ライブラリをContextを使用して初期化する
-SQLiteOpenHelper.getWritableDatabase(passwoed):  //引数はパスワード（String型 セキュアに取得したものと仮定）
+SQLiteOpenHelper.getWritableDatabase(password):  //引数はパスワード（String型 セキュアに取得したものと仮定）
 ```
-
-SQLiteDatabase.loadLibs(this); //まず
-ライブラリをContextを使用して初期化する
-
-SQLiteOpenHelper.getWritableDatabase(passwoed):
-//引数はパスワード（String型 セキュアに取得したものと仮定）
 
 SQLCipher for
 Androidは執筆時点でバージョン1.1.0であり、2.0.0版が開発進行中でRC4が公開されている状況である。Android
@@ -3817,7 +3811,7 @@ Style Guidelineも2つ目の考え方に基づいている。
 
 Code Style Guidelines for Contributors / Log Sparingly
 
-[http://source.android.com/source/code-style.html\#log-sparingly](http://source.android.com/source/code-style.html#log-sparingly)
+[https://source.android.com/setup/contribute/code-style\#log-sparingly](https://source.android.com/setup/contribute/code-style#log-sparingly)
 
 #### ログレベルとログ出力メソッドの選択基準
 
@@ -3869,7 +3863,7 @@ Androidのandroid.util.LogクラスにはERROR、WARN、INFO、DEBUG,VERBOSEの5
 
 Code Style Guidelines for Contributors / Log Sparingly
 
-[http://source.android.com/source/code-style.html\#log-sparingly](http://source.android.com/source/code-style.html#log-sparingly)
+[https://source.android.com/setup/contribute/code-style\#log-sparingly](https://source.android.com/setup/contribute/code-style#log-sparingly)
 
 #### DEBUGログとVERBOSEログは自動的に削除されるわけではない
 ```eval_rst
