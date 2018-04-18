@@ -477,12 +477,14 @@ APKと選択し、Componentを提供するアプリと同じ開発者鍵で署�
 
 ポイント：Componentを利用するアプリ
 
+```eval_rst
 6.  独自定義Signature Permissionは定義しない
 7.  uses-permissionにより独自Permissionを利用宣言する
 8.  ソースコード上で、独自定義Signature Permissionが自社アプリにより定義されていることを確認する
 9.  利用先アプリが自社アプリであることを確認する
-10.  利用先ComponentがActivityの場合、明示的Intentを使う
-11.  Componentを提供するアプリと同じ開発者鍵でAPKを署名する
+10. 利用先ComponentがActivityの場合、明示的Intentを使う
+11. Componentを提供するアプリと同じ開発者鍵でAPKを署名する
+```
 
 AndroidManifest.xml
 ```eval_rst
