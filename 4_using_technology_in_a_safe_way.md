@@ -2126,9 +2126,11 @@ PrivateStartService.java
 
 ポイント(Serviceを利用する）：
 
+```eval_rst
 4.  同一アプリ内Serviceはクラス指定の明示的Intentで呼び出す
 5.  利用先アプリは同一アプリであるから、センシティブな情報を送信してもよい
 6.  結果を受け取る場合、同一アプリ内Serviceからの結果情報であっても、受信データの安全性を確認する
+```
 
 PrivateUserActivity.java
 ```eval_rst
@@ -2169,8 +2171,10 @@ PublicIntentService.java
 
 ポイント（Serviceを利用する）：
 
+```eval_rst
 4.  センシティブな情報を送信してはならない
 5.  結果を受け取る場合、結果データの安全性を確認する
+```
 
 AndroidManifest.xml
 ```eval_rst
@@ -2276,10 +2280,12 @@ PkgCert.java
 
 ポイント(Serviceを利用する)：
 
+```eval_rst
 6.  利用先パートナー限定Serviceアプリの証明書がホワイトリストに登録されていることを確認する
 7.  利用先パートナー限定アプリに開示してよい情報に限り送信してよい
 8.  明示的Intentによりパートナー限定Serviceを呼び出す
 9.  パートナー限定アプリからの結果情報であっても、受信Intentの安全性を確認する
+```
 
 PartnerAIDLUserActivity.java
 ```eval_rst
@@ -2365,6 +2371,7 @@ PkgCert.java
 
 ポイント(Serviceを利用する)：
 
+```eval_rst
 8.  独自定義Signature Permissionを利用宣言する
 9.  独自定義Signature Permissionが自社アプリにより定義されていることを確認する
 10.  利用先アプリの証明書が自社の証明書であることを確認する
@@ -2372,6 +2379,7 @@ PkgCert.java
 12.  明示的Intentにより自社限定Serviceを呼び出す
 13.  自社アプリからの結果情報であっても、受信Intentの安全性を確認する
 14.  利用先アプリと同じ開発者鍵でAPKを署名する
+```
 
 AndroidManifest.xml
 ```eval_rst
