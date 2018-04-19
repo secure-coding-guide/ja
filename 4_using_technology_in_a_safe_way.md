@@ -1038,9 +1038,11 @@ PrivateReceiver.java
 
 ポイント(Broadcastを送信する)：
 
+```eval_rst
 4.  同一アプリ内Receiverはクラス指定の明示的IntentでBroadcast送信する
 5.  送信先は同一アプリ内Receiverであるため、センシティブな情報を送信してよい
 6.  同一アプリ内Receiverからの結果情報であっても、受信データの安全性を確認する
+```
 
 PrivateSenderActivity.java
 ```eval_rst
@@ -1113,8 +1115,10 @@ ReceiverにBroadcastを送信する場合、送信するBroadcastがマルウェ
 
 ポイント(Broadcastを送信する)：
 
+```eval_rst
 4.  センシティブな情報を送信してはならない
 5.  結果を受け取る場合、結果データの安全性を確認する
+```
 
 PublicSenderActivity.java
 ```eval_rst
@@ -1220,6 +1224,7 @@ PkgCert.java
 
 ポイント(Broadcastを送信する)：
 
+```eval_rst
 10.  結果受信用の独自定義Signature Permissionを定義する
 11.  Broadcast受信用の独自定義Signature Permissionを利用宣言する
 12.  独自定義Signature Permissionが自社アプリにより定義されていることを確認する
@@ -1227,6 +1232,7 @@ PkgCert.java
 14.  Receiverに独自定義Signature Permissionを要求する
 15.  結果を受け取る場合、結果データの安全性を確認する
 16.  Receiver側アプリと同じ開発者鍵でAPKを署名する
+```
 
 AndroidManifest.xml
 ```eval_rst
@@ -1664,8 +1670,10 @@ PrivateProvider.java
 
 ポイント(Content Providerを利用する)：
 
+```eval_rst
 4.  同一アプリ内へのリクエストであるから、センシティブな情報をリクエストに含めてよい
 5.  同一アプリ内からの結果情報であっても、受信データの安全性を確認する
+```
 
 PrivateUserActivity.java
 ```eval_rst
@@ -1713,8 +1721,10 @@ PublicProvider.java
 
 ポイント(Content Providerを利用する)：
 
+```eval_rst
 4.  センシティブな情報をリクエストに含めてはならない
 5.  結果データの安全性を確認する
+```
 
 PublicUserActivity.java
 ```eval_rst
@@ -1755,9 +1765,11 @@ PartnerProvider.java
 
 ポイント(Content Providerを利用する)：
 
+```eval_rst
 5.  利用先パートナー限定Content Providerアプリの証明書がホワイトリストに登録されていることを確認する
 6.  パートナー限定Content Providerアプリに開示してよい情報に限りリクエストに含めてよい
 7.  パートナー限定Content Providerアプリからの結果であっても、結果データの安全性を確認する
+```
 
 PartnerUserActivity.java
 ```eval_rst
@@ -1844,12 +1856,14 @@ PkgCert.java
 
 ポイント(Content Providerを利用する)：
 
+```eval_rst
 8.  独自定義Signature Permissionを利用宣言する
 9.  独自定義Signature Permissionが自社アプリにより定義されていることを確認する
 10.  利用先Content Providerアプリの証明書が自社の証明書であることを確認する
 11.  自社限定Content Providerアプリに開示してよい情報に限りリクエストに含めてよい
 12.  自社限定Content Providerアプリからの結果であっても、結果データの安全性を確認する
 13.  利用先アプリと同じ開発者鍵でAPKを署名する
+```
 
 AndroidManifest.xml
 ```eval_rst
@@ -1950,8 +1964,10 @@ TemporaryPassiveGrantActivity.java
 
 ポイント(Content Providerを利用する)：
 
+```eval_rst
 9.  センシティブな情報をリクエストに含めてはならない
 10.  結果データの安全性を確認する
+```
 
 TemporaryUserActivity.java
 ```eval_rst
@@ -1964,6 +1980,7 @@ TemporaryUserActivity.java
 
 Content Providerの実装時には以下のルールを守ること。
 
+```eval_rst
 1.  アプリ内でのみ使用するContent Providerは非公開設定する （必須）
 
 2.  リクエストパラメータの安全性を確認する （必須）
@@ -1976,7 +1993,8 @@ Content Providerの実装時には以下のルールを守ること。
 
 また、利用側は、以下のルールも守ること。
 
-1.  Content Providerの結果データの安全性を確認する （必須）
+6.  Content Providerの結果データの安全性を確認する （必須）
+```
 
 #### アプリ内でのみ使用するContent Providerは非公開設定する （必須）
 
