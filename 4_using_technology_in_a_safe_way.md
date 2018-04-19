@@ -343,7 +343,7 @@ AndroidManifest.xml
 
 ``` xml
         <!-- 非公開Activity -->
-        <!-- ★ポイント3★ exported="false"により、明示的に非公開設定する -->
+        <!-- ★ポイント1★ アプリ内でのみ使用するActivityは非公開設定する -->
         <activity
             android:name=".PrivateActivity"
             android:label="@string/app_name"
@@ -356,7 +356,7 @@ AndroidManifest.xml(非推奨)
 
 ``` xml
         <!-- 非公開Activity -->
-        <!-- ★ポイント3★ exported="false"により、明示的に非公開設定する -->
+        <!-- ★ポイント1★ アプリ内でのみ使用するActivityは非公開設定する -->
         <activity
             android:name=".PictureActivity"
             android:label="@string/picture_name"
@@ -380,12 +380,12 @@ Androidでは、Activityはタスクによって管理される。タスクの�
 AndroidManifest.xml
 
 ``` xml
-    <!-- ★ポイント1★ taskAffinityを指定しない -->
+    <!-- ★ポイント2★ taskAffinityを指定しない -->
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
 
-        <!-- ★ポイント1★ taskAffinityを指定しない -->
+        <!-- ★ポイント2★ taskAffinityを指定しない -->
         <activity
             android:name=".PrivateUserActivity"
             android:label="@string/app_name" >
@@ -420,7 +420,7 @@ Activityの起動モードはAndroidManifest.xml内にてandroid:launchModeで�
 AndroidManifest.xml
 
 ``` xml
-        <!-- ★ポイント2★ ActivityにはlaunchModeを指定せず、値をデフォルトのまま”standard”とする -->
+        <!-- ★ポイント3★ ActivityにはlaunchModeを指定せず、値をデフォルトのまま”standard”とする -->
         <activity
             android:name=".PrivateUserActivity"
             android:label="@string/app_name" >
@@ -431,7 +431,7 @@ AndroidManifest.xml
         </activity>
 
         <!-- 非公開Activity -->
-        <!-- ★ポイント2★ ActivityにはlaunchModeを指定せず、値をデフォルトのまま”standard”とする -->
+        <!-- ★ポイント3★ ActivityにはlaunchModeを指定せず、値をデフォルトのまま”standard”とする -->
         <activity
             android:name=".PrivateActivity"
             android:label="@string/app_name"
@@ -450,7 +450,7 @@ Intentの送信例
 ``` java
         Intent intent = new Intent();
 
-        // ★ポイント6★ Activityに送信するIntentには、フラグFLAG_ACTIVITY_NEW_TASKを設定しない
+        // ★ポイント4★ Activityに送信するIntentには、フラグFLAG_ACTIVITY_NEW_TASKを設定しない
 
         intent.setClass(this, PrivateActivity.class);
         intent.putExtra("PARAM", "センシティブな情報");
@@ -484,7 +484,7 @@ Activityのタイプによって、setResult()を用いて結果情報を返送�
 ``` java
     public void onReturnResultClick(View view) {
 
-        // ★ポイント6★ パートナーアプリに開示してよい情報に限り返送してよい
+        // ★ポイント7★ 結果情報を返す場合には、返送先アプリからの結果情報漏洩に注意する
         Intent intent = new Intent();
         intent.putExtra("RESULT", "パートナーアプリに開示してよい情報");
         setResult(RESULT_OK, intent);
